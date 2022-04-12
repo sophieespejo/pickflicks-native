@@ -1,14 +1,53 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { FC } from 'react';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { LoadingScreen } from './Screens/LoadingScreen';
+import { CreateAccountScreen } from './Screens/CreateAccountScreen';
+import { LoginScreen } from './Screens/LoginScreen';
+import { IntroductionScreen } from './Screens/IntroductionScreen';
 
-export default function App() {
+
+
+type RootStackParamList = {
+  Home: undefined; //means route doesnt have params
+  Profile: { name : string };
+  Login: { name: string }
+  CreateAccount: undefined,
+  Loading: undefined,
+  Introduction: undefined
+}
+
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
+
+const App:FC () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Login"
+          component={LoginScreen}>
+        </Stack.Screen>
+        <Stack.Screen
+        name="CreateAccount"
+        component={CreateAccountScreen}>
+      </Stack.Screen>
+      <Stack.Screen
+      name="Loading"
+      component={LoadingScreen}>
+    </Stack.Screen>
+    <Stack.Screen
+    name="Introduction"
+    component={IntroductionScreen}>
+  </Stack.Screen>
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
+
+export default App;
 
 const styles = StyleSheet.create({
   container: {
