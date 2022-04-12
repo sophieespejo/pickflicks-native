@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { FC } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { LoadingScreen } from './Screens/LoadingScreen';
+import LoadingScreen from './Screens/LoadingScreen';
 import { CreateAccountScreen } from './Screens/CreateAccountScreen';
 import { LoginScreen } from './Screens/LoginScreen';
 import { IntroductionScreen } from './Screens/IntroductionScreen';
@@ -22,7 +22,7 @@ type RootStackParamList = {
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-const App:FC () => {
+const App:FC = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -36,7 +36,8 @@ const App:FC () => {
       </Stack.Screen>
       <Stack.Screen
       name="Loading"
-      component={LoadingScreen}>
+      component={LoadingScreen}
+      options={{headerShown:false}}>
     </Stack.Screen>
     <Stack.Screen
     name="Introduction"
