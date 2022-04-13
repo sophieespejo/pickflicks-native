@@ -13,7 +13,7 @@ import AppLoading from 'expo-app-loading';
 
 
 type RootStackParamList = {
-    Home: undefined; //means route doesnt have params
+    Home: undefined; 
     Profile: { name : string };
     Login: { name: string }
     CreateAccountScreen: undefined,
@@ -34,60 +34,66 @@ type RootStackParamList = {
         setWidth(width);
         // initialise total intervals
         setIntervals(Math.ceil(4 / 1));
-      }
+    }
 
-      const getInterval = (offset: any) => {
-        for (let i = 1; i <= intervals; i++) {
-          if (offset+1 < (width / intervals) * i) {
-            return i;
-          }
-          if (i == intervals) {
+    const getInterval = (offset: any) => {
+        for (let i = 1; i <= intervals; i++) 
+        {
+            if (offset+1 < (width / intervals) * i) 
+            {
+                return i;
+            }
+          if (i == intervals) 
+          {
             return i;
           }
         }
-      }
+    }
 
     let [fontsLoaded] = useFonts({
         Raleway_400Regular,
       });
     
-      if (!fontsLoaded) {
+    if (!fontsLoaded) {
         return <AppLoading />;
-      }
-      let bullets = [];
-        for (let i = 1; i <= intervals; i++) {
-        bullets.push(
+    }
+
+    let bullets = [];
+    for (let i = 1; i <= intervals; i++) {
+    bullets.push
+        (
             <Text
-            key={i}
-            style={{
-                ...styles.bullet,
-                opacity: interval === i ? 1.0 : 0.2
-            }}
-            >
-            &bull;
+                key={i}
+                style={{
+                    ...styles.bullet,
+                    opacity: interval === i ? 1.0 : 0.2
+                }}>
+                &bull;
             </Text>
         );
-        }
+    }
 
     return (
         <View style={styles.container}>
-            <Image style={{height: 70, width: '100%', marginLeft: '13%'}} source={headerLogo}/>
+            <Image 
+                style={{height: 70, width: '100%', marginLeft: '13%'}} 
+                source={headerLogo} />
             <ScrollView 
-                    horizontal
-                    contentContainerStyle={{ ...styles.scrollView, width: `${100 * intervals}%` }}
-                    showsHorizontalScrollIndicator={false}
-                    // onContentSizeChange={(w, h) => init(w)}
-                    onScroll={data => {
-                      setWidth(data.nativeEvent.contentSize.width);
-                      setInterval(getInterval(data.nativeEvent.contentOffset.x)||1);
-                    }}
-                    scrollEventThrottle={200}
-                    pagingEnabled
-                    decelerationRate="fast">
-                <View style={{flex:1}}>
-                    <View style={styles.introTxtView}>
-                        <Text style={styles.introTxt}>Unsure about what movie to watch?</Text>
-                    </View>
+                horizontal
+                contentContainerStyle={{ ...styles.scrollView, width: `${100 * intervals}%` }}
+                showsHorizontalScrollIndicator={false}
+                // onContentSizeChange={(w, h) => init(w)}
+                onScroll={data => {
+                    setWidth(data.nativeEvent.contentSize.width);
+                    setInterval(getInterval(data.nativeEvent.contentOffset.x)||1);
+                }}
+                scrollEventThrottle={200}
+                pagingEnabled
+                decelerationRate="fast">
+                    <View style={{flex:1}}>
+                        <View style={styles.introTxtView}>
+                            <Text style={styles.introTxt}>Unsure about what movie to watch?</Text>
+                        </View>
                     <View style={{alignItems: 'center'}}>
                         <Image style={styles.firstAndThirdPics} source={firstPic}/>
                     </View>
@@ -99,41 +105,36 @@ type RootStackParamList = {
                     <View style={{alignItems: 'center'}}>
                         <Image style={styles.secondPic} source={secondPic}/>
                     </View>
-                     {/* <View style={{flex:1,alignItems: 'center'}}>
-                        <Image style={styles.redLogo1} source={secondDots}/>
-                    </View> */}
                 </View>
                 <View style={{flex:1}}>
-                <View style={styles.introTxtView2}>
+                    <View style={styles.introTxtView2}>
                         <Text style={styles.introTxt}>Swipe to vote on randomly suggested movies</Text>
                     </View>
                     <View style={{alignItems: 'center', paddingLeft:35, paddingTop: 20}}>
                         <Image style={styles.firstAndThirdPics} source={thirdPic}/>
                     </View>
-                     {/* <View style={{flex:1,alignItems: 'center'}}>
-                        <Image style={styles.redLogo1} source={thirdDots}/>
-                    </View> */}
                 </View>
                 <View style={{flex:1}}>
-                <View style={styles.introTxtView}>
+                    <View style={styles.introTxtView}>
                         <Text style={styles.introTxt}>Enjoy the movie with the most votes!</Text>
                     </View>
                     <View style={{flex: 2, alignItems: 'center'}}>
                         <Image style={styles.fourthPic} source={fourthPic}/>
                     </View>
-                    {/* <View style={{flex:1,alignItems: 'center'}}>
-                        <Image style={[styles.redLogo1, styles.marginTop]} source={fourthDots}/>
-                    </View> */}
                     <View style={{flex:1, alignItems: 'center', marginTop:'35%'}}>
-                        <Button mode="contained" color='#DC1B21C4' style={{borderRadius: 25, height: 50, width: 300, justifyContent: 'center'}} onPress={() => navigation.navigate('CreateAccountScreen')}
-        >Create an Account
+                        <Button 
+                            mode="contained" 
+                            color='#DC1B21C4' 
+                            style={{borderRadius: 25, height: 50, width: 300, justifyContent: 'center'}} 
+                            onPress={() => navigation.navigate('CreateAccountScreen')}
+                            >Create an Account
                         </Button>
                     </View>
                 </View>  
             </ScrollView>
             <View style={styles.bullets}>
-        {bullets}
-      </View>
+                {bullets}
+            </View>
         </View>
     )
 }
@@ -171,17 +172,17 @@ const styles = StyleSheet.create({
       resizeMode: 'contain',
       //marginRight:50,
     },
-      secondPic: {
+    secondPic: {
         width: '70%',
         height: '65%',
         resizeMode: 'contain',
-      },
-      fourthPic: {
+    },
+    fourthPic: {
         width: '90%',
         height: '95%',
         marginTop:'15%',
         resizeMode: 'contain',
-      },
+    },
     bullets: {
         position: 'absolute',
         display: 'flex',
@@ -190,22 +191,22 @@ const styles = StyleSheet.create({
         paddingHorizontal: 1,
         paddingTop: 1,
         marginVertical:'175%',
-      },
-      bullet: {
+    },
+    bullet: {
         paddingHorizontal: 5,
         fontSize: 50,
         color: 'white'
-      },
-      scrollView: {
+    },
+    scrollView: {
         display: 'flex',
         flexDirection: 'row',
         overflow: 'hidden',
-      },
-      createAcctBtn:{
+    },
+    createAcctBtn:{
         borderRadius: 25, 
         height: 50, 
         width: 300, 
         justifyContent: 'center',
         fontFamily:'Raleway_400Regular', 
-      }
-  });
+    }
+});

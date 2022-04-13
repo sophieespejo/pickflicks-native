@@ -27,13 +27,13 @@ type Props = NativeStackScreenProps<RootStackParamList, 'UserDashboard'>;
 const UserDashboard: FC<Props> = ({navigation, route}) => {
     return (
         <View style={styles.container}>
-            {/* <HeaderComponent/> */}
-            {/* <ScrollView style={{flex:1}}>
+            <HeaderComponent/>
+            <ScrollView style={{flex:1}}>
             <ButtonComponent/>
             <MWGCardComponent/>
-            </ScrollView> */}
+            </ScrollView>
             {/* <NewMWGNameComponent/> */}
-            <MemberSearchTextInputComponent/>
+            {/* <MemberSearchTextInputComponent/> */}
             <FooterNavComponent/>
         </View>
     )
