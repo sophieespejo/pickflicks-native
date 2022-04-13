@@ -3,11 +3,12 @@ import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { FC } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { LoadingScreen } from './Screens/LoadingScreen';
-import { CreateAccountScreen } from './Screens/CreateAccountScreen';
-import { LoginScreen } from './Screens/LoginScreen';
-import { IntroductionScreen } from './Screens/IntroductionScreen';
-
+import  LoadingScreen  from './Screens/LoadingScreen';
+import  CreateAccountScreen  from './Screens/CreateAccountScreen';
+import  LoginScreen  from './Screens/LoginScreen';
+import  IntroductionScreen  from './Screens/IntroductionScreen';
+import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
+import AppLoading from 'expo-app-loading';
 
 
 type RootStackParamList = {
@@ -22,25 +23,37 @@ type RootStackParamList = {
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-const App:FC () => {
+const App:FC = () => {
+
+  let [fontsLoaded] = useFonts({
+    Raleway_400Regular,
+  });
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
+
+  let fontSize = 24;
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen
+        {/* <Stack.Screen
           name="Login"
-          component={LoginScreen}>
-        </Stack.Screen>
-        <Stack.Screen
+          component={LoginScreen}> */}
+        {/* </Stack.Screen> */}
+        {/* <Stack.Screen
         name="CreateAccount"
         component={CreateAccountScreen}>
-      </Stack.Screen>
-      <Stack.Screen
+      </Stack.Screen> */}
+      {/* <Stack.Screen
       name="Loading"
       component={LoadingScreen}>
-    </Stack.Screen>
+    </Stack.Screen> */}
     <Stack.Screen
     name="Introduction"
-    component={IntroductionScreen}>
+    component={IntroductionScreen}
+    options={{headerShown: false}}
+    >
   </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
