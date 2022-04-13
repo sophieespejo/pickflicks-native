@@ -3,7 +3,6 @@ import { FC, useState } from 'react'
 import { StyleSheet, Text, ScrollView, View, Image } from 'react-native';
 import { Button } from 'react-native-paper';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import firstPic from '../assets/1pic.png'
 import secondPic from '../assets/2pic.png'
 import thirdPic from '../assets/3pic.png'
@@ -17,14 +16,14 @@ type RootStackParamList = {
     Home: undefined; //means route doesnt have params
     Profile: { name : string };
     Login: { name: string }
-    CreateAccount: undefined,
+    CreateAccountScreen: undefined,
     Loading: undefined,
     Introduction: undefined
   }
   
   
-const Stack = createNativeStackNavigator<RootStackParamList>();
-const IntroductionScreen: FC = () => {
+  type Props = NativeStackScreenProps<RootStackParamList, 'Introduction'>;
+  const IntroductionScreen: FC<Props> = ({ navigation }) => {
 
     const [interval, setInterval] = useState(1);
     const [intervals, setIntervals] = useState(4);
@@ -126,8 +125,9 @@ const IntroductionScreen: FC = () => {
                         <Image style={[styles.redLogo1, styles.marginTop]} source={fourthDots}/>
                     </View> */}
                     <View style={{flex:1, alignItems: 'center', marginTop:'35%'}}>
-                        <Button mode="contained" color='#DC1B21C4' style={{borderRadius: 25, height: 50, width: 300, justifyContent: 'center'}}onPress={() => console.log('Pressed')}>
-   Create an Account</Button>
+                        <Button mode="contained" color='#DC1B21C4' style={{borderRadius: 25, height: 50, width: 300, justifyContent: 'center'}} onPress={() => navigation.navigate('CreateAccountScreen')}
+        >Create an Account
+                        </Button>
                     </View>
                 </View>  
             </ScrollView>
@@ -201,4 +201,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         overflow: 'hidden',
       },
+      createAcctBtn:{
+        borderRadius: 25, 
+        height: 50, 
+        width: 300, 
+        justifyContent: 'center',
+        fontFamily:'Raleway_400Regular', 
+      }
   });

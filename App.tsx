@@ -7,6 +7,7 @@ import  LoadingScreen  from './Screens/LoadingScreen';
 import  CreateAccountScreen  from './Screens/CreateAccountScreen';
 import  LoginScreen  from './Screens/LoginScreen';
 import  IntroductionScreen  from './Screens/IntroductionScreen';
+import UserDashboardScreen from './Screens/UserDashboardScreen';
 
 
 
@@ -14,9 +15,10 @@ type RootStackParamList = {
   Home: undefined; //means route doesnt have params
   UserDashboard: { name : string };
   Login: { name: string }
-  CreateAccount: undefined,
+  CreateAccountScreen: undefined,
   Loading: undefined,
   Introduction: undefined
+  UserDashboard: undefined
 }
 
 
@@ -26,32 +28,36 @@ const App:FC = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen
-        name="CreateAccount"
-        component={CreateAccountScreen}
-        options={{headerShown:false}}
-        >
-      </Stack.Screen>
-        <Stack.Screen
-          name="Login"
-          component={LoginScreen}
-          options={{headerShown:false}}>
-        </Stack.Screen>
-        <Stack.Screen
-      name="Loading"
-      component={LoadingScreen}>
-    </Stack.Screen>
-      {/* <Stack.Screen
+      <Stack.Screen
       name="Loading"
       component={LoadingScreen}
       options={{headerShown:false}}>
-    </Stack.Screen> */}
-    <Stack.Screen
+    </Stack.Screen>
+        {/* <Stack.Screen
+          name="Login"
+          component={LoginScreen}>
+        </Stack.Screen> */}
+              <Stack.Screen
+    name="UserDashboard"
+    component={UserDashboardScreen}
+    options={{headerShown:false}}>
+  </Stack.Screen>
+            <Stack.Screen
     name="Introduction"
     component={IntroductionScreen}
     options={{headerShown: false}}
     >
   </Stack.Screen>
+        <Stack.Screen
+        name="CreateAccountScreen"
+        component={CreateAccountScreen}
+        options={{headerShown:false}}
+        >
+      </Stack.Screen>
+    {/* <Stack.Screen
+    name="Introduction"
+    component={IntroductionScreen}>
+  </Stack.Screen> */}
       </Stack.Navigator>
     </NavigationContainer>
   );
