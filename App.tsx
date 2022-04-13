@@ -24,16 +24,6 @@ type RootStackParamList = {
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const App:FC = () => {
-
-  let [fontsLoaded] = useFonts({
-    Raleway_400Regular,
-  });
-
-  if (!fontsLoaded) {
-    return <AppLoading />;
-  }
-
-  let fontSize = 24;
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -47,8 +37,9 @@ const App:FC = () => {
       </Stack.Screen> */}
       {/* <Stack.Screen
       name="Loading"
-      component={LoadingScreen}>
-    </Stack.Screen> */}
+      component={LoadingScreen}
+      options={{headerShown:false}}>
+    </Stack.Screen>
     <Stack.Screen
     name="Introduction"
     component={IntroductionScreen}
