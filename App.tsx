@@ -14,7 +14,7 @@ type RootStackParamList = {
   Home: undefined; //means route doesnt have params
   Profile: { name : string };
   Login: { name: string }
-  CreateAccount: undefined,
+  CreateAccountScreen: undefined,
   Loading: undefined,
   Introduction: undefined
 }
@@ -30,8 +30,14 @@ const App:FC = () => {
           name="Login"
           component={LoginScreen}>
         </Stack.Screen> */}
+            <Stack.Screen
+    name="Introduction"
+    component={IntroductionScreen}
+    options={{headerShown: false}}
+    >
+  </Stack.Screen>
         <Stack.Screen
-        name="CreateAccount"
+        name="CreateAccountScreen"
         component={CreateAccountScreen}
         options={{headerShown:false}}
         >
@@ -41,12 +47,6 @@ const App:FC = () => {
       component={LoadingScreen}
       options={{headerShown:false}}>
     </Stack.Screen> */}
-    <Stack.Screen
-    name="Introduction"
-    component={IntroductionScreen}
-    options={{headerShown: false}}
-    >
-  </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );
