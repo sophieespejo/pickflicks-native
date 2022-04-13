@@ -201,4 +201,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         overflow: 'hidden',
       },
+      createAcctBtn:{
+        borderRadius: 25, 
+        height: 50, 
+        width: 300, 
+        justifyContent: 'center',
+        fontFamily:'Raleway_400Regular', 
+      }
   });

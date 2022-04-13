@@ -19,6 +19,8 @@ type RootStackParamList = {
   
   type Props = NativeStackScreenProps<RootStackParamList, "UserDashboard">;
 
+  
+
 const UserDashboard: FC<Props> = ({navigation, route}) => {
     return (
         <View style={styles.container}>
@@ -36,6 +38,7 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: '#1E1A1A',
+      fontFamily:'Raleway_400Regular', 
     },
   });
 

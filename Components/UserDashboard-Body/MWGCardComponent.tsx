@@ -3,10 +3,20 @@ import { FC } from "react";
 import { StyleSheet, Text, View, Image, TextInput,ScrollView } from "react-native";
 import emptyHeart from "../../assets/emptyHeart.png";
 import filledHeart from "../../assets/filledHeart.png";
+import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
+import AppLoading from 'expo-app-loading';
 
 
 //map through MWG created according to userID/logged in user
 const MWGCardComponent: FC = () => {
+  let [fontsLoaded] = useFonts({
+    Raleway_400Regular,
+  });
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
+  
   return (
 
     <View style={styles.container}>
@@ -22,6 +32,7 @@ const MWGCardComponent: FC = () => {
             fontSize: 28,
             justifyContent: "center",
             textAlign: "center",
+            fontFamily:'Raleway_400Regular', 
           }}
         >
           MovieGroup1
@@ -36,6 +47,7 @@ const MWGCardComponent: FC = () => {
             fontSize: 20,
             justifyContent: "center",
             textAlign: "center",
+            fontFamily:'Raleway_400Regular', 
           }}
         >
           Members: Sophie, Dylan, An
@@ -52,6 +64,7 @@ const MWGCardComponent: FC = () => {
             fontSize: 28,
             justifyContent: "center",
             textAlign: "center",
+            fontFamily:'Raleway_400Regular', 
           }}
         >
           MovieGroup1

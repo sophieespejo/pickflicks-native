@@ -2,9 +2,19 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { FC } from "react";
 import { StyleSheet, Text, View, Image, TextInput} from "react-native";
 import headerLogo from "../../assets/headerLogo.png";
+import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
+import AppLoading from 'expo-app-loading';
 
 
 const HeaderComponent: FC = () => {
+  let [fontsLoaded] = useFonts({
+    Raleway_400Regular,
+  });
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
+  
   return (
     <View style={styles.outsideContainer}>
       <View style={styles.headerContainer}>
@@ -40,6 +50,7 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
     fontSize: 32,
     paddingBottom:50,
+    fontFamily:'Raleway_400Regular', 
   },
   redLine: {
     // flex: 0.8,
