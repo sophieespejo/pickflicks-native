@@ -4,7 +4,7 @@ import { StyleSheet, Text, View , Image, ScrollView} from 'react-native';
 import HeaderComponent from '../Components/UserDashboard-Body/HeaderComponent';
 import ButtonComponent from '../Components/UserDashboard-Body/ButtonComponent';
 import MWGCardComponent from '../Components/UserDashboard-Body/MWGCardComponent';
-
+import FooterNavComponent from '../Components/UserDashboard-Body/FooterNavComponent';
 
 type RootStackParamList = {
     Home: undefined; //means route doesnt have params
@@ -17,17 +17,18 @@ type RootStackParamList = {
   }
   
   
-  type Props = NativeStackScreenProps<RootStackParamList, "UserDashboard">;
+  type Props = NativeStackScreenProps<RootStackParamList, 'UserDashboard'>;
 
 const UserDashboard: FC<Props> = ({navigation, route}) => {
     return (
         <View style={styles.container}>
-            <HeaderComponent/>
             <ScrollView>
+            <HeaderComponent/>
 
             <ButtonComponent/>
             <MWGCardComponent/>
             </ScrollView>
+            <FooterNavComponent/>
         </View>
     )
 }
