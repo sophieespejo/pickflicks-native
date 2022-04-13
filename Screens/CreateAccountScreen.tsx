@@ -4,6 +4,9 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import PickFlicksLogo from '../assets/logo.png';
 import { Button } from 'react-native-paper';
+import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
+import AppLoading from 'expo-app-loading';
+
 
 
 type RootStackParamList = {
@@ -18,6 +21,7 @@ type RootStackParamList = {
 type Props = NativeStackScreenProps<RootStackParamList, 'CreateAccountScreen'>;
 
 const CreateAccountScreen : FC<Props> = ({ navigation }) => {
+
 
     const [textInput, setTextInput] = useState('');
     const [username, setUsername] = useState('');
@@ -42,6 +46,14 @@ const CreateAccountScreen : FC<Props> = ({ navigation }) => {
         };
         console.log(newUserData);
     };
+
+    let [fontsLoaded] = useFonts({
+        Raleway_400Regular,
+      });
+    
+      if (!fontsLoaded) {
+        return <AppLoading />;
+      }
 
     return (
         <>
@@ -138,8 +150,9 @@ const styles = StyleSheet.create({
         // fontStyle: 'Raleway',
         fontSize: 36,
         color: 'white',
-        marginTop: '10%'
-    }, 
+        marginTop: '10%',
+        fontFamily:'Raleway_400Regular', 
+    },
     input: {
         borderBottomWidth: 1,
         borderBottomColor: 'red',
@@ -148,6 +161,7 @@ const styles = StyleSheet.create({
         color: 'white',
         marginTop: 30,
         // alignItems: 'center',
+
     }, 
     nextBtn: {
         justifyContent:'center', 
@@ -156,7 +170,7 @@ const styles = StyleSheet.create({
         height:'13%', 
         backgroundColor: '#DC1B21', 
         marginTop:'70%',
-        marginLeft:'64%'
+        marginLeft:'64%',
     },
     createAccountBtn: {
         

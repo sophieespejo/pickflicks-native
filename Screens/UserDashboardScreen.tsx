@@ -19,12 +19,13 @@ type RootStackParamList = {
   
   type Props = NativeStackScreenProps<RootStackParamList, 'UserDashboard'>;
 
+  
+
 const UserDashboard: FC<Props> = ({navigation, route}) => {
     return (
         <View style={styles.container}>
-            <ScrollView>
             <HeaderComponent/>
-
+            <ScrollView style={{flex:1}}>
             <ButtonComponent/>
             <MWGCardComponent/>
             </ScrollView>
@@ -37,6 +38,7 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: '#1E1A1A',
+      fontFamily:'Raleway_400Regular', 
     },
   });
 
