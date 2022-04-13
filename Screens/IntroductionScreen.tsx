@@ -75,52 +75,52 @@ const IntroductionScreen: FC = () => {
             <Image style={{height: 70, width: '100%', marginLeft: '13%'}} source={headerLogo}/>
             <ScrollView 
                     horizontal
-                    contentContainerStyle={{ ...styles.scrollView, width: `${100 * 4}%` }}
+                    contentContainerStyle={{ ...styles.scrollView, width: `${100 * intervals}%` }}
                     showsHorizontalScrollIndicator={false}
                     // onContentSizeChange={(w, h) => init(w)}
                     onScroll={data => {
                       setWidth(data.nativeEvent.contentSize.width);
-                      setInterval(getInterval(data.nativeEvent.contentOffset.x));
+                      setInterval(getInterval(data.nativeEvent.contentOffset.x)||1);
                     }}
                     scrollEventThrottle={200}
                     pagingEnabled
                     decelerationRate="fast">
                 <View style={{flex:1}}>
-                    <View style={{margin: '20%', alignItems: 'center', justifyContent: 'center'}}>
-                        <Text style={{color: 'white', fontSize: 35, fontFamily:'Raleway_400Regular', textAlign:'center'}}>Unsure about what movie to watch?</Text>
+                    <View style={styles.introTxtView}>
+                        <Text style={styles.introTxt}>Unsure about what movie to watch?</Text>
                     </View>
                     <View style={{alignItems: 'center'}}>
-                        <Image style={styles.redLogo} source={firstPic}/>
+                        <Image style={styles.firstAndThirdPics} source={firstPic}/>
                     </View>
                 </View>
                 <View style={{flex:1}}>
-                    <View style={{margin: '20%', alignItems: 'center', justifyContent: 'center'}}>
-                        <Text style={{color: 'white', fontSize: 35, fontFamily:'Raleway_400Regular', textAlign:'center'}}>Connect with friends and create groups</Text>
+                    <View style={styles.introTxtView}>
+                        <Text style={styles.introTxt}>Connect with friends and create groups</Text>
                     </View>
                     <View style={{alignItems: 'center'}}>
-                        <Image style={styles.redLogo2} source={secondPic}/>
+                        <Image style={styles.secondPic} source={secondPic}/>
                     </View>
                      {/* <View style={{flex:1,alignItems: 'center'}}>
                         <Image style={styles.redLogo1} source={secondDots}/>
                     </View> */}
                 </View>
                 <View style={{flex:1}}>
-                <View style={{margin: '15%', alignItems: 'center', justifyContent: 'center'}}>
-                        <Text style={{color: 'white', fontSize: 35, fontFamily:'Raleway_400Regular', textAlign:'center'}}>Swipe to vote on randomly suggested movies</Text>
+                <View style={styles.introTxtView2}>
+                        <Text style={styles.introTxt}>Swipe to vote on randomly suggested movies</Text>
                     </View>
                     <View style={{alignItems: 'center', paddingLeft:35, paddingTop: 20}}>
-                        <Image style={styles.redLogo} source={thirdPic}/>
+                        <Image style={styles.firstAndThirdPics} source={thirdPic}/>
                     </View>
                      {/* <View style={{flex:1,alignItems: 'center'}}>
                         <Image style={styles.redLogo1} source={thirdDots}/>
                     </View> */}
                 </View>
                 <View style={{flex:1}}>
-                <View style={{margin: '20%', alignItems: 'center', justifyContent: 'center'}}>
-                        <Text style={{color: 'white', fontSize: 35, fontFamily:'Raleway_400Regular', textAlign:'center'}}>Enjoy the movie with the most votes!</Text>
+                <View style={styles.introTxtView}>
+                        <Text style={styles.introTxt}>Enjoy the movie with the most votes!</Text>
                     </View>
                     <View style={{flex: 2, alignItems: 'center'}}>
-                        <Image style={styles.redLogo3} source={fourthPic}/>
+                        <Image style={styles.fourthPic} source={fourthPic}/>
                     </View>
                     {/* <View style={{flex:1,alignItems: 'center'}}>
                         <Image style={[styles.redLogo1, styles.marginTop]} source={fourthDots}/>
@@ -148,32 +148,40 @@ const styles = StyleSheet.create({
         paddingTop: '10%',
         width: '100%'
     },
-    redLogo: {
+    introTxtView:{
+        margin: '20%', 
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    introTxtView2:{
+        marginTop: '18%', 
+        marginBottom: '25%',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    introTxt:{
+        color: 'white', 
+        fontSize: 35, 
+        fontFamily:'Raleway_400Regular', 
+        textAlign:'center'
+    },
+    firstAndThirdPics: {
       width: '80%',
       height: '65%',
       resizeMode: 'contain',
       //marginRight:50,
     },
-    redLogo1: {
-        width: '40%',
-        resizeMode: 'contain',
-        // alignItems: 'center'
-      },
-      redLogo2: {
+      secondPic: {
         width: '70%',
         height: '65%',
         resizeMode: 'contain',
       },
-      redLogo3: {
+      fourthPic: {
         width: '90%',
         height: '95%',
         marginTop:'15%',
         resizeMode: 'contain',
-
       },
-    marginTop:{
-        marginTop: 35
-    },
     bullets: {
         position: 'absolute',
         display: 'flex',
