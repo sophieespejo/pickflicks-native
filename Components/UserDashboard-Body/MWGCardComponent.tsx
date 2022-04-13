@@ -1,14 +1,48 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { FC } from "react";
-import { StyleSheet, Text, View, Image, TextInput,ScrollView } from "react-native";
+import { FC, useState } from "react";
+import { StyleSheet, Text, View, Image, TextInput,Pressable } from "react-native";
 import emptyHeart from "../../assets/emptyHeart.png";
 import filledHeart from "../../assets/filledHeart.png";
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 
 
+
 //map through MWG created according to userID/logged in user
 const MWGCardComponent: FC = () => {
+
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  const [allMovies, setAllMovies] = useState([
+    {
+      movieGroupName: 'Group 1',
+      movieGroupMembers: 'An, Dylan, Sophie',
+      isFavorite: true
+    },
+    {
+      movieGroupName: 'Group 2',
+      movieGroupMembers: 'Annnn, Dylannnnn, Sophieeeee',
+      isFavorite: true
+    },
+    {
+      movieGroupName: 'Group 3',
+      movieGroupMembers: 'Annnngel, Dylannnnngel, Sophieeeeegel',
+      isFavorite: false
+    },
+    {
+      movieGroupName: 'Group 4',
+      movieGroupMembers: 'Annnngel, Dylannnnngel, Sophieeeeegel',
+      isFavorite: false
+    },
+    {
+      movieGroupName: 'Group 5',
+      movieGroupMembers: 'Annnngel, Dylannnnngel, Sophieeeeegel',
+      isFavorite: false
+    },
+  ])
+
+
+
   let [fontsLoaded] = useFonts({
     Raleway_400Regular,
   });
@@ -16,107 +50,58 @@ const MWGCardComponent: FC = () => {
   if (!fontsLoaded) {
     return <AppLoading />;
   }
+
+
+
   
   return (
 
     <View style={{ flex:1, alignItems:'center'}}>
 
-      <View style={[styles.wgButton, {marginTop:'5%', height: '60%'}]}>
-          <View style={{paddingBottom:0, marginBottom: 0, flexDirection:'row', height: '30%', marginTop:'1%'}}>
-            <Text
-              style={{
-                color: "#FFFFFF",
-                fontSize: 28,
-                fontWeight: 'bold',
-                justifyContent: "center",
-                textAlign: "center",
-                fontFamily:'Raleway_400Regular', 
-                marginBottom: 0,
+      {
+        allMovies.map((movie) => {
+          return (
+            <View style={[styles.wgButton, {flex:1, marginTop:'5%'}]}>
+            <View style={{marginTop: '10%', flexDirection:'row'}}>
+              <Text
+                style={{
+                  color: "#FFFFFF",
+                  fontSize: 28,
+                  fontWeight: 'bold',
+                  justifyContent: "center",
+                  textAlign: "center",
+                  fontFamily:'Raleway_400Regular', 
+                  marginBottom: 0,
+  
+                }}
+                >
+                {movie.movieGroupName}
+              </Text>
+              <Pressable style={styles.heart} onPress={()=>!movie.isFavorite}>
+                <Image  source={movie.isFavorite ? filledHeart : emptyHeart} ></Image>
+              </Pressable>
+            </View>
+            <View>
+          <Text
+            style={{
+              color: "#FFFFFF",
+              fontSize: 20,
+              justifyContent: "center",
+              textAlign: "center",
+              fontFamily:'Raleway_400Regular', 
+              marginBottom: '10%'
+            }}
+          >
+            Members: {movie.movieGroupMembers}
+          </Text>
+            </View>
+        </View>
+          )
+        })
+      }
 
-              }}
-              >
-              MovieGroup1
-            </Text>
-        <Image style={styles.heart} source={filledHeart}></Image>
-          </View>
-          <View>
-        <Text
-          style={{
-            color: "#FFFFFF",
-            fontSize: 20,
-            justifyContent: "center",
-            textAlign: "center",
-            fontFamily:'Raleway_400Regular', 
-          }}
-        >
-          Members: Sophie, Dylan, An
-        </Text>
-          </View>
-      </View>
-      <View style={[styles.wgButton, {marginTop:'5%', height: '60%'}]}>
-          <View style={{paddingBottom:0, marginBottom: 0, flexDirection:'row', height: '30%', marginTop:'1%'}}>
-            <Text
-              style={{
-                color: "#FFFFFF",
-                fontSize: 28,
-                fontWeight: 'bold',
-                justifyContent: "center",
-                textAlign: "center",
-                fontFamily:'Raleway_400Regular', 
-                marginBottom: 0,
 
-              }}
-              >
-              MovieGroup1
-            </Text>
-        <Image style={styles.heart} source={filledHeart}></Image>
-          </View>
-          <View>
-        <Text
-          style={{
-            color: "#FFFFFF",
-            fontSize: 20,
-            justifyContent: "center",
-            textAlign: "center",
-            fontFamily:'Raleway_400Regular', 
-          }}
-        >
-          Members: Sophie, Dylan, An
-        </Text>
-          </View>
-      </View>
-      <View style={[styles.wgButton, {marginTop:'5%', height: '60%'}]}>
-          <View style={{paddingBottom:0, marginBottom: 0, flexDirection:'row', height: '30%', marginTop:'1%'}}>
-            <Text
-              style={{
-                color: "#FFFFFF",
-                fontSize: 28,
-                fontWeight: 'bold',
-                justifyContent: "center",
-                textAlign: "center",
-                fontFamily:'Raleway_400Regular', 
-                marginBottom: 0,
 
-              }}
-              >
-              MovieGroup1
-            </Text>
-        <Image style={styles.heart} source={filledHeart}></Image>
-          </View>
-          <View>
-        <Text
-          style={{
-            color: "#FFFFFF",
-            fontSize: 20,
-            justifyContent: "center",
-            textAlign: "center",
-            fontFamily:'Raleway_400Regular', 
-          }}
-        >
-          Members: Sophie, Dylan, An
-        </Text>
-          </View>
-      </View>
       
  
     </View>
@@ -135,7 +120,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: '90%',
     justifyContent: "center",
-    height: '20%',
+    //height: '20%',
     
   },
   container: {
@@ -147,7 +132,7 @@ const styles = StyleSheet.create({
   },
   heart:{
     position: 'absolute',
-    left: '65%',
+    left: '55%',
     bottom: '150%'
   }
 });
