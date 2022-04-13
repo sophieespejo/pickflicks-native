@@ -15,7 +15,7 @@ const ButtonComponent: FC = () => {
     return <AppLoading />;
   }
   return (
-    <View style={styles.container}>
+    <View style={{flex:1, marginTop:'5%', marginBottom: '5%', alignItems:'center'}}>
       <View style={styles.wgButton}>
         <Image source={MovieClipper}></Image>
         <Text style={{color:'#383333', fontSize:20, paddingLeft:60, justifyContent:'center', textAlign:'center', fontFamily:'Raleway_400Regular', }}>Create new {"\n"}Watch Group</Text>
@@ -34,16 +34,15 @@ const styles = StyleSheet.create({
     backgroundColor:'#E2DFDFDE',
     borderRadius: 25,
     alignItems:'center',
-    width:'100%',
+    width:'90%',
     justifyContent:'center',
     height:73
-
   },
   container: {
     flex: 0,
     alignItems: "center",
 
-    position: 'absolute', top: 175, left: 23, right: 20, bottom: 0,
-    backgroundColor:'blue'
+    //position: 'absolute', top: 175, left: 23, right: 20, bottom: 0,
+    backgroundColor:'pink'
   },
 });

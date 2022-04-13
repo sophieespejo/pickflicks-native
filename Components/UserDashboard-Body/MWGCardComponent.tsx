@@ -19,41 +19,7 @@ const MWGCardComponent: FC = () => {
   
   return (
 
-    <View style={styles.container}>
-      {/* <ScrollView>
-
-      </ScrollView> */}
-      <View style={[styles.wgButton, {marginTop:20}]}>
-          <View style={{paddingBottom:30, paddingTop:7, flexDirection:'row'}}>
-
-      <Text
-          style={{
-            color: "#FFFFFF",
-            fontSize: 28,
-            justifyContent: "center",
-            textAlign: "center",
-            fontFamily:'Raleway_400Regular', 
-          }}
-        >
-          MovieGroup1
-        </Text>
-        <Image style={styles.heart} source={filledHeart}></Image>
-          </View>
-          <View>
-
-        <Text
-          style={{
-            color: "#FFFFFF",
-            fontSize: 20,
-            justifyContent: "center",
-            textAlign: "center",
-            fontFamily:'Raleway_400Regular', 
-          }}
-        >
-          Members: Sophie, Dylan, An
-        </Text>
-          </View>
-      </View>
+    <View style={{ alignItems:'center'}}>
 
       <View style={[styles.wgButton, {marginTop:20}]}>
           <View style={{paddingBottom:30, paddingTop:7, flexDirection:'row'}}>
@@ -79,6 +45,67 @@ const MWGCardComponent: FC = () => {
             fontSize: 20,
             justifyContent: "center",
             textAlign: "center",
+            fontFamily:'Raleway_400Regular', 
+          }}
+        >
+          Members: Sophie, Dylan, An
+        </Text>
+          </View>
+      </View>
+
+      <View style={[styles.wgButton, {marginTop:20}]}>
+          <View style={{paddingBottom:30, paddingTop:7, flexDirection:'row'}}>
+
+      <Text
+          style={{
+            color: "#FFFFFF",
+            fontSize: 28,
+            justifyContent: "center",
+            textAlign: "center",
+            fontFamily:'Raleway_400Regular', 
+          }}
+        >
+          MovieGroup1
+        </Text>
+        <Image style={styles.heart} source={filledHeart}></Image>
+          </View>
+          <View>
+
+        <Text
+          style={{
+            color: "#FFFFFF",
+            fontSize: 20,
+            justifyContent: "center",
+            textAlign: "center",
+          }}
+        >
+          Members: Sophie, Dylan, An
+        </Text>
+          </View>
+      </View>
+      <View style={[styles.wgButton, {marginTop:20}]}>
+          <View style={{paddingBottom:30, paddingTop:7, flexDirection:'row'}}>
+
+      <Text
+          style={{
+            color: "#FFFFFF",
+            fontSize: 28,
+            justifyContent: "center",
+            textAlign: "center",
+          }}
+        >
+          MovieGroup1
+        </Text>
+        <Image style={styles.heart} source={filledHeart}></Image>
+          </View>
+          <View>
+
+        <Text
+          style={{
+            color: "#FFFFFF",
+            fontSize: 20,
+            justifyContent: "center",
+            textAlign: "center",
           }}
         >
           Members: Sophie, Dylan, An
@@ -143,6 +170,8 @@ const MWGCardComponent: FC = () => {
         </Text>
           </View>
       </View>
+      
+      
     </View>
   );
 };
@@ -157,9 +186,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#4D4A4AD1",
     borderRadius: 25,
     alignItems: "center",
-    width: "100%",
+    width: '90%',
 
-    // justifyContent: "center",
+    justifyContent: "center",
     height: 149,
     
   },
@@ -172,7 +201,7 @@ const styles = StyleSheet.create({
   },
   heart:{
     position: 'absolute',
-    left: 230,
-    bottom: 50
+    left: 245,
+    bottom: 70
   }
 });

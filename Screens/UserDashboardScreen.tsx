@@ -25,8 +25,7 @@ const UserDashboard: FC<Props> = ({navigation, route}) => {
     return (
         <View style={styles.container}>
             <HeaderComponent/>
-            <ScrollView>
-
+            <ScrollView style={{flex:1}}>
             <ButtonComponent/>
             <MWGCardComponent/>
             </ScrollView>
