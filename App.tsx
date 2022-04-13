@@ -3,10 +3,10 @@ import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { FC } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { LoadingScreen } from './Screens/LoadingScreen';
-import { CreateAccountScreen } from './Screens/CreateAccountScreen';
-import { LoginScreen } from './Screens/LoginScreen';
-import { IntroductionScreen } from './Screens/IntroductionScreen';
+// import { LoadingScreen } from './Screens/LoadingScreen';
+import CreateAccountScreen from './Screens/CreateAccountScreen'
+// import { LoginScreen } from './Screens/LoginScreen';
+// import { IntroductionScreen } from './Screens/IntroductionScreen';
 
 
 
@@ -22,26 +22,28 @@ type RootStackParamList = {
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-const App:FC () => {
+const App:FC = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen
+        {/* <Stack.Screen
           name="Login"
           component={LoginScreen}>
-        </Stack.Screen>
+        </Stack.Screen> */}
         <Stack.Screen
         name="CreateAccount"
-        component={CreateAccountScreen}>
+        component={CreateAccountScreen}
+        options={{headerShown:false}}
+        >
       </Stack.Screen>
-      <Stack.Screen
+      {/* <Stack.Screen
       name="Loading"
       component={LoadingScreen}>
     </Stack.Screen>
     <Stack.Screen
     name="Introduction"
     component={IntroductionScreen}>
-  </Stack.Screen>
+  </Stack.Screen> */}
       </Stack.Navigator>
     </NavigationContainer>
   );
