@@ -5,7 +5,7 @@ import { FC } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import  LoadingScreen  from './Screens/LoadingScreen';
 import  CreateAccountScreen  from './Screens/CreateAccountScreen';
-//import  LoginScreen  from './Screens/LoginScreen';
+import  LoginScreen  from './Screens/LoginScreen';
 import  IntroductionScreen  from './Screens/IntroductionScreen';
 import UserDashboardScreen from './Screens/UserDashboardScreen';
 
@@ -13,7 +13,7 @@ import UserDashboardScreen from './Screens/UserDashboardScreen';
 
 type RootStackParamList = {
   Home: undefined; //means route doesnt have params
-  Profile: { name : string };
+  UserDashboard: { name : string };
   Login: { name: string }
   CreateAccountScreen: undefined,
   Loading: undefined,
