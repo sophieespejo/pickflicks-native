@@ -18,7 +18,6 @@ type RootStackParamList = {
   CreateAccountScreen: undefined,
   Loading: undefined,
   Introduction: undefined
-  UserDashboard: undefined
 }
 
 
@@ -33,6 +32,11 @@ name="UserDashboard"
 component={UserDashboardScreen}
 options={{headerShown:false}}>
 </Stack.Screen>
+      <Stack.Screen
+    name="UserDashboard"
+    component={UserDashboardScreen}
+    options={{headerShown:false}}>
+  </Stack.Screen>
       <Stack.Screen
       name="Loading"
       component={LoadingScreen}

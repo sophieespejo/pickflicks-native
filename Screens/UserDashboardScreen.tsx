@@ -20,7 +20,7 @@ type RootStackParamList = {
   }
   
   
-  type Props = NativeStackScreenProps<RootStackParamList, 'UserDashboard'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'UserDashboard'>;
 
   
 
