@@ -21,7 +21,7 @@ const MWGCardComponent: FC = () => {
 
     <View style={{ alignItems:'center'}}>
 
-      <View style={[styles.wgButton, {marginTop:20}]}>
+      <View style={[styles.wgButton, {marginTop:10}]}>
           <View style={{paddingBottom:30, paddingTop:7, flexDirection:'row'}}>
 
       <Text
