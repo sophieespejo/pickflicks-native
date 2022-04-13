@@ -7,6 +7,7 @@ import  LoadingScreen  from './Screens/LoadingScreen';
 import  CreateAccountScreen  from './Screens/CreateAccountScreen';
 //import  LoginScreen  from './Screens/LoginScreen';
 import  IntroductionScreen  from './Screens/IntroductionScreen';
+import UserDashboardScreen from './Screens/UserDashboardScreen';
 
 
 
@@ -17,6 +18,7 @@ type RootStackParamList = {
   CreateAccountScreen: undefined,
   Loading: undefined,
   Introduction: undefined
+  UserDashboard: undefined
 }
 
 
@@ -47,6 +49,15 @@ const App:FC = () => {
       component={LoadingScreen}
       options={{headerShown:false}}>
     </Stack.Screen> */}
+    {/* <Stack.Screen
+    name="Introduction"
+    component={IntroductionScreen}>
+  </Stack.Screen> */}
+    <Stack.Screen
+    name="UserDashboard"
+    component={UserDashboardScreen}
+    options={{headerShown:false}}>
+  </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );
