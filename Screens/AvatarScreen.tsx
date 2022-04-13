@@ -21,7 +21,7 @@ type RootStackParamList = {
 
 type Props = NativeStackScreenProps<RootStackParamList, 'CreateAccountScreen'>;
 
-const CreateAccountScreen : FC<Props> = ({ navigation }) => {
+const AvatarScreen : FC<Props> = ({ navigation }) => {
 
 
     const [textInput, setTextInput] = useState('');
@@ -233,4 +233,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default CreateAccountScreen;
+export default AvatarScreen;

@@ -9,7 +9,7 @@ import { Login } from '../Service/DataService';
 
 type RootStackParamList = {
     Home: undefined; //means route doesnt have params
-    UserDashboard: { name : string };
+    UserDashboard: { username : string };
     Login: { username: string }
     CreateAccountScreen: undefined,
     Loading: undefined,
@@ -40,10 +40,15 @@ const LoginScreen : FC<Props> = ({ navigation }) => {
         console.log(fetchedToken);
 
         if (fetchedToken.token != null) {
-            navigation.navigate('Introduction')
+            navigation.navigate('UserDashboard', { username: username})
         } else {
             // Do something
         }
+    };
+
+    const handleNavigateToCreateAccount = () => {
+        navigation.navigate('CreateAccountScreen');
+        console.log('rinning')
     };
 
     return (
@@ -94,9 +99,21 @@ const LoginScreen : FC<Props> = ({ navigation }) => {
                         />
                     </View>
                     <View style={{alignItems: 'center'}}>
+                        <Text style={styles.dontHaveAccountTxt}>Don't have an account?</Text>
+                        <Button 
+                                mode='text' 
+                                color='white'
+                                style={styles.createAccountTxt2} 
+                                uppercase={false}
+                                onPress={handleNavigateToCreateAccount}
+                        ><Text style={styles.createAccountTxt2}>Create one here!</Text>
+                        </Button>
+                    </View>
+                    <View style={{alignItems: 'center'}}>
                         <Button mode="contained" 
                         onPress={handleSubmit}
-                        style={styles.createAccountBtn}>
+                        style={styles.createAccountBtn}
+                        uppercase={false}>
                             Log In
                         </Button>
                     </View>
@@ -125,7 +142,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: 'red',
         width: 300,
-        fontSize: 30,
+        fontSize: 25,
         color: 'white',
         marginTop: 20,
         // alignItems: 'center',
@@ -146,6 +163,16 @@ const styles = StyleSheet.create({
         width: 300, 
         justifyContent: 'center',
         marginTop: 40
+    },
+    dontHaveAccountTxt: {
+        color: 'white',
+        fontSize: 16,
+        marginTop: 30
+    }, 
+    createAccountTxt2: {
+        fontSize: 16,
+        textDecorationLine: 'underline',
+
     }
 });
 
