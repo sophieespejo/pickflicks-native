@@ -28,12 +28,14 @@ const App:FC = () => {
       <Stack.Navigator>
         {/* <Stack.Screen
           name="Login"
-          component={LoginScreen}> */}
-        {/* </Stack.Screen> */}
-        {/* <Stack.Screen
+          component={LoginScreen}>
+        </Stack.Screen> */}
+        <Stack.Screen
         name="CreateAccount"
-        component={CreateAccountScreen}>
-      </Stack.Screen> */}
+        component={CreateAccountScreen}
+        options={{headerShown:false}}
+        >
+      </Stack.Screen>
       {/* <Stack.Screen
       name="Loading"
       component={LoadingScreen}
