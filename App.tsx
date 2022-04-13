@@ -28,6 +28,11 @@ const App:FC = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+    <Stack.Screen
+name="UserDashboard"
+component={UserDashboardScreen}
+options={{headerShown:false}}>
+</Stack.Screen>
       <Stack.Screen
       name="Loading"
       component={LoadingScreen}
@@ -37,11 +42,6 @@ const App:FC = () => {
           name="Login"
           component={LoginScreen}>
         </Stack.Screen> */}
-              <Stack.Screen
-    name="UserDashboard"
-    component={UserDashboardScreen}
-    options={{headerShown:false}}>
-  </Stack.Screen>
             <Stack.Screen
     name="Introduction"
     component={IntroductionScreen}
