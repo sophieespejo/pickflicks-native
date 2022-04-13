@@ -1,21 +1,31 @@
+import { NavigationRouteContext } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { FC } from 'react';
 import { StyleSheet, Text, View , Image} from 'react-native';
 import RedLogo from '../assets/RedLogo.png';
 
-type RootStackParamList = {
-    Home: undefined; //means route doesnt have params
-    Profile: { name : string };
-    Login: { name: string }
-    CreateAccount: undefined,
-    Loading: undefined,
-    Introduction: undefined
-  }
-  
-  
-const Stack = createNativeStackNavigator<RootStackParamList>();
 
-const LoadingScreen: FC = () => {
+type RootStackParamList = {
+  Home: undefined; //means route doesnt have params
+  Profile: { name : string };
+  Login: { name: string }
+  CreateAccountScreen: undefined,
+  Loading: undefined,
+  Introduction: undefined
+}
+
+
+type Props = NativeStackScreenProps<RootStackParamList, 'Introduction'>;
+
+const LoadingScreen: FC<Props> = ({navigation}) => {
+
+
+  setTimeout(() => {
+    navigation.navigate('Introduction') //this.props.navigation.navigate('Login')
+}, 2000);
+
+
     return (
         <View style={styles.container}>
             <Image style={styles.redLogo} source={RedLogo}/>

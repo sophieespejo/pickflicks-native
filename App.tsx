@@ -28,7 +28,11 @@ const App:FC = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-
+      <Stack.Screen
+      name="Loading"
+      component={LoadingScreen}
+      options={{headerShown:false}}>
+    </Stack.Screen>
         {/* <Stack.Screen
           name="Login"
           component={LoginScreen}>
@@ -50,12 +54,6 @@ const App:FC = () => {
         options={{headerShown:false}}
         >
       </Stack.Screen>
-
-      {/* <Stack.Screen
-      name="Loading"
-      component={LoadingScreen}
-      options={{headerShown:false}}>
-    </Stack.Screen> */}
     {/* <Stack.Screen
     name="Introduction"
     component={IntroductionScreen}>
