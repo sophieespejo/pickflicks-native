@@ -2,10 +2,10 @@ import { FC, useState, useCallback, useEffect } from 'react';
 import { StyleSheet, View, Image, Text, TextInput, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import PickFlicksLogo from '../assets/logo.png';
+import PickFlicksLogo from '../../assets/logo.png';
 import { Button, HelperText } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { AddUser } from '../../Service/DataService';
+import { AddUser } from '../../Service/DataService'
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 import { Avatar } from 'react-native-paper';
