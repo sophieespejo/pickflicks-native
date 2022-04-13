@@ -19,26 +19,27 @@ const MWGCardComponent: FC = () => {
   
   return (
 
-    <View style={{ alignItems:'center'}}>
+    <View style={{ flex:1, alignItems:'center'}}>
 
-      <View style={[styles.wgButton, {marginTop:10}]}>
-          <View style={{paddingBottom:30, paddingTop:7, flexDirection:'row'}}>
+      <View style={[styles.wgButton, {marginTop:'5%', height: '60%'}]}>
+          <View style={{paddingBottom:0, marginBottom: 0, flexDirection:'row', height: '30%', marginTop:'1%'}}>
+            <Text
+              style={{
+                color: "#FFFFFF",
+                fontSize: 28,
+                fontWeight: 'bold',
+                justifyContent: "center",
+                textAlign: "center",
+                fontFamily:'Raleway_400Regular', 
+                marginBottom: 0,
 
-      <Text
-          style={{
-            color: "#FFFFFF",
-            fontSize: 28,
-            justifyContent: "center",
-            textAlign: "center",
-            fontFamily:'Raleway_400Regular', 
-          }}
-        >
-          MovieGroup1
-        </Text>
+              }}
+              >
+              MovieGroup1
+            </Text>
         <Image style={styles.heart} source={filledHeart}></Image>
           </View>
           <View>
-
         <Text
           style={{
             color: "#FFFFFF",
@@ -52,118 +53,64 @@ const MWGCardComponent: FC = () => {
         </Text>
           </View>
       </View>
+      <View style={[styles.wgButton, {marginTop:'5%', height: '60%'}]}>
+          <View style={{paddingBottom:0, marginBottom: 0, flexDirection:'row', height: '30%', marginTop:'1%'}}>
+            <Text
+              style={{
+                color: "#FFFFFF",
+                fontSize: 28,
+                fontWeight: 'bold',
+                justifyContent: "center",
+                textAlign: "center",
+                fontFamily:'Raleway_400Regular', 
+                marginBottom: 0,
 
-      <View style={[styles.wgButton, {marginTop:20}]}>
-          <View style={{paddingBottom:30, paddingTop:7, flexDirection:'row'}}>
-
-      <Text
+              }}
+              >
+              MovieGroup1
+            </Text>
+        <Image style={styles.heart} source={filledHeart}></Image>
+          </View>
+          <View>
+        <Text
           style={{
             color: "#FFFFFF",
-            fontSize: 28,
+            fontSize: 20,
             justifyContent: "center",
             textAlign: "center",
             fontFamily:'Raleway_400Regular', 
           }}
         >
-          MovieGroup1
-        </Text>
-        <Image style={styles.heart} source={filledHeart}></Image>
-          </View>
-          <View>
-
-        <Text
-          style={{
-            color: "#FFFFFF",
-            fontSize: 20,
-            justifyContent: "center",
-            textAlign: "center",
-          }}
-        >
           Members: Sophie, Dylan, An
         </Text>
           </View>
       </View>
-      <View style={[styles.wgButton, {marginTop:20}]}>
-          <View style={{paddingBottom:30, paddingTop:7, flexDirection:'row'}}>
+      <View style={[styles.wgButton, {marginTop:'5%', height: '60%'}]}>
+          <View style={{paddingBottom:0, marginBottom: 0, flexDirection:'row', height: '30%', marginTop:'1%'}}>
+            <Text
+              style={{
+                color: "#FFFFFF",
+                fontSize: 28,
+                fontWeight: 'bold',
+                justifyContent: "center",
+                textAlign: "center",
+                fontFamily:'Raleway_400Regular', 
+                marginBottom: 0,
 
-      <Text
-          style={{
-            color: "#FFFFFF",
-            fontSize: 28,
-            justifyContent: "center",
-            textAlign: "center",
-          }}
-        >
-          MovieGroup1
-        </Text>
+              }}
+              >
+              MovieGroup1
+            </Text>
         <Image style={styles.heart} source={filledHeart}></Image>
           </View>
           <View>
-
         <Text
           style={{
             color: "#FFFFFF",
             fontSize: 20,
             justifyContent: "center",
             textAlign: "center",
-          }}
-        >
-          Members: Sophie, Dylan, An
-        </Text>
-          </View>
-      </View>
-      <View style={[styles.wgButton, {marginTop:20}]}>
-          <View style={{paddingBottom:30, paddingTop:7, flexDirection:'row'}}>
-
-      <Text
-          style={{
-            color: "#FFFFFF",
-            fontSize: 28,
-            justifyContent: "center",
-            textAlign: "center",
-          }}
-        >
-          MovieGroup1
-        </Text>
-        <Image style={styles.heart} source={filledHeart}></Image>
-          </View>
-          <View>
-
-        <Text
-          style={{
-            color: "#FFFFFF",
-            fontSize: 20,
-            justifyContent: "center",
-            textAlign: "center",
-          }}
-        >
-          Members: Sophie, Dylan, An
-        </Text>
-          </View>
-      </View>
-      <View style={[styles.wgButton, {marginTop:20}]}>
-          <View style={{paddingBottom:30, paddingTop:7, flexDirection:'row'}}>
-
-      <Text
-          style={{
-            color: "#FFFFFF",
-            fontSize: 28,
-            justifyContent: "center",
-            textAlign: "center",
-          }}
-        >
-          MovieGroup1
-        </Text>
-        <Image style={styles.heart} source={filledHeart}></Image>
-          </View>
-          <View>
-
-        <Text
-          style={{
-            color: "#FFFFFF",
-            fontSize: 20,
-            justifyContent: "center",
-            textAlign: "center",
+            fontFamily:'Raleway_400Regular', 
           }}
         >
           Members: Sophie, Dylan, An
@@ -171,7 +118,7 @@ const MWGCardComponent: FC = () => {
           </View>
       </View>
       
-      
+ 
     </View>
   );
 };
@@ -187,9 +134,8 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     alignItems: "center",
     width: '90%',
-
     justifyContent: "center",
-    height: 149,
+    height: '20%',
     
   },
   container: {
@@ -201,7 +147,7 @@ const styles = StyleSheet.create({
   },
   heart:{
     position: 'absolute',
-    left: 245,
-    bottom: 70
+    left: '65%',
+    bottom: '150%'
   }
 });

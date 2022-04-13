@@ -14,6 +14,7 @@ import {
 import Home from "../../assets/Home2.png";
 import UserProfile from "../../assets/UserProfile2.png";
 import { Button } from "react-native-paper";
+import { useNavigation } from '@react-navigation/native';
 
 type RootStackParamList = {
   Home: undefined; //means route doesnt have params
@@ -27,13 +28,16 @@ type RootStackParamList = {
 
 type Props = NativeStackScreenProps<RootStackParamList, "UserDashboard">;
 
-const FooterNavComponent: FC<Props> = ({navigation}) => {
+const FooterNavComponent: FC = () => {
+
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <Button
         mode="text"
         onPress={() => {
-          navigation.navigate("UserDashboard");
+          navigation.navigate("Introduction");
         }}
         icon={() => (
           <Image
@@ -45,7 +49,7 @@ const FooterNavComponent: FC<Props> = ({navigation}) => {
       <Button
         mode="text"
         onPress={() => {
-          navigation.navigate("UserDashboard");
+          navigation.navigate("CreateAccountScreen");
         }}
         icon={() => (
           <Image
