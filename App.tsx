@@ -4,10 +4,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { FC } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import  LoadingScreen  from './Screens/LoadingScreen';
-import  CreateAccountScreen  from './Screens/CreateAccountScreen';
-import  LoginScreen  from './Screens/LoginScreen';
+import  CreateAccountScreen  from './Screens/CreateAccount/CreateAccountScreen';
+import  LoginScreen  from './Screens/Login/LoginScreen';
 import  IntroductionScreen  from './Screens/IntroductionScreen';
-import UserDashboardScreen from './Screens/UserDashboardScreen';
+import UserDashboardScreen from './Screens/UserDashboard/UserDashboardScreen';
 
 
 
@@ -33,19 +33,10 @@ component={UserDashboardScreen}
 options={{headerShown:false}}>
 </Stack.Screen>
       <Stack.Screen
-    name="UserDashboard"
-    component={UserDashboardScreen}
-    options={{headerShown:false}}>
-  </Stack.Screen>
-      <Stack.Screen
       name="Loading"
       component={LoadingScreen}
       options={{headerShown:false}}>
     </Stack.Screen>
-        {/* <Stack.Screen
-          name="Login"
-          component={LoginScreen}>
-        </Stack.Screen> */}
             <Stack.Screen
     name="Introduction"
     component={IntroductionScreen}
@@ -64,11 +55,6 @@ options={{headerShown:false}}>
           options={{headerShown:false}}
           >  
         </Stack.Screen>
-              <Stack.Screen
-    name="UserDashboard"
-    component={UserDashboardScreen}
-    options={{headerShown:false}}>
-  </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );

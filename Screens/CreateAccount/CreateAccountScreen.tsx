@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import PickFlicksLogo from '../assets/logo.png';
 import { Button, HelperText } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { AddUser } from '../Service/DataService';
+import { AddUser } from '../../Service/DataService';
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 import { Avatar } from 'react-native-paper';
@@ -21,7 +21,7 @@ type RootStackParamList = {
 
 type Props = NativeStackScreenProps<RootStackParamList, 'CreateAccountScreen'>;
 
-const AvatarScreen : FC<Props> = ({ navigation }) => {
+const CreateAccountScreen : FC<Props> = ({ navigation }) => {
 
 
     const [textInput, setTextInput] = useState('');
@@ -233,4 +233,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default AvatarScreen;
+export default CreateAccountScreen;
