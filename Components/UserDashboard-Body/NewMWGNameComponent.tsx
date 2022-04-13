@@ -16,15 +16,17 @@ import {useNavigation} from '@react-navigation/native';
 
 type RootStackParamList = {
     Home: undefined; //means route doesnt have params
-    Profile: { name: string };
-    Login: { name: string };
-    CreateAccount: undefined;
-    Loading: undefined;
-    Introduction: undefined;
-    UserDashboard: undefined;
-  };
-
-type Props = NativeStackScreenProps<RootStackParamList, "UserDashboard">;
+    UserDashboard: { name : string };
+    Login: { name: string }
+    CreateAccountScreen: undefined,
+    Loading: undefined,
+    Introduction: undefined,
+    NewMWGName: undefined,
+    MemberSearch: undefined
+  }
+  
+  
+  const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const NewMWGNameComponent: FC<Props> = () => {
   let [fontsLoaded] = useFonts({
@@ -48,7 +50,7 @@ const NewMWGNameComponent: FC<Props> = () => {
       </View>
       <View style={[{ flex:0.5, alignItems: "center", justifyContent:'flex-end', alignItems:'flex-end'}]}>
         <Button uppercase={false} color='#FFFFFF' mode="text" onPress={() => {
-          navigation.navigate("Introduction");
+          navigation.navigate("MemberSearch");
         }}>
             <Text style={styles.nextBtn}>Next ></Text>
         </Button>
