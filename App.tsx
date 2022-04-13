@@ -3,10 +3,10 @@ import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { FC } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-// import { LoadingScreen } from './Screens/LoadingScreen';
-import CreateAccountScreen from './Screens/CreateAccountScreen'
-import LoginScreen from './Screens/LoginScreen';
-// import { IntroductionScreen } from './Screens/IntroductionScreen';
+import  LoadingScreen  from './Screens/LoadingScreen';
+import  CreateAccountScreen  from './Screens/CreateAccountScreen';
+//import  LoginScreen  from './Screens/LoginScreen';
+import  IntroductionScreen  from './Screens/IntroductionScreen';
 
 
 
@@ -41,10 +41,17 @@ const App:FC = () => {
         options={{headerShown:false}}
         >
       </Stack.Screen>
+      {/* <Stack.Screen
+      name="Loading"
+      component={LoadingScreen}
+      options={{headerShown:false}}>
+    </Stack.Screen> */}
     <Stack.Screen
     name="Introduction"
-    component={IntroductionScreen}>
-  </Stack.Screen> */}
+    component={IntroductionScreen}
+    options={{headerShown: false}}
+    >
+  </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );
