@@ -1,10 +1,11 @@
-import { FC, useState, useCallback } from 'react';
-import { StyleSheet, View, Image, Text, TextInput, Keyboard, TouchableWithoutFeedback } from 'react-native';
+import { FC, useState, useCallback, useEffect } from 'react';
+import { StyleSheet, View, Image, Text, TextInput, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import PickFlicksLogo from '../assets/logo.png';
-import { Button } from 'react-native-paper';
-
+import { Button, HelperText } from 'react-native-paper';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { AddUser } from '../Service/DataService';
 
 type RootStackParamList = {
     Home: undefined; //means route doesnt have params
@@ -25,6 +26,20 @@ const CreateAccountScreen : FC<Props> = ({ navigation }) => {
     const [veryifyPassowrd2, setVerifyPassword2] = useState('');
     const [password, setPassword] = useState('');
     const [usernameCompleted, setUsernameCompleted]  = useState(false);
+    let passwodsVerified = false;
+
+    useEffect( () => {
+        // const fetch = async () => {
+              
+        // }
+        // fetch();
+        if (veryifyPassowrd != veryifyPassowrd2) {
+            console.log('Please fix');
+        } else {
+            console.log('Good')
+            passwodsVerified = true;
+        }
+      }, [veryifyPassowrd,veryifyPassowrd2 ]);
 
     const handleSubmit = () => {
         setUsername(textInput);
@@ -33,19 +48,35 @@ const CreateAccountScreen : FC<Props> = ({ navigation }) => {
         setTextInput('');
     }
 
-    const handleCreateAccount = () => {
-        console.log(veryifyPassowrd);
-        console.log(veryifyPassowrd2);
-        let newUserData = {
-            username: username,
-            password: password
+    const hasErrors = () => {
+        return (veryifyPassowrd != veryifyPassowrd2) 
+    };
+
+    const hasErrors2 = () => {
+        return (veryifyPassowrd != '' && veryifyPassowrd == veryifyPassowrd2) 
+    };
+
+    const handleCreateAccount = async () => {
+        if (passwodsVerified) {
+            let newUserData = {
+                username: username,
+                password: veryifyPassowrd2
+            };
+            console.log(newUserData);
+            let result = await AddUser(newUserData);
+            console.log(result);
         };
-        console.log(newUserData);
     };
 
     return (
         <>
             <View style={styles.bgColor}>
+            <KeyboardAwareScrollView
+                style={{ backgroundColor: '#4c69a5' }}
+                resetScrollToCoords={{ x: 0, y: 0 }}
+                contentContainerStyle={styles.bgColor}
+                scrollEnabled={false}
+            >
             <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
                 <SafeAreaView>
                     <Image 
@@ -93,8 +124,19 @@ const CreateAccountScreen : FC<Props> = ({ navigation }) => {
                                     selectionColor={'white'}
                                     textAlign={'center'}
                                     textContentType={'password'}
-                                    onChangeText={(e) => setVerifyPassword(e)}                            // onKeyPress={this.handleKeyDown}
+                                    secureTextEntry={true}
+                                    onChangeText={(e) => setVerifyPassword(e)} 
                                 />
+                            </View>
+                            <View style={{alignItems: 'center'}}>
+                                <HelperText type="error" visible={hasErrors()}
+                                    style={{alignItems: 'center', color: 'red', fontSize:20, justifyContent:'center'}}
+                                >Passwords do not match
+                                </HelperText>
+                                <HelperText type="info" visible={hasErrors2()}
+                                    style={{alignItems: 'center', color: 'green', fontSize:20, justifyContent:'center'}}
+                                >Passwords match!
+                                </HelperText>
                             </View>
                             <View style={{alignItems: 'center'}}>
                                 <Text style={styles.createAccountTxt}>Verify password</Text>
@@ -107,7 +149,8 @@ const CreateAccountScreen : FC<Props> = ({ navigation }) => {
                                     contextMenuHidden={true}
                                     selectionColor={'white'}
                                     textAlign={'center'}
-                                    textContentType={'name'}
+                                    textContentType={'password'}
+                                    secureTextEntry={true}
                                     onChangeText={(e) => setVerifyPassword2(e)}                            // onKeyPress={this.handleKeyDown}
                                 />
                             </View>
@@ -115,13 +158,14 @@ const CreateAccountScreen : FC<Props> = ({ navigation }) => {
                                 <Button mode="contained" 
                                 onPress={handleCreateAccount}
                                 style={styles.createAccountBtn}>
-                                    Next22
+                                    Create Account
                                 </Button>
                             </View>
                         </>                        
                     }
                 </SafeAreaView>
             </TouchableWithoutFeedback>
+            </KeyboardAwareScrollView>
             </View>
         </>
     );
@@ -146,7 +190,7 @@ const styles = StyleSheet.create({
         width: 300,
         fontSize: 30,
         color: 'white',
-        marginTop: 30,
+        marginTop: 20,
         // alignItems: 'center',
     }, 
     nextBtn: {
@@ -159,7 +203,12 @@ const styles = StyleSheet.create({
         marginLeft:'64%'
     },
     createAccountBtn: {
-        
+        backgroundColor:'#DC1B21C4',
+        borderRadius: 25, 
+        height: 50,
+        width: 300, 
+        justifyContent: 'center',
+        marginTop: 40
     }
 });
 

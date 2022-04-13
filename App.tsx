@@ -5,14 +5,14 @@ import { FC } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 // import { LoadingScreen } from './Screens/LoadingScreen';
 import CreateAccountScreen from './Screens/CreateAccountScreen'
-// import { LoginScreen } from './Screens/LoginScreen';
+import LoginScreen from './Screens/LoginScreen';
 // import { IntroductionScreen } from './Screens/IntroductionScreen';
 
 
 
 type RootStackParamList = {
   Home: undefined; //means route doesnt have params
-  Profile: { name : string };
+  UserDashboard: { name : string };
   Login: { name: string }
   CreateAccount: undefined,
   Loading: undefined,
@@ -26,20 +26,21 @@ const App:FC = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {/* <Stack.Screen
+        <Stack.Screen
           name="Login"
-          component={LoginScreen}>
-        </Stack.Screen> */}
+          component={LoginScreen}
+          options={{headerShown:false}}>
+        </Stack.Screen>
+        <Stack.Screen
+      name="Loading"
+      component={LoadingScreen}>
+    </Stack.Screen>
         <Stack.Screen
         name="CreateAccount"
         component={CreateAccountScreen}
         options={{headerShown:false}}
         >
       </Stack.Screen>
-      {/* <Stack.Screen
-      name="Loading"
-      component={LoadingScreen}>
-    </Stack.Screen>
     <Stack.Screen
     name="Introduction"
     component={IntroductionScreen}>
