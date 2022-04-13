@@ -5,10 +5,9 @@ import { FC } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import  LoadingScreen  from './Screens/LoadingScreen';
 import  CreateAccountScreen  from './Screens/CreateAccountScreen';
-import  LoginScreen  from './Screens/LoginScreen';
+//import  LoginScreen  from './Screens/LoginScreen';
 import  IntroductionScreen  from './Screens/IntroductionScreen';
-import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
-import AppLoading from 'expo-app-loading';
+
 
 
 type RootStackParamList = {
@@ -39,7 +38,7 @@ const App:FC = () => {
       name="Loading"
       component={LoadingScreen}
       options={{headerShown:false}}>
-    </Stack.Screen>
+    </Stack.Screen> */}
     <Stack.Screen
     name="Introduction"
     component={IntroductionScreen}
