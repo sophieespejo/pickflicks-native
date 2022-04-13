@@ -40,7 +40,7 @@ const LoginScreen : FC<Props> = ({ navigation }) => {
         console.log(fetchedToken);
 
         if (fetchedToken.token != null) {
-            navigation.navigate('Loading')
+            navigation.navigate('Introduction')
         } else {
             // Do something
         }

@@ -23,11 +23,7 @@
     "react-native": "0.64.3",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-paper": "^4.12.0",
-<<<<<<< HEAD
     "react-native-safe-area-context": "3.3.2",
-=======
-    "react-native-safe-area-context": "^3.3.2",
->>>>>>> 1f1666cc96dc91f7bce0d0f8342661e2ff14f354
     "react-native-screens": "~3.10.1",
     "react-native-web": "0.17.1"
   },

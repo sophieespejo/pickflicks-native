@@ -79,10 +79,14 @@ const CreateAccountScreen : FC<Props> = ({ navigation }) => {
             >
             <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
                 <SafeAreaView>
-                    <Image 
-                        source={PickFlicksLogo}
-                        style={{height: 337, width: 337}}
-                    />
+                    <View style={{ alignItems: 'center'}}>
+                        <Image 
+                            source={PickFlicksLogo}
+                            // style={{height: 337, width: 337}}
+                            style={{height: 250, width: 250, resizeMode:'contain'}}
+                        />
+
+                    </View>
                     {
                         !usernameCompleted ? 
                         <>
@@ -194,13 +198,12 @@ const styles = StyleSheet.create({
         // alignItems: 'center',
     }, 
     nextBtn: {
-        justifyContent:'center', 
+        backgroundColor:'#DC1B21C4',
         borderRadius: 25, 
-        width: '40%', 
-        height:'13%', 
-        backgroundColor: '#DC1B21', 
-        marginTop:'70%',
-        marginLeft:'64%'
+        height: 50,
+        width: 300, 
+        justifyContent: 'center',
+        marginTop: 70
     },
     createAccountBtn: {
         backgroundColor:'#DC1B21C4',

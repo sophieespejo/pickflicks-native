@@ -5,7 +5,7 @@ import { FC } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import  LoadingScreen  from './Screens/LoadingScreen';
 import  CreateAccountScreen  from './Screens/CreateAccountScreen';
-//import  LoginScreen  from './Screens/LoginScreen';
+import  LoginScreen  from './Screens/LoginScreen';
 import  IntroductionScreen  from './Screens/IntroductionScreen';
 
 
@@ -27,6 +27,12 @@ const App:FC = () => {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
+        name="CreateAccount"
+        component={CreateAccountScreen}
+        options={{headerShown:false}}
+        >
+      </Stack.Screen>
+        <Stack.Screen
           name="Login"
           component={LoginScreen}
           options={{headerShown:false}}>
@@ -35,12 +41,6 @@ const App:FC = () => {
       name="Loading"
       component={LoadingScreen}>
     </Stack.Screen>
-        <Stack.Screen
-        name="CreateAccount"
-        component={CreateAccountScreen}
-        options={{headerShown:false}}
-        >
-      </Stack.Screen>
       {/* <Stack.Screen
       name="Loading"
       component={LoadingScreen}
