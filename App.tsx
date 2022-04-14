@@ -52,11 +52,11 @@ const App:FC = () => {
     options={{headerShown: false}}
     >
   </Stack.Screen>
-        {/* <Stack.Screen
+        <Stack.Screen
           name="UserDashboard"
           component={UserDashboardScreen}
           options={{headerShown:false}}>
-        </Stack.Screen> */}
+        </Stack.Screen>
         <Stack.Screen
           name="CreateAccountScreen"
           component={CreateAccountScreen}

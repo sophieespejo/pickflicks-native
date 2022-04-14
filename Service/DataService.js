@@ -35,4 +35,15 @@ async function GetUserByUsername(username){
     return data;
 }
 
-export { AddUser, Login, GetUserByUsername };
+async function GetAllMWGAUserIsMemberOfuserId(userId){
+    let res = await fetch('https://pickflicksapi.azurewebsites.net/MWG/GetAllMWGAUserIsMemberOf/' + (userId));
+    if(!res.ok)
+    {
+        const message = `An error has occured ${res.status}`
+        throw new Error(message);
+    }
+    let data = await res.json();
+    return data;
+}
+
+export { AddUser, Login, GetUserByUsername, GetAllMWGAUserIsMemberOfuserId };

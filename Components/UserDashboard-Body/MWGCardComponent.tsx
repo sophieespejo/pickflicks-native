@@ -5,7 +5,7 @@ import emptyHeart from "../../assets/emptyHeart.png";
 import filledHeart from "../../assets/filledHeart.png";
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
-import { GetUserByUsername } from '../../Service/DataService'
+import { GetUserByUsername, GetAllMWGAUserIsMemberOfuserId } from '../../Service/DataService'
 
 interface IMWGCardComponent {
   username: string
@@ -13,48 +13,36 @@ interface IMWGCardComponent {
 
 //map through MWG created according to userID/logged in user
 const MWGCardComponent: FC = ({username}) => {
+  const [allMWG, setAllMWG] = useState([]);
+  const [allFaveMWG, setAllFaveMWG] = useState("")
 
   
-  useEffect( async () => {
-    // let userData;
-    // const fetchUserData = async () => {
-    //   userData = await GetUserByUsername(username)
-    // }
-    // fetchUserData();
+  useEffect(  () => {
+ 
+      async function fetchUserData() {
+      let response = await GetUserByUsername(username);
+      setAllFaveMWG(response.favoritedMWGId);
+      console.log(response);
+      if(response != null)
+        {
+          let userMWG = await GetAllMWGAUserIsMemberOfuserId(response.id);
+          console.log(userMWG)
+          setAllMWG(userMWG);
+        }
+      }
+      fetchUserData();
+    },
+   []);
+
+
+
+  
+    // let userData = await GetUserByUsername(username);
     // console.log(userData);
-    let userData = await GetUserByUsername(username);
-    console.log(userData);
-  }, []);
 
   const [isFavorite, setIsFavorite] = useState(false);
 
-  const [allMovies, setAllMovies] = useState([
-    {
-      movieGroupName: 'Group 1',
-      movieGroupMembers: 'An, Dylan, Sophie',
-      isFavorite: true
-    },
-    {
-      movieGroupName: 'Group 2',
-      movieGroupMembers: 'Annnn, Dylannnnn, Sophieeeee',
-      isFavorite: true
-    },
-    {
-      movieGroupName: 'Group 3',
-      movieGroupMembers: 'Annnngel, Dylannnnngel, Sophieeeeegel',
-      isFavorite: false
-    },
-    {
-      movieGroupName: 'Group 4',
-      movieGroupMembers: 'Annnngel, Dylannnnngel, Sophieeeeegel',
-      isFavorite: false
-    },
-    {
-      movieGroupName: 'Group 5',
-      movieGroupMembers: 'Annnngel, Dylannnnngel, Sophieeeeegel',
-      isFavorite: false
-    },
-  ])
+
 
 
 
@@ -72,46 +60,47 @@ const MWGCardComponent: FC = ({username}) => {
   return (
 
     <View style={{ flex:1, alignItems:'center'}}>
-      <Text>{username}</Text>
       {
-        allMovies.map((movie,i) => {
+        allMWG.map((group,i) => {
           return (
-            <View key={i} style={[styles.wgButton, {flex:1, marginTop:'5%'}]}>
-            <View  style={{marginTop: '10%', flexDirection:'row'}}>
-              <Text
-                
-                style={{
-                  color: "#FFFFFF",
-                  fontSize: 28,
-                  fontWeight: 'bold',
-                  justifyContent: "center",
-                  textAlign: "center",
-                  fontFamily:'Raleway_400Regular', 
-                  marginBottom: 0,
-                  
-                }}
-                >
-                {movie.movieGroupName}
-              </Text>
-              <Pressable style={styles.heart} onPress={()=>!movie.isFavorite}>
-                <Image  source={movie.isFavorite ? filledHeart : emptyHeart} ></Image>
+            <>
+              <Pressable style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=>console.log("pressed MWG")}>
+                <View key={i} >
+                  <View  style={{marginTop: '10%', flexDirection:'row'}}>
+                    <Text
+                      style={{
+                        color: "#FFFFFF",
+                        fontSize: 28,
+                        fontWeight: 'bold',
+                        justifyContent: "center",
+                        textAlign: "center",
+                        fontFamily:'Raleway_400Regular', 
+                        marginBottom: 0,
+                      }}
+                      >
+                      {group.mwgName}
+                    </Text>
+                  </View>
+                  <View>
+                    <Text
+                      style={{
+                        color: "#FFFFFF",
+                        fontSize: 20,
+                        justifyContent: "center",
+                        textAlign: "center",
+                        fontFamily:'Raleway_400Regular', 
+                        marginBottom: '10%'
+                      }}
+                    >
+                      Members: {group.membersNames}
+                    </Text>
+                  </View>
+              </View>
+              <Pressable style={styles.heart} onPress={()=>console.log("pressed heart")}>
+                <Image  source={allFaveMWG.includes(group.id) ? filledHeart : emptyHeart} ></Image>
               </Pressable>
-            </View>
-            <View>
-          <Text
-            style={{
-              color: "#FFFFFF",
-              fontSize: 20,
-              justifyContent: "center",
-              textAlign: "center",
-              fontFamily:'Raleway_400Regular', 
-              marginBottom: '10%'
-            }}
-          >
-            Members: {movie.movieGroupMembers}
-          </Text>
-            </View>
-        </View>
+            </Pressable>
+          </>
           )
         })
       }
@@ -148,7 +137,7 @@ const styles = StyleSheet.create({
   },
   heart:{
     position: 'absolute',
-    left: '55%',
-    bottom: '150%'
+    left: '93%',
+    bottom: '83%'
   }
 });
