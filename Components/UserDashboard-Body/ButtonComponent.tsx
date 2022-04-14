@@ -1,10 +1,25 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { FC } from "react";
-import { StyleSheet, Text, View, Image, TextInput } from "react-native";
+import { StyleSheet, Text, View, Image, TextInput, Pressable } from "react-native";
 import headerLogo from "../../assets/headerLogo.png";
 import MovieClipper from "../../assets/MovieClipper.png";
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
+import {useNavigation} from '@react-navigation/native';
+
+type RootStackParamList = {
+  Home: undefined; //means route doesnt have params
+  UserDashboard: { name : string };
+  Login: { name: string }
+  CreateAccountScreen: undefined,
+  Loading: undefined,
+  Introduction: undefined,
+  NewMWGName: undefined,
+  MemberSearch: undefined
+}
+
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const ButtonComponent: FC = () => {
   let [fontsLoaded] = useFonts({
@@ -14,12 +29,18 @@ const ButtonComponent: FC = () => {
   if (!fontsLoaded) {
     return <AppLoading />;
   }
+
+  const navigation = useNavigation();
+
+
   return (
     <View style={{flex:1, marginTop:'5%', marginBottom: '3%', alignItems:'center'}}>
-      <View style={styles.wgButton}>
-        <Image source={MovieClipper}></Image>
-        <Text style={{color:'#383333', fontSize:20, paddingLeft:60, justifyContent:'center', textAlign:'center', fontFamily:'Raleway_400Regular'}}>Create new {"\n"}Watch Group</Text>
-      </View>
+      <Pressable style={{width:'90%', marginBottom:'3%'}} onPress={() => navigation.navigate("NewMWGName")}>
+        <View style={styles.wgButton}>
+          <Image source={MovieClipper}></Image>
+          <Text style={{color:'#383333', fontSize:20, paddingLeft:60, justifyContent:'center', textAlign:'center', fontFamily:'Raleway_400Regular'}}>Create new {"\n"}Watch Group</Text>
+        </View>
+      </Pressable>
     </View>
   );
 };
@@ -34,7 +55,6 @@ const styles = StyleSheet.create({
     backgroundColor:'#E2DFDFDE',
     borderRadius: 25,
     alignItems:'center',
-    width:'90%',
     justifyContent:'center',
     height:'120%',
   },

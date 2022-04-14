@@ -8,7 +8,8 @@ import  CreateAccountScreen  from './Screens/CreateAccount/CreateAccountScreen';
 import  LoginScreen  from './Screens/Login/LoginScreen';
 import  IntroductionScreen  from './Screens/IntroductionScreen';
 import UserDashboardScreen from './Screens/UserDashboard/UserDashboardScreen';
-
+import NewMWGNameScreen from './Screens/UserDashboard/NewMWGNameScreen';
+import MemberSearchScreen from './Screens/UserDashboard/MemberSearchScreen';
 
 
 type RootStackParamList = {
@@ -17,7 +18,9 @@ type RootStackParamList = {
   Login: { name: string }
   CreateAccountScreen: undefined,
   Loading: undefined,
-  Introduction: undefined
+  Introduction: undefined,
+  NewMWGName: undefined,
+  MemberSearch: undefined
 }
 
 
