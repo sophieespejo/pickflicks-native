@@ -7,14 +7,9 @@ import  LoadingScreen  from './Screens/LoadingScreen';
 import  CreateAccountScreen  from './Screens/CreateAccount/CreateAccountScreen';
 import  LoginScreen  from './Screens/Login/LoginScreen';
 import  IntroductionScreen  from './Screens/IntroductionScreen';
-<<<<<<< HEAD
-import UserDashboardScreen from './Screens/UserDashboardScreen';
-import AvatarScreen from './Screens/AvatarScreen';
-=======
 import UserDashboardScreen from './Screens/UserDashboard/UserDashboardScreen';
 import NewMWGNameScreen from './Screens/UserDashboard/NewMWGNameScreen';
 import MemberSearchScreen from './Screens/UserDashboard/MemberSearchScreen';
->>>>>>> 9a805ef83b349525f381795cb2cce0fd94431e5a
 
 
 type RootStackParamList = {
