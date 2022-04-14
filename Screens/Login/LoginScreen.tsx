@@ -6,14 +6,17 @@ import PickFlicksLogo from '../../assets/logo.png';
 import { Button, HelperText } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Login } from '../../Service/DataService';
+import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
+import AppLoading from 'expo-app-loading';
 
 type RootStackParamList = {
     Home: undefined; //means route doesnt have params
     UserDashboard: { username : string };
-    Login: { username: string }
+    Login: { name: string }
     CreateAccountScreen: undefined,
     Loading: undefined,
     Introduction: undefined
+    AvatarScreen: { username: string }
 };
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
@@ -50,6 +53,14 @@ const LoginScreen : FC<Props> = ({ navigation }) => {
         navigation.navigate('CreateAccountScreen');
         console.log('rinning')
     };
+
+    let [fontsLoaded] = useFonts({
+        Raleway_400Regular,
+      });
+    
+      if (!fontsLoaded) {
+        return <AppLoading />;
+      }
 
     return (
         <>
@@ -133,7 +144,7 @@ const styles = StyleSheet.create({
     }, 
     createAccountTxt: {
         alignItems: 'center',
-        // fontStyle: 'Raleway',
+        fontFamily:'Raleway_400Regular', 
         fontSize: 36,
         color: 'white',
         marginTop: '10%'
@@ -146,6 +157,7 @@ const styles = StyleSheet.create({
         color: 'white',
         marginTop: 20,
         // alignItems: 'center',
+        fontFamily:'Raleway_400Regular', 
     }, 
     nextBtn: {
         justifyContent:'center', 
@@ -167,12 +179,13 @@ const styles = StyleSheet.create({
     dontHaveAccountTxt: {
         color: 'white',
         fontSize: 16,
-        marginTop: 30
+        marginTop: 30,
+        fontFamily:'Raleway_400Regular', 
     }, 
     createAccountTxt2: {
         fontSize: 16,
         textDecorationLine: 'underline',
-
+        fontFamily:'Raleway_400Regular', 
     }
 });
 

@@ -11,6 +11,7 @@ import UserDashboardScreen from './Screens/UserDashboard/UserDashboardScreen';
 import NewMWGNameScreen from './Screens/UserDashboard/NewMWGNameScreen';
 import MemberSearchScreen from './Screens/UserDashboard/MemberSearchScreen';
 import InvitationSentScreen from './Screens/UserDashboard/InvitationSentScreen';
+import AvatarScreen from './Screens/CreateAccount/AvatarScreen';
 
 
 type RootStackParamList = {
@@ -19,6 +20,7 @@ type RootStackParamList = {
   Login: { name: string }
   CreateAccountScreen: undefined,
   Loading: undefined,
+  AvatarScreen: undefined
   Introduction: undefined,
   NewMWGName: undefined,
   MemberSearch: undefined,
@@ -48,10 +50,19 @@ const App:FC = () => {
       options={{headerShown:false}}>
     </Stack.Screen>
       <Stack.Screen
+          name="Login"
+          component={LoginScreen}
+          options={{headerShown:false}}>
+        </Stack.Screen>
+      <Stack.Screen
       name="Loading"
       component={LoadingScreen}
       options={{headerShown:false}}>
     </Stack.Screen>
+        {/* <Stack.Screen
+          name="Login"
+          component={LoginScreen}>
+        </Stack.Screen> */}
             <Stack.Screen
     name="Introduction"
     component={IntroductionScreen}
@@ -64,25 +75,15 @@ const App:FC = () => {
           options={{headerShown:false}}>
         </Stack.Screen>
         <Stack.Screen
-          name="Loading"
-          component={LoadingScreen}
-          options={{headerShown:false}}>
-        </Stack.Screen>
-        <Stack.Screen
-          name="Introduction"
-          component={IntroductionScreen}
-          options={{headerShown: false}}>
-        </Stack.Screen>
-        <Stack.Screen
           name="CreateAccountScreen"
           component={CreateAccountScreen}
           options={{headerShown:false}}>
         </Stack.Screen>
         <Stack.Screen
-          name="Login"
-          component={LoginScreen}
-          options={{headerShown:false}}>
-        </Stack.Screen>
+name="AvatarScreen"
+component={AvatarScreen}
+options={{headerShown:false}}>
+</Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );

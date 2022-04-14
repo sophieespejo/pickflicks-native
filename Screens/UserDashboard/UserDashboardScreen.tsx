@@ -11,12 +11,11 @@ import MemberSearchTextInputComponent from '../../Components/UserDashboard-Body/
 
 type RootStackParamList = {
     Home: undefined; //means route doesnt have params
-    Profile: { name : string };
-    Login: { name: string }
+    Login: { username: string }
     CreateAccount: undefined,
     Loading: undefined,
     Introduction: undefined
-    UserDashboard: undefined
+    UserDashboard: { username : string };
   }
   
   
@@ -29,8 +28,8 @@ const UserDashboard: FC<Props> = ({navigation, route}) => {
         <View style={styles.container}>
             <HeaderComponent/>
             <ScrollView style={{flex:1}}>
-            <ButtonComponent/>
-            <MWGCardComponent/>
+              <ButtonComponent />
+              <MWGCardComponent username={route.params.username}/>
             </ScrollView>
             {/* <NewMWGNameComponent/> */}
             {/* <MemberSearchTextInputComponent/> */}
