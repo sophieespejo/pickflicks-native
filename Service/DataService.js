@@ -24,4 +24,15 @@ async function Login(userData){
    return data;
 }
 
-export { AddUser, Login };
+async function GetUserByUsername(username){
+    let res = await fetch('https://pickflicksapi.azurewebsites.net/User/GetUserByUsername/' + (username));
+    if(!res.ok)
+    {
+        const message = `An error has occured ${res.status}`
+        throw new Error(message);
+    }
+    let data = await res.json();
+    return data;
+}
+
+export { AddUser, Login, GetUserByUsername };

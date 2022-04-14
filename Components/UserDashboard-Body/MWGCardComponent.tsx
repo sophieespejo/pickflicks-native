@@ -1,15 +1,30 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
 import { StyleSheet, Text, View, Image, TextInput,Pressable } from "react-native";
 import emptyHeart from "../../assets/emptyHeart.png";
 import filledHeart from "../../assets/filledHeart.png";
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
+import { GetUserByUsername } from '../../Service/DataService'
 
-
+interface IMWGCardComponent {
+  username: string
+}
 
 //map through MWG created according to userID/logged in user
-const MWGCardComponent: FC = () => {
+const MWGCardComponent: FC = ({username}) => {
+
+  
+  useEffect( async () => {
+    // let userData;
+    // const fetchUserData = async () => {
+    //   userData = await GetUserByUsername(username)
+    // }
+    // fetchUserData();
+    // console.log(userData);
+    let userData = await GetUserByUsername(username);
+    console.log(userData);
+  }, []);
 
   const [isFavorite, setIsFavorite] = useState(false);
 
@@ -57,13 +72,14 @@ const MWGCardComponent: FC = () => {
   return (
 
     <View style={{ flex:1, alignItems:'center'}}>
-
+      <Text>{username}</Text>
       {
-        allMovies.map((movie) => {
+        allMovies.map((movie,i) => {
           return (
-            <View style={[styles.wgButton, {flex:1, marginTop:'5%'}]}>
-            <View style={{marginTop: '10%', flexDirection:'row'}}>
+            <View key={i} style={[styles.wgButton, {flex:1, marginTop:'5%'}]}>
+            <View  style={{marginTop: '10%', flexDirection:'row'}}>
               <Text
+                
                 style={{
                   color: "#FFFFFF",
                   fontSize: 28,
@@ -72,7 +88,7 @@ const MWGCardComponent: FC = () => {
                   textAlign: "center",
                   fontFamily:'Raleway_400Regular', 
                   marginBottom: 0,
-  
+                  
                 }}
                 >
                 {movie.movieGroupName}
