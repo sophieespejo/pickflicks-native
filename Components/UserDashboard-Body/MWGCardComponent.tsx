@@ -5,7 +5,7 @@ import emptyHeart from "../../assets/emptyHeart.png";
 import filledHeart from "../../assets/filledHeart.png";
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
-import { GetUserByUsername, GetAllMWGAUserIsMemberOfuserId } from '../../Service/DataService'
+import { GetUserByUsername, GetAllMWGAUserIsMemberOfuserId, AddFavoriteMWG, RemoveFavoriteMWG } from '../../Service/DataService'
 
 interface IMWGCardComponent {
   username: string
@@ -34,7 +34,13 @@ const MWGCardComponent: FC = ({username}) => {
     },
    []);
 
+    const handleAddFavoriteMWG =() =>{
 
+    }
+
+    const handleRemoveFavoriteMWG =() =>{
+      
+    }
 
   
     // let userData = await GetUserByUsername(username);
@@ -96,7 +102,7 @@ const MWGCardComponent: FC = ({username}) => {
                     </Text>
                   </View>
               </View>
-              <Pressable style={styles.heart} onPress={()=>console.log("pressed heart")}>
+              <Pressable style={styles.heart} onPress={(e)=>console.log(e.currentTarget)}>
                 <Image  source={allFaveMWG.includes(group.id) ? filledHeart : emptyHeart} ></Image>
               </Pressable>
             </Pressable>

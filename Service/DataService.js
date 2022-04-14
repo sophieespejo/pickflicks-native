@@ -46,4 +46,28 @@ async function GetAllMWGAUserIsMemberOfuserId(userId){
     return data;
 }
 
-export { AddUser, Login, GetUserByUsername, GetAllMWGAUserIsMemberOfuserId };
+async function AddFavoriteMWG(userId, MWGId){
+    let res= await fetch(`${url}/User/AddFavoriteMWG/${userId}/${MWGId}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify()
+    });
+    let data = await res.json();
+   return data;
+}
+
+async function RemoveFavoriteMWG(userId, MWGId){
+    let res= await fetch(`${url}/User/RemoveFavoriteMWG/${userId}/${MWGId}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify()
+    });
+    let data = await res.json();
+   return data;
+}
+
+export { AddUser, Login, GetUserByUsername, GetAllMWGAUserIsMemberOfuserId, AddFavoriteMWG, RemoveFavoriteMWG};
