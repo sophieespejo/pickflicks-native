@@ -33,6 +33,11 @@ const App:FC = () => {
     <NavigationContainer>
       <Stack.Navigator>
       <Stack.Screen
+          name="Login"
+          component={LoginScreen}
+          options={{headerShown:false}}>
+        </Stack.Screen>
+      <Stack.Screen
       name="Loading"
       component={LoadingScreen}
       options={{headerShown:false}}>
@@ -62,11 +67,6 @@ name="AvatarScreen"
 component={AvatarScreen}
 options={{headerShown:false}}>
 </Stack.Screen>
-        <Stack.Screen
-          name="Login"
-          component={LoginScreen}
-          options={{headerShown:false}}>
-        </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );
