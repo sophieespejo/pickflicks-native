@@ -10,6 +10,7 @@ import  IntroductionScreen  from './Screens/IntroductionScreen';
 import UserDashboardScreen from './Screens/UserDashboard/UserDashboardScreen';
 import NewMWGNameScreen from './Screens/UserDashboard/NewMWGNameScreen';
 import MemberSearchScreen from './Screens/UserDashboard/MemberSearchScreen';
+import InvitationSentScreen from './Screens/UserDashboard/InvitationSentScreen';
 
 
 type RootStackParamList = {
@@ -20,7 +21,8 @@ type RootStackParamList = {
   Loading: undefined,
   Introduction: undefined,
   NewMWGName: undefined,
-  MemberSearch: undefined
+  MemberSearch: undefined,
+  InvitationSent: undefined
 }
 
 
@@ -30,6 +32,32 @@ const App:FC = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+      {/* <Stack.Screen
+      name="NewMWGName"
+      component={NewMWGNameScreen}
+      options={{headerShown:false}}>
+    </Stack.Screen> */}
+      <Stack.Screen
+      name="MemberSearch"
+      component={MemberSearchScreen}
+      options={{headerShown:false}}>
+    </Stack.Screen>
+      <Stack.Screen
+      name="InvitationSent"
+      component={InvitationSentScreen}
+      options={{headerShown:false}}>
+    </Stack.Screen>
+      <Stack.Screen
+      name="Loading"
+      component={LoadingScreen}
+      options={{headerShown:false}}>
+    </Stack.Screen>
+            <Stack.Screen
+    name="Introduction"
+    component={IntroductionScreen}
+    options={{headerShown: false}}
+    >
+  </Stack.Screen>
         <Stack.Screen
           name="UserDashboard"
           component={UserDashboardScreen}
