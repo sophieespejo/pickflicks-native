@@ -17,6 +17,7 @@ type RootStackParamList = {
     CreateAccountScreen: undefined,
     Loading: undefined,
     Introduction: undefined
+    AvatarScreen: { username: string }
 };
 
 type Props = NativeStackScreenProps<RootStackParamList, 'CreateAccountScreen'>;
@@ -72,7 +73,7 @@ const CreateAccountScreen : FC<Props> = ({ navigation }) => {
             console.log(result);
             setUsernameCompleted(true);
             pickingAvatar = true;
-            // navigation.navigate('UserDashboard', { username: username})
+            navigation.navigate('AvatarScreen', { username: username})
         };
     };
 
