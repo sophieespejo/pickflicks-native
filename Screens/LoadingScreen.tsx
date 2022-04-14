@@ -22,8 +22,8 @@ const LoadingScreen: FC<Props> = ({navigation}) => {
 
 
   setTimeout(() => {
-    navigation.navigate('Introduction') //this.props.navigation.navigate('Login')
-}, 2000);
+    navigation.navigate('Introduction') 
+  }, 2000);
 
 
     return (
@@ -37,10 +37,10 @@ export default LoadingScreen;
 
 const styles = StyleSheet.create({
     container:{
-        flex:1,
-        alignItems:'center',
-        justifyContent:'center',
-        backgroundColor: '#DC1B21'
+      flex:1,
+      alignItems:'center',
+      justifyContent:'center',
+      backgroundColor: '#DC1B21'
     },
     redLogo: {
       width: 300,

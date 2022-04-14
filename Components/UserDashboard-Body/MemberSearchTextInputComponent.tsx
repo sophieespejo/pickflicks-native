@@ -38,9 +38,12 @@ import {
     const navigation = useNavigation();
   
     return (
-      <View style={{ flex: 1, backgroundColor:'#4D4A4AEA'}}>
+        <View style={{flex:1, alignItems:'center'}}>
+
+      <View style={{ flex: 1, backgroundColor:'#4D4A4AEA', borderRadius:30, width:'92%'}}>
 
       </View>
+        </View>
     );
   };
   

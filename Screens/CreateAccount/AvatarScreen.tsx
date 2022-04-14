@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import PickFlicksLogo from '../assets/logo.png';
 import { Button, HelperText } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { AddUser } from '../Service/DataService';
+import { AddUser } from '../../Service/DataService';
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 import { Avatar } from 'react-native-paper';

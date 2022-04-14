@@ -1,12 +1,12 @@
 import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
 import { FC } from 'react';
 import { StyleSheet, Text, View , Image, ScrollView} from 'react-native';
-import HeaderComponent from '../Components/UserDashboard-Body/HeaderComponent';
-import ButtonComponent from '../Components/UserDashboard-Body/ButtonComponent';
-import MWGCardComponent from '../Components/UserDashboard-Body/MWGCardComponent';
-import FooterNavComponent from '../Components/UserDashboard-Body/FooterNavComponent';
-import NewMWGNameComponent from '../Components/UserDashboard-Body/NewMWGNameComponent';
-import MemberSearchTextInputComponent from '../Components/UserDashboard-Body/MemberSearchTextInputComponent';
+import JustLogoComponent from '../../Components/UserDashboard-Body/JustLogoComponent';
+import ButtonComponent from '../../Components/UserDashboard-Body/ButtonComponent';
+import MWGCardComponent from '../../Components/UserDashboard-Body/MWGCardComponent';
+import FooterNavComponent from '../../Components/UserDashboard-Body/FooterNavComponent';
+import NewMWGNameComponent from '../../Components/UserDashboard-Body/NewMWGNameComponent';
+import MemberSearchTextInputComponent from '../../Components/UserDashboard-Body/MemberSearchTextInputComponent';
 
 
 type RootStackParamList = {
@@ -24,15 +24,10 @@ type Props = NativeStackScreenProps<RootStackParamList, 'UserDashboard'>;
 
   
 
-const UserDashboard: FC<Props> = ({navigation, route}) => {
+const MemberSearchScreen: FC<Props> = ({navigation, route}) => {
     return (
         <View style={styles.container}>
-            {/* <HeaderComponent/> */}
-            {/* <ScrollView style={{flex:1}}>
-            <ButtonComponent/>
-            <MWGCardComponent/>
-            </ScrollView> */}
-            {/* <NewMWGNameComponent/> */}
+            <JustLogoComponent/>
             <MemberSearchTextInputComponent/>
             <FooterNavComponent/>
         </View>
@@ -47,4 +42,4 @@ const styles = StyleSheet.create({
     },
   });
 
-export default UserDashboard;
+export default MemberSearchScreen;
