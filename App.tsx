@@ -76,10 +76,6 @@ const App:FC = () => {
           options={{headerShown:false}}>
         </Stack.Screen>
         <Stack.Screen
-          name="Login"
-          component={LoginScreen}>
-        </Stack.Screen>
-        <Stack.Screen
           name="UserDashboard"
           component={UserDashboardScreen}
           options={{headerShown:false}}>
