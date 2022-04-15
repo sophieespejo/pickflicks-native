@@ -140,100 +140,57 @@ const MWGCardComponent: FC = ({username, userId}) => {
 
           </>
         )
-      }
-      else{
-        return (
-          <>
-               <Pressable key={i} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=>console.log("pressed MWG")}>
-                 <View >
-                   <View  style={{marginTop: '10%', flexDirection:'row'}}>
-                     <Text
-                      style={{
-                        color: "#FFFFFF",
-                        fontSize: 28,
-                        fontWeight: 'bold',
-                        justifyContent: "center",
-                        textAlign: "center",
-                        fontFamily:'Raleway_400Regular', 
-                        marginBottom: 0,
-                      }}
-                      >
-                      {group.mwgName}
-                    </Text>
-                  </View>
-                  <View>
-                    <Text
-                      style={{
-                        color: "#FFFFFF",
-                        fontSize: 20,
-                        justifyContent: "center",
-                        textAlign: "center",
-                        fontFamily:'Raleway_400Regular', 
-                        marginBottom: '10%'
-                      }}
-                    >
-                      Members: {group.membersNames}
-                    </Text>
-                  </View>
-              </View>
-              <Pressable style={styles.heart} onPress={()=>handleAddFavoriteMWG(group.id)}>
-                <Image  source={emptyHeart} ></Image>
-              </Pressable>
-            </Pressable>
-            <Button title="test" onPress={() => console.log(allFaveMWG.includes(group.id))}></Button>
-          </>
-        )
       }})
-        
-        // allMWG.map((group,i) => {
-        //   return (
-        //     <>
-        //       <Pressable style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=>console.log("pressed MWG")}>
-        //         <View key={i} >
-        //           <View  style={{marginTop: '10%', flexDirection:'row'}}>
-        //             <Text
-        //               style={{
-        //                 color: "#FFFFFF",
-        //                 fontSize: 28,
-        //                 fontWeight: 'bold',
-        //                 justifyContent: "center",
-        //                 textAlign: "center",
-        //                 fontFamily:'Raleway_400Regular', 
-        //                 marginBottom: 0,
-        //               }}
-        //               >
-        //               {group.mwgName}
-        //             </Text>
-        //           </View>
-        //           <View>
-        //             <Text
-        //               style={{
-        //                 color: "#FFFFFF",
-        //                 fontSize: 20,
-        //                 justifyContent: "center",
-        //                 textAlign: "center",
-        //                 fontFamily:'Raleway_400Regular', 
-        //                 marginBottom: '10%'
-        //               }}
-        //             >
-        //               Members: {group.membersNames}
-        //             </Text>
-        //           </View>
-        //       </View>
-        //       <Pressable style={styles.heart} onPress={()=>handleAddFavoriteMWG(group.id)}>
-        //         <Image  source={allFaveMWG.includes(3) ? filledHeart : emptyHeart} ></Image>
-        //       </Pressable>
-        //     </Pressable>
-        //     {/* <Button title="test" onPress={() => console.log(allFaveMWG.includes("3"))}></Button> */}
-        //   </>
-        //   )
-        // })
       }
 
+      {
+        allMWG.map((group, i) => {if(!allFaveMWG.includes(parseInt(group.id)))
+          {
+            return (
+              <>
+                   <Pressable key={i} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=>console.log(group)}>
+                     <View >
+                       <View  style={{marginTop: '10%', flexDirection:'row'}}>
+                         <Text
+                          style={{
+                            color: "#FFFFFF",
+                            fontSize: 28,
+                            fontWeight: 'bold',
+                            justifyContent: "center",
+                            textAlign: "center",
+                            fontFamily:'Raleway_400Regular', 
+                            marginBottom: 0,
+                          }}
+                          >
+                          {group.mwgName}
+                        </Text>
+                      </View>
+                      <View>
+                        <Text
+                          style={{
+                            color: "#FFFFFF",
+                            fontSize: 20,
+                            justifyContent: "center",
+                            textAlign: "center",
+                            fontFamily:'Raleway_400Regular', 
+                            marginBottom: '10%'
+                          }}
+                        >
+                          Members: {group.membersNames}
+                        </Text>
+                      </View>
+                  </View>
+                  <Pressable style={styles.heart} onPress={()=>handleAddFavoriteMWG(group.id)}>
+                    <Image  source={emptyHeart} ></Image>
+                  </Pressable>
+                </Pressable>
+                <Button title="test" onPress={() => console.log(allFaveMWG.includes(group.id))}></Button>
+    
+              </>
+            )
+          }})
+      }
 
-
-      
- 
     </View>
   );
 };
