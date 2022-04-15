@@ -10,7 +10,7 @@ import  IntroductionScreen  from './Screens/IntroductionScreen';
 import UserDashboardScreen from './Screens/UserDashboard/UserDashboardScreen';
 import NewMWGNameScreen from './Screens/UserDashboard/NewMWGNameScreen';
 import MemberSearchScreen from './Screens/UserDashboard/MemberSearchScreen';
-import AvatarScreen from './Screens/CreateAccount/AvatarScreen';
+import AvatarScreen from './Screens/CreateAccount/AvatarScreen'
 
 
 type RootStackParamList = {
@@ -37,34 +37,29 @@ const App:FC = () => {
       component={LoadingScreen}
       options={{headerShown:false}}>
     </Stack.Screen>
-        {/* <Stack.Screen
-          name="Login"
-          component={LoginScreen}>
-        </Stack.Screen> */}
             <Stack.Screen
     name="Introduction"
     component={IntroductionScreen}
     options={{headerShown: false}}
     >
   </Stack.Screen>
-        {/* <Stack.Screen
-          name="UserDashboard"
-          component={UserDashboardScreen}
-          options={{headerShown:false}}>
-        </Stack.Screen> */}
         <Stack.Screen
           name="CreateAccountScreen"
           component={CreateAccountScreen}
           options={{headerShown:false}}>
         </Stack.Screen>
         <Stack.Screen
-name="AvatarScreen"
-component={AvatarScreen}
-options={{headerShown:false}}>
-</Stack.Screen>
+          name="AvatarScreen"
+          component={AvatarScreen}
+          options={{headerShown:false}}>
+        </Stack.Screen>
         <Stack.Screen
           name="Login"
-          component={LoginScreen}
+          component={LoginScreen}>
+        </Stack.Screen>
+        <Stack.Screen
+          name="UserDashboard"
+          component={UserDashboardScreen}
           options={{headerShown:false}}>
         </Stack.Screen>
       </Stack.Navigator>

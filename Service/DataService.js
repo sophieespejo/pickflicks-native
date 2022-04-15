@@ -35,4 +35,16 @@ async function GetUserByUsername(username){
     return data;
 }
 
-export { AddUser, Login, GetUserByUsername };
+async function EditUserIcon(userId, userIcon){
+    let res= await fetch(`https://pickflicksapi.azurewebsites.net/User/EditUserIcon/${userId}/${userIcon}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify()
+    });
+    let data = await res.json();
+   return data;
+}
+
+export { AddUser, Login, GetUserByUsername, EditUserIcon };
