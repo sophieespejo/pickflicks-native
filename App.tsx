@@ -53,7 +53,7 @@ const App:FC = () => {
       name="InvitationSent"
       component={InvitationSentScreen}
       options={{headerShown:false}}>
-    </Stack.Screen> */}
+    </Stack.Screen> 
       <Stack.Screen
       name="Loading"
       component={LoadingScreen}

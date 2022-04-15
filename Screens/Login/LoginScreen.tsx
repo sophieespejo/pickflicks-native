@@ -8,7 +8,6 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { GetUserByUsername, Login } from '../../Service/DataService';
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
-import {GetUserByUsername} from '../../Service/DataService';
 
 type RootStackParamList = {
     Home: undefined; //means route doesnt have params
