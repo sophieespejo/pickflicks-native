@@ -2,7 +2,7 @@ import {
   createNativeStackNavigator,
   NativeStackScreenProps,
 } from "@react-navigation/native-stack";
-import { FC } from "react";
+import { FC, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -16,19 +16,26 @@ import {useNavigation} from '@react-navigation/native';
 
 type RootStackParamList = {
     Home: undefined; //means route doesnt have params
-    UserDashboard: { name : string };
-    Login: { name: string }
+    UserDashboard: { username: string, userId: number}
+    Login: { username: string}
     CreateAccountScreen: undefined,
     Loading: undefined,
     Introduction: undefined,
-    NewMWGName: undefined,
-    MemberSearch: undefined
+    NewMWGName: { username: string, userId: number}
+    MemberSearch: { username: string, userId: number, newMWGname: string  },
   }
   
   
   const Stack = createNativeStackNavigator<RootStackParamList>();
 
-const NewMWGNameComponent: FC<Props> = () => {
+interface INewMWGNameComponent {
+  username: string,
+  userId: number,
+}
+
+const NewMWGNameComponent: FC = ({username, userId}) => {
+
+  const [MWGname, setMWGname] = useState("");
   let [fontsLoaded] = useFonts({
     Raleway_400Regular,
   });
@@ -46,12 +53,15 @@ const NewMWGNameComponent: FC<Props> = () => {
           style={[styles.yourGroupText, {width:'90%'}]}
           placeholder="Enter a name for the group"
           placeholderTextColor="#FFFFFF"
+          onChangeText={(e) => setMWGname(e)}
         />
       </View>
       <View style={[{ flex:0.5, alignItems: "center", justifyContent:'flex-end', alignItems:'flex-end'}]}>
         <Button uppercase={false} color='#FFFFFF' mode="text" onPress={() => {
-          navigation.navigate("MemberSearch");
+          navigation.navigate("MemberSearch", {username: username, userId: userId, newMWGname: MWGname});
         }}>
+          <Text>{username}</Text>
+          <Text>{userId}</Text>
             <Text style={styles.nextBtn}>Next ></Text>
         </Button>
       </View>

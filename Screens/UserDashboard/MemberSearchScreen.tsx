@@ -16,11 +16,12 @@ type RootStackParamList = {
     CreateAccount: undefined,
     Loading: undefined,
     Introduction: undefined
-    UserDashboard: undefined
+    UserDashboard: { username: string, userId: number }
+    MemberSearch: { username: string, userId: number, newMWGname: string  },
   }
   
   
-type Props = NativeStackScreenProps<RootStackParamList, 'UserDashboard'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'MemberSearch'>;
 
   
 
@@ -28,7 +29,10 @@ const MemberSearchScreen: FC<Props> = ({navigation, route}) => {
     return (
         <View style={styles.container}>
             <JustLogoComponent/>
-            <MemberSearchTextInputComponent/>
+            <Text>{route.params.username}</Text>
+            <Text>{route.params.userId}</Text>
+            <Text>{route.params.newMWGname}</Text>
+            <MemberSearchTextInputComponent username={route.params.username} userId={route.params.userId} newMWGname={route.params.newMWGname} />
             <FooterNavComponent/>
         </View>
     )
