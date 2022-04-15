@@ -16,14 +16,14 @@ import AvatarScreen from './Screens/CreateAccount/AvatarScreen';
 
 type RootStackParamList = {
   Home: undefined; //means route doesnt have params
-  UserDashboard: { name : string };
+  UserDashboard: { username: string, userId: number }
   Login: { name: string }
   CreateAccountScreen: undefined,
   Loading: undefined,
   AvatarScreen: undefined
   Introduction: undefined,
-  NewMWGName: undefined,
-  MemberSearch: undefined,
+  NewMWGName: { username: string, userId: number },
+  MemberSearch: { username: string, userId: number, newMWGname: string },
   InvitationSent: undefined
 }
 
@@ -34,12 +34,17 @@ const App:FC = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-      {/* <Stack.Screen
+          <Stack.Screen
+          name="Login"
+          component={LoginScreen}
+          options={{headerShown:false}}>
+        </Stack.Screen>
+        <Stack.Screen
       name="NewMWGName"
       component={NewMWGNameScreen}
       options={{headerShown:false}}>
-    </Stack.Screen> */}
-      {/* <Stack.Screen
+    </Stack.Screen>
+      <Stack.Screen
       name="MemberSearch"
       component={MemberSearchScreen}
       options={{headerShown:false}}>
@@ -50,19 +55,10 @@ const App:FC = () => {
       options={{headerShown:false}}>
     </Stack.Screen> */}
       <Stack.Screen
-          name="Login"
-          component={LoginScreen}
-          options={{headerShown:false}}>
-        </Stack.Screen>
-      <Stack.Screen
       name="Loading"
       component={LoadingScreen}
       options={{headerShown:false}}>
     </Stack.Screen>
-        {/* <Stack.Screen
-          name="Login"
-          component={LoginScreen}>
-        </Stack.Screen> */}
             <Stack.Screen
     name="Introduction"
     component={IntroductionScreen}
@@ -70,20 +66,20 @@ const App:FC = () => {
     >
   </Stack.Screen>
         <Stack.Screen
-          name="UserDashboard"
-          component={UserDashboardScreen}
-          options={{headerShown:false}}>
-        </Stack.Screen>
-        <Stack.Screen
           name="CreateAccountScreen"
           component={CreateAccountScreen}
           options={{headerShown:false}}>
         </Stack.Screen>
         <Stack.Screen
-name="AvatarScreen"
-component={AvatarScreen}
-options={{headerShown:false}}>
-</Stack.Screen>
+          name="AvatarScreen"
+          component={AvatarScreen}
+          options={{headerShown:false}}>
+        </Stack.Screen>
+        <Stack.Screen
+          name="UserDashboard"
+          component={UserDashboardScreen}
+          options={{headerShown:false}}>
+        </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );

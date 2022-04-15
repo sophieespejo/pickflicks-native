@@ -24,7 +24,7 @@ const MWGCardComponent: FC = ({username, userId}) => {
 
   
   useEffect(  () => {
- 
+
       async function fetchUserData() {
       let response = await GetUserByUsername(username);
       let favoritedMWGArray = response.favoritedMWGId.split(',');

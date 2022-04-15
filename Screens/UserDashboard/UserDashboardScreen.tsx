@@ -15,7 +15,8 @@ type RootStackParamList = {
     CreateAccount: undefined,
     Loading: undefined,
     Introduction: undefined
-    UserDashboard: { username : string, userId: number };
+    UserDashboard: { username: string, userId: number }
+    MemberSearch: { username: string, userId: number, newMWGname: string  },
   }
   
   
@@ -28,8 +29,8 @@ const UserDashboard: FC<Props> = ({navigation, route}) => {
         <View style={styles.container}>
             <HeaderComponent/>
             <ScrollView style={{flex:1}}>
-              <ButtonComponent />
-              <MWGCardComponent username={route.params.username} userId={route.params.userId}/>
+              <ButtonComponent username={route.params.username} userId={route.params.userId} />
+              <MWGCardComponent username={route.params.username} userId={route.params.userId} />
             </ScrollView>
             {/* <NewMWGNameComponent/> */}
             {/* <MemberSearchTextInputComponent/> */}
