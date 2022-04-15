@@ -55,12 +55,12 @@ const CreateAccountScreen : FC<Props> = ({ navigation }) => {
     }
 
     const hasErrors = () => {
-        return (veryifyPassowrd != veryifyPassowrd2) 
-    };
+        return (veryifyPassowrd != '' && veryifyPassowrd2 != '' && veryifyPassowrd != veryifyPassowrd2) 
+d    };
 
     const hasErrors2 = () => {
-        return (veryifyPassowrd != '' && veryifyPassowrd == veryifyPassowrd2) 
-    };
+        return (veryifyPassowrd != '' && veryifyPassowrd == veryifyPassowrd2)
+    }
 
     const handleCreateAccount = async () => {
         if (passwodsVerified) {

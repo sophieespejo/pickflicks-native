@@ -109,6 +109,7 @@ const LoginScreen : FC<Props> = ({ navigation }) => {
                             selectionColor={'white'}
                             textAlign={'center'}
                             textContentType={'name'}
+                            secureTextEntry={true}
                             onChangeText={(e) => setPassword(e)}
                             value={password}
                         />
