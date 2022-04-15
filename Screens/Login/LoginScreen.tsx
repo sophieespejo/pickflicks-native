@@ -8,11 +8,12 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { Login } from '../../Service/DataService';
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
+import {GetUserByUsername} from '../../Service/DataService';
 
 type RootStackParamList = {
     Home: undefined; //means route doesnt have params
-    UserDashboard: { username : string };
-    Login: { name: string }
+    UserDashboard: { username : string, userId : number };
+    Login: { name: string}
     CreateAccountScreen: undefined,
     Loading: undefined,
     Introduction: undefined
@@ -43,7 +44,9 @@ const LoginScreen : FC<Props> = ({ navigation }) => {
         console.log(fetchedToken);
 
         if (fetchedToken.token != null) {
-            navigation.navigate('UserDashboard', { username: username})
+            let userData = await GetUserByUsername(username);
+            let userId = userData.id;
+            navigation.navigate('UserDashboard', { username: username, userId: userId})
         } else {
             // Do something
         }

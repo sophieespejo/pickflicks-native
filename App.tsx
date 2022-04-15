@@ -39,7 +39,7 @@ const App:FC = () => {
       component={NewMWGNameScreen}
       options={{headerShown:false}}>
     </Stack.Screen> */}
-      <Stack.Screen
+      {/* <Stack.Screen
       name="MemberSearch"
       component={MemberSearchScreen}
       options={{headerShown:false}}>
@@ -48,7 +48,7 @@ const App:FC = () => {
       name="InvitationSent"
       component={InvitationSentScreen}
       options={{headerShown:false}}>
-    </Stack.Screen>
+    </Stack.Screen> */}
       <Stack.Screen
           name="Login"
           component={LoginScreen}
