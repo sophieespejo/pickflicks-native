@@ -21,20 +21,19 @@ import {
   import RightActions from './RightActions'
   import { GetUserByUsername, AddMWG } from '../../Service/DataService'
   
-  // type RootStackParamList = {
-  //     Home: undefined; //means route doesnt have params
-  //     Profile: { name: string };
-  //     Login: { name: string };
-  //     CreateAccount: undefined;
-  //     Loading: undefined;
-  //     Introduction: undefined;
-  //     UserDashboard: { username: string, userId: number };
-  //     InvitationSent: undefined;
-  //     MemberSearch: { username: string, userId: number },
+  type RootStackParamList = {
+      Home: undefined; //means route doesnt have params
+      Profile: { name: string };
+      Login: { name: string };
+      CreateAccount: undefined;
+      Loading: undefined;
+      Introduction: undefined;
+      UserDashboard: { username: string, userId: number };
+      InvitationSent: undefined;
+      MemberSearch: { username: string, userId: number },
 
-  //   };
+    };
   
-  // type Props = NativeStackScreenProps<RootStackParamList, "UserDashboard">;
 
   interface IMemberSearchTextInputComponent {
     username: string,
@@ -70,8 +69,7 @@ import {
       let result = await AddMWG(newMWG);
       if (result) {
         console.log("yay it worked")
-        // setDisplayOfYourMWG = GetAllCreatedMWGByUserId(userId);
-        // setDisplayOfMWGYourMemberOf = GetAllMWGAUserIsMemberOf(userId);
+        navigation.navigate("InvitationSent");
       }
     }
 

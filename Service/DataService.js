@@ -70,4 +70,17 @@ async function RemoveFavoriteMWG(userId, MWGId){
    return data;
 }
 
-export { AddUser, Login, GetUserByUsername, GetAllMWGAUserIsMemberOfuserId, AddFavoriteMWG, RemoveFavoriteMWG};
+async function AddMWG(newMWG){
+    let res= await fetch('https://pickflicksapi.azurewebsites.net/MWG/AddMWG', {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newMWG)
+    });
+    let data = await res.json();
+   return data;
+}
+
+
+export { AddUser, Login, GetUserByUsername, GetAllMWGAUserIsMemberOfuserId, AddFavoriteMWG, RemoveFavoriteMWG, AddMWG};;
