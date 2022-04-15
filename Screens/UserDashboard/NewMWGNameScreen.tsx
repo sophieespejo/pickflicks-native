@@ -13,15 +13,17 @@ import HeaderComponent from '../../Components/UserDashboard-Body/HeaderComponent
 type RootStackParamList = {
     Home: undefined; //means route doesnt have params
     Profile: { name : string };
-    Login: { name: string }
+    Login: { username: string, userId: number}
     CreateAccount: undefined,
     Loading: undefined,
     Introduction: undefined
     UserDashboard: undefined
+    NewMWGName: { username: string, userId: number}
+    MemberSearch: { username: string, userId: number, newMWGname: string  },
   }
   
   
-type Props = NativeStackScreenProps<RootStackParamList, 'UserDashboard'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'NewMWGName'>;
 
   
 
@@ -29,7 +31,9 @@ const NewMWGNameScreen: FC<Props> = ({navigation, route}) => {
     return (
         <View style={styles.container}>
             <JustLogoComponent/>
-            <NewMWGNameComponent/>
+            <Text>{route.params.username}</Text>
+            <Text>{route.params.userId}</Text>
+            <NewMWGNameComponent username={route.params.username} userId={route.params.userId} />
             <FooterNavComponent/>
         </View>
     )

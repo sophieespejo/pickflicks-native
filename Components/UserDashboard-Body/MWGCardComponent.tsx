@@ -8,17 +8,18 @@ import AppLoading from 'expo-app-loading';
 import { GetUserByUsername, GetAllMWGAUserIsMemberOfuserId, AddFavoriteMWG, RemoveFavoriteMWG } from '../../Service/DataService'
 
 interface IMWGCardComponent {
-  username: string
+  username: string,
+  userId: number
 }
 
 //map through MWG created according to userID/logged in user
-const MWGCardComponent: FC = ({username}) => {
+const MWGCardComponent: FC = ({username, userID}) => {
   const [allMWG, setAllMWG] = useState([]);
   const [allFaveMWG, setAllFaveMWG] = useState("")
 
   
   useEffect(  () => {
- 
+
       async function fetchUserData() {
       let response = await GetUserByUsername(username);
       setAllFaveMWG(response.favoritedMWGId);

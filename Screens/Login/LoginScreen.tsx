@@ -5,18 +5,20 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import PickFlicksLogo from '../../assets/logo.png';
 import { Button, HelperText } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { Login } from '../../Service/DataService';
+import { GetUserByUsername, Login } from '../../Service/DataService';
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 
 type RootStackParamList = {
     Home: undefined; //means route doesnt have params
-    UserDashboard: { username : string };
+    UserDashboard: { username: string, userId: number };
     Login: { name: string }
     CreateAccountScreen: undefined,
     Loading: undefined,
     Introduction: undefined
     AvatarScreen: { username: string }
+    MemberSearch: { username: string, userId: number },
+
 };
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
@@ -43,7 +45,9 @@ const LoginScreen : FC<Props> = ({ navigation }) => {
         console.log(fetchedToken);
 
         if (fetchedToken.token != null) {
-            navigation.navigate('UserDashboard', { username: username})
+            let userData = await GetUserByUsername(username);
+            let userId = userData.id;
+            navigation.navigate('UserDashboard', { username: username, userId: userId})
         } else {
             // Do something
         }

@@ -1,3 +1,5 @@
+import ICreateAccountDTO from "../interfaces/ICreateAccountDTO";
+
 let url = 'https://pickflicksapi.azurewebsites.net'
 
 async function AddUser(newUserData){
@@ -12,6 +14,21 @@ async function AddUser(newUserData){
    return data;
 }
 
+// async function AddUser(newUserData: ICreateAccountDTO){
+//     let res= await fetch(`${url}/User/AddUser`, {
+//         method: "POST",
+//         headers: {
+//             "Content-Type": "application/json"
+//         },
+//         body: JSON.stringify(newUserData)
+//     });
+//     let data = await res.json();
+//    return data;
+// }
+
+// interface Iuserdata{
+
+// }
 async function Login(userData){
     let res= await fetch(`${url}/User/Login`, {
         method: "POST",
@@ -47,4 +64,17 @@ async function EditUserIcon(userId, userIcon){
    return data;
 }
 
-export { AddUser, Login, GetUserByUsername, EditUserIcon };
+async function AddMWG(newMWG){
+    let res= await fetch('https://pickflicksapi.azurewebsites.net/MWG/AddMWG', {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newMWG)
+    });
+    let data = await res.json();
+   return data;
+}
+
+
+export { AddUser, Login, GetUserByUsername, GetAllMWGAUserIsMemberOfuserId, AddFavoriteMWG, RemoveFavoriteMWG, AddMWG};
