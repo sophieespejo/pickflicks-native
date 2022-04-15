@@ -180,19 +180,18 @@ import {
     text: {
       fontFamily: "Raleway_400Regular",
       fontSize: 22,
-      // width:'90%'
+      width:'80%',
       marginLeft:"5%",
       color:'#FFFFFF'
     },
     sendInvBtn: {
-      borderColor:'red',
       backgroundColor:'#E2DFDFDE',
       borderRadius:25,
       width:'90%',
       alignItems:'center',
       justifyContent:'center',
       marginTop:'5%',
-      height:'32%'
+      maxHeight:'92%'
     },
     btnText:{
       fontFamily: "Raleway_400Regular",
