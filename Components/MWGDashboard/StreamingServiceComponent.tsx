@@ -63,11 +63,20 @@ const HeaderComponent: FC = () => {
                 </View>
             </View>
 
-            <View style={[{ flex:0.5, alignItems: "center", justifyContent:'flex-end', alignItems:'flex-end'}]}>
-        <Button uppercase={false} title="button" color='#FFFFFF' mode="text" onPress={() => {navigation.navigate()}}>
-            <Text style={styles.nextBtn}>Next ></Text>
-        </Button>
+            <View style={{flexDirection:'row'}}>
+
+              <View style={[{ flex:0.5, alignItems: "center", alignItems:'flex-start'}]}>
+          <Button uppercase={false} title="button" color='#FFFFFF' mode="text" onPress={() => {navigation.navigate()}}>
+              <Text style={styles.nextBtn}> Cancel </Text>
+          </Button>
+              </View>
+              <View style={[{ flex:0.5, alignItems: "center", alignItems:'flex-end'}]}>
+          <Button uppercase={false} title="button" color='#FFFFFF' mode="text" onPress={() => {navigation.navigate()}}>
+              <Text style={styles.nextBtn}>Next ></Text>
+          </Button>
+              </View>
             </View>
+
 
         </View>
       </View>
@@ -86,6 +95,10 @@ const styles = StyleSheet.create({
       borderRadius:25,
       width:'90%',
       fontFamily:'Raleway_400Regular'
+  },
+  nextBtn:{
+    fontFamily: "Raleway_400Regular",
+    fontSize: 25
   }
 });
 
