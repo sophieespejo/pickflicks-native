@@ -12,6 +12,7 @@ import NewMWGNameScreen from './Screens/UserDashboard/NewMWGNameScreen';
 import MemberSearchScreen from './Screens/UserDashboard/MemberSearchScreen';
 import InvitationSentScreen from './Screens/UserDashboard/InvitationSentScreen';
 import AvatarScreen from './Screens/CreateAccount/AvatarScreen';
+import SelectStreamServiceScreen from './Screens/MWGDash/SelectStreamServiceScreen';
 
 
 type RootStackParamList = {
@@ -24,7 +25,8 @@ type RootStackParamList = {
   Introduction: undefined,
   NewMWGName: undefined,
   MemberSearch: undefined,
-  InvitationSent: undefined
+  InvitationSent: undefined,
+  SelectStreamingService: undefined
 }
 
 
@@ -34,12 +36,17 @@ const App:FC = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+      <Stack.Screen
+          name="SelectStreamingService"
+          component={SelectStreamServiceScreen}
+          options={{headerShown:false}}>
+        </Stack.Screen>
       {/* <Stack.Screen
       name="NewMWGName"
       component={NewMWGNameScreen}
       options={{headerShown:false}}>
     </Stack.Screen> */}
-      <Stack.Screen
+      {/* <Stack.Screen
       name="MemberSearch"
       component={MemberSearchScreen}
       options={{headerShown:false}}>
@@ -48,7 +55,7 @@ const App:FC = () => {
       name="InvitationSent"
       component={InvitationSentScreen}
       options={{headerShown:false}}>
-    </Stack.Screen>
+    </Stack.Screen> */}
       <Stack.Screen
           name="Login"
           component={LoginScreen}
