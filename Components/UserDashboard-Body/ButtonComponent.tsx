@@ -39,7 +39,6 @@ const ButtonComponent: FC<Props> = ({username, userId}) => {
 
   const navigation = useNavigation();
 
-  // const navigation = useNavigation();
 
 
   return (

@@ -47,7 +47,6 @@ const App:FC = () => {
       options={{headerShown:false}}>
     </Stack.Screen> */}
       {/* <Stack.Screen
-          <Stack.Screen
           name="Login"
           component={LoginScreen}
           options={{headerShown:false}}>
@@ -56,8 +55,8 @@ const App:FC = () => {
       name="NewMWGName"
       component={NewMWGNameScreen}
       options={{headerShown:false}}>
-    </Stack.Screen>
-      <Stack.Screen
+    </Stack.Screen> */}
+      {/* <Stack.Screen
       name="MemberSearch"
       component={MemberSearchScreen}
       options={{headerShown:false}}>
@@ -67,11 +66,11 @@ const App:FC = () => {
       component={InvitationSentScreen}
       options={{headerShown:false}}>
     </Stack.Screen> */}
-      <Stack.Screen
+      {/* <Stack.Screen
           name="Login"
           component={LoginScreen}
           options={{headerShown:false}}>
-        </Stack.Screen>
+        </Stack.Screen> */}
       <Stack.Screen
       name="Loading"
       component={LoadingScreen}

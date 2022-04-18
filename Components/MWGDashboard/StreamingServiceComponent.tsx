@@ -5,10 +5,15 @@ import headerLogo from "../../assets/headerLogo.png";
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 import DropDown from "react-native-paper-dropdown";
+import { Button } from "react-native-paper";
+import {useNavigation} from '@react-navigation/native';
+
   
 
 
 const HeaderComponent: FC = () => {
+    const navigation = useNavigation();
+
     const [streamingService, setStreamingSerivce] = useState("");
     const [showDropDown, setShowDropDown] = useState(false);
         const streamingList = [
@@ -56,6 +61,12 @@ const HeaderComponent: FC = () => {
                         list={streamingList}
                         />
                 </View>
+            </View>
+
+            <View style={[{ flex:0.5, alignItems: "center", justifyContent:'flex-end', alignItems:'flex-end'}]}>
+        <Button uppercase={false} title="button" color='#FFFFFF' mode="text" onPress={() => {navigation.navigate()}}>
+            <Text style={styles.nextBtn}>Next ></Text>
+        </Button>
             </View>
 
         </View>
