@@ -24,7 +24,7 @@ type RootStackParamList = {
   Introduction: undefined,
   NewMWGName: { username: string, userId: number },
   MemberSearch: { username: string, userId: number, newMWGname: string },
-  InvitationSent: undefined
+  InvitationSent: { username: string, userId: number};
 }
 
 

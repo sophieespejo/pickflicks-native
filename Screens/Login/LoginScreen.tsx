@@ -18,7 +18,6 @@ type RootStackParamList = {
     Introduction: undefined
     AvatarScreen: { username: string }
     MemberSearch: { username: string, userId: number },
-
 };
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;

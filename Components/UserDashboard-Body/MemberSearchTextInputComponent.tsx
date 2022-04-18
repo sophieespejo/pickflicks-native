@@ -9,7 +9,7 @@ import {
     TextInput,
     View,
     Image,
-    Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback, Button, Pressable, ScrollView, Animated
+    Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback, Pressable, ScrollView, Animated
   } from "react-native";
   // import { Button } from "react-native-paper";
   import { useFonts, Raleway_400Regular } from "@expo-google-fonts/raleway";
@@ -19,6 +19,7 @@ import {
   import X from '../../assets/X.png';
   import Swipeable from 'react-native-gesture-handler/Swipeable';
   import RightActions from './RightActions'
+  import { Button } from "react-native-paper";
   import { GetUserByUsername, AddMWG } from '../../Service/DataService'
   
   type RootStackParamList = {
@@ -29,7 +30,7 @@ import {
       Loading: undefined;
       Introduction: undefined;
       UserDashboard: { username: string, userId: number };
-      InvitationSent: undefined;
+      InvitationSent: { username: string, userId: number};
       MemberSearch: { username: string, userId: number },
 
     };
@@ -69,12 +70,8 @@ import {
       let result = await AddMWG(newMWG);
       if (result) {
         console.log("yay it worked")
-        navigation.navigate("InvitationSent");
+        navigation.navigate("InvitationSent", { username: username, userId: userId});
       }
-    }
-
-    const addSearchedName = () => {
-
     }
 
     const handleKeyPress= async () => {
@@ -94,6 +91,25 @@ import {
         alert('User does not exist')
       }
     }
+
+
+    const renderRightView = (progress, dragX) => {
+
+      const scale = dragX.interpolate({
+        inputRange: [-100, 0],
+        outputRange: [0.7, 0],
+        extrapolate: 'clamp'
+      })
+
+      return (
+        <Animated.View
+          style={{flex:0.4, margin: 0, transform: [{ scale }], alignContent: 'center', justifyContent: 'center', width:100}}
+        >
+          <Button mode='contained' color='red' onPress={(e) => {alert("delete")}} style={{height: '80%'}}><Text style={{fontSize:24}}>Delete</Text></Button>
+        </Animated.View>
+      )
+    }
+
 
     let [fontsLoaded] = useFonts({
       Raleway_400Regular,
@@ -132,7 +148,13 @@ import {
             {
               allSearchedNames.map((searchedName, i)=> {
                 return (
-                  <Swipeable renderRightActions={RightActions} key={i}>
+                  <Swipeable 
+                    // renderRightActions={RightActions} 
+                    renderRightActions={(progress, dragx) => renderRightView(progress, dragx)}
+                    // needs access to the rows to be able to close it
+                    rightOpenValue={-100}
+                    key={i}
+                    >
                     <View style={[{alignItems:'center', marginTop:'10%'}]}>
                       <View style={[{width:'80%', alignItems:'flex-start'}, styles.nameLine]}>
                         <Text style={[{color:'white'}, styles.btnText]}>{searchedName}</Text>

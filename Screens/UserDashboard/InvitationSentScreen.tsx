@@ -12,34 +12,36 @@ import SentInvitationsComponent from '../../Components/UserDashboard-Body/SentIn
 
 type RootStackParamList = {
   Home: undefined; //means route doesnt have params
-  UserDashboard: { name : string };
+  UserDashboard: { username : string, userId: number };
   Login: { name: string }
   CreateAccountScreen: undefined,
   Loading: undefined,
   Introduction: undefined,
   NewMWGName: undefined,
   MemberSearch: undefined,
-  InvitationSent: undefined
+  InvitationSent: { username: string, userId: number};
 }
 
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+  type Props = NativeStackScreenProps<RootStackParamList, 'InvitationSent'>;
 
   
 
 const InvitationSentScreen: FC<Props> = ({navigation, route}) => {
 
     return (
-      <Pressable style={styles.container} onPress={() => navigation.navigate('UserDashboard')}>
-        <SentInvitationsComponent/>
-      </Pressable>
+      <View style={styles.container}>
+        <Pressable style={{flex:1}} onPress={()=> navigation.navigate('UserDashboard', {username: route.params.username, userId: route.params.userId})}>
+          <SentInvitationsComponent/>
+        </Pressable>
+      </View>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#1E1A1A',
+      backgroundColor: 'green',
       fontFamily:'Raleway_400Regular', 
     },
   });
