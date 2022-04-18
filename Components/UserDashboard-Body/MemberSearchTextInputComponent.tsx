@@ -9,7 +9,7 @@ import {
     TextInput,
     View,
     Image,
-    Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback, Pressable, ScrollView, Animated
+    Keyboard, TouchableWithoutFeedback, Pressable, ScrollView, Animated
   } from "react-native";
   // import { Button } from "react-native-paper";
   import { useFonts, Raleway_400Regular } from "@expo-google-fonts/raleway";
@@ -32,7 +32,6 @@ import {
       UserDashboard: { username: string, userId: number };
       InvitationSent: { username: string, userId: number};
       MemberSearch: { username: string, userId: number },
-
     };
   
 
@@ -51,9 +50,18 @@ import {
   
     const navigation = useNavigation();
 
+    let row: Array<any> = [];
+    let prevOpenedRow;
+
+    const closeRow = (index) => {
+      console.log('closerow');
+      if (prevOpenedRow && prevOpenedRow !== row[index]) {
+        prevOpenedRow.close();
+      }
+      prevOpenedRow = row[index];
+    }
 
     const handleInvitations = async () => {
-        // navigation.navigate("InvitationSent")
         console.log(newMWGname);
         console.log(userId)
         mwgMembersId.push(userId);
@@ -80,10 +88,6 @@ import {
       if (foundUser != null && foundUser.id != 0) {
         allSearchedNames.push(searchedName);
         setAllSearchedNames([...allSearchedNames]);
-        // mwgMembersId.push(foundUser.id);
-        // mwgMembersNames.push(searchedName);
-        //setmwgMembersNames([...mwgMembersNames]);
-        console.log(allSearchedNames);
         mwgMembersId.push(foundUser.id);
         mwgMembersNames.push(searchedName);
         setmwgMembersNames([...mwgMembersNames]);
@@ -92,24 +96,28 @@ import {
       }
     }
 
+    const handleDeleteMember = async (searchedName, index ) => {
+      console.log(searchedName);
+      console.log(index)
+      let removedMemberNameIndex = mwgMembersNames.indexOf(searchedName);
+      console.log(removedMemberNameIndex);
+      mwgMembersNames.splice(removedMemberNameIndex, 1);
+      setmwgMembersNames([...mwgMembersNames]);
+      setAllSearchedNames([...mwgMembersNames]);
+      console.log(mwgMembersNames)
+      closeRow(index-1)
 
-    const renderRightView = (progress, dragX) => {
-
-      const scale = dragX.interpolate({
-        inputRange: [-100, 0],
-        outputRange: [0.7, 0],
-        extrapolate: 'clamp'
-      })
-
-      return (
-        <Animated.View
-          style={{flex:0.4, margin: 0, transform: [{ scale }], alignContent: 'center', justifyContent: 'center', width:100}}
-        >
-          <Button mode='contained' color='red' onPress={(e) => {alert("delete")}} style={{height: '80%'}}><Text style={{fontSize:24}}>Delete</Text></Button>
-        </Animated.View>
-      )
+      let foundUser = await GetUserByUsername(searchedName);
+      if (foundUser != null && foundUser.id != 0) {
+        let removedIdIndex = mwgMembersId.indexOf(foundUser.id);
+        console.log(removedIdIndex)
+        mwgMembersId.splice(removedIdIndex, 1);
+        setmwgMembersId([...mwgMembersId]);
+        console.log(mwgMembersId)
+      }else{
+        alert('User does not exist')
+      }
     }
-
 
     let [fontsLoaded] = useFonts({
       Raleway_400Regular,
@@ -144,16 +152,31 @@ import {
           {/* users */}
           <ScrollView style={{flex:1}}>
             <View style={{flex:1}}>
-
             {
-              allSearchedNames.map((searchedName, i)=> {
+              allSearchedNames.map((searchedName, index)=> {
+                const renderRightView = (progress, dragX) => {
+
+                  const scale = dragX.interpolate({
+                    inputRange: [-100, 0],
+                    outputRange: [0.7, 0],
+                    extrapolate: 'clamp'
+                  })
+            
+                  return (
+                    <Animated.View
+                      style={{flex:0.4, margin: 0, transform: [{ scale }], alignContent: 'center', justifyContent: 'center', width:100}}
+                    >
+                      <Button uppercase={false} mode='contained' color='red' onPress={() => handleDeleteMember(searchedName, index)} style={{height: '80%'}}><Text style={{fontSize:28, fontFamily: "Raleway_400Regular",}}>Remove</Text></Button>
+                    </Animated.View>
+                  )
+                }
                 return (
                   <Swipeable 
-                    // renderRightActions={RightActions} 
                     renderRightActions={(progress, dragx) => renderRightView(progress, dragx)}
-                    // needs access to the rows to be able to close it
+                    ref={(ref) => (row[index] = ref)}
+                    onSwipeableOpen={() => closeRow(index)}
                     rightOpenValue={-100}
-                    key={i}
+                    key={index}
                     >
                     <View style={[{alignItems:'center', marginTop:'10%'}]}>
                       <View style={[{width:'80%', alignItems:'flex-start'}, styles.nameLine]}>
@@ -164,23 +187,16 @@ import {
                 )
               })
             }
-
-      
-
-          </View>
-          <View style={{alignItems:'center', marginTop:'8%'}}>
-          <View style={styles.sendInvBtn}>
-            <Pressable onPress={handleInvitations}>
-              <Text style={styles.btnText}>Send Invitations</Text>
-            </Pressable>
-          </View>
-          </View>
+            </View>
+            <View style={{alignItems:'center', marginTop:'8%'}}>
+              <View style={styles.sendInvBtn}>
+                <Pressable onPress={handleInvitations}>
+                  <Text style={styles.btnText}>Send Invitations</Text>
+                </Pressable>
+              </View>
+            </View>
           </ScrollView>
-
-        
-
         </View>
-
        </View>
     );
   };
