@@ -65,8 +65,9 @@ const CreateAccountScreen : FC<Props> = ({ navigation }) => {
     const handleCreateAccount = async () => {
         if (passwodsVerified) {
             let newUserData = {
-                username: username,
-                password: veryifyPassowrd2
+                Id:0,
+                Username: username,
+                Password: veryifyPassowrd2
             };
             console.log(newUserData);
             let result = await AddUser(newUserData);
