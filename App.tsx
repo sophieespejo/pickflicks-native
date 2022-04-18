@@ -23,10 +23,10 @@ type RootStackParamList = {
   Loading: undefined,
   AvatarScreen: undefined
   Introduction: undefined,
-  InvitationSent: undefined,
   SelectStreamingService: undefined
   NewMWGName: { username: string, userId: number },
   MemberSearch: { username: string, userId: number, newMWGname: string },
+  InvitationSent: { username: string, userId: number};
 }
 
 

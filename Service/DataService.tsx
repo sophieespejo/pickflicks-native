@@ -1,6 +1,10 @@
+import ICreateAccountDTO from "../interfaces/ICreateAccountDTO";
+import ILoginDTO from "../interfaces/ILoginDTO";
+import IMWGModel from "../interfaces/IMWGModel";
+
 let url = 'https://pickflicksapi.azurewebsites.net'
 
-async function AddUser(newUserData){
+async function AddUser(newUserData: ICreateAccountDTO){
     let res= await fetch(`${url}/User/AddUser`, {
         method: "POST",
         headers: {
@@ -12,7 +16,7 @@ async function AddUser(newUserData){
    return data;
 }
 
-async function Login(userData){
+async function Login(userData: ILoginDTO){
     let res= await fetch(`${url}/User/Login`, {
         method: "POST",
         headers: {
@@ -24,7 +28,7 @@ async function Login(userData){
    return data;
 }
 
-async function GetUserByUsername(username){
+async function GetUserByUsername(username:string){
     let res = await fetch('https://pickflicksapi.azurewebsites.net/User/GetUserByUsername/' + (username));
     if(!res.ok)
     {
@@ -35,7 +39,7 @@ async function GetUserByUsername(username){
     return data;
 }
 
-async function GetAllMWGAUserIsMemberOfuserId(userId){
+async function GetAllMWGAUserIsMemberOfuserId(userId:number){
     let res = await fetch('https://pickflicksapi.azurewebsites.net/MWG/GetAllMWGAUserIsMemberOf/' + (userId));
     if(!res.ok)
     {
@@ -46,31 +50,31 @@ async function GetAllMWGAUserIsMemberOfuserId(userId){
     return data;
 }
 
-async function AddFavoriteMWG(userId, MWGId){
+async function AddFavoriteMWG(userId:number, MWGId:number){
     let res= await fetch(`${url}/User/AddFavoriteMWG/${userId}/${MWGId}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify()
+        body: JSON.stringify(null)
     });
     let data = await res.json();
    return data;
 }
 
-async function RemoveFavoriteMWG(userId, MWGId){
+async function RemoveFavoriteMWG(userId:number, MWGId:number){
     let res= await fetch(`${url}/User/RemoveFavoriteMWG/${userId}/${MWGId}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify()
+        body: JSON.stringify(null)
     });
     let data = await res.json();
    return data;
 }
 
-async function AddMWG(newMWG){
+async function AddMWG(newMWG: IMWGModel){
     let res= await fetch('https://pickflicksapi.azurewebsites.net/MWG/AddMWG', {
         method: "POST",
         headers: {

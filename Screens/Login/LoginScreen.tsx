@@ -18,7 +18,6 @@ type RootStackParamList = {
     Introduction: undefined
     AvatarScreen: { username: string }
     MemberSearch: { username: string, userId: number },
-
 };
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
@@ -109,6 +108,7 @@ const LoginScreen : FC<Props> = ({ navigation }) => {
                             selectionColor={'white'}
                             textAlign={'center'}
                             textContentType={'name'}
+                            secureTextEntry={true}
                             onChangeText={(e) => setPassword(e)}
                             value={password}
                         />
