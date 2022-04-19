@@ -28,6 +28,7 @@ type RootStackParamList = {
     ChooseGenres : undefined,
     GenreRanking: undefined,
     MovieCard : undefined,
+    FinalMovie : undefined,
 
   }
 

@@ -8,6 +8,7 @@ import HeaderComponent from '../../Components/MWGDashboard/HeaderComponent';
 import StreamingServiceComponent from '../../Components/MWGDashboard/StreamingServiceComponent';
 import FooterNavComponent from '../../Components/UserDashboard-Body/FooterNavComponent';
 import GenreSelectionComponent from '../../Components/MWGDashboard/GenreSelectionComponent';
+import FinalMovieCardComponent from '../../Components/MWGDashboard/FinalMovieCardComponent';
 import { Provider as PaperProvider } from 'react-native-paper';
 
 
@@ -29,23 +30,24 @@ type RootStackParamList = {
     GenreRanking: undefined,
     MovieCard : undefined,
     FinalMovie : undefined,
+
   }
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Introduction'>;
 
-const ChooseGenresScreen: FC<Props> = ({navigation}) => {
+const FinalMovieScreen: FC<Props> = ({navigation}) => {
 
 
     return (
         <View style={styles.container}>
             <HeaderComponent/>
-            <GenreSelectionComponent/>
+            <FinalMovieCardComponent/>
             <FooterNavComponent/>
         </View>
     )
 }
 
-export default ChooseGenresScreen;
+export default FinalMovieScreen;
 
 const styles = StyleSheet.create({
     container:{

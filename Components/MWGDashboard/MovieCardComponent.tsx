@@ -25,7 +25,7 @@ const MovieCardComponent: FC = () => {
   return (
       <View style={{flex: 1, alignItems:'center'}}>
         <View style={{ flex: 1, backgroundColor:'#4D4A4A', borderRadius:30, width:'92%', marginTop:'8%', marginBottom:'8%', justifyContent:'center', 
-                    borderWidth: 3, borderRightColor:'#1BDC62C4', borderLeftColor:'#DC1B21', borderTopColor:'#DC1B21', borderBottomColor:'#1BDC62C4'}}>
+                    borderWidth: 3, borderRightColor:'#1BDC62C4', borderLeftColor:'#DC1B21', borderTopColor:'#1BDC62C4', borderBottomColor:'#DC1B21'}}>
            
 
 

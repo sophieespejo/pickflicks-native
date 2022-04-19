@@ -26,6 +26,8 @@ type RootStackParamList = {
   InvitationSent: { username: string, userId: number};
   ChooseGenres : undefined,
   GenreRanking: undefined,
+  FinalMovie : undefined,
+
 }
 
 
