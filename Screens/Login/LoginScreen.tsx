@@ -8,6 +8,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { GetUserByUsername, Login } from '../../Service/DataService';
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
+import { useToast } from 'native-base';
 
 type RootStackParamList = {
     Home: undefined; //means route doesnt have params
@@ -26,6 +27,8 @@ const LoginScreen : FC<Props> = ({ navigation }) => {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+
+    const toast = useToast();
 
     useEffect( () => {
         // const fetch = async () => {
@@ -49,6 +52,10 @@ const LoginScreen : FC<Props> = ({ navigation }) => {
             navigation.navigate('UserDashboard', { username: username, userId: userId})
         } else {
             // Do something
+            toast.show({
+                title: "Username and/or password is incorrect. Please try again",
+                placement: "bottom"
+            })
         }
     };
 
