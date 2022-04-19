@@ -46,8 +46,6 @@ const ButtonComponent: FC<Props> = ({username, userId}) => {
     <View style={{flex:1, marginTop:'5%', marginBottom: '3%', alignItems:'center'}}>
       <Pressable style={{width:'90%', marginBottom:'3%'}} onPress={() => navigation.navigate('NewMWGName',{ username: username, userId: userId})}>
         <View style={styles.wgButton}>
-          <Text>{username}</Text>
-          <Text>{userId}</Text>
           <Image source={MovieClipper}></Image>
           <Text style={{color:'#383333', fontSize:20, paddingLeft:60, justifyContent:'center', textAlign:'center', fontFamily:'Raleway_400Regular'}}>Create new {"\n"}Watch Group</Text>
         </View>

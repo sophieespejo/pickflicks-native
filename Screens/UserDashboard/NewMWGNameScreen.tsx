@@ -31,8 +31,6 @@ const NewMWGNameScreen: FC<Props> = ({navigation, route}) => {
     return (
         <View style={styles.container}>
             <JustLogoComponent/>
-            <Text>{route.params.username}</Text>
-            <Text>{route.params.userId}</Text>
             <NewMWGNameComponent username={route.params.username} userId={route.params.userId} />
             <FooterNavComponent/>
         </View>
