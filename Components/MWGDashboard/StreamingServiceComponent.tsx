@@ -11,7 +11,7 @@ import {useNavigation} from '@react-navigation/native';
   
 
 
-const HeaderComponent: FC = () => {
+const StreamingServiceComponent: FC = () => {
     const navigation = useNavigation();
 
     const [streamingService, setStreamingSerivce] = useState("");
@@ -67,7 +67,7 @@ const HeaderComponent: FC = () => {
 
               <View style={[{ flex:0.5, alignItems: "center", alignItems:'flex-start'}]}>
           <Button uppercase={false} title="button" color='#FFFFFF' mode="text" onPress={() => {navigation.navigate()}}>
-              <Text style={styles.nextBtn}> Cancel </Text>
+              <Text style={styles.nextBtn}> {'\<'} Cancel </Text>
           </Button>
               </View>
               <View style={[{ flex:0.5, alignItems: "center", alignItems:'flex-end'}]}>
@@ -102,4 +102,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default HeaderComponent;
+export default StreamingServiceComponent;
