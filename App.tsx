@@ -17,6 +17,7 @@ import ChooseGenresScreen from './Screens/MWGDash/ChooseGenresScreen';
 import GenreRankingScreen from './Screens/MWGDash/GenreRankingScreen';
 import MovieCardScreen from './Screens/MWGDash/MovieCardScreen';
 import FinalMovieScreen from './Screens/MWGDash/FinalMovieScreen';
+import MWGDashboardScreen from './Screens/MWGDash/MWGDashboardScreen';
 
 
 type RootStackParamList = {
@@ -35,6 +36,7 @@ type RootStackParamList = {
   GenreRanking: undefined,
   MovieCard : undefined,
   FinalMovie : undefined,
+  MWGDashboard : undefined,
 }
 
 
@@ -45,10 +47,15 @@ const App:FC = () => {
     <NavigationContainer>
       <Stack.Navigator>
       <Stack.Screen
+          name="MWGDashboard"
+          component={MWGDashboardScreen}
+          options={{headerShown:false}}>
+        </Stack.Screen>
+      {/* <Stack.Screen
           name="FinalMovie"
           component={FinalMovieScreen}
           options={{headerShown:false}}>
-        </Stack.Screen>
+        </Stack.Screen> */}
       {/* <Stack.Screen
           name="MovieCard"
           component={MovieCardScreen}
