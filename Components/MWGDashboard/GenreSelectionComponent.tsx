@@ -1,16 +1,20 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { FC, useState } from "react";
-import { StyleSheet, Text, View, Image, TextInput} from "react-native";
+import { StyleSheet, Text, View, Image, TextInput, Dimensions } from "react-native";
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 import { Button } from "react-native-paper";
 import {useNavigation} from '@react-navigation/native';
+import BubbleSelect, { Bubble } from 'react-native-bubble-select';
+
 
   
 
 
 const GenreSelectionComponent: FC = () => {
     const navigation = useNavigation();
+    const { width, height } = Dimensions.get('window');
+
 
   let [fontsLoaded] = useFonts({
     Raleway_400Regular,
@@ -30,7 +34,17 @@ const GenreSelectionComponent: FC = () => {
 
 
             <View style={{flex:1, alignItems:'center'}}>
-                {/* Bubbles? */}
+            <BubbleSelect
+            onSelect={bubble => console.log('Selected: ', bubble.id)}
+            onDeselect={bubble => console.log('Deselected: ', bubble.id)}
+            width={width}
+            height={height}
+          >
+            <Bubble id="bubble-1" text="Bubble One" />
+            <Bubble id="bubble-2" text="Bubble Two" />
+            <Bubble id="bubble-3" text="Bubble Three" />
+            <Bubble id="bubble-4" text="Bubble Four" />
+          </BubbleSelect>
             </View>
 
 

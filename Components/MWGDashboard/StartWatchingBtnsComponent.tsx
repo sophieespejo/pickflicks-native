@@ -42,7 +42,7 @@ const StartWatchingBtnsComponent: FC<Props> = ({username, userId}) => {
 
 
   return (
-    <ScrollView contentContainerStyle={{flex:1}}>
+    <ScrollView contentContainerStyle={[{flex:1}]}>
         <View style={{flex:1, marginTop:'5%', alignItems:'center', backgroundColor:'yellow'}}>
             <Pressable style={{width:'90%'}} onPress={() => navigation.navigate}>
                 <View style={styles.wgButton}>
@@ -105,9 +105,7 @@ const StartWatchingBtnsComponent: FC<Props> = ({username, userId}) => {
         </View>
         
 
-        {/* <View style={{flex:2, marginTop:'3%', alignItems:'center'}}> */}
             <MemberSearchTextInputComponent/>
-        {/* </View> */}
 
     </ScrollView>
   );
@@ -116,6 +114,9 @@ const StartWatchingBtnsComponent: FC<Props> = ({username, userId}) => {
 export default StartWatchingBtnsComponent;
 
 const styles = StyleSheet.create({
+    container:{
+        backgroundColor:'green'
+    },
   wgButton: {
     flexDirection: "row",
     borderWidth: 2,

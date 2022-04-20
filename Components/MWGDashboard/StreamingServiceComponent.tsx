@@ -7,6 +7,8 @@ import AppLoading from 'expo-app-loading';
 import DropDown from "react-native-paper-dropdown";
 import { Button } from "react-native-paper";
 import {useNavigation} from '@react-navigation/native';
+import { Radio, FormControl, WarningOutlineIcon } from "native-base";
+
 
   
 
@@ -16,20 +18,23 @@ const StreamingServiceComponent: FC = () => {
 
     const [streamingService, setStreamingSerivce] = useState("");
     const [showDropDown, setShowDropDown] = useState(false);
-        const streamingList = [
-        {
-          label: "Netflix",
-          value: "Netflix",
-        },
-        {
-          label: "Hulu",
-          value: "Hulu",
-        },
-        {
-          label: "HBO Max",
-          value: "HBO Max",
-        },
-      ];
+
+    const [value, setValue] = useState("");
+
+      //   const streamingList = [
+      //   {
+      //     label: "Netflix",
+      //     value: "Netflix",
+      //   },
+      //   {
+      //     label: "Hulu",
+      //     value: "Hulu",
+      //   },
+      //   {
+      //     label: "HBO Max",
+      //     value: "HBO Max",
+      //   },
+      // ];
 
   let [fontsLoaded] = useFonts({
     Raleway_400Regular,
@@ -47,8 +52,35 @@ const StreamingServiceComponent: FC = () => {
                 <Text style={styles.titleTxt}>Select Your  {'\n'} Streaming Service</Text>
             </View>
 
-            <View style={{flex:1, alignItems:'center'}}>       
-                <View style={styles.Dropdown}>
+            <View style={{flex:3, alignItems:'center', width:'100%', justifyContent:'center'}}>
+              <Radio.Group name="myRadioGroup" accessibilityLabel="Streaming Services" value={value} onChange={nextValue => {
+                setValue(nextValue);
+              }}> 
+              
+              <View style={{flexDirection:'row', height:'70%', justifyContent:'space-evenly', width:'100%'}}>
+
+              <View style={{justifyContent:'space-evenly'}}>
+                  <Radio value="Netflix" colorScheme="gray" size="lg" my={1}>
+                  <Text style={styles.radioText}>Netflix</Text>
+                  </Radio>
+                  <Radio value="Hulu" colorScheme="gray" size="lg" my={1}>
+                  <Text style={styles.radioText}>Hulu</Text>
+                  </Radio>
+              </View>
+
+              <View style={{justifyContent:'space-evenly'}}>
+                  <Radio value="HBO Max" colorScheme="gray" size="lg" my={1}>
+                  <Text style={styles.radioText}>HBO Max</Text>
+                  </Radio>
+                  <Radio value="Disney+" colorScheme="gray" size="lg" my={1}>
+                  <Text style={styles.radioText}>Disney+</Text>
+                  </Radio>
+              </View>
+
+              </View>
+              
+              </Radio.Group>
+                {/* <View style={styles.Dropdown}>
                     <DropDown
                     style={{fontFamily:'Raleway_400Regular'}}
                         label={"Streaming Services"}
@@ -60,7 +92,7 @@ const StreamingServiceComponent: FC = () => {
                         setValue={setStreamingSerivce}
                         list={streamingList}
                         />
-                </View>
+                </View> */}
             </View>
 
             <View style={{flexDirection:'row'}}>
@@ -99,7 +131,12 @@ const styles = StyleSheet.create({
   nextBtn:{
     fontFamily: "Raleway_400Regular",
     fontSize: 25
-  }
+  },
+  radioText:{
+    fontFamily: "Raleway_400Regular",
+    fontSize: 25,
+    color: '#FFFFFF'
+  },
 });
 
 export default StreamingServiceComponent;

@@ -9,6 +9,7 @@ import StreamingServiceComponent from '../../Components/MWGDashboard/StreamingSe
 import FooterNavComponent from '../../Components/UserDashboard-Body/FooterNavComponent';
 import SelectedGenreComponent from '../../Components/MWGDashboard/SelectedGenreComponent';
 import { Provider as PaperProvider } from 'react-native-paper';
+import { NativeBaseProvider } from "native-base";
 
 
 
@@ -38,11 +39,13 @@ const GenreRankingScreen: FC<Props> = ({navigation}) => {
 
 
     return (
-        <View style={styles.container}>
-            <HeaderComponent/>
-            <SelectedGenreComponent/>
-            <FooterNavComponent/>
-        </View>
+        <NativeBaseProvider>
+          <View style={styles.container}>
+              <HeaderComponent/>
+              <SelectedGenreComponent/>
+              <FooterNavComponent/>
+          </View>
+        </NativeBaseProvider>
     )
 }
 

@@ -46,11 +46,11 @@ const App:FC = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-      <Stack.Screen
+      {/* <Stack.Screen
           name="MWGDashboard"
           component={MWGDashboardScreen}
           options={{headerShown:false}}>
-        </Stack.Screen>
+        </Stack.Screen> */}
       {/* <Stack.Screen
           name="FinalMovie"
           component={FinalMovieScreen}
@@ -66,11 +66,11 @@ const App:FC = () => {
           component={GenreRankingScreen}
           options={{headerShown:false}}>
         </Stack.Screen> */}
-      {/* <Stack.Screen
+      <Stack.Screen
           name="ChooseGenres"
           component={ChooseGenresScreen}
           options={{headerShown:false}}>
-        </Stack.Screen> */}
+        </Stack.Screen>
       {/* <Stack.Screen
           name="SelectStreamingService"
           component={SelectStreamServiceScreen}

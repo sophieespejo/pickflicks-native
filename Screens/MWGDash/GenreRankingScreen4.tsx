@@ -7,10 +7,9 @@ import RedLogo from '../assets/RedLogo.png';
 import HeaderComponent from '../../Components/MWGDashboard/HeaderComponent';
 import StreamingServiceComponent from '../../Components/MWGDashboard/StreamingServiceComponent';
 import FooterNavComponent from '../../Components/UserDashboard-Body/FooterNavComponent';
-import GenreSelectionComponent from '../../Components/MWGDashboard/GenreSelectionComponent';
-import MovieCardComponent from '../../Components/MWGDashboard/MovieCardComponent';
-import StartWatchingBtnsComponent from '../../Components/MWGDashboard/StartWatchingBtnsComponent';
+import SelectedGenreComponent from '../../Components/MWGDashboard/SelectedGenreComponent';
 import { Provider as PaperProvider } from 'react-native-paper';
+import { NativeBaseProvider } from "native-base";
 
 
 
@@ -30,29 +29,32 @@ type RootStackParamList = {
     ChooseGenres : undefined,
     GenreRanking: undefined,
     MovieCard : undefined,
+    FinalMovie : undefined,
 
   }
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Introduction'>;
 
-const MWGDashboardScreen: FC<Props> = ({navigation}) => {
+const GenreRankingScreen2: FC<Props> = ({navigation}) => {
 
 
     return (
-        <View style={styles.container}>
-            <HeaderComponent/>
-            <StartWatchingBtnsComponent/>
-            <FooterNavComponent/>
-        </View>
+        <NativeBaseProvider>
+          <View style={styles.container}>
+              <HeaderComponent/>
+              <SelectedGenreComponent/>
+              <FooterNavComponent/>
+          </View>
+        </NativeBaseProvider>
     )
 }
 
-export default MWGDashboardScreen;
+export default GenreRankingScreen2;
 
 const styles = StyleSheet.create({
     container:{
       flex:1,
-      backgroundColor: '#1E1A1A',
+      backgroundColor: '#1E1A1A'
     },
   });
   
