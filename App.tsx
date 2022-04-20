@@ -16,11 +16,16 @@ import SelectStreamServiceScreen from './Screens/MWGDash/SelectStreamServiceScre
 import ChooseGenresScreen from './Screens/MWGDash/ChooseGenresScreen';
 import GenreRankingScreen from './Screens/MWGDash/GenreRankingScreen';
 import MovieCardScreen from './Screens/MWGDash/MovieCardScreen';
+import {NativeBaseProvider } from 'native-base'
+import UserContext from './Context/UserContext'
+import UseUser from './Hooks/use-user'
+import MWGDashboard from './Screens/MWGDash/MWGdashboardScreen'
 
 
 type RootStackParamList = {
   Home: undefined; //means route doesnt have params
-  UserDashboard: { username: string, userId: number }
+    //UserDashboard: { username: string, userId: number };
+    UserDashboard: undefined;
   Login: { name: string }
   CreateAccountScreen: undefined,
   Loading: undefined,
@@ -33,6 +38,8 @@ type RootStackParamList = {
   ChooseGenres : undefined,
   GenreRanking: undefined,
   MovieCard : undefined,
+  InvitationSent: { username: string, userId: number};
+  MWGDashboard: undefined;
 }
 
 
@@ -40,6 +47,8 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const App:FC = () => {
   return (
+<UserContext.Provider value={UseUser()}>
+<NativeBaseProvider>
     <NavigationContainer>
       <Stack.Navigator>
       <Stack.Screen
@@ -98,28 +107,61 @@ const App:FC = () => {
       options={{headerShown:false}}>
     </Stack.Screen>
             <Stack.Screen
-    name="Introduction"
-    component={IntroductionScreen}
-    options={{headerShown: false}}
-    >
-  </Stack.Screen>
+            name="Login"
+            component={LoginScreen}
+            options={{headerShown:false}}>
+          </Stack.Screen>
+          <Stack.Screen
+            name="UserDashboard"
+            component={UserDashboardScreen}
+            options={{headerShown:false}}>
+          </Stack.Screen>
+          <Stack.Screen
+        name="NewMWGName"
+        component={NewMWGNameScreen}
+        options={{headerShown:false}}>
+      </Stack.Screen>
         <Stack.Screen
-          name="CreateAccountScreen"
-          component={CreateAccountScreen}
-          options={{headerShown:false}}>
-        </Stack.Screen>
+        name="MemberSearch"
+        component={MemberSearchScreen}
+        options={{headerShown:false}}>
+      </Stack.Screen>
         <Stack.Screen
-          name="AvatarScreen"
-          component={AvatarScreen}
-          options={{headerShown:false}}>
-        </Stack.Screen>
+        name="InvitationSent"
+        component={InvitationSentScreen}
+        options={{headerShown:false}}>
+      </Stack.Screen> 
         <Stack.Screen
-          name="UserDashboard"
-          component={UserDashboardScreen}
-          options={{headerShown:false}}>
-        </Stack.Screen>
-      </Stack.Navigator>
-    </NavigationContainer>
+        name="Loading"
+        component={LoadingScreen}
+        options={{headerShown:false}}>
+      </Stack.Screen>
+              <Stack.Screen
+      name="Introduction"
+      component={IntroductionScreen}
+      options={{headerShown: false}}
+      >
+    </Stack.Screen>
+          <Stack.Screen
+            name="CreateAccountScreen"
+            component={CreateAccountScreen}
+            options={{headerShown:false}}>
+          </Stack.Screen>
+          <Stack.Screen
+            name="MWGDashboard"
+            component={MWGDashboard}
+            options={{headerShown:false}}>
+          </Stack.Screen>
+          <Stack.Screen
+            name="AvatarScreen"
+            component={AvatarScreen}
+            options={{headerShown:false}}>
+          </Stack.Screen>
+        </Stack.Navigator>
+        </NavigationContainer>
+      </NativeBaseProvider>
+    </UserContext.Provider>
+
   );
 }
 

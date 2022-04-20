@@ -1,11 +1,12 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { FC } from "react";
+import { FC, useContext, useEffect } from "react";
 import { StyleSheet, Text, View, Image, TextInput, Pressable } from "react-native";
 import headerLogo from "../../assets/headerLogo.png";
 import MovieClipper from "../../assets/MovieClipper.png";
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
+
 
 
 interface IButtonComponent {
@@ -27,8 +28,12 @@ interface IButtonComponent {
     };
   
   type Props = NativeStackScreenProps<RootStackParamList, "UserDashboard">;
+  
+  const ButtonComponent: FC<Props> = () => {
+  const navigation = useNavigation();
 
-const ButtonComponent: FC<Props> = ({username, userId}) => {
+  
+
   let [fontsLoaded] = useFonts({
     Raleway_400Regular,
   });
@@ -37,7 +42,6 @@ const ButtonComponent: FC<Props> = ({username, userId}) => {
     return <AppLoading />;
   }
 
-  const navigation = useNavigation();
 
 
 
@@ -45,8 +49,6 @@ const ButtonComponent: FC<Props> = ({username, userId}) => {
     <View style={{flex:1, marginTop:'5%', marginBottom: '3%', alignItems:'center'}}>
       <Pressable style={{width:'90%', marginBottom:'3%'}} onPress={() => navigation.navigate('NewMWGName',{ username: username, userId: userId})}>
         <View style={styles.wgButton}>
-          <Text>{username}</Text>
-          <Text>{userId}</Text>
           <Image source={MovieClipper}></Image>
           <Text style={{color:'#383333', fontSize:20, paddingLeft:60, justifyContent:'center', textAlign:'center', fontFamily:'Raleway_400Regular'}}>Create new {"\n"}Watch Group</Text>
         </View>
