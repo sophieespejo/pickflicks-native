@@ -1,11 +1,12 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { FC } from "react";
+import { FC, useContext, useEffect } from "react";
 import { StyleSheet, Text, View, Image, TextInput, Pressable } from "react-native";
 import headerLogo from "../../assets/headerLogo.png";
 import MovieClipper from "../../assets/MovieClipper.png";
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
+
 
 
 interface IButtonComponent {
@@ -27,8 +28,12 @@ interface IButtonComponent {
     };
   
   type Props = NativeStackScreenProps<RootStackParamList, "UserDashboard">;
+  
+  const ButtonComponent: FC<Props> = () => {
+  const navigation = useNavigation();
 
-const ButtonComponent: FC<Props> = ({username, userId}) => {
+  
+
   let [fontsLoaded] = useFonts({
     Raleway_400Regular,
   });
@@ -37,7 +42,6 @@ const ButtonComponent: FC<Props> = ({username, userId}) => {
     return <AppLoading />;
   }
 
-  const navigation = useNavigation();
 
   // const navigation = useNavigation();
 

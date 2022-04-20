@@ -13,11 +13,15 @@ import MemberSearchScreen from './Screens/UserDashboard/MemberSearchScreen';
 import InvitationSentScreen from './Screens/UserDashboard/InvitationSentScreen';
 import AvatarScreen from './Screens/CreateAccount/AvatarScreen';
 import {NativeBaseProvider } from 'native-base'
+import UserContext from './Context/UserContext'
+import UseUser from './Hooks/use-user'
+import MWGDashboard from './Screens/MWGDash/MWGdashboardScreen'
 
 
 type RootStackParamList = {
   Home: undefined; //means route doesnt have params
-  UserDashboard: { username: string, userId: number }
+    //UserDashboard: { username: string, userId: number };
+    UserDashboard: undefined;
   Login: { name: string }
   CreateAccountScreen: undefined,
   Loading: undefined,
@@ -26,6 +30,7 @@ type RootStackParamList = {
   NewMWGName: { username: string, userId: number },
   MemberSearch: { username: string, userId: number, newMWGname: string },
   InvitationSent: { username: string, userId: number};
+  MWGDashboard: undefined;
 }
 
 
@@ -33,12 +38,18 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const App:FC = () => {
   return (
-    <NativeBaseProvider>
-      <NavigationContainer>
+    <UserContext.Provider value={UseUser()}>
+      <NativeBaseProvider>
+        <NavigationContainer>
         <Stack.Navigator>
             <Stack.Screen
             name="Login"
             component={LoginScreen}
+            options={{headerShown:false}}>
+          </Stack.Screen>
+          <Stack.Screen
+            name="UserDashboard"
+            component={UserDashboardScreen}
             options={{headerShown:false}}>
           </Stack.Screen>
           <Stack.Screen
@@ -73,19 +84,20 @@ const App:FC = () => {
             options={{headerShown:false}}>
           </Stack.Screen>
           <Stack.Screen
+            name="MWGDashboard"
+            component={MWGDashboard}
+            options={{headerShown:false}}>
+          </Stack.Screen>
+          <Stack.Screen
             name="AvatarScreen"
             component={AvatarScreen}
             options={{headerShown:false}}>
           </Stack.Screen>
-          <Stack.Screen
-            name="UserDashboard"
-            component={UserDashboardScreen}
-            options={{headerShown:false}}>
-          </Stack.Screen>
         </Stack.Navigator>
-      </NavigationContainer>
+        </NavigationContainer>
+      </NativeBaseProvider>
+    </UserContext.Provider>
 
-    </NativeBaseProvider>
   );
 }
 
