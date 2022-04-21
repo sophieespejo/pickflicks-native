@@ -1,4 +1,4 @@
-import { FC, useState, useCallback, useEffect } from 'react';
+import { FC, useState, useCallback, useEffect, useContext } from 'react';
 import { StyleSheet, View, Image, Text, TextInput, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -9,10 +9,11 @@ import { GetUserByUsername, Login } from '../../Service/DataService';
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 import { useToast } from 'native-base';
+import UserContext from '../../Context/UserContext';
 
 type RootStackParamList = {
     Home: undefined; //means route doesnt have params
-    UserDashboard: { username: string, userId: number };
+    UserDashboard: undefined;
     Login: { name: string }
     CreateAccountScreen: undefined,
     Loading: undefined,
@@ -24,8 +25,7 @@ type RootStackParamList = {
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 
 const LoginScreen : FC<Props> = ({ navigation }) => {
-
-    const [username, setUsername] = useState('');
+    let { username, setUsername, userId, setUserId, userIcon, setUserIcon } = useContext(UserContext);
     const [password, setPassword] = useState('');
 
     const toast = useToast();
@@ -42,14 +42,15 @@ const LoginScreen : FC<Props> = ({ navigation }) => {
             Username: username,
             Password: password
         };
-
+        setUsername(username);
         let fetchedToken = await Login(userData);
         console.log(fetchedToken);
 
         if (fetchedToken.token != null) {
             let userData = await GetUserByUsername(username);
             let userId = userData.id;
-            navigation.navigate('UserDashboard', { username: username, userId: userId})
+            setUserId(userData.id);
+            navigation.navigate('UserDashboard')
         } else {
             // Do something
             toast.show({

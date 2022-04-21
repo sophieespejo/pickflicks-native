@@ -52,6 +52,11 @@ const App:FC = () => {
     <NavigationContainer>
       <Stack.Navigator>
       <Stack.Screen
+            name="Login"
+            component={LoginScreen}
+            options={{headerShown:false}}>
+          </Stack.Screen>
+      <Stack.Screen
           name="MovieCard"
           component={MovieCardScreen}
           options={{headerShown:false}}>
@@ -106,11 +111,6 @@ const App:FC = () => {
       component={LoadingScreen}
       options={{headerShown:false}}>
     </Stack.Screen>
-            <Stack.Screen
-            name="Login"
-            component={LoginScreen}
-            options={{headerShown:false}}>
-          </Stack.Screen>
           <Stack.Screen
             name="UserDashboard"
             component={UserDashboardScreen}
@@ -131,11 +131,6 @@ const App:FC = () => {
         component={InvitationSentScreen}
         options={{headerShown:false}}>
       </Stack.Screen> 
-        <Stack.Screen
-        name="Loading"
-        component={LoadingScreen}
-        options={{headerShown:false}}>
-      </Stack.Screen>
               <Stack.Screen
       name="Introduction"
       component={IntroductionScreen}
