@@ -26,7 +26,11 @@ type RootStackParamList = {
   
 type Props = NativeStackScreenProps<RootStackParamList, 'UserDashboard'>;
 
-  
+interface IUserDashboardScreen {
+  username: string,
+  userId: number,
+  childen: React.ReactNode
+}
 
 const UserDashboard: FC<Props> = ({navigation}) => {
 
@@ -49,8 +53,8 @@ const UserDashboard: FC<Props> = ({navigation}) => {
         <View style={styles.container}>
             <HeaderComponent/>
             <ScrollView style={{flex:1}}>
-              <ButtonComponent username={username} userId={userId} />
-              <MWGCardComponent username={username} userId={userId} />
+              <ButtonComponent />
+              <MWGCardComponent />
             </ScrollView>
             <FooterNavComponent/>
         </View>

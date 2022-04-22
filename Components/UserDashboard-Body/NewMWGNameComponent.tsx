@@ -33,6 +33,7 @@ type RootStackParamList = {
 interface INewMWGNameComponent {
   username: string,
   userId: number,
+  children: React.ReactNode;
 }
 
 const NewMWGNameComponent: FC = () => {

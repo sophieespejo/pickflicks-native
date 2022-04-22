@@ -11,7 +11,8 @@ import {NavigationContainer, useNavigation} from '@react-navigation/native';
 
 interface IButtonComponent {
   username: string,
-  userId: number
+  userId: number,
+  children: React.ReactNode;
 }
 
   type RootStackParamList = {
@@ -28,7 +29,7 @@ interface IButtonComponent {
   
   type Props = NativeStackScreenProps<any, "UserDashboard">;
   
-  const ButtonComponent: FC<Props> = () => {
+  const ButtonComponent: FC = () => {
   const navigation = useNavigation<any>();
 
   
