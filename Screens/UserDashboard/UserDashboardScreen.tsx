@@ -33,8 +33,6 @@ const UserDashboard: FC<Props> = ({navigation, route}) => {
               <ButtonComponent username={route.params.username} userId={route.params.userId} />
               <MWGCardComponent username={route.params.username} userId={route.params.userId} />
             </ScrollView>
-            {/* <NewMWGNameComponent/> */}
-            {/* <MemberSearchTextInputComponent/> */}
             <FooterNavComponent/>
         </View>
     )

@@ -16,6 +16,11 @@ import SelectStreamServiceScreen from './Screens/MWGDash/SelectStreamServiceScre
 import ChooseGenresScreen from './Screens/MWGDash/ChooseGenresScreen';
 import GenreRankingScreen from './Screens/MWGDash/GenreRankingScreen';
 import MovieCardScreen from './Screens/MWGDash/MovieCardScreen';
+import FinalMovieScreen from './Screens/MWGDash/FinalMovieScreen';
+import MWGDashboardScreen from './Screens/MWGDash/MWGDashboardScreen';
+import LoadingPopcornScreen from './Screens/MWGDash/LoadingPopcornScreen';
+import UserProfileScreen from './Screens/UserProfile/UserProfileScreen';
+import ChangeUsernameScreen from './Screens/UserProfile/ChangeUsernameScreen';
 
 
 type RootStackParamList = {
@@ -33,6 +38,11 @@ type RootStackParamList = {
   ChooseGenres : undefined,
   GenreRanking: undefined,
   MovieCard : undefined,
+  FinalMovie : undefined,
+  MWGDashboard : undefined,
+  LoadingPopcorn : undefined,
+  UserProfile : undefined,
+  ChangeUsername :undefined,
 }
 
 
@@ -43,10 +53,35 @@ const App:FC = () => {
     <NavigationContainer>
       <Stack.Navigator>
       <Stack.Screen
+          name="ChangeUsername"
+          component={ChangeUsernameScreen}
+          options={{headerShown:false}}>
+        </Stack.Screen>
+      {/* <Stack.Screen
+          name="UserProfile"
+          component={UserProfileScreen}
+          options={{headerShown:false}}>
+        </Stack.Screen> */}
+      {/* <Stack.Screen
+          name="LoadingPopcorn"
+          component={LoadingPopcornScreen}
+          options={{headerShown:false}}>
+        </Stack.Screen> */}
+      {/* <Stack.Screen
+          name="MWGDashboard"
+          component={MWGDashboardScreen}
+          options={{headerShown:false}}>
+        </Stack.Screen> */}
+      {/* <Stack.Screen
+          name="FinalMovie"
+          component={FinalMovieScreen}
+          options={{headerShown:false}}>
+        </Stack.Screen> */}
+      {/* <Stack.Screen
           name="MovieCard"
           component={MovieCardScreen}
           options={{headerShown:false}}>
-        </Stack.Screen>
+        </Stack.Screen> */}
       {/* <Stack.Screen
           name="GenreRanking"
           component={GenreRankingScreen}
@@ -87,11 +122,11 @@ const App:FC = () => {
       component={InvitationSentScreen}
       options={{headerShown:false}}>
     </Stack.Screen> */}
-      {/* <Stack.Screen
+      <Stack.Screen
           name="Login"
           component={LoginScreen}
           options={{headerShown:false}}>
-        </Stack.Screen> */}
+        </Stack.Screen>
       <Stack.Screen
       name="Loading"
       component={LoadingScreen}

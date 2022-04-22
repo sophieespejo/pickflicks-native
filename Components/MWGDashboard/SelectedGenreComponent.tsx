@@ -6,6 +6,7 @@ import AppLoading from 'expo-app-loading';
 import { Button } from "react-native-paper";
 import {useNavigation} from '@react-navigation/native';
 // import { Button } from "native-base";
+import { Slider } from "native-base";
   
 
 
@@ -29,13 +30,22 @@ const SelectedGenreComponent: FC = () => {
             </View>
 
 
-            <View style={{flex:1, alignItems:'center'}}>
-                <View>
+            <View style={{flex:1, alignItems:'center', marginBottom:'10%'}}>
+                <View style={{marginBottom:'10%'}}>
                     <Text style={styles.GenreTxt}>GenreHere</Text>
                 </View>
-                <View>
+                
+                  <Slider style={{marginTop:'5%'}} colorScheme="gray" w="3/4" maxW="300" defaultValue={2} minValue={0} maxValue={5} accessibilityLabel="Rank the Genre from 1 to 5" step={1}>
+                    <Slider.Track>
+                      <Slider.FilledTrack />
+                    </Slider.Track>
+                    <Slider.Thumb />
+                  </Slider>
 
-                </View>
+                  <View style={{flexDirection:'row', justifyContent:'space-between', width:'80%'}}>
+                    <Text style={styles.numberScale}>1</Text>
+                    <Text style={styles.numberScale}>5</Text>
+                  </View>
             </View>
 
 
@@ -70,6 +80,11 @@ const styles = StyleSheet.create({
   nextBtn:{
     fontFamily: "Raleway_400Regular",
     fontSize: 25
+  },
+  numberScale:{
+    fontFamily: "Raleway_400Regular",
+    fontSize: 35,
+    color: '#FFFFFF'
   },
   GenreTxt:{
     fontFamily:'Raleway_400Regular',

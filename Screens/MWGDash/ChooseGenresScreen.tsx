@@ -28,7 +28,7 @@ type RootStackParamList = {
     ChooseGenres : undefined,
     GenreRanking: undefined,
     MovieCard : undefined,
-
+    FinalMovie : undefined,
   }
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Introduction'>;

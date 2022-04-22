@@ -4,13 +4,11 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { FC } from 'react';
 import { StyleSheet, Text, View , Image} from 'react-native';
 import RedLogo from '../assets/RedLogo.png';
-import HeaderComponent from '../../Components/UserProfile/HeaderComponent';
+import HeaderComponent from '../../Components/MWGDashboard/HeaderComponent';
 import StreamingServiceComponent from '../../Components/MWGDashboard/StreamingServiceComponent';
 import FooterNavComponent from '../../Components/UserDashboard-Body/FooterNavComponent';
 import GenreSelectionComponent from '../../Components/MWGDashboard/GenreSelectionComponent';
-import MovieCardComponent from '../../Components/MWGDashboard/MovieCardComponent';
-import LoadingPopcornGifComponent from '../../Components/MWGDashboard/LoadingPopcornGifComponent';
-import YourProfileComponent from '../../Components/UserProfile/YourProfileComponent';
+import FinalMovieCardComponent from '../../Components/MWGDashboard/FinalMovieCardComponent';
 import { Provider as PaperProvider } from 'react-native-paper';
 
 
@@ -31,24 +29,25 @@ type RootStackParamList = {
     ChooseGenres : undefined,
     GenreRanking: undefined,
     MovieCard : undefined,
+    FinalMovie : undefined,
 
   }
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Introduction'>;
 
-const UserProfileScreen: FC<Props> = ({navigation}) => {
+const FinalMovieScreen: FC<Props> = ({navigation}) => {
 
 
     return (
         <View style={styles.container}>
             <HeaderComponent/>
-            <YourProfileComponent/>
+            <FinalMovieCardComponent/>
             <FooterNavComponent/>
         </View>
     )
 }
 
-export default UserProfileScreen;
+export default FinalMovieScreen;
 
 const styles = StyleSheet.create({
     container:{
