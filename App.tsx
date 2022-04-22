@@ -61,7 +61,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const App:FC = () => {
   return (
-    <UserContext.Provider>
+    <UserContext.Provider value={UseUser()}>
       <NativeBaseProvider>
     <NavigationContainer>
       <Stack.Navigator>
