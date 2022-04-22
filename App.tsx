@@ -21,6 +21,9 @@ import MWGDashboardScreen from './Screens/MWGDash/MWGDashboardScreen';
 import LoadingPopcornScreen from './Screens/MWGDash/LoadingPopcornScreen';
 import UserProfileScreen from './Screens/UserProfile/UserProfileScreen';
 import ChangeUsernameScreen from './Screens/UserProfile/ChangeUsernameScreen';
+import ChangePasswordScreen1 from './Screens/UserProfile/ChangePasswordScreen1';
+import ChangePasswordScreen2 from './Screens/UserProfile/ChangePasswordScreen2';
+import ChangeNotificationsScreen from './Screens/UserProfile/ChangeNotificationsScreen';
 
 
 type RootStackParamList = {
@@ -43,6 +46,9 @@ type RootStackParamList = {
   LoadingPopcorn : undefined,
   UserProfile : undefined,
   ChangeUsername :undefined,
+  ChangePassword1 : undefined,
+  ChangePassword2 : undefined,
+  ChangeNotifications : undefined,
 }
 
 
@@ -52,11 +58,26 @@ const App:FC = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-      <Stack.Screen
+      {/* <Stack.Screen
+          name="ChangeNotifications"
+          component={ChangeNotificationsScreen}
+          options={{headerShown:false}}>
+        </Stack.Screen> */}
+      {/* <Stack.Screen
+          name="ChangePassword2"
+          component={ChangePasswordScreen2}
+          options={{headerShown:false}}>
+        </Stack.Screen> */}
+      {/* <Stack.Screen
+          name="ChangePassword1"
+          component={ChangePasswordScreen1}
+          options={{headerShown:false}}>
+        </Stack.Screen> */}
+      {/* <Stack.Screen
           name="ChangeUsername"
           component={ChangeUsernameScreen}
           options={{headerShown:false}}>
-        </Stack.Screen>
+        </Stack.Screen> */}
       {/* <Stack.Screen
           name="UserProfile"
           component={UserProfileScreen}
@@ -97,11 +118,11 @@ const App:FC = () => {
           component={SelectStreamServiceScreen}
           options={{headerShown:false}}>
         </Stack.Screen> */}
-      {/* <Stack.Screen
+      <Stack.Screen
       name="NewMWGName"
       component={NewMWGNameScreen}
       options={{headerShown:false}}>
-    </Stack.Screen> */}
+    </Stack.Screen>
       {/* <Stack.Screen
           name="Login"
           component={LoginScreen}
@@ -112,12 +133,12 @@ const App:FC = () => {
       component={NewMWGNameScreen}
       options={{headerShown:false}}>
     </Stack.Screen> */}
-      {/* <Stack.Screen
+      <Stack.Screen
       name="MemberSearch"
       component={MemberSearchScreen}
       options={{headerShown:false}}>
     </Stack.Screen>
-      <Stack.Screen
+      {/* <Stack.Screen
       name="InvitationSent"
       component={InvitationSentScreen}
       options={{headerShown:false}}>

@@ -2,16 +2,18 @@ import { NavigationRouteContext } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { FC } from 'react';
-import { StyleSheet, Text, View , Image, ScrollView} from 'react-native';
+import { StyleSheet, Text, View , Image} from 'react-native';
 import RedLogo from '../assets/RedLogo.png';
-import HeaderComponent from '../../Components/MWGDashboard/HeaderComponent';
+import HeaderComponent from '../../Components/UserProfile/HeaderComponent';
 import StreamingServiceComponent from '../../Components/MWGDashboard/StreamingServiceComponent';
 import FooterNavComponent from '../../Components/UserDashboard-Body/FooterNavComponent';
 import GenreSelectionComponent from '../../Components/MWGDashboard/GenreSelectionComponent';
 import MovieCardComponent from '../../Components/MWGDashboard/MovieCardComponent';
-import StartWatchingBtnsComponent from '../../Components/MWGDashboard/StartWatchingBtnsComponent';
+import LoadingPopcornGifComponent from '../../Components/MWGDashboard/LoadingPopcornGifComponent';
+import YourProfileComponent from '../../Components/UserProfile/YourProfileComponent';
+import ChangeUsernameComponent from '../../Components/UserProfile/ChangeUsernameComponent';
+import ChangePasswordComponent1 from '../../Components/UserProfile/ChangePasswordComponent1';
 import { Provider as PaperProvider } from 'react-native-paper';
-// import { ScrollView } from 'native-base';
 
 
 
@@ -36,26 +38,24 @@ type RootStackParamList = {
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Introduction'>;
 
-const MWGDashboardScreen: FC<Props> = ({navigation}) => {
+const ChangePasswordScreen1: FC<Props> = ({navigation}) => {
 
 
     return (
         <View style={styles.container}>
             <HeaderComponent/>
-            <ScrollView style={{flex:1}}>
-            <StartWatchingBtnsComponent/>
-            </ScrollView>
+            <ChangePasswordComponent1/>
             <FooterNavComponent/>
         </View>
     )
 }
 
-export default MWGDashboardScreen;
+export default ChangePasswordScreen1;
 
 const styles = StyleSheet.create({
     container:{
       flex:1,
-      backgroundColor: '#1E1A1A',
+      backgroundColor: '#1E1A1A'
     },
   });
   
