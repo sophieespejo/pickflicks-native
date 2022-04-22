@@ -17,7 +17,7 @@ import ChooseGenresScreen from './Screens/MWGDash/ChooseGenresScreen';
 import GenreRankingScreen from './Screens/MWGDash/GenreRankingScreen';
 import MovieCardScreen from './Screens/MWGDash/MovieCardScreen';
 import FinalMovieScreen from './Screens/MWGDash/FinalMovieScreen';
-import MWGDashboardScreen from './Screens/MWGDash/MWGDashboardScreen';
+import MWGDashboardScreen from './Screens/MWGDash/MWGdashboardScreen';
 import LoadingPopcornScreen from './Screens/MWGDash/LoadingPopcornScreen';
 import UserProfileScreen from './Screens/UserProfile/UserProfileScreen';
 import ChangeUsernameScreen from './Screens/UserProfile/ChangeUsernameScreen';
