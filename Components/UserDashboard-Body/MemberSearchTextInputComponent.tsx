@@ -20,6 +20,8 @@ import {
   import Swipeable from 'react-native-gesture-handler/Swipeable';
   import { Button } from "react-native-paper";
   import { GetUserByUsername, AddMWG } from '../../Service/DataService'
+  import RightActions from './RightActions'
+
   import UserContext from '../../Context/UserContext';
   
   type RootStackParamList = {
@@ -178,7 +180,7 @@ import {
                 }
                 return (
                   <Swipeable 
-                    renderRightActions={(progress:number, dragx:any) => renderRightView(progress, dragx)}
+                    renderRightActions={(progress:any, dragx:any) => renderRightView(progress, dragx)}
                     ref={(ref) => (row[index] = ref)}
                     onSwipeableOpen={() => closeRow(index)}
                     //rightOpenValue={-100}

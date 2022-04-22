@@ -1,6 +1,6 @@
 import {View, Animated, TouchableOpacity, Text} from 'react-native'
 
-const RightActions = (progress, dragX) => {
+const RightActions = (progress:number, dragX:any) => {
     const scale = dragX.interpolate({
       inputRange: [-100, 0],
       outputRange: [0.7, 0],
