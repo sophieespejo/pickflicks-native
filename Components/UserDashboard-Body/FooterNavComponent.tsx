@@ -30,7 +30,7 @@ type Props = NativeStackScreenProps<RootStackParamList, "UserDashboard">;
 
 const FooterNavComponent: FC = () => {
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
 
   return (
     <View style={styles.container}>

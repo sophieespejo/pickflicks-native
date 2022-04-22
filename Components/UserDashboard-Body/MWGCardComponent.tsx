@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { FC, useState, useEffect } from "react";
+import { FC, useState, useEffect, useContext } from "react";
 import { StyleSheet, Text, View, Image, TextInput,Pressable, Button} from "react-native";
 import emptyHeart from "../../assets/emptyHeart.png";
 import filledHeart from "../../assets/filledHeart.png";
@@ -7,6 +7,10 @@ import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 import { GetUserByUsername, GetAllMWGAUserIsMemberOfuserId, AddFavoriteMWG, RemoveFavoriteMWG } from '../../Service/DataService'
 import {useNavigation} from '@react-navigation/native';
+//import { Avatar } from "react-native-paper";
+import { Avatar } from "native-base";
+import UserContext from '../../Context/UserContext';
+
 
 
 interface IMWGCardComponent {
@@ -15,7 +19,9 @@ interface IMWGCardComponent {
 }
 
 //map through MWG created according to userID/logged in user
-const MWGCardComponent: FC = ({username, userId}) => {
+const MWGCardComponent: FC = () => {
+  let { username, setUsername, userId, setUserId, userIcon, setUserIcon } = useContext(UserContext)
+
   const [allMWG, setAllMWG] = useState([]);
   const [allFaveMWG, setAllFaveMWG] = useState([]);
   const [favorite, setFavorite] = useState(0);
@@ -26,6 +32,11 @@ const MWGCardComponent: FC = ({username, userId}) => {
   useEffect(  () => {
 
       async function fetchUserData() {
+            setUsername(username);
+            setUserId(userId)
+            console.log(username);
+            console.log(userId)
+          
       let response = await GetUserByUsername(username);
       let favoritedMWGArray = response.favoritedMWGId.split(',');
       // console.log(favoritedMWGArray);
@@ -99,8 +110,8 @@ const MWGCardComponent: FC = ({username, userId}) => {
       allMWG.map((group, i) => {if(allFaveMWG.includes(parseInt(group.id)))
       {
         return (
-          <>
-               <Pressable key={i} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=>console.log(group)}>
+          
+               <Pressable key={group.id} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=>navigation.navigate('MWGDashboard')}>
                  <View >
                    <View  style={{marginTop: '10%', flexDirection:'row'}}>
                      <Text
@@ -117,6 +128,22 @@ const MWGCardComponent: FC = ({username, userId}) => {
                       {group.mwgName}
                     </Text>
                   </View>
+                  {/* <View>
+                    <Avatar.Group _avatar={{
+                        size: "lg"
+                      }} max={3}>
+                        <Avatar bg="green.500" source={{
+                        uri: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+                      }}>
+                        AJ
+                      </Avatar>
+                      <Avatar bg="cyan.500" source={{
+                      uri: "https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                    }}>
+                        TE
+                        </Avatar>
+                    </Avatar.Group>
+                  </View> */}
                   <View>
                     <Text
                       style={{
@@ -136,9 +163,8 @@ const MWGCardComponent: FC = ({username, userId}) => {
                 <Image  source={filledHeart} ></Image>
               </Pressable>
             </Pressable>
-            <Button title="test" onPress={() => console.log(allFaveMWG.includes(group.id))}></Button>
+            /* <Button title="test" onPress={() => console.log(allFaveMWG.includes(group.id))}></Button> */
 
-          </>
         )
       }})
       }
@@ -147,8 +173,7 @@ const MWGCardComponent: FC = ({username, userId}) => {
         allMWG.map((group, i) => {if(!allFaveMWG.includes(parseInt(group.id)))
           {
             return (
-              <>
-                   <Pressable key={i} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=>console.log(group)}>
+                   <Pressable key={group.id} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=>navigation.navigate('MWGDashboard')}>
                      <View >
                        <View  style={{marginTop: '10%', flexDirection:'row'}}>
                          <Text
@@ -184,9 +209,9 @@ const MWGCardComponent: FC = ({username, userId}) => {
                     <Image  source={emptyHeart} ></Image>
                   </Pressable>
                 </Pressable>
-                <Button title="test" onPress={() => console.log(allFaveMWG.includes(group.id))}></Button>
+                /* <Button title="test" onPress={() => console.log(allFaveMWG.includes(group.id))}></Button> */
     
-              </>
+              
             )
           }})
       }
