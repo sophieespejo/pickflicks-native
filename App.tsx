@@ -65,11 +65,6 @@ const App:FC = () => {
           options={{headerShown:false}}>
         </Stack.Screen> */}
       {/* <Stack.Screen
-          name="UserProfile"
-          component={UserProfileScreen}
-          options={{headerShown:false}}>
-        </Stack.Screen> */}
-      {/* <Stack.Screen
           name="LoadingPopcorn"
           component={LoadingPopcornScreen}
           options={{headerShown:false}}>
@@ -180,6 +175,11 @@ const App:FC = () => {
             component={AvatarScreen}
             options={{headerShown:false}}>
           </Stack.Screen>
+                <Stack.Screen
+          name="UserProfile"
+          component={UserProfileScreen}
+          options={{headerShown:false}}>
+        </Stack.Screen>
         </Stack.Navigator>
         </NavigationContainer>
       </NativeBaseProvider>
