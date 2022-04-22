@@ -17,7 +17,7 @@ import ChooseGenresScreen from './Screens/MWGDash/ChooseGenresScreen';
 import GenreRankingScreen from './Screens/MWGDash/GenreRankingScreen';
 import MovieCardScreen from './Screens/MWGDash/MovieCardScreen';
 import FinalMovieScreen from './Screens/MWGDash/FinalMovieScreen';
-import MWGDashboardScreen from './Screens/MWGDash/MWGDashboardScreen';
+import MWGDashboardScreen from './Screens/MWGDash/MWGdashboardScreen';
 import LoadingPopcornScreen from './Screens/MWGDash/LoadingPopcornScreen';
 import UserProfileScreen from './Screens/UserProfile/UserProfileScreen';
 import ChangeUsernameScreen from './Screens/UserProfile/ChangeUsernameScreen';
@@ -61,6 +61,8 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const App:FC = () => {
   return (
+    <UserContext.Provider>
+      <NativeBaseProvider>
     <NavigationContainer>
       <Stack.Navigator>
       {/* <Stack.Screen
@@ -123,11 +125,11 @@ const App:FC = () => {
           component={SelectStreamServiceScreen}
           options={{headerShown:false}}>
         </Stack.Screen> */}
-      <Stack.Screen
+      {/* <Stack.Screen
       name="NewMWGName"
       component={NewMWGNameScreen}
       options={{headerShown:false}}>
-    </Stack.Screen>
+    </Stack.Screen> */}
       {/* <Stack.Screen
           name="Login"
           component={LoginScreen}
@@ -138,17 +140,17 @@ const App:FC = () => {
       component={NewMWGNameScreen}
       options={{headerShown:false}}>
     </Stack.Screen> */}
-      <Stack.Screen
+      {/* <Stack.Screen
       name="MemberSearch"
       component={MemberSearchScreen}
       options={{headerShown:false}}>
-    </Stack.Screen>
+    </Stack.Screen> */}
       {/* <Stack.Screen
       name="InvitationSent"
       component={InvitationSentScreen}
       options={{headerShown:false}}>
     </Stack.Screen> */}
-      <Stack.Screen
+      {/* <Stack.Screen
           name="Login"
           component={LoginScreen}
           options={{headerShown:false}}>
@@ -162,7 +164,7 @@ const App:FC = () => {
             name="InvitationSent"
             component={InvitationSentScreen}
             options={{headerShown:false}}>
-          </Stack.Screen> */}
+          </Stack.Screen> */} 
             <Stack.Screen
                 name="Login"
                 component={LoginScreen}
