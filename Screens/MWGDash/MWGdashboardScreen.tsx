@@ -1,30 +1,58 @@
-import { FC } from 'react'
-import { View, Text } from 'react-native'
-import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
+import { NavigationRouteContext } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { FC } from 'react';
+import { StyleSheet, Text, View , Image} from 'react-native';
+import RedLogo from '../assets/RedLogo.png';
+import HeaderComponent from '../../Components/MWGDashboard/HeaderComponent';
+import StreamingServiceComponent from '../../Components/MWGDashboard/StreamingServiceComponent';
+import FooterNavComponent from '../../Components/UserDashboard-Body/FooterNavComponent';
+import GenreSelectionComponent from '../../Components/MWGDashboard/GenreSelectionComponent';
+import MovieCardComponent from '../../Components/MWGDashboard/MovieCardComponent';
+import StartWatchingBtnsComponent from '../../Components/MWGDashboard/StartWatchingBtnsComponent';
+import { Provider as PaperProvider } from 'react-native-paper';
+
+
+
 
 type RootStackParamList = {
     Home: undefined; //means route doesnt have params
-    UserDashboard: { username : string, userId: number };
+    UserDashboard: { username: string, userId: number }
     Login: { name: string }
     CreateAccountScreen: undefined,
     Loading: undefined,
+    AvatarScreen: undefined
     Introduction: undefined,
-    NewMWGName: undefined,
-    MemberSearch: undefined,
+    SelectStreamingService: undefined
+    NewMWGName: { username: string, userId: number },
+    MemberSearch: { username: string, userId: number, newMWGname: string },
     InvitationSent: { username: string, userId: number};
-    MWGDashboard: undefined;
+    ChooseGenres : undefined,
+    GenreRanking: undefined,
+    MovieCard : undefined,
+
   }
 
-  type Props = NativeStackScreenProps<RootStackParamList, 'MWGDashboard'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'Introduction'>;
 
-  const MWGDashboardScreen: FC<Props> = ({navigation, route}) => {
-      return (
-          <View style={{flex:1, alignContent: 'center', justifyContent: 'center'}}>
-              <Text>MWG Dashboard</Text>
-          </View>
-      )
-  };
-
-  export default MWGDashboardScreen;
+const MWGDashboardScreen: FC<Props> = ({navigation}) => {
 
 
+    return (
+        <View style={styles.container}>
+            <HeaderComponent/>
+            <StartWatchingBtnsComponent/>
+            <FooterNavComponent/>
+        </View>
+    )
+}
+
+export default MWGDashboardScreen;
+
+const styles = StyleSheet.create({
+    container:{
+      flex:1,
+      backgroundColor: '#1E1A1A',
+    },
+  });
+  
