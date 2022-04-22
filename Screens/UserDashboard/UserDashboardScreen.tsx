@@ -18,8 +18,8 @@ type RootStackParamList = {
     Introduction: undefined
     //UserDashboard: { username: string, userId: number };
     UserDashboard: undefined;
-    MemberSearch: { username: string, userId: number, newMWGname: string  },
-    InvitationSent: { username: string, userId: number};
+    MemberSearch: { newMWGname: string  },
+    InvitationSent: undefined;
     NewMWGName: undefined,
   }
   
