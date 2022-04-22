@@ -22,11 +22,11 @@ interface IMWGCardComponent {
 const MWGCardComponent: FC = () => {
   let { username, setUsername, userId, setUserId, userIcon, setUserIcon } = useContext(UserContext)
 
-  const [allMWG, setAllMWG] = useState([]);
-  const [allFaveMWG, setAllFaveMWG] = useState([]);
+  const [allMWG, setAllMWG] = useState<any>([]);
+  const [allFaveMWG, setAllFaveMWG] = useState<any>([]);
   const [favorite, setFavorite] = useState(0);
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
 
   
   useEffect(  () => {
@@ -57,7 +57,7 @@ const MWGCardComponent: FC = () => {
     },
    []);
 
-    const handleAddFavoriteMWG = async (groupId) =>{
+    const handleAddFavoriteMWG = async (groupId:number) =>{
       let result = await AddFavoriteMWG(userId,groupId);
       let userData = await GetUserByUsername(username);
       console.log(result);
@@ -72,7 +72,7 @@ const MWGCardComponent: FC = () => {
         }
     }
 
-    const handleRemoveFavoriteMWG = async (groupId) =>{
+    const handleRemoveFavoriteMWG = async (groupId:number) =>{
       let result = await RemoveFavoriteMWG(userId,groupId);
       let userData = await GetUserByUsername(username);
       console.log(result);
@@ -107,7 +107,7 @@ const MWGCardComponent: FC = () => {
     <View style={{ flex:1, alignItems:'center'}}>
       {
 
-      allMWG.map((group, i) => {if(allFaveMWG.includes(parseInt(group.id)))
+      allMWG.map((group:any, i:number) => {if(allFaveMWG.includes(parseInt(group.id)))
       {
         return (
           
@@ -170,7 +170,7 @@ const MWGCardComponent: FC = () => {
       }
 
       {
-        allMWG.map((group, i) => {if(!allFaveMWG.includes(parseInt(group.id)))
+        allMWG.map((group:any, i:number) => {if(!allFaveMWG.includes(parseInt(group.id)))
           {
             return (
                    <Pressable key={group.id} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=>navigation.navigate('MWGDashboard')}>

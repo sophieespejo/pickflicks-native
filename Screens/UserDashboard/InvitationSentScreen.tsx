@@ -8,18 +8,20 @@ import FooterNavComponent from '../../Components/UserDashboard-Body/FooterNavCom
 import NewMWGNameComponent from '../../Components/UserDashboard-Body/NewMWGNameComponent';
 import MemberSearchTextInputComponent from '../../Components/UserDashboard-Body/MemberSearchTextInputComponent';
 import SentInvitationsComponent from '../../Components/UserDashboard-Body/SentInvitationsComponent';
+import {useNavigation} from '@react-navigation/native';
+
 
 
 type RootStackParamList = {
   Home: undefined; //means route doesnt have params
-  UserDashboard: { username : string, userId: number };
-  Login: { name: string }
+  UserDashboard: undefined
+  Login: undefined
   CreateAccountScreen: undefined,
   Loading: undefined,
   Introduction: undefined,
   NewMWGName: undefined,
   MemberSearch: undefined,
-  InvitationSent: { username: string, userId: number};
+  InvitationSent: undefined;
 }
 
 
@@ -27,11 +29,12 @@ type RootStackParamList = {
 
   
 
-const InvitationSentScreen: FC<Props> = ({navigation, route}) => {
+const InvitationSentScreen: FC<Props> = () => {
+  const navigation = useNavigation<any>();
 
     return (
       <View style={styles.container}>
-        <Pressable style={{flex:1}} onPress={()=> navigation.navigate('UserDashboard', {username: route.params.username, userId: route.params.userId})}>
+        <Pressable style={{flex:1}} onPress={()=> navigation.navigate('UserDashboard')}>
           <SentInvitationsComponent/>
         </Pressable>
       </View>

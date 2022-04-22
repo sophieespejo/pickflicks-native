@@ -18,16 +18,16 @@ import { Provider as PaperProvider } from 'react-native-paper';
 
 type RootStackParamList = {
     Home: undefined; //means route doesnt have params
-    UserDashboard: { username: string, userId: number }
+    UserDashboard: undefined;
     Login: { name: string }
     CreateAccountScreen: undefined,
     Loading: undefined,
     AvatarScreen: undefined
     Introduction: undefined,
     SelectStreamingService: undefined
-    NewMWGName: { username: string, userId: number },
-    MemberSearch: { username: string, userId: number, newMWGname: string },
-    InvitationSent: { username: string, userId: number};
+    NewMWGName: undefined,
+    MemberSearch: { newMWGname: string },
+    InvitationSent: undefined;
     ChooseGenres : undefined,
     GenreRanking: undefined,
     MovieCard : undefined,
