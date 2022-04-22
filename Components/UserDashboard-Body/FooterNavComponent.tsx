@@ -15,17 +15,17 @@ import Home from "../../assets/Home2.png";
 import UserProfile from "../../assets/UserProfile2.png";
 import { Button } from "react-native-paper";
 import { useNavigation } from '@react-navigation/native';
+import UserProfileScreen from '../../Screens/UserProfile/UserProfileScreen'
 
 type RootStackParamList = {
   Home: undefined; //means route doesnt have params
-  Login: undefined,
+  Profile: { name: string };
+  Login: { name: string };
   CreateAccount: undefined;
   Loading: undefined;
   Introduction: undefined;
   UserDashboard: undefined;
-  InvitationSent: undefined;
-  MemberSearch: { newMWGname: string },
-  NewMWGName: undefined,
+  UserProfile: undefined;
 };
 
 type Props = NativeStackScreenProps<RootStackParamList, "UserDashboard">;
@@ -39,7 +39,7 @@ const FooterNavComponent: FC = () => {
       <Button
         mode="text"
         onPress={() => {
-          navigation.navigate("Introduction");
+          navigation.navigate("UserProfile");
         }}
         icon={() => (
           <Image
@@ -51,7 +51,7 @@ const FooterNavComponent: FC = () => {
       <Button
         mode="text"
         onPress={() => {
-          navigation.navigate("CreateAccountScreen");
+          navigation.navigate("UserDashboard");
         }}
         icon={() => (
           <Image

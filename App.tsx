@@ -24,7 +24,7 @@ import ChangeUsernameScreen from './Screens/UserProfile/ChangeUsernameScreen';
 import {NativeBaseProvider } from 'native-base'
 import UserContext from './Context/UserContext'
 import UseUser from './Hooks/use-user'
-import MWGDashboard from './Screens/MWGDash/MWGdashboardScreen'
+//import MWGDashboard from './Screens/MWGDash/MWGdashboardScreen'
 
 
 type RootStackParamList = {
@@ -59,11 +59,11 @@ const App:FC = () => {
 <NativeBaseProvider>
     <NavigationContainer>
       <Stack.Navigator>
-      <Stack.Screen
+      {/* <Stack.Screen
           name="ChangeUsername"
           component={ChangeUsernameScreen}
           options={{headerShown:false}}>
-        </Stack.Screen>
+        </Stack.Screen> */}
       {/* <Stack.Screen
           name="UserProfile"
           component={UserProfileScreen}
@@ -172,7 +172,7 @@ const App:FC = () => {
           </Stack.Screen>
           <Stack.Screen
             name="MWGDashboard"
-            component={MWGDashboard}
+            component={MWGDashboardScreen}
             options={{headerShown:false}}>
           </Stack.Screen>
           <Stack.Screen
