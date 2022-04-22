@@ -11,7 +11,7 @@ import Popcorn from '../../assets/Popcorn.gif'
   
 
 
-const ChangeUsernameComponent: FC = () => {
+const ChangePasswordComponent1: FC = () => {
     const navigation = useNavigation();
 
   let [fontsLoaded] = useFonts({
@@ -27,7 +27,7 @@ const ChangeUsernameComponent: FC = () => {
         <View style={{ flex: 1, width:'100%', alignSelf:'center'}}>
                <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
            <View style={{flex:1, justifyContent:'center'}}>
-               <Text style={styles.Txt}>Enter your new {'\n'} Username</Text>
+               <Text style={styles.Txt}>Enter your current {'\n'} Password</Text>
                <TextInput
                             style={styles.input}
                             // onChangeText={onChangeText}
@@ -38,16 +38,16 @@ const ChangeUsernameComponent: FC = () => {
                             selectionColor={'white'}
                             textAlign={'center'}
                             textContentType={'name'}
-                            placeholder={'Try a new Username'}
+                            placeholder={'Enter your new Password'}
                             placeholderTextColor={'white'}
                             onChangeText={(e) => console.log('pewpew')}
                             // value={}
                         />
                 {/* Message for when username is not available ternary here */}
-                <Text style={styles.Txt2}>username not available!</Text>
+                <Text style={styles.Txt2}>Incorrect Password</Text>
 
                 <Pressable style={{alignItems:'center', paddingTop:'5%'}}>
-                    <Text style={styles.SaveTxt}>Save</Text>
+                    <Text style={styles.SaveTxt}>Next</Text>
                 </Pressable>
            </View>
                 </TouchableWithoutFeedback>
@@ -103,4 +103,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ChangeUsernameComponent;
+export default ChangePasswordComponent1;

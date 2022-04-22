@@ -11,7 +11,7 @@ import Popcorn from '../../assets/Popcorn.gif'
   
 
 
-const ChangeUsernameComponent: FC = () => {
+const ChangePasswordComponent2: FC = () => {
     const navigation = useNavigation();
 
   let [fontsLoaded] = useFonts({
@@ -24,10 +24,11 @@ const ChangeUsernameComponent: FC = () => {
   }
   
   return (
+    <View style={{flex:1}}>
         <View style={{ flex: 1, width:'100%', alignSelf:'center'}}>
                <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-           <View style={{flex:1, justifyContent:'center'}}>
-               <Text style={styles.Txt}>Enter your new {'\n'} Username</Text>
+           <View style={{flex:1, justifyContent:'flex-end'}}>
+               <Text style={styles.Txt}>Enter your new Password</Text>
                <TextInput
                             style={styles.input}
                             // onChangeText={onChangeText}
@@ -38,19 +39,42 @@ const ChangeUsernameComponent: FC = () => {
                             selectionColor={'white'}
                             textAlign={'center'}
                             textContentType={'name'}
-                            placeholder={'Try a new Username'}
+                            // placeholder={'Try a new Username'}
                             placeholderTextColor={'white'}
                             onChangeText={(e) => console.log('pewpew')}
                             // value={}
                         />
-                {/* Message for when username is not available ternary here */}
-                <Text style={styles.Txt2}>username not available!</Text>
-
-                <Pressable style={{alignItems:'center', paddingTop:'5%'}}>
-                    <Text style={styles.SaveTxt}>Save</Text>
-                </Pressable>
            </View>
                 </TouchableWithoutFeedback>
+        </View>
+
+        <View style={{ flex: 1, width:'100%', alignSelf:'center', marginTop:'15%', marginBottom:'13%'}}>
+               <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+           <View style={{flex:1, justifyContent:'flex-start'}}>
+               <Text style={styles.Txt}>Confirm your new Password</Text>
+               <TextInput
+                            style={styles.input}
+                            // onChangeText={onChangeText}
+                            // value={''}
+                            enablesReturnKeyAutomatically={true}
+                            keyboardAppearance={'dark'}
+                            contextMenuHidden={true}
+                            selectionColor={'white'}
+                            textAlign={'center'}
+                            textContentType={'name'}
+                            // placeholder={'Try a new Username'}
+                            placeholderTextColor={'white'}
+                            onChangeText={(e) => console.log('pewpew')}
+                            // value={}
+                        />
+                        <Text style={styles.Txt2}>Passwords do not match!</Text>
+
+                      <Pressable style={{alignItems:'center', paddingTop:'5%'}}>
+                          <Text style={styles.SaveTxt}>Save</Text>
+                      </Pressable>
+           </View>
+                </TouchableWithoutFeedback>
+        </View>
         </View>
   );
 };
@@ -103,4 +127,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ChangeUsernameComponent;
+export default ChangePasswordComponent2;
