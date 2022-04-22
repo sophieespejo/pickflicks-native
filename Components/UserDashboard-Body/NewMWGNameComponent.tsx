@@ -24,7 +24,7 @@ type RootStackParamList = {
     Loading: undefined,
     Introduction: undefined,
     NewMWGName: undefined
-    MemberSearch: { username: string, userId: number, newMWGname: string  },
+    MemberSearch: { newMWGname: string },
   }
   
   
@@ -50,6 +50,7 @@ const NewMWGNameComponent: FC = () => {
     }
     getUserInfo()
   }, []);
+  
   let [fontsLoaded] = useFonts({
     Raleway_400Regular,
   });

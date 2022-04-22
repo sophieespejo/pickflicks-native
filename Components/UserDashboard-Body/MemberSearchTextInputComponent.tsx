@@ -18,21 +18,19 @@ import {
   import Magnifying from '../../assets/Magnifying.png';
   import X from '../../assets/X.png';
   import Swipeable from 'react-native-gesture-handler/Swipeable';
-  import RightActions from './RightActions'
   import { Button } from "react-native-paper";
   import { GetUserByUsername, AddMWG } from '../../Service/DataService'
   import UserContext from '../../Context/UserContext';
   
   type RootStackParamList = {
       Home: undefined; //means route doesnt have params
-      Profile: { name: string };
       Login: { name: string };
       CreateAccount: undefined;
       Loading: undefined;
       Introduction: undefined;
-      UserDashboard: { username: string, userId: number };
-      InvitationSent: { username: string, userId: number};
-      MemberSearch: { username: string, userId: number },
+      UserDashboard: undefined;
+      InvitationSent: undefined;
+      MemberSearch: { newMWGname: string },
     };
   
 
