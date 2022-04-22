@@ -16,21 +16,20 @@ interface IButtonComponent {
 
   type RootStackParamList = {
       Home: undefined; //means route doesnt have params
-      Profile: { name: string };
-      Login: { username: string, userId: number },
+      Login: undefined,
       CreateAccount: undefined;
       Loading: undefined;
       Introduction: undefined;
-      UserDashboard: { username: string, userId: number };
+      UserDashboard: undefined;
       InvitationSent: undefined;
       MemberSearch: { username: string, userId: number },
-      NewMWGName: { username: string, userId: number },
+      NewMWGName: undefined,
     };
   
-  type Props = NativeStackScreenProps<RootStackParamList, "UserDashboard">;
+  type Props = NativeStackScreenProps<any, "UserDashboard">;
   
   const ButtonComponent: FC<Props> = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
 
   
 
@@ -47,7 +46,7 @@ interface IButtonComponent {
 
   return (
     <View style={{flex:1, marginTop:'5%', marginBottom: '3%', alignItems:'center'}}>
-      <Pressable style={{width:'90%', marginBottom:'3%'}} onPress={() => navigation.navigate('NewMWGName',{ username: username, userId: userId})}>
+      <Pressable style={{width:'90%', marginBottom:'3%'}} onPress={() => navigation.navigate('NewMWGName')}>
         <View style={styles.wgButton}>
           <Image source={MovieClipper}></Image>
           <Text style={{color:'#383333', fontSize:20, paddingLeft:60, justifyContent:'center', textAlign:'center', fontFamily:'Raleway_400Regular'}}>Create new {"\n"}Watch Group</Text>

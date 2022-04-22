@@ -42,16 +42,18 @@ import {
   }
   
   const MemberSearchTextInputComponent: FC = ({username, userId, newMWGname}) => {
-    const [searchedName, setSearchedName] = useState('');
-    const [allSearchedNames, setAllSearchedNames] = useState([]);
-    const [mwgMembersId, setmwgMembersId] = useState([]);
-    const [mwgMembersNames, setmwgMembersNames] = useState([]);
+
+    
+    const [searchedName, setSearchedName] = useState<string>('');
+    const [allSearchedNames, setAllSearchedNames] = useState<Array<string>>([]);
+    const [mwgMembersId, setmwgMembersId] = useState<Array<string>>([]);
+    const [mwgMembersNames, setmwgMembersNames] = useState<Array<string>>([]);
 
   
-    const navigation = useNavigation();
+    const navigation = useNavigation<any>();
 
     let row: Array<any> = [];
-    let prevOpenedRow;
+    let prevOpenedRow: Number;
 
     const closeRow = (index) => {
       console.log('closerow');
@@ -68,11 +70,13 @@ import {
         mwgMembersNames.push(username);
         let newMWG = {
           Id: 0,  
-          MwgName: newMWGname,//need to be set in other component
+          MWGName: newMWGname,//need to be set in other component
           GroupCreatorId: userId,
           MembersId: mwgMembersId.join(","),
-          membersNames: mwgMembersNames.join(","),
+          MembersNames: mwgMembersNames.join(","),
           UserSuggestedMovies: '',
+          ChosenGenres: '',
+          StreamingService: '',
           IsDeleted: false
       }
       let result = await AddMWG(newMWG);
@@ -96,7 +100,7 @@ import {
       }
     }
 
-    const handleDeleteMember = async (searchedName, index ) => {
+    const handleDeleteMember = async (searchedName:string, index:number ) => {
       console.log(searchedName);
       console.log(index)
       let removedMemberNameIndex = mwgMembersNames.indexOf(searchedName);
