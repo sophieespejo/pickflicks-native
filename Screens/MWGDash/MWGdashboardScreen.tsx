@@ -2,7 +2,7 @@ import { NavigationRouteContext } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { FC } from 'react';
-import { StyleSheet, Text, View , Image} from 'react-native';
+import { StyleSheet, Text, View , Image, ScrollView} from 'react-native';
 import RedLogo from '../assets/RedLogo.png';
 import HeaderComponent from '../../Components/MWGDashboard/HeaderComponent';
 import StreamingServiceComponent from '../../Components/MWGDashboard/StreamingServiceComponent';
@@ -11,6 +11,7 @@ import GenreSelectionComponent from '../../Components/MWGDashboard/GenreSelectio
 import MovieCardComponent from '../../Components/MWGDashboard/MovieCardComponent';
 import StartWatchingBtnsComponent from '../../Components/MWGDashboard/StartWatchingBtnsComponent';
 import { Provider as PaperProvider } from 'react-native-paper';
+// import { ScrollView } from 'native-base';
 
 
 
@@ -41,7 +42,9 @@ const MWGDashboardScreen: FC<Props> = ({navigation}) => {
     return (
         <View style={styles.container}>
             <HeaderComponent/>
+            <ScrollView style={{flex:1}}>
             <StartWatchingBtnsComponent/>
+            </ScrollView>
             <FooterNavComponent/>
         </View>
     )
