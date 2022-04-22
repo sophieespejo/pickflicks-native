@@ -12,7 +12,7 @@ import UserContext from '../../Context/UserContext';
 
 type RootStackParamList = {
     Home: undefined; //means route doesnt have params
-    Login: { username: string }
+    Login: undefined
     CreateAccount: undefined,
     Loading: undefined,
     Introduction: undefined
@@ -20,6 +20,7 @@ type RootStackParamList = {
     UserDashboard: undefined;
     MemberSearch: { username: string, userId: number, newMWGname: string  },
     InvitationSent: { username: string, userId: number};
+    NewMWGName: undefined,
   }
   
   

@@ -2,7 +2,7 @@ import {
   createNativeStackNavigator,
   NativeStackScreenProps,
 } from "@react-navigation/native-stack";
-import { FC, useState } from "react";
+import { FC, useState, useEffect, useContext } from "react";
 import {
   StyleSheet,
   Text,
@@ -13,6 +13,8 @@ import { Button } from "react-native-paper";
 import { useFonts, Raleway_400Regular } from "@expo-google-fonts/raleway";
 import AppLoading from "expo-app-loading";
 import {useNavigation} from '@react-navigation/native';
+import UserContext from '../../Context/UserContext';
+
 
 type RootStackParamList = {
     Home: undefined; //means route doesnt have params
@@ -21,7 +23,7 @@ type RootStackParamList = {
     CreateAccountScreen: undefined,
     Loading: undefined,
     Introduction: undefined,
-    NewMWGName: { username: string, userId: number}
+    NewMWGName: undefined
     MemberSearch: { username: string, userId: number, newMWGname: string  },
   }
   
@@ -33,9 +35,21 @@ interface INewMWGNameComponent {
   userId: number,
 }
 
-const NewMWGNameComponent: FC = ({username, userId}) => {
+const NewMWGNameComponent: FC = () => {
+  let { username, setUsername, userId, setUserId, userIcon, setUserIcon } = useContext(UserContext)
 
-  const [MWGname, setMWGname] = useState("");
+  const [MWGname, setMWGname] = useState<string>("");
+  const navigation = useNavigation<any>();
+
+  
+  useEffect( () => {
+    async function getUserInfo(){
+          setUsername(username);
+          setUserId(userId)
+          setUserIcon(userIcon)
+    }
+    getUserInfo()
+  }, []);
   let [fontsLoaded] = useFonts({
     Raleway_400Regular,
   });
@@ -44,7 +58,6 @@ const NewMWGNameComponent: FC = ({username, userId}) => {
     return <AppLoading />;
   }
 
-  const navigation = useNavigation();
 
   return (
     <View style={{ flex: 1}}>
@@ -58,10 +71,9 @@ const NewMWGNameComponent: FC = ({username, userId}) => {
       </View>
       <View style={[{ flex:0.5, alignItems: "center", justifyContent:'flex-end', alignItems:'flex-end'}]}>
         <Button uppercase={false} color='#FFFFFF' mode="text" onPress={() => {
-          navigation.navigate("MemberSearch", {username: username, userId: userId, newMWGname: MWGname});
+          navigation.navigate("MemberSearch", {newMWGname: MWGname});
         }}>
-          <Text>{username}</Text>
-          <Text>{userId}</Text>
+
             <Text style={styles.nextBtn}>Next ></Text>
         </Button>
       </View>

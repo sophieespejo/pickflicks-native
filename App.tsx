@@ -32,13 +32,12 @@ type RootStackParamList = {
   AvatarScreen: undefined
   Introduction: undefined,
   SelectStreamingService: undefined
-  NewMWGName: { username: string, userId: number },
+  NewMWGName: undefined,
   MemberSearch: { username: string, userId: number, newMWGname: string },
   InvitationSent: { username: string, userId: number},
   ChooseGenres : undefined,
   GenreRanking: undefined,
   MovieCard : undefined,
-  InvitationSent: { username: string, userId: number};
   MWGDashboard: undefined;
 }
 

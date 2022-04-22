@@ -2,13 +2,13 @@ import {
     createNativeStackNavigator,
     NativeStackScreenProps,
   } from "@react-navigation/native-stack";
-  import { FC, useState } from "react";
+  import { FC, useState, useContext, useEffect } from "react";
   import {
     StyleSheet,
     Text,
     TextInput,
     View,
-    Image,
+    Image, Alert,
     Keyboard, TouchableWithoutFeedback, Pressable, ScrollView, Animated
   } from "react-native";
   // import { Button } from "react-native-paper";
@@ -21,6 +21,7 @@ import {
   import RightActions from './RightActions'
   import { Button } from "react-native-paper";
   import { GetUserByUsername, AddMWG } from '../../Service/DataService'
+  import UserContext from '../../Context/UserContext';
   
   type RootStackParamList = {
       Home: undefined; //means route doesnt have params
@@ -36,26 +37,31 @@ import {
   
 
   interface IMemberSearchTextInputComponent {
-    username: string,
-    userId: number,
     newMWGname: string
   }
   
-  const MemberSearchTextInputComponent: FC = ({username, userId, newMWGname}) => {
-
+  const MemberSearchTextInputComponent: FC = ({newMWGname}) => {
+    let { username, setUsername, userId, setUserId, userIcon, setUserIcon } = useContext(UserContext)
     
     const [searchedName, setSearchedName] = useState<string>('');
     const [allSearchedNames, setAllSearchedNames] = useState<Array<string>>([]);
     const [mwgMembersId, setmwgMembersId] = useState<Array<string>>([]);
     const [mwgMembersNames, setmwgMembersNames] = useState<Array<string>>([]);
-
-  
     const navigation = useNavigation<any>();
 
     let row: Array<any> = [];
-    let prevOpenedRow: Number;
+    let prevOpenedRow: any;
 
-    const closeRow = (index) => {
+    useEffect( () => {
+      async function getUserInfo(){
+            setUsername(username);
+            setUserId(userId)
+            setUserIcon(userIcon)
+      }
+      getUserInfo()
+    }, []);
+
+    const closeRow = (index: number) => {
       console.log('closerow');
       if (prevOpenedRow && prevOpenedRow !== row[index]) {
         prevOpenedRow.close();
@@ -86,8 +92,8 @@ import {
       }
     }
 
+    //when user searched a name and presses enter
     const handleKeyPress= async () => {
-      console.log(searchedName);
       let foundUser = await GetUserByUsername(searchedName);
       if (foundUser != null && foundUser.id != 0) {
         allSearchedNames.push(searchedName);
@@ -95,31 +101,28 @@ import {
         mwgMembersId.push(foundUser.id);
         mwgMembersNames.push(searchedName);
         setmwgMembersNames([...mwgMembersNames]);
+        setSearchedName('');    
       }else{
-        alert('User does not exist')
+        Alert.alert('User does not exist', 'Please try again')
       }
     }
 
     const handleDeleteMember = async (searchedName:string, index:number ) => {
-      console.log(searchedName);
-      console.log(index)
       let removedMemberNameIndex = mwgMembersNames.indexOf(searchedName);
-      console.log(removedMemberNameIndex);
+      //console.log(removedMemberNameIndex);
       mwgMembersNames.splice(removedMemberNameIndex, 1);
       setmwgMembersNames([...mwgMembersNames]);
       setAllSearchedNames([...mwgMembersNames]);
-      console.log(mwgMembersNames)
+      //console.log(mwgMembersNames)
       closeRow(index-1)
 
       let foundUser = await GetUserByUsername(searchedName);
       if (foundUser != null && foundUser.id != 0) {
         let removedIdIndex = mwgMembersId.indexOf(foundUser.id);
-        console.log(removedIdIndex)
+        //console.log(removedIdIndex)
         mwgMembersId.splice(removedIdIndex, 1);
         setmwgMembersId([...mwgMembersId]);
-        console.log(mwgMembersId)
-      }else{
-        alert('User does not exist')
+        //console.log(mwgMembersId)
       }
     }
 
@@ -133,7 +136,6 @@ import {
   
     return (
         <View style={{flex:1, alignItems:'center'}}>
-          <Text>{newMWGname}</Text>
             <View style={{ flex: 1, backgroundColor:'#4D4A4AEA', borderRadius:30, width:'92%'}}>
               <View style={{alignItems:'flex-end', width:'95%', marginTop:'5%'}}>
                 <Image source={X}></Image>
@@ -147,6 +149,7 @@ import {
                       placeholderTextColor="#FFFFFF"
                       onChangeText={(e) => setSearchedName(e)}
                       onSubmitEditing={()=> handleKeyPress()}
+                      value={searchedName}
                     />
               </View>
               <View style={[{width:'92%', alignItems:'flex-start'}, styles.redInputLine]}>
@@ -158,7 +161,7 @@ import {
             <View style={{flex:1}}>
             {
               allSearchedNames.map((searchedName, index)=> {
-                const renderRightView = (progress, dragX) => {
+                const renderRightView = (progress:number, dragX:any) => {
 
                   const scale = dragX.interpolate({
                     inputRange: [-100, 0],
@@ -179,7 +182,7 @@ import {
                     renderRightActions={(progress, dragx) => renderRightView(progress, dragx)}
                     ref={(ref) => (row[index] = ref)}
                     onSwipeableOpen={() => closeRow(index)}
-                    rightOpenValue={-100}
+                    //rightOpenValue={-100}
                     key={index}
                     >
                     <View style={[{alignItems:'center', marginTop:'10%'}]}>

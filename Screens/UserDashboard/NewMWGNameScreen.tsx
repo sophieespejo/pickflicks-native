@@ -1,5 +1,5 @@
 import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
-import { FC } from 'react';
+import { FC, useEffect, useContext } from 'react';
 import { StyleSheet, Text, View , Image, ScrollView} from 'react-native';
 import JustLogoComponent from '../../Components/UserDashboard-Body/JustLogoComponent';
 import ButtonComponent from '../../Components/UserDashboard-Body/ButtonComponent';
@@ -8,30 +8,41 @@ import FooterNavComponent from '../../Components/UserDashboard-Body/FooterNavCom
 import NewMWGNameComponent from '../../Components/UserDashboard-Body/NewMWGNameComponent';
 import MemberSearchTextInputComponent from '../../Components/UserDashboard-Body/MemberSearchTextInputComponent';
 import HeaderComponent from '../../Components/UserDashboard-Body/HeaderComponent';
+import UserContext from '../../Context/UserContext';
 
 
 type RootStackParamList = {
     Home: undefined; //means route doesnt have params
-    Profile: { name : string };
-    Login: { username: string, userId: number}
+    Login: undefined
     CreateAccount: undefined,
     Loading: undefined,
     Introduction: undefined
     UserDashboard: undefined
-    NewMWGName: { username: string, userId: number}
+    NewMWGName: undefined
     MemberSearch: { username: string, userId: number, newMWGname: string  },
   }
   
   
 type Props = NativeStackScreenProps<RootStackParamList, 'NewMWGName'>;
 
-  
+const NewMWGNameScreen: FC<Props> = ({navigation}) => {
 
-const NewMWGNameScreen: FC<Props> = ({navigation, route}) => {
+  let { username, setUsername, userId, setUserId, userIcon, setUserIcon } = useContext(UserContext)
+
+  useEffect( () => {
+    async function getUserInfo(){
+          setUsername(username);
+          setUserId(userId)
+          setUserIcon(userIcon)
+    }
+    getUserInfo()
+  }, []);
+
+
     return (
         <View style={styles.container}>
             <JustLogoComponent/>
-            <NewMWGNameComponent username={route.params.username} userId={route.params.userId} />
+            <NewMWGNameComponent username={username} userId={userId} />
             <FooterNavComponent/>
         </View>
     )
