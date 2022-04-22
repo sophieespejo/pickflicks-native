@@ -22,7 +22,7 @@ interface IButtonComponent {
       Introduction: undefined;
       UserDashboard: undefined;
       InvitationSent: undefined;
-      MemberSearch: { username: string, userId: number },
+      MemberSearch: { newMWGname: string },
       NewMWGName: undefined,
     };
   

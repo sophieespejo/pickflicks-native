@@ -35,10 +35,10 @@ import {
   
 
   interface IMemberSearchTextInputComponent {
-    newMWGname: string
+    newMWGname: string;
   }
   
-  const MemberSearchTextInputComponent: FC = ({newMWGname}) => {
+  const MemberSearchTextInputComponent: FC = ({newMWGname}:any) => {
     let { username, setUsername, userId, setUserId, userIcon, setUserIcon } = useContext(UserContext)
     
     const [searchedName, setSearchedName] = useState<string>('');
@@ -85,8 +85,10 @@ import {
       }
       let result = await AddMWG(newMWG);
       if (result) {
-        console.log("yay it worked")
+        //console.log("yay it worked")
         navigation.navigate("InvitationSent", { username: username, userId: userId});
+      }else{
+        alert("Unable to create a new movie watch group. Please try again.")
       }
     }
 
@@ -160,7 +162,6 @@ import {
             {
               allSearchedNames.map((searchedName, index)=> {
                 const renderRightView = (progress:number, dragX:any) => {
-
                   const scale = dragX.interpolate({
                     inputRange: [-100, 0],
                     outputRange: [0.7, 0],
@@ -177,7 +178,7 @@ import {
                 }
                 return (
                   <Swipeable 
-                    renderRightActions={(progress, dragx) => renderRightView(progress, dragx)}
+                    renderRightActions={(progress:number, dragx:any) => renderRightView(progress, dragx)}
                     ref={(ref) => (row[index] = ref)}
                     onSwipeableOpen={() => closeRow(index)}
                     //rightOpenValue={-100}
