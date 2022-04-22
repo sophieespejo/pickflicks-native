@@ -34,7 +34,7 @@ const GenreSelectionComponent: FC = () => {
 
 
             <View style={{flex:1, alignItems:'center'}}>
-            <BubbleSelect
+            {/* <BubbleSelect
             onSelect={bubble => console.log('Selected: ', bubble.id)}
             onDeselect={bubble => console.log('Deselected: ', bubble.id)}
             width={width}
@@ -44,7 +44,7 @@ const GenreSelectionComponent: FC = () => {
             <Bubble id="bubble-2" text="Bubble Two" />
             <Bubble id="bubble-3" text="Bubble Three" />
             <Bubble id="bubble-4" text="Bubble Four" />
-          </BubbleSelect>
+          </BubbleSelect> */}
             </View>
 
 

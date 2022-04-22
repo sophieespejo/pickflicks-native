@@ -11,6 +11,7 @@ import GenreSelectionComponent from '../../Components/MWGDashboard/GenreSelectio
 import MovieCardComponent from '../../Components/MWGDashboard/MovieCardComponent';
 import LoadingPopcornGifComponent from '../../Components/MWGDashboard/LoadingPopcornGifComponent';
 import YourProfileComponent from '../../Components/UserProfile/YourProfileComponent';
+import ChangeUsernameComponent from '../../Components/UserProfile/ChangeUsernameComponent';
 import { Provider as PaperProvider } from 'react-native-paper';
 
 
@@ -36,19 +37,19 @@ type RootStackParamList = {
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Introduction'>;
 
-const UserProfileScreen: FC<Props> = ({navigation}) => {
+const ChangeUsernameScreen: FC<Props> = ({navigation}) => {
 
 
     return (
         <View style={styles.container}>
             <HeaderComponent/>
-            <YourProfileComponent/>
+            <ChangeUsernameComponent/>
             <FooterNavComponent/>
         </View>
     )
 }
 
-export default UserProfileScreen;
+export default ChangeUsernameScreen;
 
 const styles = StyleSheet.create({
     container:{
