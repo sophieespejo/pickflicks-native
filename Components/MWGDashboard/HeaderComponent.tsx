@@ -1,12 +1,24 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { FC } from "react";
+import { FC, useContext, useEffect } from "react";
 import { StyleSheet, Text, View, Image, TextInput} from "react-native";
 import headerLogo from "../../assets/headerLogo.png";
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
+import UserContext from '../../Context/UserContext';
+
 
 
 const HeaderComponent: FC = () => {
+  let { setMWGname, MWGname, setMWGId, MWGId } = useContext(UserContext);
+
+  useEffect( () => {
+    async function getUserInfo(){
+          setMWGname(MWGname);
+          //setMWGId(MWGId);
+    }
+    getUserInfo()
+  }, []);
+
   let [fontsLoaded] = useFonts({
     Raleway_400Regular,
   });
@@ -21,7 +33,7 @@ const HeaderComponent: FC = () => {
         <Image style={{height: 70, width: '100%', marginLeft: '13%'}} source={headerLogo}></Image>
       </View>
       <View style={{flex:0.4, alignItems:'center'}}>
-            <TextInput style={styles.yourGroupText} editable={false} value="MovieGroup1"/>
+            <TextInput style={styles.yourGroupText} editable={false} value={MWGname}/>
       </View>
     </View>
   );

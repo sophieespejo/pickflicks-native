@@ -20,7 +20,7 @@ interface IMWGCardComponent {
 
 //map through MWG created according to userID/logged in user
 const MWGCardComponent: FC = () => {
-  let { username, setUsername, userId, setUserId, userIcon, setUserIcon } = useContext(UserContext)
+  let { username, setUsername, userId, setUserId, setMWGname, MWGname, setMWGId, MWGId } = useContext(UserContext)
 
   const [allMWG, setAllMWG] = useState<any>([]);
   const [allFaveMWG, setAllFaveMWG] = useState<any>([]);
@@ -88,8 +88,10 @@ const MWGCardComponent: FC = () => {
         }
     }
 
-    const handleViewMWG = () => {
-        navigation.navigate
+    const handlePress = (MWGname:string) => {
+      console.log(MWGname);
+      setMWGname(MWGname);
+      navigation.navigate('MWGDashboard');
     }
 
 
@@ -111,7 +113,7 @@ const MWGCardComponent: FC = () => {
       {
         return (
           
-               <Pressable key={group.id} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=>navigation.navigate('MWGDashboard')}>
+               <Pressable key={group.id} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=> handlePress(group.mwgName)}>
                  <View >
                    <View  style={{marginTop: '10%', flexDirection:'row'}}>
                      <Text
@@ -173,7 +175,7 @@ const MWGCardComponent: FC = () => {
         allMWG.map((group:any, i:number) => {if(!allFaveMWG.includes(parseInt(group.id)))
           {
             return (
-                   <Pressable key={group.id} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=>navigation.navigate('MWGDashboard')}>
+                   <Pressable key={group.id} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=> handlePress(group.mwgName)}>
                      <View >
                        <View  style={{marginTop: '10%', flexDirection:'row'}}>
                          <Text
