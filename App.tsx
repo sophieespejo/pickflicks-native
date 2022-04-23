@@ -15,6 +15,7 @@ import AvatarScreen from './Screens/CreateAccount/AvatarScreen';
 import SelectStreamServiceScreen from './Screens/MWGDash/SelectStreamServiceScreen';
 import ChooseGenresScreen from './Screens/MWGDash/ChooseGenresScreen';
 import GenreRankingScreen from './Screens/MWGDash/GenreRankingScreen';
+import FinalGenreScreen from './Screens/MWGDash/FinalGenreScreen';
 import MovieCardScreen from './Screens/MWGDash/MovieCardScreen';
 import FinalMovieScreen from './Screens/MWGDash/FinalMovieScreen';
 import MWGDashboardScreen from './Screens/MWGDash/MWGdashboardScreen';
@@ -45,6 +46,7 @@ type RootStackParamList = {
   InvitationSent: { username: string, userId: number},
   ChooseGenres : undefined,
   GenreRanking: undefined,
+  FinalGenre : undefined,
   MovieCard : undefined,
   FinalMovie : undefined,
   MWGDashboard : undefined,
@@ -65,6 +67,11 @@ const App:FC = () => {
       <NativeBaseProvider>
     <NavigationContainer>
       <Stack.Navigator>
+      {/* <Stack.Screen
+          name="FinalGenre"
+          component={FinalGenreScreen}
+          options={{headerShown:false}}>
+        </Stack.Screen> */}
       {/* <Stack.Screen
           name="ChangeNotifications"
           component={ChangeNotificationsScreen}
@@ -95,11 +102,11 @@ const App:FC = () => {
           component={LoadingPopcornScreen}
           options={{headerShown:false}}>
         </Stack.Screen> */}
-      {/* <Stack.Screen
+      <Stack.Screen
           name="MWGDashboard"
           component={MWGDashboardScreen}
           options={{headerShown:false}}>
-        </Stack.Screen> */}
+        </Stack.Screen>
       {/* <Stack.Screen
           name="FinalMovie"
           component={FinalMovieScreen}
@@ -197,10 +204,10 @@ const App:FC = () => {
                 name="CreateAccountScreen"
                 component={CreateAccountScreen}
                 options={{headerShown:false}} />
-              <Stack.Screen
+              {/* <Stack.Screen
                 name="MWGDashboard"
                 component={MWGDashboardScreen}
-                options={{headerShown:false}} />
+                options={{headerShown:false}} /> */}
               <Stack.Screen
                 name="AvatarScreen"
                 component={AvatarScreen}

@@ -42,8 +42,8 @@ const StartWatchingBtnsComponent: FC<Props> = ({username, userId}) => {
 
 
   return (
-    <>
-        <View style={{flex:1, marginTop:'5%', alignItems:'center', backgroundColor:'yellow'}}>
+    <View>
+        <View style={{flex:1, height:90, marginTop:'5%', alignItems:'center'}}>
             <Pressable style={{width:'90%'}} onPress={() => navigation.navigate}>
                 <View style={styles.wgButton}>
                 <Image source={MovieClipper}></Image>
@@ -52,8 +52,8 @@ const StartWatchingBtnsComponent: FC<Props> = ({username, userId}) => {
             </Pressable>
         </View>
 
-        <View style={{flex:1, alignItems:'center', marginTop:'4%',justifyContent:'center', backgroundColor:'purple'}}>
-            <Pressable style={{width:'90%'}} onPress={() => navigation.navigate}>
+        <View style={{flex:1, height:120, alignItems:'center', marginTop:'4%',justifyContent:'center'}}>
+            <View style={{width:'90%'}} onPress={() => navigation.navigate}>
                 <View style={styles.LWAMT}>
                 <View style={{flex:1, marginTop:'3%'}}>
                 <Text style={{color:'#FFFFFF', fontSize:18, justifyContent:'center', textAlign:'center', fontFamily:'Raleway_400Regular'}}>Let's watch a movie together later</Text>
@@ -67,11 +67,11 @@ const StartWatchingBtnsComponent: FC<Props> = ({username, userId}) => {
                 </View>
                 
                 </View>
-            </Pressable>
+            </View>
         </View>
 
-        <View style={{flex:1.5, alignItems:'center', marginTop:'4%', backgroundColor:'blue'}}>
-            <View style={[{flex:1, width:'90%'}, styles.LWAMT]} onPress={() => navigation.navigate}>
+        <View style={{flex:1, height:200, alignItems:'center', marginTop:'4%'}}>
+            <View style={[{flex:1, width:'90%'}, styles.LWAMT]}>
                 <View style={{flex:1, marginTop:'3%', marginBottom:'3%'}}>
                 <Text style={{color:'#FFFFFF', fontSize:28, justifyContent:'center', textAlign:'center', fontFamily:'Raleway_400Regular'}}>Movies Watched</Text>
                 </View>
@@ -82,9 +82,9 @@ const StartWatchingBtnsComponent: FC<Props> = ({username, userId}) => {
                         <View style={{borderBottomColor:'#FFFFFF', borderBottomWidth:1}}>
                             <Text style={{color:'#FFFFFF', fontSize:18, fontFamily:'Raleway_400Regular', textAlign:'center'}}>Movies</Text>
                         </View>
-                            <Text style={{color:'#FFFFFF', fontSize:18, fontFamily:'Raleway_400Regular'}}>Movies</Text>
-                            <Text style={{color:'#FFFFFF', fontSize:18, fontFamily:'Raleway_400Regular'}}>Movies</Text>
-                            <Text style={{color:'#FFFFFF', fontSize:18, fontFamily:'Raleway_400Regular'}}>Movies</Text>
+                            <Text style={{color:'#FFFFFF', fontSize:23, fontFamily:'Raleway_400Regular'}}>Movies</Text>
+                            <Text style={{color:'#FFFFFF', fontSize:23, fontFamily:'Raleway_400Regular'}}>Movies</Text>
+                            <Text style={{color:'#FFFFFF', fontSize:23, fontFamily:'Raleway_400Regular'}}>Movies</Text>
                         </ScrollView>
                         </View>
 
@@ -94,9 +94,9 @@ const StartWatchingBtnsComponent: FC<Props> = ({username, userId}) => {
                             <Text style={{color:'#FFFFFF', fontSize:18, fontFamily:'Raleway_400Regular', textAlign:'center'}}>Genre</Text>
                         </View>
                         <ScrollView>
-                            <Text style={{color:'#FFFFFF', fontSize:18, fontFamily:'Raleway_400Regular', textAlign:'center'}}>Movies</Text>
-                            <Text style={{color:'#FFFFFF', fontSize:18, fontFamily:'Raleway_400Regular', textAlign:'center'}}>Movies</Text>
-                            <Text style={{color:'#FFFFFF', fontSize:18, fontFamily:'Raleway_400Regular', textAlign:'center'}}>Movies</Text>
+                            <Text style={{color:'#FFFFFF', fontSize:23, fontFamily:'Raleway_400Regular', textAlign:'center'}}>Movies</Text>
+                            <Text style={{color:'#FFFFFF', fontSize:23, fontFamily:'Raleway_400Regular', textAlign:'center'}}>Movies</Text>
+                            <Text style={{color:'#FFFFFF', fontSize:23, fontFamily:'Raleway_400Regular', textAlign:'center'}}>Movies</Text>
                         </ScrollView>
                         </View>
                 </View>
@@ -104,33 +104,62 @@ const StartWatchingBtnsComponent: FC<Props> = ({username, userId}) => {
             </View>
         </View>
 
-        {/* <View>
-        <View style={{flex:3,flexDirection:'row', marginBottom:'4%', width:'100%', justifyContent:'space-evenly', height:'100%'}}>
-                        <View>
-                        <ScrollView>
-                        <View style={{borderBottomColor:'#FFFFFF', borderBottomWidth:1}}>
-                            <Text style={{color:'#FFFFFF', fontSize:18, fontFamily:'Raleway_400Regular', textAlign:'center'}}>Movies</Text>
-                        </View>
-                            <Text style={{color:'#FFFFFF', fontSize:18, fontFamily:'Raleway_400Regular'}}>Movies</Text>
-                            <Text style={{color:'#FFFFFF', fontSize:18, fontFamily:'Raleway_400Regular'}}>Movies</Text>
-                            <Text style={{color:'#FFFFFF', fontSize:18, fontFamily:'Raleway_400Regular'}}>Movies</Text>
-                        </ScrollView>
-                        </View>
+        <View style={{flex:1, height:300, alignItems:'center', marginTop:'4%'}}>
+            <View style={[{flex:1, width:'90%'}, styles.LWAMT]}>
+                <View style={{flex:1, marginTop:'3%'}}>
+                <Text style={{color:'#FFFFFF', fontSize:28, justifyContent:'center', textAlign:'center', fontFamily:'Raleway_400Regular'}}>Group Members</Text>
                 </View>
-        </View> */}
+        
+                <View style={{flex:1, height:100,  flexDirection:'row', marginBottom:'4%', width:'80%', justifyContent:'space-evenly'}}>
+                        <ScrollView style={{flex:1}}>
+                          <View style={styles.nameLine}>
+                            <Text style={{color:'#FFFFFF', fontSize:25, fontFamily:'Raleway_400Regular', textAlign:'center'}}>Movies</Text>
+                          </View>
+                          <View style={styles.nameLine}>
+                            <Text style={{color:'#FFFFFF', fontSize:25, fontFamily:'Raleway_400Regular', textAlign:'center'}}>Movies</Text>
+                          </View>
+
+                          <View style={styles.nameLine}>
+                            <Text style={{color:'#FFFFFF', fontSize:25, fontFamily:'Raleway_400Regular', textAlign:'center'}}>Movies</Text>
+                          </View>
+
+                          <View style={styles.nameLine}>
+                            <Text style={{color:'#FFFFFF', fontSize:25, fontFamily:'Raleway_400Regular', textAlign:'center'}}>Movies</Text>
+                          </View>
+                          <View style={styles.nameLine}>
+                            <Text style={{color:'#FFFFFF', fontSize:25, fontFamily:'Raleway_400Regular', textAlign:'center'}}>Movies</Text>
+                          </View>
+                          <View style={styles.nameLine}>
+                            <Text style={{color:'#FFFFFF', fontSize:25, fontFamily:'Raleway_400Regular', textAlign:'center'}}>Movies</Text>
+                          </View>
+                          <View style={styles.nameLine}>
+                            <Text style={{color:'#FFFFFF', fontSize:25, fontFamily:'Raleway_400Regular', textAlign:'center'}}>Movies</Text>
+                          </View>
+                          <View style={styles.nameLine}>
+                            <Text style={{color:'#FFFFFF', fontSize:25, fontFamily:'Raleway_400Regular', textAlign:'center'}}>Movies</Text>
+                          </View>
+                        </ScrollView>
+                </View>
+
+            </View>
+        </View>
+
         
 
             {/* <MemberSearchTextInputComponent/> */}
 
-        </>
+        </View>
   );
 };
 
 export default StartWatchingBtnsComponent;
 
 const styles = StyleSheet.create({
-    container:{
-        backgroundColor:'green'
+    nameLine:{
+      flex:1,
+      borderBottomColor: '#707070',
+      borderBottomWidth: 1,
+      marginTop:'10%',
     },
   wgButton: {
     flexDirection: "row",
@@ -155,10 +184,10 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor:'#DC1B21C6',
     backgroundColor:'#DC1B21C6',
-    borderRadius: 25,
+    borderRadius: 15,
     alignItems:'center',
     justifyContent:'center',
-    height:'40%',
+    height:'50%',
     width:'55%'
   },
   container: {
