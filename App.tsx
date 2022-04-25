@@ -108,10 +108,6 @@ const App:FC = () => {
                 component={AvatarScreen}
                 options={{headerShown:false}} />
               <Stack.Screen
-                name="UserProfile"
-                component={UserProfileScreen}
-                options={{headerShown:false}} />
-              <Stack.Screen
                 name="SelectStreamingService"
                 component={SelectStreamServiceScreen}
                 options={{headerShown:false}}/>
