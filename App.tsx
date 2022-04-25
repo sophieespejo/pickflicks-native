@@ -67,111 +67,6 @@ const App:FC = () => {
       <NativeBaseProvider>
     <NavigationContainer>
       <Stack.Navigator>
-      {/* <Stack.Screen
-          name="FinalGenre"
-          component={FinalGenreScreen}
-          options={{headerShown:false}}>
-        </Stack.Screen> */}
-      {/* <Stack.Screen
-          name="ChangeNotifications"
-          component={ChangeNotificationsScreen}
-          options={{headerShown:false}}>
-        </Stack.Screen> */}
-      {/* <Stack.Screen
-          name="ChangePassword2"
-          component={ChangePasswordScreen2}
-          options={{headerShown:false}}>
-        </Stack.Screen> */}
-      {/* <Stack.Screen
-          name="ChangePassword1"
-          component={ChangePasswordScreen1}
-          options={{headerShown:false}}>
-        </Stack.Screen> */}
-      {/* <Stack.Screen
-          name="ChangeUsername"
-          component={ChangeUsernameScreen}
-          options={{headerShown:false}}>
-        </Stack.Screen> */}
-      {/* <Stack.Screen
-          name="UserProfile"
-          component={UserProfileScreen}
-          options={{headerShown:false}}>
-        </Stack.Screen> */}
-      {/* <Stack.Screen
-          name="LoadingPopcorn"
-          component={LoadingPopcornScreen}
-          options={{headerShown:false}}>
-        </Stack.Screen> */}
-      <Stack.Screen
-          name="MWGDashboard"
-          component={MWGDashboardScreen}
-          options={{headerShown:false}}>
-        </Stack.Screen>
-      {/* <Stack.Screen
-          name="FinalMovie"
-          component={FinalMovieScreen}
-          options={{headerShown:false}}>
-        </Stack.Screen> */}
-      {/* <Stack.Screen
-          name="MovieCard"
-          component={MovieCardScreen}
-          options={{headerShown:false}}>
-        </Stack.Screen> */}
-      {/* <Stack.Screen
-          name="GenreRanking"
-          component={GenreRankingScreen}
-          options={{headerShown:false}}>
-        </Stack.Screen> */}
-      {/* <Stack.Screen
-          name="ChooseGenres"
-          component={ChooseGenresScreen}
-          options={{headerShown:false}}>
-        </Stack.Screen> */}
-      {/* <Stack.Screen
-          name="SelectStreamingService"
-          component={SelectStreamServiceScreen}
-          options={{headerShown:false}}>
-        </Stack.Screen> */}
-      {/* <Stack.Screen
-      name="NewMWGName"
-      component={NewMWGNameScreen}
-      options={{headerShown:false}}>
-    </Stack.Screen> */}
-      {/* <Stack.Screen
-          name="Login"
-          component={LoginScreen}
-          options={{headerShown:false}}>
-        </Stack.Screen>
-        <Stack.Screen
-      name="NewMWGName"
-      component={NewMWGNameScreen}
-      options={{headerShown:false}}>
-    </Stack.Screen> */}
-      {/* <Stack.Screen
-      name="MemberSearch"
-      component={MemberSearchScreen}
-      options={{headerShown:false}}>
-    </Stack.Screen> */}
-      {/* <Stack.Screen
-      name="InvitationSent"
-      component={InvitationSentScreen}
-      options={{headerShown:false}}>
-    </Stack.Screen> */}
-      {/* <Stack.Screen
-          name="Login"
-          component={LoginScreen}
-          options={{headerShown:false}}>
-        </Stack.Screen>
-      <Stack.Screen
-      name="Loading"
-      component={LoadingScreen}
-      options={{headerShown:false}}>
-    </Stack.Screen>
-            <Stack.Screen
-            name="InvitationSent"
-            component={InvitationSentScreen}
-            options={{headerShown:false}}>
-          </Stack.Screen> */} 
             <Stack.Screen
                 name="Login"
                 component={LoginScreen}
@@ -204,10 +99,10 @@ const App:FC = () => {
                 name="CreateAccountScreen"
                 component={CreateAccountScreen}
                 options={{headerShown:false}} />
-              {/* <Stack.Screen
+              <Stack.Screen
                 name="MWGDashboard"
                 component={MWGDashboardScreen}
-                options={{headerShown:false}} /> */}
+                options={{headerShown:false}} />
               <Stack.Screen
                 name="AvatarScreen"
                 component={AvatarScreen}
@@ -216,6 +111,54 @@ const App:FC = () => {
                 name="UserProfile"
                 component={UserProfileScreen}
                 options={{headerShown:false}} />
+              <Stack.Screen
+                name="SelectStreamingService"
+                component={SelectStreamServiceScreen}
+                options={{headerShown:false}}/>
+              <Stack.Screen
+                name="ChooseGenres"
+                component={ChooseGenresScreen}
+                options={{headerShown:false}}/>
+              <Stack.Screen
+                name="GenreRanking"
+                component={GenreRankingScreen}
+                options={{headerShown:false}}/>
+              <Stack.Screen
+                name="FinalGenre"
+                component={FinalGenreScreen}
+                options={{headerShown:false}}/>
+              <Stack.Screen
+                name="MovieCard"
+                component={MovieCardScreen}
+                options={{headerShown:false}}/>
+              <Stack.Screen
+                name="FinalMovie"
+                component={FinalMovieScreen}
+                options={{headerShown:false}}/>
+              <Stack.Screen
+                name="LoadingPopcorn"
+                component={LoadingPopcornScreen}
+                options={{headerShown:false}}/>
+              <Stack.Screen
+                name="UserProfile"
+                component={UserProfileScreen}
+                options={{headerShown:false}}/>
+              <Stack.Screen
+                name="ChangeNotifications"
+                component={ChangeNotificationsScreen}
+                options={{headerShown:false}}/>
+              <Stack.Screen
+                name="ChangePassword2"
+                component={ChangePasswordScreen2}
+                options={{headerShown:false}}/>
+              <Stack.Screen
+                name="ChangePassword1"
+                component={ChangePasswordScreen1}
+                options={{headerShown:false}}/>
+              <Stack.Screen
+                name="ChangeUsername"
+                component={ChangeUsernameScreen}
+                options={{headerShown:false}}/>
               </Stack.Navigator>
             </NavigationContainer>
       </NativeBaseProvider>
