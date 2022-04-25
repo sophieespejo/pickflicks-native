@@ -1,7 +1,7 @@
 import { NavigationRouteContext } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { FC } from 'react';
+import { FC, useContext, useEffect } from 'react';
 import { StyleSheet, Text, View , Image, ScrollView} from 'react-native';
 import RedLogo from '../assets/RedLogo.png';
 import HeaderComponent from '../../Components/MWGDashboard/HeaderComponent';
@@ -11,6 +11,7 @@ import GenreSelectionComponent from '../../Components/MWGDashboard/GenreSelectio
 import MovieCardComponent from '../../Components/MWGDashboard/MovieCardComponent';
 import StartWatchingBtnsComponent from '../../Components/MWGDashboard/StartWatchingBtnsComponent';
 import { Provider as PaperProvider } from 'react-native-paper';
+import UserContext from '../../Context/UserContext';
 // import { ScrollView } from 'native-base';
 
 
@@ -31,17 +32,25 @@ type RootStackParamList = {
     ChooseGenres : undefined,
     GenreRanking: undefined,
     MovieCard : undefined,
+    MWGDashboard: undefined,
 
   }
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Introduction'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'MWGDashboard'>;
 
 const MWGDashboardScreen: FC<Props> = ({navigation}) => {
+  let { username, setUsername, userId, setUserId, userIcon, setUserIcon, MWGname, setMWGname, MWGId, setMWGId } = useContext(UserContext)
 
-
+  useEffect( () => {
+    async function getUserInfo(){
+          setMWGname(MWGname);
+          setMWGId(MWGId);
+    }
+    getUserInfo()
+  }, []);
     return (
         <View style={styles.container}>
-            <HeaderComponent/>
+            <HeaderComponent />
             <ScrollView style={{flex:1}}>
             <StartWatchingBtnsComponent/>
             </ScrollView>
