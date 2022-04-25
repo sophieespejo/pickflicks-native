@@ -17,6 +17,7 @@ import ChooseGenresScreen from './Screens/MWGDash/ChooseGenresScreen';
 import GenreRankingScreen from './Screens/MWGDash/GenreRankingScreen';
 import FinalGenreScreen from './Screens/MWGDash/FinalGenreScreen';
 import MovieCardScreen from './Screens/MWGDash/MovieCardScreen';
+import TutorialMovieCardScreen from './Screens/MWGDash/TutorialMovieCardScreen';
 import FinalMovieScreen from './Screens/MWGDash/FinalMovieScreen';
 import MWGDashboardScreen from './Screens/MWGDash/MWGDashboardScreen';
 import LoadingPopcornScreen from './Screens/MWGDash/LoadingPopcornScreen';
@@ -56,6 +57,7 @@ type RootStackParamList = {
   ChangePassword1 : undefined,
   ChangePassword2 : undefined,
   ChangeNotifications : undefined,
+  TutorialMovieCard : undefined,
 }
 
 
@@ -67,6 +69,10 @@ const App:FC = () => {
       <NativeBaseProvider>
     <NavigationContainer>
       <Stack.Navigator>
+            <Stack.Screen
+                name="TutorialMovieCard"
+                component={TutorialMovieCardScreen}
+                options={{headerShown:false}} />
             <Stack.Screen
                 name="Login"
                 component={LoginScreen}

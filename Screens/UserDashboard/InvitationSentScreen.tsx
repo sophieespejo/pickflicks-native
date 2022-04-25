@@ -34,9 +34,9 @@ const InvitationSentScreen: FC<Props> = () => {
 
     return (
       <View style={styles.container}>
-        <Pressable style={{flex:1}} onPress={()=> navigation.navigate('UserDashboard')}>
+        {/* <Pressable style={{flex:1}} onPress={()=> navigation.navigate('UserDashboard')}> */}
           <SentInvitationsComponent/>
-        </Pressable>
+        {/* </Pressable> */}
       </View>
     )
 }

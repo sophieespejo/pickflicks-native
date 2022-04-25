@@ -32,10 +32,24 @@ const LoginScreen : FC<Props> = ({ navigation }) => {
     const toast = useToast();
 
     useEffect( () => {
-        // const fetch = async () => {
-              
-        // }
-        // fetch();
+        const userToken = async () => 
+        {
+            const token = await AsyncStorage.getItem('@storage_Token')
+            const Id = await AsyncStorage.getItem('@storage_Id')
+            const Username = await AsyncStorage.getItem('@storage_Username')
+            if(token != null)
+            {
+                console.log(token);
+                console.log(Id);
+                console.log(Username);
+
+                setUsername(Username);
+                setUserId(Id);
+                navigation.navigate('UserDashboard')
+            }
+        }
+        userToken();
+
       }, []);
 
     const handleSubmit = async () => {
@@ -48,8 +62,16 @@ const LoginScreen : FC<Props> = ({ navigation }) => {
         console.log(fetchedToken);
 
         if (fetchedToken.token != null) {
+            
             let userData = await GetUserByUsername(username);
             let userId = userData.id;
+
+            const storedId = JSON.stringify(userId)
+            const jsonTOKEN = JSON.stringify(fetchedToken)
+            await AsyncStorage.setItem('@storage_Token', jsonTOKEN)
+            await AsyncStorage.setItem('@storage_Id', storedId)
+            await AsyncStorage.setItem('@storage_Username', username)
+            
             setUserId(userData.id);
             navigation.navigate('UserDashboard')
         } else {
@@ -63,7 +85,6 @@ const LoginScreen : FC<Props> = ({ navigation }) => {
 
     const handleNavigateToCreateAccount = () => {
         navigation.navigate('CreateAccountScreen');
-        console.log('rinning')
     };
 
     let [fontsLoaded] = useFonts({

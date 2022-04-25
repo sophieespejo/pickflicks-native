@@ -23,11 +23,8 @@ const SentInvitationsComponent: FC = () => {
     <Pressable style={styles.container} onPress={()=> navigation.navigate("UserDashboard")}>
     <View style={{flexDirection: 'row', alignItems:'center',
         justifyContent:'flex-end', }}>
-      {/* <ImageBackground blurRadius={1} source={CheckMark} resizeMode="cover" style={styles.image}> */}
         <Image source={CheckMark}/>
         <Text style={styles.text}>Invitation Sent</Text>
-
-    {/* </ImageBackground> */}
     </View>
     </Pressable>
   );
@@ -39,6 +36,7 @@ const styles = StyleSheet.create({
         alignItems:'center',
         justifyContent:'center',
         flexDirection:'row',
+        backgroundColor:'black'
     },
     text : {
         color:'#FFFFFF',
