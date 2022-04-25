@@ -70,10 +70,6 @@ const App:FC = () => {
     <NavigationContainer>
       <Stack.Navigator>
             <Stack.Screen
-                name="TutorialMovieCard"
-                component={TutorialMovieCardScreen}
-                options={{headerShown:false}} />
-            <Stack.Screen
                 name="Login"
                 component={LoginScreen}
                 options={{headerShown:false}} />
@@ -161,6 +157,10 @@ const App:FC = () => {
                 name="ChangeUsername"
                 component={ChangeUsernameScreen}
                 options={{headerShown:false}}/>
+                <Stack.Screen
+                name="TutorialMovieCard"
+                component={TutorialMovieCardScreen}
+                options={{headerShown:false}} />
               </Stack.Navigator>
             </NavigationContainer>
       </NativeBaseProvider>
