@@ -10,6 +10,7 @@ import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 import { useToast } from 'native-base';
 import UserContext from '../../Context/UserContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type RootStackParamList = {
     Home: undefined; //means route doesnt have params
