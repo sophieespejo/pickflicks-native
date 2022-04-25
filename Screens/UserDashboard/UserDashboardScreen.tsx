@@ -21,6 +21,7 @@ type RootStackParamList = {
     MemberSearch: { newMWGname: string  },
     InvitationSent: undefined;
     NewMWGName: undefined,
+    MWGDashboard: undefined
   }
   
   
@@ -38,9 +39,6 @@ const UserDashboard: FC<Props> = ({navigation}) => {
 
   useEffect( () => {
     async function getUserInfo(){
-          // let username = await AsyncStorage.getItem(JSON.parse('Username'));
-          // let userId = await AsyncStorage.getItem(JSON.parse('UserId'));
-          // let userIcon = await AsyncStorage.getItem(JSON.parse('UserIcon'));
           setUsername(username);
           setUserId(userId)
           setUserIcon(userIcon)

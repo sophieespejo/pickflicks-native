@@ -8,7 +8,7 @@ import AppLoading from 'expo-app-loading';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import MemberSearchTextInputComponent from '../UserDashboard-Body/MemberSearchTextInputComponent'
 
-interface IButtonComponent {
+interface IStartWatchingBtnsComponent {
   username: string,
   userId: number
 }
@@ -24,11 +24,15 @@ interface IButtonComponent {
       InvitationSent: undefined;
       MemberSearch: { username: string, userId: number },
       NewMWGName: { username: string, userId: number },
+      MWGDashboard: { mwgName: string, mwgId: number }
+
     };
   
-  type Props = NativeStackScreenProps<RootStackParamList, "UserDashboard">;
+  type Props = NativeStackScreenProps<RootStackParamList, "MWGDashboard">;
 
-const StartWatchingBtnsComponent: FC<Props> = ({username, userId}) => {
+const StartWatchingBtnsComponent: FC = () => {
+  const navigation = useNavigation<any>();
+  
   let [fontsLoaded] = useFonts({
     Raleway_400Regular,
   });
@@ -37,7 +41,6 @@ const StartWatchingBtnsComponent: FC<Props> = ({username, userId}) => {
     return <AppLoading />;
   }
 
-  const navigation = useNavigation();
 
 
 
@@ -190,7 +193,7 @@ const styles = StyleSheet.create({
     height:'50%',
     width:'55%'
   },
-  container: {
+  container1: {
     flex: 0,
     alignItems: "center",
 
