@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { FC, useState, useEffect } from "react";
-import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, FlatList } from "react-native";
+import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, FlatList, Pressable } from "react-native";
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 import { Button } from "react-native-paper";
@@ -9,6 +9,7 @@ import SelectBox from 'react-native-multi-selectbox'
 import { xorBy } from 'lodash'
 import Icon from '../MWGDashboard/Icon'
 import { Item } from "react-native-paper/lib/typescript/components/List/List";
+import X from '../../assets/X.png'
 
 
   
@@ -98,15 +99,15 @@ const GenreSelectionComponent2: FC = () => {
       },
     ]
 
-    function onPressItem() {
-        return (e) => {
-          setShowOptions(false)
-          return onChange ? onChange(item) : null
-        }
-      }
+    // function onPressItem() {
+    //     return (e) => {
+    //       setShowOptions(false)
+    //       return onChange ? onChange(item) : null
+    //     }
+    //   }
 
     const addGenre = (id:any) => {
-        if(selectedGenres.length < 5)
+        if(selectedGenres.length < 5 && !selectedGenres.includes(id))
         {
             selectedGenres.push(id);
             setSelectedGenres([...selectedGenres]);
@@ -115,14 +116,19 @@ const GenreSelectionComponent2: FC = () => {
         }
     }
 
+    const removeGenre = (id:any) => {
+        selectedGenres.splice(selectedGenres.indexOf(id), 1)
+        setSelectedGenres([...selectedGenres])
+    }
+
     const Item = ({ item, onPress }) => (
         <TouchableOpacity onPress={onPress} style={[styles.item]}>
-          <Text style={[styles.title]}>{item.title}</Text>
+          <Text style={[styles.titleTxt]}>{item.title}</Text>
         </TouchableOpacity>
       );
       
 
-    const renderItem = ({item})=> {
+    const renderItem = ({item} : any)=> {
         return (
                 <Item
                   item={item}
@@ -134,19 +140,19 @@ const GenreSelectionComponent2: FC = () => {
 
   
 
-    function onMultiChange(id:any) {
-      // if(selectedTeams.length < 5){
-      //   addGenre(id);
-        return (item: any) => setSelectedTeams(xorBy(selectedTeams, [item], 'id'))
+    // function onMultiChange(id:any) {
+    //   // if(selectedTeams.length < 5){
+    //   //   addGenre(id);
+    //     return (item: any) => setSelectedTeams(xorBy(selectedTeams, [item], 'id'))
         
-        // }else{
-        //   alert("too much")
-        // }
-    }
+    //     // }else{
+    //     //   alert("too much")
+    //     // }
+    // }
   
-    function onChange() {
-      return (val: any) => setSelectedTeam(val)
-    }
+    // function onChange() {
+    //   return (val: any) => setSelectedTeam(val)
+    // }
 
 
   let [fontsLoaded] = useFonts({
@@ -163,20 +169,24 @@ const GenreSelectionComponent2: FC = () => {
             <View style={{flex:0, paddingBottom:0}}>
                 <Text style={styles.titleTxt}>Choose 5 Genres to rank</Text>
             </View>
-            {
-                selectedGenres.map((genre, i) => {
-                    return (
-                        <View>
-                            <Text>{genre}</Text>
-                        </View>
-
-                    )
-                })
-            }
+            <View style={{flexDirection:'row', flexWrap:'wrap', justifyContent:'space-around'}}>
+              {
+                  selectedGenres.map((genre, i) => {
+                      return (
+                          <View style={{flexDirection:'row'}}>
+                              <Text style={styles.selectedTxt}>{genre}</Text>
+                              <Pressable onPress={() => removeGenre(genre)} style={{justifyContent:'center'}}>
+                                <Image source={X} style={{height:20, width:20}}/>
+                              </Pressable>
+                          </View>
+                      )
+                  })
+              }
+            </View>
                             
 
-              <View style={{flex:1, alignItems: 'center', overflow:'hidden'}}>
-                <View style={{ flexDirection:'row', flexWrap:'wrap'}}>
+              <View style={{flex:1, alignItems: 'center', marginTop:'10%'}}>
+                <View>
                     <FlatList
                         data={DATA}
                         renderItem={renderItem}
@@ -209,6 +219,13 @@ const styles = StyleSheet.create({
       marginTop:'4%',
       marginBottom:7,
       color: '#FFFFFF',
+  },
+  selectedTxt:{
+      fontFamily:'Raleway_400Regular',
+      fontSize: 30,
+      textAlign:'center',
+      color: 'gray',
+      paddingRight:'3%'
   },
   Dropdown:{
       borderRadius:25,
