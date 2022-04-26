@@ -88,9 +88,10 @@ const MWGCardComponent: FC = () => {
         }
     }
 
-    const handlePress = (MWGname:string) => {
+    const handlePress = (MWGname:string, MWGId:number) => {
       console.log(MWGname);
       setMWGname(MWGname);
+      setMWGId(MWGId);
       navigation.navigate('MWGDashboard');
     }
 
@@ -113,7 +114,7 @@ const MWGCardComponent: FC = () => {
       {
         return (
           
-               <Pressable key={group.id} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=> handlePress(group.mwgName)}>
+               <Pressable key={group.id} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=> handlePress(group.mwgName, group.id)}>
                  <View >
                    <View  style={{marginTop: '10%', flexDirection:'row'}}>
                      <Text
@@ -175,7 +176,7 @@ const MWGCardComponent: FC = () => {
         allMWG.map((group:any, i:number) => {if(!allFaveMWG.includes(parseInt(group.id)))
           {
             return (
-                   <Pressable key={group.id} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=> handlePress(group.mwgName)}>
+                   <Pressable key={group.id} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=> handlePress(group.mwgName, group.id)}>
                      <View >
                        <View  style={{marginTop: '10%', flexDirection:'row'}}>
                          <Text

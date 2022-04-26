@@ -1,12 +1,13 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { FC } from "react";
-import { StyleSheet, Text, View, Image, TextInput, Pressable, ScrollView, FlatList} from "react-native";
+import { FC, useContext, useEffect } from "react";
+import { StyleSheet, Text, View, Image, TextInput, Pressable, ScrollView} from "react-native";
 import headerLogo from "../../assets/headerLogo.png";
 import MovieClipper from "../../assets/MovieClipper.png";
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import MemberSearchTextInputComponent from '../UserDashboard-Body/MemberSearchTextInputComponent'
+import UserContext from '../../Context/UserContext';
 
 interface IStartWatchingBtnsComponent {
   username: string,
@@ -32,6 +33,15 @@ interface IStartWatchingBtnsComponent {
 
 const StartWatchingBtnsComponent: FC = () => {
   const navigation = useNavigation<any>();
+  let { setMWGname, MWGname, setMWGId, MWGId } = useContext(UserContext);
+
+  useEffect( () => {
+    async function getUserInfo(){
+          setMWGname(MWGname);
+          setMWGId(MWGId);
+    }
+    getUserInfo()
+  }, []);
   
   let [fontsLoaded] = useFonts({
     Raleway_400Regular,
@@ -47,7 +57,7 @@ const StartWatchingBtnsComponent: FC = () => {
   return (
     <View>
         <View style={{flex:1, height:90, marginTop:'5%', alignItems:'center'}}>
-            <Pressable style={{width:'90%'}} onPress={() => navigation.navigate}>
+            <Pressable style={{width:'90%'}} onPress={() => navigation.navigate("ChooseGenres")}>
                 <View style={styles.wgButton}>
                 <Image source={MovieClipper}></Image>
                 <Text style={{color:'#E3DDDD', fontSize:24, paddingLeft:60, justifyContent:'center', textAlign:'center', fontFamily:'Raleway_400Regular'}}>Start Watching {"\n"} a movie now</Text>

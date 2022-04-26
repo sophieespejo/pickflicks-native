@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { FC, useState, useEffect } from "react";
+import { FC, useContext, useState, useEffect } from "react";
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, FlatList, Pressable } from "react-native";
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
@@ -9,20 +9,58 @@ import SelectBox from 'react-native-multi-selectbox'
 import { xorBy } from 'lodash'
 import Icon from '../MWGDashboard/Icon'
 import { Item } from "react-native-paper/lib/typescript/components/List/List";
-import X from '../../assets/X.png'
+import X from '../../assets/X.png';
+import {AddChosenGenres} from '../../Service/DataService'
+import UserContext from "../../Context/UserContext";
 
 
   
-
+type RootStackParamList = {
+  Home: undefined; //means route doesnt have params
+    //UserDashboard: { username: string, userId: number };
+    UserDashboard: undefined;
+  Login: undefined
+  CreateAccountScreen: undefined,
+  Loading: undefined,
+  AvatarScreen: undefined
+  Introduction: undefined,
+  SelectStreamingService: undefined
+  NewMWGName: undefined,
+  MemberSearch: { username: string, userId: number, newMWGname: string },
+  InvitationSent: { username: string, userId: number},
+  ChooseGenres : undefined,
+  GenreRanking: undefined,
+  FinalGenre : undefined,
+  MovieCard : undefined,
+  FinalMovie : undefined,
+  MWGDashboard : undefined,
+  LoadingPopcorn : undefined,
+  UserProfile : undefined,
+  ChangeUsername :undefined,
+  ChangePassword1 : undefined,
+  ChangePassword2 : undefined,
+  ChangeNotifications : undefined,
+  TutorialMovieCard : undefined,
+}
 
 const GenreSelectionComponent2: FC = () => {
+
+  useEffect( () => {
+    async function getUserInfo(){
+          setMWGname(MWGname);
+          setMWGId(MWGId);
+    }
+    getUserInfo()
+  }, []);
+
+    let { setMWGname, MWGname, setMWGId, MWGId } = useContext(UserContext);
+
+
     const navigation = useNavigation<any>();
     const [selectedGenres, setSelectedGenres] = useState<any>([])
     const hitSlop = { top: 14, bottom: 14, left: 14, right: 14 }
     const [showOptions, setShowOptions] = useState(false)
     const [selectedId, setSelectedId] = useState(null);
-
-
 
     const DATA = [
       {
@@ -99,12 +137,6 @@ const GenreSelectionComponent2: FC = () => {
       },
     ]
 
-    // function onPressItem() {
-    //     return (e) => {
-    //       setShowOptions(false)
-    //       return onChange ? onChange(item) : null
-    //     }
-    //   }
 
     const addGenre = (id:any) => {
         if(selectedGenres.length < 5 && !selectedGenres.includes(id))
@@ -138,21 +170,10 @@ const GenreSelectionComponent2: FC = () => {
 
     }
 
-  
-
-    // function onMultiChange(id:any) {
-    //   // if(selectedTeams.length < 5){
-    //   //   addGenre(id);
-    //     return (item: any) => setSelectedTeams(xorBy(selectedTeams, [item], 'id'))
-        
-    //     // }else{
-    //     //   alert("too much")
-    //     // }
-    // }
-  
-    // function onChange() {
-    //   return (val: any) => setSelectedTeam(val)
-    // }
+    const onNext = async (MWGId:number, chosenGenres:string) => {
+      let result = await AddChosenGenres(MWGId, chosenGenres);
+      console.log(result)
+    }
 
 
   let [fontsLoaded] = useFonts({
@@ -201,7 +222,7 @@ const GenreSelectionComponent2: FC = () => {
            </Button>
                </View>
                <View style={[{ flex:0.5, alignItems: "center", alignItems:'flex-end'}]}>
-           <Button uppercase={false}  color='#FFFFFF' mode="text" onPress={() => {navigation.navigate()}}>
+           <Button uppercase={false}  color='#FFFFFF' mode="text" onPress={() => {onNext(MWGId, selectedGenres.join(','))}}>
                <Text style={styles.nextBtn}>Next {'\>'}</Text>
            </Button>
                </View>

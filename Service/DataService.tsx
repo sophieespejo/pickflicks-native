@@ -86,5 +86,17 @@ async function AddMWG(newMWG: IMWGModel){
    return data;
 }
 
+async function AddChosenGenres(MWGId:number, chosenGenres:string){
+    let res= await fetch(`${url}/mwg/AddChosenGenres/${MWGId}/${chosenGenres}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(null)
+    });
+    let data = await res.json();
+   return data;
+}
 
-export { AddUser, Login, GetUserByUsername, GetAllMWGAUserIsMemberOfuserId, AddFavoriteMWG, RemoveFavoriteMWG, AddMWG};;
+
+export { AddUser, Login, GetUserByUsername, GetAllMWGAUserIsMemberOfuserId, AddFavoriteMWG, RemoveFavoriteMWG, AddMWG, AddChosenGenres};;

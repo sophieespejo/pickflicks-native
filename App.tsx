@@ -69,10 +69,6 @@ const App:FC = () => {
       <NativeBaseProvider>
     <NavigationContainer>
       <Stack.Navigator>
-      <Stack.Screen
-                name="ChooseGenres"
-                component={ChooseGenresScreen}
-                options={{headerShown:false}}/>
             <Stack.Screen
                 name="Login"
                 component={LoginScreen}
@@ -117,7 +113,10 @@ const App:FC = () => {
                 name="SelectStreamingService"
                 component={SelectStreamServiceScreen}
                 options={{headerShown:false}}/>
-
+          <Stack.Screen
+                name="ChooseGenres"
+                component={ChooseGenresScreen}
+                options={{headerShown:false}}/>
               <Stack.Screen
                 name="GenreRanking"
                 component={GenreRankingScreen}

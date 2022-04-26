@@ -33,7 +33,7 @@ type RootStackParamList = {
 
   }
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Introduction'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'GenreRanking'>;
 
 const GenreRankingScreen: FC<Props> = ({navigation}) => {
 
