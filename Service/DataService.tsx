@@ -49,6 +49,16 @@ async function GetAllMWGAUserIsMemberOfuserId(userId:number){
     let data = await res.json();
     return data;
 }
+async function GetMWGById(MWGId:number){
+    let res = await fetch('https://pickflicksapi.azurewebsites.net/MWG/GetMWGById/' + (MWGId));
+    if(!res.ok)
+    {
+        const message = `An error has occured ${res.status}`
+        throw new Error(message);
+    }
+    let data = await res.json();
+    return data;
+}
 
 async function AddFavoriteMWG(userId:number, MWGId:number){
     let res= await fetch(`${url}/User/AddFavoriteMWG/${userId}/${MWGId}`, {
@@ -99,4 +109,4 @@ async function AddChosenGenres(MWGId:number, chosenGenres:string){
 }
 
 
-export { AddUser, Login, GetUserByUsername, GetAllMWGAUserIsMemberOfuserId, AddFavoriteMWG, RemoveFavoriteMWG, AddMWG, AddChosenGenres};;
+export { AddUser, Login, GetMWGById, GetUserByUsername, GetAllMWGAUserIsMemberOfuserId, AddFavoriteMWG, RemoveFavoriteMWG, AddMWG, AddChosenGenres};;

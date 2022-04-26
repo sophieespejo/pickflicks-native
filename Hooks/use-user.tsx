@@ -6,6 +6,7 @@ export default function UseUser() {
     const [userIcon, setUserIcon] = useState<string>("");
     const [MWGname, setMWGname] = useState<string>("");
     const [MWGId, setMWGId] = useState<number>(0);
+    const [MWGgenres, setMWGgenres] = useState<any>([]);
 
-    return { username, setUsername, userId, setUserId, userIcon, setUserIcon, MWGname, setMWGname, MWGId, setMWGId }
+    return { username, setUsername, userId, setUserId, userIcon, setUserIcon, MWGname, setMWGname, MWGId, setMWGId, MWGgenres, setMWGgenres }
 }

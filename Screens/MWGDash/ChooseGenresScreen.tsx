@@ -1,7 +1,7 @@
 import { NavigationRouteContext } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { FC } from 'react';
+import { FC, useState, useEffect, useContext } from 'react';
 import { StyleSheet, Text, View , Image} from 'react-native';
 import RedLogo from '../assets/RedLogo.png';
 import HeaderComponent from '../../Components/MWGDashboard/HeaderComponent';

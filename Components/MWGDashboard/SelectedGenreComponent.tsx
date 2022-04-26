@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { FC, useState } from "react";
+import { FC, useState, useEffect, useContext } from "react";
 import { StyleSheet, Text, View, Image, TextInput} from "react-native";
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
@@ -7,11 +7,30 @@ import { Button } from "react-native-paper";
 import {useNavigation} from '@react-navigation/native';
 // import { Button } from "native-base";
 import { Slider } from "native-base";
-  
+import UserContext from '../../Context/UserContext';
+import { GetMWGById } from '../../Service/DataService'
+
 
 
 const SelectedGenreComponent: FC = () => {
     const navigation = useNavigation();
+    let { username, setUsername, userId, setUserId, userIcon, setUserIcon, MWGname, setMWGname, MWGId, setMWGId, MWGgenres, setMWGgenres } = useContext(UserContext)
+
+
+    useEffect( () => {
+      async function getUserInfo(){
+        setMWGname(MWGname);
+        setMWGId(MWGId);
+        let movieObj = await GetMWGById(MWGId);
+        if(movieObj != null)
+        {
+          let genreString = movieObj.chosenGenres.split(",");
+          setMWGgenres(genreString);
+        }
+        
+  }
+      getUserInfo()
+    }, []);
 
   let [fontsLoaded] = useFonts({
     Raleway_400Regular,
@@ -32,7 +51,7 @@ const SelectedGenreComponent: FC = () => {
 
             <View style={{flex:1, alignItems:'center', marginBottom:'10%'}}>
                 <View style={{marginBottom:'10%'}}>
-                    <Text style={styles.GenreTxt}>GenreHere</Text>
+                    <Text style={styles.GenreTxt}>{MWGgenres[0]}</Text>
                 </View>
                 
                   <Slider style={{marginTop:'5%'}} colorScheme="gray" w="3/4" maxW="300" defaultValue={2} minValue={0} maxValue={5} accessibilityLabel="Rank the Genre from 1 to 5" step={1}>
