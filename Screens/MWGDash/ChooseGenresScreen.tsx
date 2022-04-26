@@ -7,7 +7,7 @@ import RedLogo from '../assets/RedLogo.png';
 import HeaderComponent from '../../Components/MWGDashboard/HeaderComponent';
 import StreamingServiceComponent from '../../Components/MWGDashboard/StreamingServiceComponent';
 import FooterNavComponent from '../../Components/UserDashboard-Body/FooterNavComponent';
-import GenreSelectionComponent from '../../Components/MWGDashboard/GenreSelectionComponent';
+import GenreSelectionComponent2 from '../../Components/MWGDashboard/GenreSelectionComponent2';
 import { Provider as PaperProvider } from 'react-native-paper';
 
 
@@ -39,7 +39,7 @@ const ChooseGenresScreen: FC<Props> = ({navigation}) => {
     return (
         <View style={styles.container}>
             <HeaderComponent/>
-            <GenreSelectionComponent/>
+            <GenreSelectionComponent2/>
             <FooterNavComponent/>
         </View>
     )
