@@ -172,6 +172,7 @@ const GenreSelectionComponent2: FC = () => {
 
     const onNext = async (MWGId:number, chosenGenres:string) => {
       let result = await AddChosenGenres(MWGId, chosenGenres);
+      navigation.navigate("GenreRanking");
       console.log(result)
     }
 
