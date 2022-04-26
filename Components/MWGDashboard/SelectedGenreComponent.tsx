@@ -76,7 +76,7 @@ const SelectedGenreComponent: FC = () => {
           </Button>
               </View>
               <View style={[{ flex:0.5, alignItems: "center", alignItems:'flex-end'}]}>
-          <Button uppercase={false} title="button" color='#FFFFFF' mode="text" onPress={() => {navigation.navigate()}}>
+          <Button uppercase={false} title="button" color='#FFFFFF' mode="text" onPress={() => {navigation.navigate("GenreRanking2")}}>
               <Text style={styles.nextBtn}>Next ></Text>
           </Button>
               </View>
