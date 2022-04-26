@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
 import { StyleSheet, Text, View, Image, TextInput } from "react-native";
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
@@ -14,7 +14,8 @@ import { xorBy } from 'lodash'
 const GenreSelectionComponent: FC = () => {
     const navigation = useNavigation<any>();
     const [selectedTeam, setSelectedTeam] = useState({})
-    const [selectedTeams, setSelectedTeams] = useState([])
+    const [selectedTeams, setSelectedTeams] = useState<any>([])
+    const [selectedGenres, setSelectedGenres] = useState<any>([])
 
     const K_OPTIONS = [
       {
@@ -91,12 +92,29 @@ const GenreSelectionComponent: FC = () => {
       },
     ]
 
-    function onMultiChange() {
-      return (item) => setSelectedTeams(xorBy(selectedTeams, [item], 'id'))
+    const addGenre = (id:any) => {
+      if(selectedGenres.length < 5){
+        selectedGenres.push(id);
+        setSelectedGenres([...selectedGenres]);
+      }
+      
+      
+    }
+
+  
+
+    function onMultiChange(id:any) {
+      if(selectedTeams.length < 5){
+        addGenre(id);
+        return (item: any) => setSelectedTeams(xorBy(selectedTeams, [item], 'id'))
+        
+        }else{
+          alert("too much")
+        }
     }
   
     function onChange() {
-      return (val) => setSelectedTeam(val)
+      return (val: any) => setSelectedTeam(val)
     }
 
 
@@ -111,37 +129,38 @@ const GenreSelectionComponent: FC = () => {
   return (
       <View style={{flex: 1, alignItems:'center'}}>
         <View style={{ flex: 1, backgroundColor:'#DC1B21C4', borderRadius:30, width:'92%', marginTop:'8%',marginBottom:'8%', justifyContent:'center'}}>
-            <View style={{flex:0.2}}>
+            <View style={{flex:0, paddingBottom:0}}>
                 <Text style={styles.titleTxt}>Choose 5 Genres to rank</Text>
             </View>
             {/* <View style={{ flex: 0.7, backgroundColor: 'green' }} /> */}
-              <View style={{flex:1, alignItems: 'center'}}>
+              <View style={{flex:1, alignItems: 'center', overflow:'hidden'}}>
                 <SelectBox
                   label=""
                   options={K_OPTIONS}
                   selectedValues={selectedTeams}
-                  onMultiSelect={onMultiChange()}
+                  onMultiSelect={(e)=>onMultiChange(e.id)}
+                  //onMultiSelect={(e:any)=>addGenre(e.id)}
                   onTapClose={onMultiChange()}
                   isMulti
                   listOptionProps={{
-                    style: { height: '80%', fontFamily:'Raleway_400Regular', },
+                    style: { height:'80%',fontFamily:'Raleway_400Regular', }, 
                   }}
                   //ultiSelectInputFieldProps	= {{ style: {fontSize: 90}}}
                   searchInputProps= {{ style: {fontSize: 24, color: 'white',fontFamily:'Raleway_400Regular', padding: 5 }}}
                   inputPlaceholder = "Search for a genre..."
                   width = '90%'
-                  multiOptionsLabelStyle = {{fontSize: 20, color: 'white',fontFamily:'Raleway_400Regular' }}
+                  multiOptionsLabelStyle = {{fontSize: 20, color: 'white',fontFamily:'Raleway_400Regular'}}
                   optionsLabelStyle = {{fontSize: 20, color: 'white',fontFamily:'Raleway_400Regular' }}
                   arrowIconColor = "white"
                   searchIconColor = 'white'
                   toggleIconColor = 'darkslategray'
-                  multiOptionContainerStyle = {{height: 30,  width: 200,fontFamily:'Raleway_400Regular'}}
+                  multiOptionContainerStyle = {{fontFamily:'Raleway_400Regular', }}
+                  multiSelectInputFieldProps = {{ style: {fontSize: 20, color: 'white',fontFamily:'Raleway_400Regular', padding: 5, flexWrap:'wrap'}}}
                 />
               </View>
              <View style={{flexDirection:'row'}}>
-
                <View style={[{ flex:0.5, alignItems: "center", alignItems:'flex-start'}]}>
-           <Button uppercase={false}  color='#FFFFFF' mode="text" onPress={() => {navigation.navigate()}}>
+           <Button uppercase={false}  color='#FFFFFF' mode="text" onPress={() => console.log(selectedGenres)}>
                <Text style={styles.nextBtn}>{'\<'} Back </Text>
            </Button>
                </View>
@@ -152,8 +171,6 @@ const GenreSelectionComponent: FC = () => {
                </View>
              </View>
             </View>
-
-
          </View>
   );
 };
@@ -164,6 +181,7 @@ const styles = StyleSheet.create({
       fontSize: 30,
       textAlign:'center',
       marginTop:'4%',
+      marginBottom:7,
       color: '#FFFFFF',
   },
   Dropdown:{
