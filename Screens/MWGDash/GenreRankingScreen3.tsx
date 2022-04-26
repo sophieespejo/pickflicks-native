@@ -7,7 +7,7 @@ import RedLogo from '../assets/RedLogo.png';
 import HeaderComponent from '../../Components/MWGDashboard/HeaderComponent';
 import StreamingServiceComponent from '../../Components/MWGDashboard/StreamingServiceComponent';
 import FooterNavComponent from '../../Components/UserDashboard-Body/FooterNavComponent';
-import SelectedGenreComponent from '../../Components/MWGDashboard/SelectedGenreComponent';
+import SelectedGenreComponent3 from '../../Components/MWGDashboard/SelectedGenreComponent3';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { NativeBaseProvider } from "native-base";
 
@@ -41,7 +41,7 @@ const GenreRankingScreen5: FC<Props> = ({navigation}) => {
         <NativeBaseProvider>
           <View style={styles.container}>
               <HeaderComponent/>
-              <SelectedGenreComponent/>
+              <SelectedGenreComponent3/>
               <FooterNavComponent/>
           </View>
         </NativeBaseProvider>
