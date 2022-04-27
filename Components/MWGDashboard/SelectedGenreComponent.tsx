@@ -12,13 +12,15 @@ import { GetMWGById } from '../../Service/DataService'
 
 
 
+
 const SelectedGenreComponent: FC = () => {
     const navigation = useNavigation();
     let { username, setUsername, userId, setUserId, userIcon, setUserIcon, MWGname, setMWGname, MWGId, setMWGId, MWGgenres, setMWGgenres } = useContext(UserContext)
-
-
+    const [onChangeValue, setOnChangeValue] = useState(0);
     useEffect( () => {
       async function getUserInfo(){
+        setUsername(username);
+        setUserId(userId);
         setMWGname(MWGname);
         setMWGId(MWGId);
         let movieObj = await GetMWGById(MWGId);
@@ -31,6 +33,18 @@ const SelectedGenreComponent: FC = () => {
   }
       getUserInfo()
     }, []);
+
+    // const onNextPress = () => {
+    //   let newGRModel = {
+    //     Id = 0,
+    //     MWGId = MWGId,
+    //     UserId = userId,
+    //     Genre1 = onChangeValue,
+    //     Genre2 = 0,
+    //     Genre3 = 0 
+    //   }
+    // }
+
 
   let [fontsLoaded] = useFonts({
     Raleway_400Regular,
@@ -54,7 +68,17 @@ const SelectedGenreComponent: FC = () => {
                     <Text style={styles.GenreTxt}>{MWGgenres[0]}</Text>
                 </View>
                 
-                  <Slider style={{marginTop:'5%'}} colorScheme="gray" w="3/4" maxW="300" defaultValue={2} minValue={0} maxValue={5} accessibilityLabel="Rank the Genre from 1 to 5" step={1}>
+                  <Slider 
+                    style={{marginTop:'5%'}} 
+                    colorScheme="gray" w="3/4" 
+                    maxW="300" 
+                    defaultValue={10} 
+                    minValue={10} 
+                    maxValue={50} 
+                    accessibilityLabel="Rank the Genre from 1 to 5" 
+                    step={1} 
+                    onChange={v => {
+                      setOnChangeValue(Math.floor(v))}}>
                     <Slider.Track>
                       <Slider.FilledTrack />
                     </Slider.Track>
@@ -76,7 +100,7 @@ const SelectedGenreComponent: FC = () => {
           </Button>
               </View>
               <View style={[{ flex:0.5, alignItems: "center", alignItems:'flex-end'}]}>
-          <Button uppercase={false} title="button" color='#FFFFFF' mode="text" onPress={() => {navigation.navigate()}}>
+          <Button uppercase={false} title="button" color='#FFFFFF' mode="text" onPress={() => {console.log(onChangeValue)}}>
               <Text style={styles.nextBtn}>Next ></Text>
           </Button>
               </View>

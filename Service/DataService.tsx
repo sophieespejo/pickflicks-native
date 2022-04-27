@@ -1,6 +1,7 @@
 import ICreateAccountDTO from "../interfaces/ICreateAccountDTO";
 import ILoginDTO from "../interfaces/ILoginDTO";
 import IMWGModel from "../interfaces/IMWGModel";
+import IGenreRankingModel from '../interfaces/IGenreRankingModel'
 
 let url = 'https://pickflicksapi.azurewebsites.net'
 
@@ -108,5 +109,17 @@ async function AddChosenGenres(MWGId:number, chosenGenres:string){
    return data;
 }
 
+async function AddGenreRankingModel(newGenreRanking: IGenreRankingModel ){
+    let res= await fetch(`${url}/GenreRanking/AddGenreRankings`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newGenreRanking)
+    });
+    let data = await res.json();
+   return data;
+}
 
-export { AddUser, Login, GetMWGById, GetUserByUsername, GetAllMWGAUserIsMemberOfuserId, AddFavoriteMWG, RemoveFavoriteMWG, AddMWG, AddChosenGenres};;
+
+export { AddUser, Login, GetMWGById, AddGenreRankingModel, GetUserByUsername, GetAllMWGAUserIsMemberOfuserId, AddFavoriteMWG, RemoveFavoriteMWG, AddMWG, AddChosenGenres};;

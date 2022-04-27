@@ -10,7 +10,7 @@ import { xorBy } from 'lodash'
 import Icon from '../MWGDashboard/Icon'
 import { Item } from "react-native-paper/lib/typescript/components/List/List";
 import X from '../../assets/X.png';
-import {AddChosenGenres} from '../../Service/DataService'
+import {AddChosenGenres, AddGenreRankingModel} from '../../Service/DataService'
 import UserContext from "../../Context/UserContext";
 
 
@@ -44,16 +44,17 @@ type RootStackParamList = {
 }
 
 const GenreSelectionComponent2: FC = () => {
+  let { userId, setUserId, setMWGname, MWGname, setMWGId, MWGId } = useContext(UserContext);
 
   useEffect( () => {
     async function getUserInfo(){
+          setUserId(userId)
           setMWGname(MWGname);
           setMWGId(MWGId);
     }
     getUserInfo()
   }, []);
 
-    let { setMWGname, MWGname, setMWGId, MWGId } = useContext(UserContext);
 
 
     const navigation = useNavigation<any>();
@@ -170,10 +171,14 @@ const GenreSelectionComponent2: FC = () => {
 
     }
 
+    //have admin create new instance of GR model here to get ID number incremented and then on next screen set ID as sessionID number?
     const onNext = async (MWGId:number, chosenGenres:string) => {
       let result = await AddChosenGenres(MWGId, chosenGenres);
-      navigation.navigate("GenreRanking");
-      console.log(result)
+      
+        navigation.navigate("GenreRanking");
+        console.log(result)
+      }
+      
     }
 
 
