@@ -8,13 +8,13 @@ import {useNavigation} from '@react-navigation/native';
 // import { Button } from "native-base";
 import { Slider } from "native-base";
 import UserContext from '../../Context/UserContext';
-import { GetMWGById } from '../../Service/DataService'
+import { GetMWGById, AddGenreRankingModel } from '../../Service/DataService'
 
 
 
 
 const SelectedGenreComponent: FC = () => {
-    const navigation = useNavigation();
+    const navigation = useNavigation<any>();
     let { username, setUsername, userId, setUserId, userIcon, setUserIcon, MWGname, setMWGname, MWGId, setMWGId, MWGgenres, setMWGgenres } = useContext(UserContext)
     const [onChangeValue, setOnChangeValue] = useState(0);
     useEffect( () => {
@@ -34,16 +34,22 @@ const SelectedGenreComponent: FC = () => {
       getUserInfo()
     }, []);
 
-    // const onNextPress = () => {
-    //   let newGRModel = {
-    //     Id = 0,
-    //     MWGId = MWGId,
-    //     UserId = userId,
-    //     Genre1 = onChangeValue,
-    //     Genre2 = 0,
-    //     Genre3 = 0 
-    //   }
-    // }
+    const onNextPress = async () => {
+      let newGRModel = {
+        Id : 0,
+        MWGId : MWGId,
+        UserId : userId,
+        Genre1 : onChangeValue,
+        Genre2 : 0,
+        Genre3 : 0 
+      }
+      let result = await AddGenreRankingModel(newGRModel);
+      if(result)
+      {
+        console.log(result);
+        navigation.navigate("GenreRanking2");
+      }
+    }
 
 
   let [fontsLoaded] = useFonts({
@@ -100,7 +106,7 @@ const SelectedGenreComponent: FC = () => {
           </Button>
               </View>
               <View style={[{ flex:0.5, alignItems: "center", alignItems:'flex-end'}]}>
-          <Button uppercase={false} title="button" color='#FFFFFF' mode="text" onPress={() => {console.log(onChangeValue)}}>
+          <Button uppercase={false} title="button" color='#FFFFFF' mode="text" onPress={() => onNextPress}>
               <Text style={styles.nextBtn}>Next ></Text>
           </Button>
               </View>

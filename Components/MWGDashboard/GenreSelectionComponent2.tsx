@@ -179,7 +179,7 @@ const GenreSelectionComponent2: FC = () => {
         console.log(result)
       }
       
-    }
+    
 
 
   let [fontsLoaded] = useFonts({
