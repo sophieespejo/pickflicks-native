@@ -15,6 +15,8 @@ import AvatarScreen from './Screens/CreateAccount/AvatarScreen';
 import SelectStreamServiceScreen from './Screens/MWGDash/SelectStreamServiceScreen';
 import ChooseGenresScreen from './Screens/MWGDash/ChooseGenresScreen';
 import GenreRankingScreen from './Screens/MWGDash/GenreRankingScreen';
+import GenreRankingScreen2 from './Screens/MWGDash/GenreRankingScreen2';
+import GenreRankingScreen3 from './Screens/MWGDash/GenreRankingScreen3';
 import FinalGenreScreen from './Screens/MWGDash/FinalGenreScreen';
 import MovieCardScreen from './Screens/MWGDash/MovieCardScreen';
 import TutorialMovieCardScreen from './Screens/MWGDash/TutorialMovieCardScreen';
@@ -47,6 +49,8 @@ type RootStackParamList = {
   InvitationSent: { username: string, userId: number},
   ChooseGenres : undefined,
   GenreRanking: undefined,
+  GenreRanking2: undefined,
+  GenreRanking3: undefined,
   FinalGenre : undefined,
   MovieCard : undefined,
   FinalMovie : undefined,
@@ -113,13 +117,21 @@ const App:FC = () => {
                 name="SelectStreamingService"
                 component={SelectStreamServiceScreen}
                 options={{headerShown:false}}/>
-          <Stack.Screen
+              <Stack.Screen
                 name="ChooseGenres"
                 component={ChooseGenresScreen}
                 options={{headerShown:false}}/>
               <Stack.Screen
                 name="GenreRanking"
                 component={GenreRankingScreen}
+                options={{headerShown:false}}/>
+              <Stack.Screen
+                name="GenreRanking2"
+                component={GenreRankingScreen2}
+                options={{headerShown:false}}/>
+              <Stack.Screen
+                name="GenreRanking3"
+                component={GenreRankingScreen3}
                 options={{headerShown:false}}/>
               <Stack.Screen
                 name="FinalGenre"
