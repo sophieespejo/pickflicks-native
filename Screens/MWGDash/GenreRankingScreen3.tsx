@@ -28,11 +28,13 @@ type RootStackParamList = {
     InvitationSent: { username: string, userId: number};
     ChooseGenres : undefined,
     GenreRanking: undefined,
+    GenreRanking2: undefined,
+    GenreRanking3: undefined,
     MovieCard : undefined,
     FinalMovie : undefined,
   }
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Introduction'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'GenreRanking3'>;
 
 const GenreRankingScreen5: FC<Props> = ({navigation}) => {
 
