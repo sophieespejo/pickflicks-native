@@ -5,7 +5,10 @@ import { useFonts, Raleway_400Regular, Raleway_600SemiBold} from '@expo-google-f
 import AppLoading from 'expo-app-loading';
 import { Button } from "react-native-paper";
 import {useNavigation} from '@react-navigation/native';
-import JJKMovie from '../../assets/JJKMovie.jpg'
+import thumbsdown from '../../assets/thumbsdown.png'
+import thumbsup from '../../assets/thumbsup.png'
+import sadFace from '../../assets/sadFace.png'
+import smileFace from '../../assets/smileFace.png'
 import Choice  from '../Utilities/Choice'
 import { ACTION_OFFSET, CARD } from '../Utilities/Utility'
 import { Container, ScrollView } from "native-base";
@@ -52,7 +55,7 @@ const MovieCardComponent: FC = ({movie, isFirst, swipe, tiltSign, ...rest}) => {
               { opacity: likeOpacity },
             ]}
           >
-            <Choice type="like" />
+            <Choice type={smileFace} />
           </Animated.View>
           <Animated.View
             style={[
@@ -61,7 +64,7 @@ const MovieCardComponent: FC = ({movie, isFirst, swipe, tiltSign, ...rest}) => {
               { opacity: nopeOpacity },
             ]}
           >
-            <Choice type="nope" />
+            <Choice type={sadFace} />
           </Animated.View>
         </>
       );
@@ -84,17 +87,17 @@ const MovieCardComponent: FC = ({movie, isFirst, swipe, tiltSign, ...rest}) => {
         <View style={{ flex: 1, backgroundColor:'#4D4A4A', borderRadius:30, width:'92%', marginTop:'8%', marginBottom:'8%', justifyContent:'center', 
                     borderWidth: 3, borderRightColor:'#1BDC62C4', borderLeftColor:'#DC1B21', borderTopColor:'#1BDC62C4', borderBottomColor:'#DC1B21'}}>
             <View style={{flex:1, alignItems:'center'}}>
-                <View style={{flex:1, alignItems:'center', justifyContent:'space-around'}}>
-                    <Text style={[{paddingTop:'5%'}, styles.titleTxtBold]}>{movie.movieName}</Text>
-                    <Text style={styles.titleTxtBold}> ({movie.movieReleaseYear}) </Text>
+                <View style={{flex:2, alignItems:'center', justifyContent:'flex-start', }}>
+                    <Text style={[styles.titleTxtBold]}>{movie.movieName}</Text>
+                    <Text style={styles.yearTxt}> ({movie.movieReleaseYear}) </Text>
                 </View>
-                <View style={{flex:3, alignItems:'center'}}>
+                <View style={{flex:5, alignItems:'center'}}>
                     <Image style={styles.image} source={{uri: movie.movieImage}}></Image>
                 </View>
-                <View style={{flex:2, alignItems:'center', justifyContent:'space-around'}}>
+                <View style={{flex:3, alignItems:'center'}}>
                     <Text numberOfLines={8} ellipsizeMode='tail' style={styles.titleTxt}>{movie.movieOverview}</Text>
                 </View>
-                <View style={{flex:0.8, alignItems:'center', justifyContent:'space-around'}}>
+                <View style={{flex:1, alignItems:'center'}}>
                     <Text style={styles.titleTxt}>Critics Ratings: {movie.movieIMDBRating}  </Text>
                 </View>
             </View>
@@ -114,7 +117,14 @@ const styles = StyleSheet.create({
       textAlign:'center',
       // marginTop:'4%',
       color: '#EBE1E1',
-      padding:'10%',
+      padding:'5%',
+  },
+  yearTxt:{
+      fontFamily:'Raleway_400Regular',
+      fontSize: 30,
+      textAlign:'center',
+      // marginTop:'4%',
+      color: '#EBE1E1',
   },
   titleTxtBold:{
       fontFamily:'Raleway_600SemiBold',
