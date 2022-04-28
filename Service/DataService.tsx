@@ -121,5 +121,16 @@ async function AddGenreRankingModel(newGenreRanking: IGenreRankingModel ){
    return data;
 }
 
+async function GetMoviesByMWGId(MWGId:number){
+    let res = await fetch('https://pickflicksapi.azurewebsites.net/movie/GetMoviesByMWGId/' + (MWGId));
+    if(!res.ok)
+    {
+        const message = `An error has occured ${res.status}`
+        throw new Error(message);
+    }
+    let data = await res.json();
+    return data;
+}
 
-export { AddUser, Login, GetMWGById, AddGenreRankingModel, GetUserByUsername, GetAllMWGAUserIsMemberOfuserId, AddFavoriteMWG, RemoveFavoriteMWG, AddMWG, AddChosenGenres};;
+
+export { AddUser, Login, GetMWGById, GetMoviesByMWGId, AddGenreRankingModel, GetUserByUsername, GetAllMWGAUserIsMemberOfuserId, AddFavoriteMWG, RemoveFavoriteMWG, AddMWG, AddChosenGenres};;
