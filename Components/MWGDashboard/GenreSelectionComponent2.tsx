@@ -72,26 +72,26 @@ const GenreSelectionComponent2: FC = () => {
         title: 'Action',
         id: 'Action',
       },
-      {
-        title: 'Action & Adventure',
-        id: 'Action & Adventure',
-      },
-      {
-        title: 'Adult',
-        id: 'Adult',
-      },
+      // {
+      //   title: 'Action & Adventure',
+      //   id: 'Action & Adventure',
+      // },
+      // {
+      //   title: 'Adult',
+      //   id: 'Adult',
+      // },
       {
         title: 'Animation',
         id: 'Animation',
       },
-      {
-        title: 'Anime',
-        id: 'Anime',
-      },
-      {
-        title: 'Biography',
-        id: 'Biography',
-      },
+      // {
+      //   title: 'Anime',
+      //   id: 'Anime',
+      // },
+      // {
+      //   title: 'Biography',
+      //   id: 'Biography',
+      // },
       {
         title: 'Comedy',
         id: 'Comedy',
@@ -120,45 +120,45 @@ const GenreSelectionComponent2: FC = () => {
         title: 'Horror',
         id: 'Horror',
       },
-      {
-        title: 'Kids',
-        id: 'Kids',
-      },
+      // {
+      //   title: 'Kids',
+      //   id: 'Kids',
+      // },
       {
         title: 'Mystery',
         id: 'Mystery',
       },
       {
-        title: 'Musical',
-        id: 'Musical',
+        title: 'Music',
+        id: 'Music',
       },
       {
         title: 'Romance',
         id: 'Romance',
       },
-      {
-        title: 'Sci-Fi & Fantasy',
-        id: 'Sci-Fi & Fantasy',
-      },
+      // {
+      //   title: 'Sci-Fi & Fantasy',
+      //   id: 'Sci-Fi & Fantasy',
+      // },
       {
       title: 'Science Fiction',
       id: 'Science Fiction',
       },
-      {
-        title: 'Sports',
-        id: 'Sports',
-      },
-      {
-        title: 'Supernatural',
-        id: 'Supernatural',
-      },
+      // {
+      //   title: 'Sports',
+      //   id: 'Sports',
+      // },
+      // {
+      //   title: 'Supernatural',
+      //   id: 'Supernatural',
+      // },
       {
         title: 'Thriller',
         id: 'Thriller',
       },
       {
-        title: 'War & Politics',
-        id: 'War & Politics',
+        title: 'War',
+        id: 'War',
       },
       {
         title: 'Western',
