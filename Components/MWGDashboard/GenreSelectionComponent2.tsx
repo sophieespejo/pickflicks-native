@@ -73,68 +73,96 @@ const GenreSelectionComponent2: FC = () => {
         id: 'Action',
       },
       {
-        title: 'Biography',
-        id: 'Biography',
+        title: 'Action & Adventure',
+        id: 'Action & Adventure',
       },
       {
-        title: 'Musical',
-        id: 'Musical',
-      },
-      {
-        title: 'Adventure',
-        id: 'Adventure',
-      },
-      {
-        title: 'Fantasy',
-        id: 'Fantasy',
+        title: 'Adult',
+        id: 'Adult',
       },
       {
         title: 'Animation',
         id: 'Animation',
       },
       {
-        title: 'Horror',
-        id: 'Horror',
+        title: 'Anime',
+        id: 'Anime',
+      },
+      {
+        title: 'Biography',
+        id: 'Biography',
       },
       {
         title: 'Comedy',
         id: 'Comedy',
       },
       {
-        title: 'History',
-        id: 'History',
-      },
-      {
-        title: 'Western',
-        id: 'Western',
-      },
-      {
-        title: 'Thriller',
-        id: 'Thriller',
+        title: 'Crime',
+        id: 'Crime',
       },
       {
         title: 'Documentary',
         id: 'Documentary',
       },
       {
-        title: 'Science Fiction',
-        id: 'Science Fiction',
+        title: 'Family',
+        id: 'Family',
+      },
+      {
+        title: 'Fantasy',
+        id: 'Fantasy',
+      },
+      {
+        title: 'History',
+        id: 'History',
+      },
+      {
+        title: 'Horror',
+        id: 'Horror',
+      },
+      {
+        title: 'Kids',
+        id: 'Kids',
       },
       {
         title: 'Mystery',
         id: 'Mystery',
       },
       {
+        title: 'Musical',
+        id: 'Musical',
+      },
+      {
         title: 'Romance',
         id: 'Romance',
       },
       {
-        title: 'Family',
-        id: 'Family',
+        title: 'Sci-Fi & Fantasy',
+        id: 'Sci-Fi & Fantasy',
       },
       {
-        title: 'War',
-        id: 'War',
+      title: 'Science Fiction',
+      id: 'Science Fiction',
+      },
+      {
+        title: 'Sports',
+        id: 'Sports',
+      },
+      {
+        title: 'Supernatural',
+        id: 'Supernatural',
+      },
+      {
+        title: 'Thriller',
+        id: 'Thriller',
+      },
+      {
+        title: 'War & Politics',
+        id: 'War & Politics',
+      },
+      {
+        title: 'Western',
+        id: 'Western',
       },
     ]
 
