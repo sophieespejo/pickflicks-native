@@ -8,6 +8,7 @@ import {useNavigation} from '@react-navigation/native';
 import JJKMovie from '../../assets/JJKMovie.jpg'
 import Choice  from '../Utilities/Choice'
 import { ACTION_OFFSET, CARD } from '../Utilities/Utility'
+import { Container, ScrollView } from "native-base";
 // import { Button } from "native-base";
   
 
@@ -83,13 +84,18 @@ const MovieCardComponent: FC = ({movie, isFirst, swipe, tiltSign, ...rest}) => {
         <View style={{ flex: 1, backgroundColor:'#4D4A4A', borderRadius:30, width:'92%', marginTop:'8%', marginBottom:'8%', justifyContent:'center', 
                     borderWidth: 3, borderRightColor:'#1BDC62C4', borderLeftColor:'#DC1B21', borderTopColor:'#1BDC62C4', borderBottomColor:'#DC1B21'}}>
             <View style={{flex:1, alignItems:'center'}}>
-                <View style={{flex:3, alignItems:'center'}}>
-                    <Image style={{width:340, height:280, borderRadius:21, marginTop:'9%'}} source={{uri: movie.movieImage}}></Image>
+                <View style={{flex:1, alignItems:'center', justifyContent:'space-around'}}>
+                    <Text style={[{paddingTop:'5%'}, styles.titleTxtBold]}>{movie.movieName}</Text>
+                    <Text style={styles.titleTxtBold}> ({movie.movieReleaseYear}) </Text>
                 </View>
-                <View style={{flex:3, alignItems:'center', justifyContent:'space-around'}}>
-                    <Text style={styles.titleTxtBold}>{movie.movieName}</Text>
-                    <Text style={styles.titleTxt}>{movie.movieOverview}</Text>
-                    <Text style={styles.titleTxt}>{movie.movieIMDBRating}</Text>
+                <View style={{flex:3, alignItems:'center'}}>
+                    <Image style={styles.image} source={{uri: movie.movieImage}}></Image>
+                </View>
+                <View style={{flex:2, alignItems:'center', justifyContent:'space-around'}}>
+                    <Text numberOfLines={8} ellipsizeMode='tail' style={styles.titleTxt}>{movie.movieOverview}</Text>
+                </View>
+                <View style={{flex:0.8, alignItems:'center', justifyContent:'space-around'}}>
+                    <Text style={styles.titleTxt}>Critics Ratings: {movie.movieIMDBRating}  </Text>
                 </View>
             </View>
 
@@ -104,14 +110,15 @@ const MovieCardComponent: FC = ({movie, isFirst, swipe, tiltSign, ...rest}) => {
 const styles = StyleSheet.create({
   titleTxt:{
       fontFamily:'Raleway_400Regular',
-      fontSize: 22,
+      fontSize: 16,
       textAlign:'center',
-      marginTop:'4%',
+      // marginTop:'4%',
       color: '#EBE1E1',
+      padding:'10%',
   },
   titleTxtBold:{
       fontFamily:'Raleway_600SemiBold',
-      fontSize: 40,
+      fontSize: 30,
       textAlign:'center',
       marginTop:'4%',
       color: '#EBE1E1',
@@ -129,12 +136,14 @@ const styles = StyleSheet.create({
   },
   container: {
     position: 'absolute',
-    top: 45,
+    height:'100%',
   },
   image: {
     width: CARD.WIDTH,
     height: CARD.HEIGHT,
     borderRadius: CARD.BORDER_RADIUS,
+    resizeMode: "cover",
+    margin:'5%'
   },
   gradient: {
     position: 'absolute',

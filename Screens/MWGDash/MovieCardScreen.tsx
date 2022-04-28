@@ -106,26 +106,29 @@ const MovieCardScreen: FC<Props> = ({navigation}) => {
 
 
     return (
-        <View style={styles.container}>
-            <HeaderComponent/>
-            {
-              allMovies.map((movie:any, i:number) => {
-                const isFirst = i === 0;
-                const panHandlers = isFirst ? panResponder.panHandlers : {};
-                return (
-                  <MovieCardComponent 
-                    movie={movie}
-                    key={i}
-                    isFirst={isFirst}
-                    swipe={swipe}
-                    tiltSign={tiltSign}
-                    {...panHandlers}
-                    />
-                )
-              }).reverse()
-            }
-            <FooterNavComponent/>
-        </View>
+      <View style={styles.container1}>
+
+        <HeaderComponent/>
+    <View style={styles.container}>
+        {
+          allMovies.map((movie:any, i:number) => {
+            const isFirst = i === 0;
+            const panHandlers = isFirst ? panResponder.panHandlers : {};
+            return (
+              <MovieCardComponent 
+                movie={movie}
+                key={i}
+                isFirst={isFirst}
+                swipe={swipe}
+                tiltSign={tiltSign}
+                {...panHandlers}
+                />
+            )
+          }).reverse()
+        }
+    </View>
+        <FooterNavComponent/>
+      </View>
     )
 }
 
@@ -135,9 +138,14 @@ const styles = StyleSheet.create({
     container:{
 
         flex: 1,
-        backgroundColor: '#fafafa',
+        backgroundColor: '#1E1A1A',
         alignItems: 'center',
 
+    },
+    container1:{
+
+        flex: 1,
+        backgroundColor: '#1E1A1A',
     },
   });
   
