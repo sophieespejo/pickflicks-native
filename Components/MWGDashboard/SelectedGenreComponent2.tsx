@@ -13,8 +13,10 @@ import { GetMWGById } from '../../Service/DataService'
 
 
 const SelectedGenreComponent2: FC = () => {
-    const navigation = useNavigation();
-    let { username, setUsername, userId, setUserId, userIcon, setUserIcon, MWGname, setMWGname, MWGId, setMWGId, MWGgenres, setMWGgenres } = useContext(UserContext)
+    const navigation = useNavigation<any>();
+    let { MWGname, setMWGname, MWGId, setMWGId, MWGgenres, setMWGgenres, genre2, setGenre2 } = useContext(UserContext)
+    const [onChangeValue, setOnChangeValue] = useState(0);
+
 
     
     useEffect( () => {
@@ -31,6 +33,13 @@ const SelectedGenreComponent2: FC = () => {
   }
       getUserInfo()
     }, []);
+
+    const onNextPress = async () => {
+      setGenre2(onChangeValue);
+      navigation.navigate("GenreRanking3");
+    }
+
+    
 
   let [fontsLoaded] = useFonts({
     Raleway_400Regular,
@@ -54,7 +63,16 @@ const SelectedGenreComponent2: FC = () => {
                     <Text style={styles.GenreTxt}>{MWGgenres[1]}</Text>
                 </View>
                 
-                  <Slider style={{marginTop:'5%'}} colorScheme="gray" w="3/4" maxW="300" defaultValue={2} minValue={0} maxValue={5} accessibilityLabel="Rank the Genre from 1 to 5" step={1}>
+                  <Slider  style={{marginTop:'5%'}} 
+                    colorScheme="gray" w="3/4" 
+                    maxW="300" 
+                    defaultValue={10} 
+                    minValue={10} 
+                    maxValue={50} 
+                    accessibilityLabel="Rank the Genre from 1 to 5" 
+                    step={1} 
+                    onChange={v => {
+                      setOnChangeValue(Math.floor(v))}}>
                     <Slider.Track>
                       <Slider.FilledTrack />
                     </Slider.Track>
@@ -76,7 +94,7 @@ const SelectedGenreComponent2: FC = () => {
           </Button>
               </View>
               <View style={[{ flex:0.5, alignItems: "center", alignItems:'flex-end'}]}>
-          <Button uppercase={false} title="button" color='#FFFFFF' mode="text" onPress={() => {navigation.navigate("GenreRanking3")}}>
+          <Button uppercase={false} title="button" color='#FFFFFF' mode="text" onPress={() => onNextPress()}>
               <Text style={styles.nextBtn}>Next ></Text>
           </Button>
               </View>
