@@ -8,12 +8,14 @@ import {useNavigation} from '@react-navigation/native';
 // import { Button } from "native-base";
 import { Slider } from "native-base";
 import UserContext from '../../Context/UserContext';
-import { GetMWGById } from '../../Service/DataService'
+import { GetMWGById, AddGenreRankingModel } from '../../Service/DataService'
+import GenreRankingScreen2 from "../../Screens/MWGDash/GenreRankingScreen2";
 
 
 const SelectedGenreComponent3: FC = () => {
-    const navigation = useNavigation();
-    let { username, setUsername, userId, setUserId, userIcon, setUserIcon, MWGname, setMWGname, MWGId, setMWGId, MWGgenres, setMWGgenres } = useContext(UserContext)
+    const navigation = useNavigation<any>();
+    let { username, setUsername, userId, setUserId, userIcon, setUserIcon, MWGname, setMWGname, MWGId, setMWGId, MWGgenres, setMWGgenres, MWGmembersId, setMWGmembersId,genre1,genre2, genre3, setGenre3 } = useContext(UserContext)
+    const [onChangeValue, setOnChangeValue] = useState(0);
 
     
     useEffect( () => {
@@ -30,6 +32,27 @@ const SelectedGenreComponent3: FC = () => {
   }
       getUserInfo()
     }, []);
+
+    const onNextPress = async () => {
+      setGenre3(onChangeValue);
+      let newGRModel = {
+        Id: 0,
+        MWGId: MWGId,
+        UserId: userId,
+        MembersId: MWGmembersId,
+        Genre1: genre1,
+        Genre2: genre2,
+        Genre3: onChangeValue,
+      }
+      let result = await AddGenreRankingModel(newGRModel);
+      if(result)
+      {
+        console.log(result);
+        console.log(newGRModel);
+        navigation.navigate("FinalGenre");
+      }
+      
+    }
 
   let [fontsLoaded] = useFonts({
     Raleway_400Regular,
@@ -53,7 +76,16 @@ const SelectedGenreComponent3: FC = () => {
                     <Text style={styles.GenreTxt}>{MWGgenres[2]}</Text>
                 </View>
                 
-                  <Slider style={{marginTop:'5%'}} colorScheme="gray" w="3/4" maxW="300" defaultValue={2} minValue={0} maxValue={5} accessibilityLabel="Rank the Genre from 1 to 5" step={1}>
+                  <Slider  style={{marginTop:'5%'}} 
+                    colorScheme="gray" w="3/4" 
+                    maxW="300" 
+                    defaultValue={10} 
+                    minValue={10} 
+                    maxValue={50} 
+                    accessibilityLabel="Rank the Genre from 1 to 5" 
+                    step={1} 
+                    onChange={v => {
+                      setOnChangeValue(Math.floor(v))}}>
                     <Slider.Track>
                       <Slider.FilledTrack />
                     </Slider.Track>
@@ -75,7 +107,7 @@ const SelectedGenreComponent3: FC = () => {
           </Button>
               </View>
               <View style={[{ flex:0.5, alignItems: "center", alignItems:'flex-end'}]}>
-          <Button uppercase={false} title="button" color='#FFFFFF' mode="text" onPress={() => {navigation.navigate()}}>
+          <Button uppercase={false} title="button" color='#FFFFFF' mode="text" onPress={() => onNextPress()}>
               <Text style={styles.nextBtn}>Next ></Text>
           </Button>
               </View>

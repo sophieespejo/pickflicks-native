@@ -92,7 +92,7 @@ const MWGCardComponent: FC = () => {
       console.log(MWGname);
       setMWGname(MWGname);
       setMWGId(MWGId);
-      navigation.navigate('MWGDashboard');
+      navigation.navigate('MovieCard');
     }
 
 

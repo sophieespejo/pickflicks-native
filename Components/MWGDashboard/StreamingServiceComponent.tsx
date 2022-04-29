@@ -1,40 +1,51 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
 import { FC, useState } from "react";
-import { StyleSheet, Text, View, Image, TextInput} from "react-native";
-import headerLogo from "../../assets/headerLogo.png";
+import { StyleSheet, Text, View, Pressable, ImageBackground} from "react-native";
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
-import DropDown from "react-native-paper-dropdown";
 import { Button } from "react-native-paper";
 import {useNavigation} from '@react-navigation/native';
-import { Radio, FormControl, WarningOutlineIcon } from "native-base";
+import HuluLogo from '../../assets/hulu.png'
+import NetflixLogo from '../../assets/netflix.jpg'
+import PrimeLogo from '../../assets/primevideo.jpg'
+import HBOMaxLogo from '../../assets/hbomax.png'
+import image from '../../assets/black.jpg'
 
 
   
 
 
 const StreamingServiceComponent: FC = () => {
-    const navigation = useNavigation();
+    const navigation = useNavigation<any>();
 
-    const [streamingService, setStreamingSerivce] = useState("");
-    const [showDropDown, setShowDropDown] = useState(false);
+    const [streamingService, setStreamingService] = useState<Array<object>>([
+      {
+        label: "Netflix",
+        value: 203,
+        source: NetflixLogo
+      },
+      {
+        label: "HBO Max",
+        value: 387,
+        source: HBOMaxLogo
+      },
+      {
+        label: "Hulu",
+        value: 157,
+        source: HuluLogo
+      },
+      {
+        label: "Amazon Prime",
+        value: 26,
+        source: PrimeLogo
+      },
+    ]);
 
     const [value, setValue] = useState("");
-
-      //   const streamingList = [
-      //   {
-      //     label: "Netflix",
-      //     value: "Netflix",
-      //   },
-      //   {
-      //     label: "Hulu",
-      //     value: "Hulu",
-      //   },
-      //   {
-      //     label: "HBO Max",
-      //     value: "HBO Max",
-      //   },
-      // ];
+    const selectHandler = (value:any) => {
+      setValue(value);
+      console.log(value);
+    };
 
   let [fontsLoaded] = useFonts({
     Raleway_400Regular,
@@ -47,69 +58,44 @@ const StreamingServiceComponent: FC = () => {
   return (
       <View style={{flex: 1, alignItems:'center'}}>
         <View style={{ flex: 1, backgroundColor:'#DC1B21C4', borderRadius:30, width:'92%', marginTop:'8%',marginBottom:'8%', justifyContent:'center'}}>
-           
-            <View style={{flex:0.8}}>
+            <View style={{flex:0.6}}>
                 <Text style={styles.titleTxt}>Select Your  {'\n'} Streaming Service</Text>
             </View>
-
-            <View style={{flex:3, alignItems:'center', width:'100%', justifyContent:'center'}}>
-              <Radio.Group name="myRadioGroup" accessibilityLabel="Streaming Services" value={value} onChange={nextValue => {
-                setValue(nextValue);
-              }}> 
-              
-              <View style={{flexDirection:'row', height:'70%', justifyContent:'space-evenly', width:'100%'}}>
-
-              <View style={{justifyContent:'space-evenly'}}>
-                  <Radio value="Netflix" colorScheme="gray" size="lg" my={1}>
-                  <Text style={styles.radioText}>Netflix</Text>
-                  </Radio>
-                  <Radio value="Hulu" colorScheme="gray" size="lg" my={1}>
-                  <Text style={styles.radioText}>Hulu</Text>
-                  </Radio>
-              </View>
-
-              <View style={{justifyContent:'space-evenly'}}>
-                  <Radio value="HBO Max" colorScheme="gray" size="lg" my={1}>
-                  <Text style={styles.radioText}>HBO Max</Text>
-                  </Radio>
-                  <Radio value="Disney+" colorScheme="gray" size="lg" my={1}>
-                  <Text style={styles.radioText}>Disney+</Text>
-                  </Radio>
-              </View>
-
-              </View>
-              
-              </Radio.Group>
-                {/* <View style={styles.Dropdown}>
-                    <DropDown
-                    style={{fontFamily:'Raleway_400Regular'}}
-                        label={"Streaming Services"}
-                        mode={"outlined"}
-                        visible={showDropDown}
-                        showDropDown={() => setShowDropDown(true)}
-                        onDismiss={() => setShowDropDown(false)}
-                        value={streamingService}
-                        setValue={setStreamingSerivce}
-                        list={streamingList}
-                        />
-                </View> */}
+            <View style={{flex:3, alignItems:'center', width:'100%', justifyContent:'center', borderRadius: 20}}>
+            {
+              streamingService.map((service:any, i:number) => {
+                return (
+                  <Pressable key={i} onPress={() => selectHandler(service.value)} style={ service.value === value ? styles.selected : styles.unselected}>
+                    <ImageBackground 
+                      source={service.value === value ? service.source : image}  
+                      style={service.value === value ? styles.image1 : styles.image2}>
+                        <Text style={styles.option} > {service.value === value ? "" : service.label}</Text>
+                    </ImageBackground>
+                </Pressable>
+                )
+              })
+            }
             </View>
-
             <View style={{flexDirection:'row'}}>
-
               <View style={[{ flex:0.5, alignItems: "center", alignItems:'flex-start'}]}>
-          <Button uppercase={false} title="button" color='#FFFFFF' mode="text" onPress={() => {navigation.navigate()}}>
-              <Text style={styles.nextBtn}> {'\<'} Cancel </Text>
-          </Button>
+                <Button 
+                  uppercase={false} 
+                  color='#FFFFFF' 
+                  mode="text" 
+                  onPress={() => {navigation.navigate()}}>
+                    <Text style={styles.nextBtn}> {'\<'} Cancel </Text>
+                </Button>
               </View>
               <View style={[{ flex:0.5, alignItems: "center", alignItems:'flex-end'}]}>
-          <Button uppercase={false} title="button" color='#FFFFFF' mode="text" onPress={() => {navigation.navigate()}}>
-              <Text style={styles.nextBtn}>Next ></Text>
-          </Button>
+                <Button 
+                  uppercase={false} 
+                  color='#FFFFFF' 
+                  mode="text" 
+                  onPress={() => {navigation.navigate()}}>
+                    <Text style={styles.nextBtn}>Next {'\>'}</Text>
+                </Button>
               </View>
             </View>
-
-
         </View>
       </View>
   );
@@ -123,11 +109,6 @@ const styles = StyleSheet.create({
       marginTop:'4%',
       color: '#FFFFFF',
   },
-  Dropdown:{
-      borderRadius:25,
-      width:'90%',
-      fontFamily:'Raleway_400Regular'
-  },
   nextBtn:{
     fontFamily: "Raleway_400Regular",
     fontSize: 25
@@ -136,6 +117,63 @@ const styles = StyleSheet.create({
     fontFamily: "Raleway_400Regular",
     fontSize: 25,
     color: '#FFFFFF'
+  },
+  option: {
+    fontSize: 30,
+    color: 'white',
+    textAlign: 'center',
+    fontFamily: "Raleway_400Regular",
+  },
+  unselected: {
+    flex:1,
+    backgroundColor: 'darkslategray',
+    height: '20%',
+    width: '80%',
+    borderRadius: 15,
+    margin: 10,
+    alignItems: 'center',
+    justifyContent: 'center'
+
+  },
+  selected: {
+    flex:1,
+    backgroundColor: 'blue',
+    height: '20%',
+    width: '80%',
+    borderRadius: 15,
+    margin: 10,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  // createImageBitmap: {
+  //   flex: 1,
+  //   width: '100%',
+  //   justifyContent: "center",
+  //   resizeMode:'cover',
+  //   borderRadius: 15,
+  //   overflow: 'hidden',
+  //   borderColor: 'white',
+  //   borderWidth: 3
+  // },
+  image1: {
+    flex: 1,
+    width: '100%',
+    justifyContent: "center",
+    resizeMode:'cover',
+    borderRadius: 15,
+    overflow: 'hidden',
+    borderColor: 'goldenrod',
+    borderWidth: 3
+  },
+  image2: {
+    flex: 1,
+    width: '100%',
+    justifyContent: "center",
+    resizeMode:'cover',
+    borderRadius: 15,
+    overflow: 'hidden',
+    borderColor: 'white',
+    borderWidth: 3
   },
 });
 

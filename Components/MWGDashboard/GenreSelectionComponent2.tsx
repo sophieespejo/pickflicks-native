@@ -72,69 +72,97 @@ const GenreSelectionComponent2: FC = () => {
         title: 'Action',
         id: 'Action',
       },
-      {
-        title: 'Biography',
-        id: 'Biography',
-      },
-      {
-        title: 'Musical',
-        id: 'Musical',
-      },
-      {
-        title: 'Adventure',
-        id: 'Adventure',
-      },
-      {
-        title: 'Fantasy',
-        id: 'Fantasy',
-      },
+      // {
+      //   title: 'Action & Adventure',
+      //   id: 'Action & Adventure',
+      // },
+      // {
+      //   title: 'Adult',
+      //   id: 'Adult',
+      // },
       {
         title: 'Animation',
         id: 'Animation',
       },
-      {
-        title: 'Horror',
-        id: 'Horror',
-      },
+      // {
+      //   title: 'Anime',
+      //   id: 'Anime',
+      // },
+      // {
+      //   title: 'Biography',
+      //   id: 'Biography',
+      // },
       {
         title: 'Comedy',
         id: 'Comedy',
       },
       {
-        title: 'History',
-        id: 'History',
-      },
-      {
-        title: 'Western',
-        id: 'Western',
-      },
-      {
-        title: 'Thriller',
-        id: 'Thriller',
+        title: 'Crime',
+        id: 'Crime',
       },
       {
         title: 'Documentary',
         id: 'Documentary',
       },
       {
-        title: 'Science Fiction',
-        id: 'Science Fiction',
+        title: 'Family',
+        id: 'Family',
       },
+      {
+        title: 'Fantasy',
+        id: 'Fantasy',
+      },
+      {
+        title: 'History',
+        id: 'History',
+      },
+      {
+        title: 'Horror',
+        id: 'Horror',
+      },
+      // {
+      //   title: 'Kids',
+      //   id: 'Kids',
+      // },
       {
         title: 'Mystery',
         id: 'Mystery',
       },
       {
+        title: 'Music',
+        id: 'Music',
+      },
+      {
         title: 'Romance',
         id: 'Romance',
       },
+      // {
+      //   title: 'Sci-Fi & Fantasy',
+      //   id: 'Sci-Fi & Fantasy',
+      // },
       {
-        title: 'Family',
-        id: 'Family',
+      title: 'Science Fiction',
+      id: 'Science Fiction',
+      },
+      // {
+      //   title: 'Sports',
+      //   id: 'Sports',
+      // },
+      // {
+      //   title: 'Supernatural',
+      //   id: 'Supernatural',
+      // },
+      {
+        title: 'Thriller',
+        id: 'Thriller',
       },
       {
         title: 'War',
         id: 'War',
+      },
+      {
+        title: 'Western',
+        id: 'Western',
       },
     ]
 
