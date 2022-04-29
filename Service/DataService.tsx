@@ -2,6 +2,7 @@ import ICreateAccountDTO from "../interfaces/ICreateAccountDTO";
 import ILoginDTO from "../interfaces/ILoginDTO";
 import IMWGModel from "../interfaces/IMWGModel";
 import IGenreRankingModel from '../interfaces/IGenreRankingModel'
+import INewMWGMatchModel from '../interfaces/INewMWGMatchModel'
 
 let url = 'https://pickflicksapi.azurewebsites.net'
 
@@ -145,5 +146,17 @@ async function AddStreamingService(MWGId:number, serviceId:string){
    return data;
 }
 
+async function AddLikeOrDislike(newMWGMatchModel: INewMWGMatchModel, ){
+    let res= await fetch(`${url}/mwgmatch/AddLikeOrDislike`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newMWGMatchModel)
+    });
+    let data = await res.json();
+   return data;
+}
 
-export { AddUser, Login, GetMWGById, AddStreamingService, GetMoviesByMWGId, AddGenreRankingModel, GetUserByUsername, GetAllMWGAUserIsMemberOfuserId, AddFavoriteMWG, RemoveFavoriteMWG, AddMWG, AddChosenGenres};;
+
+export { AddUser, Login, GetMWGById, AddLikeOrDislike, AddStreamingService, GetMoviesByMWGId, AddGenreRankingModel, GetUserByUsername, GetAllMWGAUserIsMemberOfuserId, AddFavoriteMWG, RemoveFavoriteMWG, AddMWG, AddChosenGenres};;

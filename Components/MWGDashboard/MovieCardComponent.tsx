@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { FC, useState, useCallback } from "react";
+import { FC, useState, useCallback, useEffect } from "react";
 import { StyleSheet, Text, View, Image, TextInput, Animated} from "react-native";
 import { useFonts, Raleway_400Regular, Raleway_600SemiBold} from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
@@ -19,8 +19,11 @@ interface IMovieCardComponent {
   children: React.ReactNode;
 }
 
-const MovieCardComponent: FC = ({movie, isFirst, swipe, tiltSign, ...rest}) => {
+const MovieCardComponent: FC = ({movie, isFirst, swipe, setCurrentMovieName, tiltSign, ...rest}) => {
     const navigation = useNavigation<any>();
+    useEffect(() => {
+      setCurrentMovieName(movie.movieName);
+    }, [movie.movieName])
 
 
     const rotate = Animated.multiply(swipe.x, tiltSign).interpolate({

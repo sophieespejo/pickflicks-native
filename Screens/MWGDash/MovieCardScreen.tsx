@@ -11,8 +11,12 @@ import FooterNavComponent from '../../Components/UserDashboard-Body/FooterNavCom
 import MovieCardComponent from '../../Components/MWGDashboard/MovieCardComponent';
 //import { Provider as PaperProvider } from 'react-native-paper';
 import UserContext from '../../Context/UserContext';
-import { GetMoviesByMWGId } from '../../Service/DataService'
+import { GetMoviesByMWGId, AddLikeOrDislike } from '../../Service/DataService'
 import {ACTION_OFFSET, CARD} from "../../Components/Utilities/Utility"
+import {useNavigation} from '@react-navigation/native';
+import { setStatusBarNetworkActivityIndicatorVisible } from 'expo-status-bar';
+
+
 
 
 
@@ -37,15 +41,19 @@ type RootStackParamList = {
 
 type Props = NativeStackScreenProps<RootStackParamList, 'MovieCard'>;
 
-const MovieCardScreen: FC<Props> = ({navigation}) => {
-  let {  MWGId, setMWGId } = useContext(UserContext)
+const MovieCardScreen: FC<Props> = () => {
+  const navigation = useNavigation<any>();
+  let {  MWGId, setMWGId, userId, setUserId } = useContext(UserContext)
   const [allMovies, setAllMovies] = useState<any>([])
   const swipe = useRef(new Animated.ValueXY()).current;
   const tiltSign = useRef(new Animated.Value(1)).current;
+  const [currentMovieName, setCurrentMovieName] = useState("");
+  const [allVotes, setAllVotes] = useState<Array<string>>([]);
 
   useEffect( () => {
     async function getUserInfo(){
       setMWGId(MWGId);
+      setUserId(userId);
       let allFetchedMovies = await GetMoviesByMWGId(MWGId);
       if(allFetchedMovies != null)
       {
@@ -55,6 +63,55 @@ const MovieCardScreen: FC<Props> = ({navigation}) => {
     }
     getUserInfo()
   }, []);
+
+  const swipeLeft = async (currentMovie:any) => {
+    console.log("swipe left",currentMovie, "0",  allMovies.length);
+    allVotes.push("0");
+    setAllVotes([...allVotes]);
+    if(allMovies.length == 1)
+    {
+      let newVotes = {
+        Id: 0, 
+        SessionId: 0,
+        MWGId: MWGId,
+        UserId: userId,
+        LikesDislikesIndexValues: allVotes.join(",")
+
+      }
+      let result = await AddLikeOrDislike(newVotes);
+      if(result)
+      {
+        console.log(allVotes.join(","));
+        console.log(result);
+        console.log(newVotes);
+        navigation.navigate("LoadingPopcorn")
+      }
+    }
+  }
+  const swipeRight = async (currentMovie:any) => {
+    console.log("swipe right",currentMovie, "1", allMovies.length);
+    allVotes.push("1");
+    setAllVotes([...allVotes]);
+    if(allMovies.length == 1)
+    {
+      let newVotes = {
+        Id: 0, 
+        SessionId: 0,
+        MWGId: MWGId,
+        UserId: userId,
+        LikesDislikesIndexValues: allVotes.join(",")
+
+      }
+      let result = await AddLikeOrDislike(newVotes);
+      if(result)
+      {
+        console.log(allVotes.join(","));
+        console.log(result);
+        console.log(newVotes);
+        navigation.navigate("LoadingPopcorn")
+      }
+    }
+  }
 
   const panResponder = PanResponder.create({
     onMoveShouldSetPanResponder: () => true,
@@ -67,6 +124,7 @@ const MovieCardScreen: FC<Props> = ({navigation}) => {
       const isActionActive = Math.abs(dx) > ACTION_OFFSET;
 
       if (isActionActive) {
+        dx > 0 ? swipeRight(currentMovieName) : swipeLeft(currentMovieName);
         Animated.timing(swipe, {
           duration: 200,
           toValue: {
@@ -121,6 +179,7 @@ const MovieCardScreen: FC<Props> = ({navigation}) => {
                 isFirst={isFirst}
                 swipe={swipe}
                 tiltSign={tiltSign}
+                setCurrentMovieName={setCurrentMovieName}
                 {...panHandlers}
                 />
             )
