@@ -44,7 +44,7 @@ const StreamingServiceComponent: FC = () => {
     ]);
 
     const [value, setValue] = useState("");
-    const selectHandler = (value) => {
+    const selectHandler = (value:any) => {
       setValue(value);
       console.log(value);
     };
@@ -67,9 +67,9 @@ const StreamingServiceComponent: FC = () => {
 
             <View style={{flex:3, alignItems:'center', width:'100%', justifyContent:'center', borderRadius: 20}}>
             {
-              streamingService.map((service, i) => {
+              streamingService.map((service:any, i:number) => {
                 return (
-                  <Pressable onPress={() => selectHandler(service.value)} style={ service.value === value ? styles.selected : styles.unselected}>
+                  <Pressable key={i} onPress={() => selectHandler(service.value)} style={ service.value === value ? styles.selected : styles.unselected}>
                     <ImageBackground 
                       source={service.value === value ? service.source : image}  
                       style={styles.image}>
