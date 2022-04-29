@@ -1,40 +1,53 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { FC, useState } from "react";
-import { StyleSheet, Text, View, Image, TextInput} from "react-native";
+import { StyleSheet, Text, View, Pressable, ImageBackground} from "react-native";
 import headerLogo from "../../assets/headerLogo.png";
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
-import DropDown from "react-native-paper-dropdown";
 import { Button } from "react-native-paper";
 import {useNavigation} from '@react-navigation/native';
-import { Radio, FormControl, WarningOutlineIcon } from "native-base";
+import HuluLogo from '../../assets/hulu.png'
+import NetflixLogo from '../../assets/netflix.jpg'
+import PrimeLogo from '../../assets/primevideo.jpg'
+import HBOMaxLogo from '../../assets/hbomax.png'
+import image from '../../assets/black.jpg'
 
 
   
 
 
 const StreamingServiceComponent: FC = () => {
-    const navigation = useNavigation();
+    const navigation = useNavigation<any>();
+    //const image = { uri: "https://reactjs.org/logo-og.png" };
 
-    const [streamingService, setStreamingSerivce] = useState("");
-    const [showDropDown, setShowDropDown] = useState(false);
+    const [streamingService, setStreamingService] = useState<Array<object>>([
+      {
+        label: "Netflix",
+        value: 203,
+        source: NetflixLogo
+      },
+      {
+        label: "HBO Max",
+        value: 387,
+        source: HBOMaxLogo
+      },
+      {
+        label: "Hulu",
+        value: 157,
+        source: HuluLogo
+      },
+      {
+        label: "Amazon Prime",
+        value: 26,
+        source: PrimeLogo
+      },
+    ]);
 
     const [value, setValue] = useState("");
-
-      //   const streamingList = [
-      //   {
-      //     label: "Netflix",
-      //     value: "Netflix",
-      //   },
-      //   {
-      //     label: "Hulu",
-      //     value: "Hulu",
-      //   },
-      //   {
-      //     label: "HBO Max",
-      //     value: "HBO Max",
-      //   },
-      // ];
+    const selectHandler = (value) => {
+      setValue(value);
+      console.log(value);
+    };
 
   let [fontsLoaded] = useFonts({
     Raleway_400Regular,
@@ -52,47 +65,20 @@ const StreamingServiceComponent: FC = () => {
                 <Text style={styles.titleTxt}>Select Your  {'\n'} Streaming Service</Text>
             </View>
 
-            <View style={{flex:3, alignItems:'center', width:'100%', justifyContent:'center'}}>
-              <Radio.Group name="myRadioGroup" accessibilityLabel="Streaming Services" value={value} onChange={nextValue => {
-                setValue(nextValue);
-              }}> 
-              
-              <View style={{flexDirection:'row', height:'70%', justifyContent:'space-evenly', width:'100%'}}>
-
-              <View style={{justifyContent:'space-evenly'}}>
-                  <Radio value="Netflix" colorScheme="gray" size="lg" my={1}>
-                  <Text style={styles.radioText}>Netflix</Text>
-                  </Radio>
-                  <Radio value="Hulu" colorScheme="gray" size="lg" my={1}>
-                  <Text style={styles.radioText}>Hulu</Text>
-                  </Radio>
-              </View>
-
-              <View style={{justifyContent:'space-evenly'}}>
-                  <Radio value="HBO Max" colorScheme="gray" size="lg" my={1}>
-                  <Text style={styles.radioText}>HBO Max</Text>
-                  </Radio>
-                  <Radio value="Disney+" colorScheme="gray" size="lg" my={1}>
-                  <Text style={styles.radioText}>Disney+</Text>
-                  </Radio>
-              </View>
-
-              </View>
-              
-              </Radio.Group>
-                {/* <View style={styles.Dropdown}>
-                    <DropDown
-                    style={{fontFamily:'Raleway_400Regular'}}
-                        label={"Streaming Services"}
-                        mode={"outlined"}
-                        visible={showDropDown}
-                        showDropDown={() => setShowDropDown(true)}
-                        onDismiss={() => setShowDropDown(false)}
-                        value={streamingService}
-                        setValue={setStreamingSerivce}
-                        list={streamingList}
-                        />
-                </View> */}
+            <View style={{flex:3, alignItems:'center', width:'100%', justifyContent:'center', borderRadius: 20}}>
+            {
+              streamingService.map((service, i) => {
+                return (
+                  <Pressable onPress={() => selectHandler(service.value)} style={ service.value === value ? styles.selected : styles.unselected}>
+                    <ImageBackground 
+                      source={service.value === value ? service.source : image}  
+                      style={styles.image}>
+                        <Text style={styles.option} > {service.value === value ? "" : service.label}</Text>
+                    </ImageBackground>
+                </Pressable>
+                )
+              })
+            }
             </View>
 
             <View style={{flexDirection:'row'}}>
@@ -104,7 +90,7 @@ const StreamingServiceComponent: FC = () => {
               </View>
               <View style={[{ flex:0.5, alignItems: "center", alignItems:'flex-end'}]}>
           <Button uppercase={false} title="button" color='#FFFFFF' mode="text" onPress={() => {navigation.navigate()}}>
-              <Text style={styles.nextBtn}>Next ></Text>
+              <Text style={styles.nextBtn}>Next {'\>'}</Text>
           </Button>
               </View>
             </View>
@@ -136,6 +122,41 @@ const styles = StyleSheet.create({
     fontFamily: "Raleway_400Regular",
     fontSize: 25,
     color: '#FFFFFF'
+  },
+  option: {
+    fontSize: 30,
+    color: 'white',
+    textAlign: 'center',
+    fontFamily: "Raleway_400Regular",
+  },
+  unselected: {
+    flex:1,
+    backgroundColor: 'darkslategray',
+    height: '20%',
+    width: '80%',
+    borderRadius: 15,
+    margin: 10,
+    alignItems: 'center',
+    justifyContent: 'center'
+
+  },
+  selected: {
+    flex:1,
+    backgroundColor: 'blue',
+    height: '20%',
+    width: '80%',
+    borderRadius: 15,
+    margin: 10,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  image: {
+    flex: 1,
+    width: '100%',
+    justifyContent: "center",
+    resizeMode:'stretch',
+    borderRadius: 10,
+    overflow: 'hidden'
   },
 });
 

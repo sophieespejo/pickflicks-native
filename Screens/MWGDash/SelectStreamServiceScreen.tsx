@@ -32,13 +32,9 @@ type Props = NativeStackScreenProps<RootStackParamList, "Introduction">;
 const SelectStreamServiceScreen: FC<Props> = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <NativeBaseProvider>
-        <PaperProvider>
           <HeaderComponent />
           <StreamingServiceComponent />
           <FooterNavComponent />
-        </PaperProvider>
-      </NativeBaseProvider>
     </View>
   );
 };
