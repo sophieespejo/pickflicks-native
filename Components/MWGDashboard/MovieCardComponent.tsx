@@ -11,8 +11,7 @@ import sadFace from '../../assets/sadFace.png'
 import smileFace from '../../assets/smileFace.png'
 import Choice  from '../Utilities/Choice'
 import { ACTION_OFFSET, CARD } from '../Utilities/Utility'
-import { Container, ScrollView } from "native-base";
-// import { Button } from "native-base";
+
   
 
 interface IMovieCardComponent {

@@ -41,17 +41,17 @@ const YourProfileComponent: FC = () => {
 
             <Pressable onPress={() => console.log('pressed1')} style={{flex:0.15, width:'80%', justifyContent:'space-between', flexDirection:'row', alignSelf:'center'}}>
                 <Text style={styles.Txt}>Username</Text>
-                <Text style={styles.Txt}>></Text>
+                <Text style={styles.Txt}>{'\>'}</Text>
             </Pressable>
 
             <Pressable onPress={() => console.log('pressed2')} style={{flex:0.15, width:'80%', justifyContent:'space-between', flexDirection:'row', alignSelf:'center'}}>
                 <Text style={styles.Txt}>Password</Text>
-                <Text style={styles.Txt}>></Text>
+                <Text style={styles.Txt}>{'\>'}</Text>
             </Pressable>
 
             <Pressable onPress={() => console.log('pressed3')} style={{flex:0.15, width:'80%', justifyContent:'space-between', flexDirection:'row', alignSelf:'center'}}>
                 <Text style={styles.Txt}>Notifications</Text>
-                <Text style={styles.Txt}>></Text>
+                <Text style={styles.Txt}>{'\>'}</Text>
             </Pressable>
             </View>
 

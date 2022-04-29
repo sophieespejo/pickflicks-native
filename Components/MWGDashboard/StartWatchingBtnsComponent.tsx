@@ -57,7 +57,7 @@ const StartWatchingBtnsComponent: FC = () => {
   return (
     <View>
         <View style={{flex:1, height:90, marginTop:'5%', alignItems:'center'}}>
-            <Pressable style={{width:'90%'}} onPress={() => navigation.navigate("ChooseGenres")}>
+            <Pressable style={{width:'90%'}} onPress={() => navigation.navigate("SelectStreamingService")}>
                 <View style={styles.wgButton}>
                 <Image source={MovieClipper}></Image>
                 <Text style={{color:'#E3DDDD', fontSize:24, paddingLeft:60, justifyContent:'center', textAlign:'center', fontFamily:'Raleway_400Regular'}}>Start Watching {"\n"} a movie now</Text>
@@ -66,7 +66,7 @@ const StartWatchingBtnsComponent: FC = () => {
         </View>
 
         <View style={{flex:1, height:120, alignItems:'center', marginTop:'4%',justifyContent:'center'}}>
-            <View style={{width:'90%'}} onPress={() => navigation.navigate}>
+            <View style={{width:'90%'}} onPress={() => navigation.navigate()}>
                 <View style={styles.LWAMT}>
                 <View style={{flex:1, marginTop:'3%'}}>
                 <Text style={{color:'#FFFFFF', fontSize:18, justifyContent:'center', textAlign:'center', fontFamily:'Raleway_400Regular'}}>Let's watch a movie together later</Text>

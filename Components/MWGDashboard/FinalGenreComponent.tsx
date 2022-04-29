@@ -11,7 +11,7 @@ import { Slider } from "native-base";
 
 
 const FinalGenreComponent: FC = () => {
-    const navigation = useNavigation();
+    const navigation = useNavigation<any>();
 
   let [fontsLoaded] = useFonts({
     Raleway_400Regular,
@@ -38,14 +38,14 @@ const FinalGenreComponent: FC = () => {
             
             <View style={{flexDirection:'row', flex:0.1}}>
 
-              <View style={[{ flex:0.5, alignItems: "center", alignItems:'flex-start'}]}>
+              <View style={[{ flex:0.5, alignItems:'flex-start'}]}>
           {/* <Button uppercase={false} title="button" color='#FFFFFF' mode="text" onPress={() => {navigation.navigate()}}>
               <Text style={styles.nextBtn}> {'\<'} Back </Text>
           </Button> */}
               </View>
-              <View style={[{ flex:0.5, alignItems: "center", alignItems:'flex-end'}]}>
-          <Button uppercase={false} title="button" color='#FFFFFF' mode="text" onPress={() => {navigation.navigate()}}>
-              <Text style={styles.nextBtn}>Next ></Text>
+              <View style={[{ flex:0.5, alignItems:'flex-end'}]}>
+          <Button uppercase={false}  color='#FFFFFF' mode="text" onPress={() => {navigation.navigate()}}>
+              <Text style={styles.nextBtn}>Next {'\>'}</Text>
           </Button>
               </View>
             </View>

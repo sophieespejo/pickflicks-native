@@ -133,4 +133,17 @@ async function GetMoviesByMWGId(MWGId:number){
 }
 
 
-export { AddUser, Login, GetMWGById, GetMoviesByMWGId, AddGenreRankingModel, GetUserByUsername, GetAllMWGAUserIsMemberOfuserId, AddFavoriteMWG, RemoveFavoriteMWG, AddMWG, AddChosenGenres};;
+async function AddStreamingService(MWGId:number, serviceId:string){
+    let res= await fetch(`${url}/mwg/AddStreamingService/${MWGId}/${serviceId}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(null)
+    });
+    let data = await res.json();
+   return data;
+}
+
+
+export { AddUser, Login, GetMWGById, AddStreamingService, GetMoviesByMWGId, AddGenreRankingModel, GetUserByUsername, GetAllMWGAUserIsMemberOfuserId, AddFavoriteMWG, RemoveFavoriteMWG, AddMWG, AddChosenGenres};;

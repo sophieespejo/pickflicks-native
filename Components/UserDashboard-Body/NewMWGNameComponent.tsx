@@ -71,12 +71,12 @@ const NewMWGNameComponent: FC = () => {
           onChangeText={(e) => setMWGname(e)}
         />
       </View>
-      <View style={[{ flex:0.5, alignItems: "center", justifyContent:'flex-end', alignItems:'flex-end'}]}>
+      <View style={[{ flex:0.5, justifyContent:'flex-end', alignItems:'flex-end'}]}>
         <Button uppercase={false} color='#FFFFFF' mode="text" onPress={() => {
           navigation.navigate("MemberSearch", {newMWGname: MWGname});
         }}>
 
-            <Text style={styles.nextBtn}>Next ></Text>
+            <Text style={styles.nextBtn}>Next {'\>'}</Text>
         </Button>
       </View>
     </View>
