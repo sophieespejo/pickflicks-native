@@ -8,8 +8,7 @@ import {useNavigation} from '@react-navigation/native';
 import JJKMovie from '../../assets/JJKMovie.jpg'
 import Choice  from '../Utilities/Choice'
 import { ACTION_OFFSET, CARD } from '../Utilities/Utility'
-import { Container, ScrollView } from "native-base";
-// import { Button } from "native-base";
+
   
 
 interface IMovieCardComponent {

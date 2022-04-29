@@ -88,14 +88,14 @@ const SelectedGenreComponent2: FC = () => {
 
             <View style={{flexDirection:'row'}}>
 
-              <View style={[{ flex:0.5, alignItems: "center", alignItems:'flex-start'}]}>
-          <Button uppercase={false} title="button" color='#FFFFFF' mode="text" onPress={() => {navigation.navigate("GenreRanking")}}>
+              <View style={[{ flex:0.5, alignItems:'flex-start'}]}>
+          <Button uppercase={false} color='#FFFFFF' mode="text" onPress={() => {navigation.navigate("GenreRanking")}}>
               <Text style={styles.nextBtn}> {'\<'} Back </Text>
           </Button>
               </View>
-              <View style={[{ flex:0.5, alignItems: "center", alignItems:'flex-end'}]}>
-          <Button uppercase={false} title="button" color='#FFFFFF' mode="text" onPress={() => onNextPress()}>
-              <Text style={styles.nextBtn}>Next ></Text>
+              <View style={[{ flex:0.5,  alignItems:'flex-end'}]}>
+          <Button uppercase={false} color='#FFFFFF' mode="text" onPress={() => onNextPress()}>
+              <Text style={styles.nextBtn}>Next {'\>'}</Text>
           </Button>
               </View>
             </View>

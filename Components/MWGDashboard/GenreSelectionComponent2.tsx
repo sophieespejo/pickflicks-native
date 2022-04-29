@@ -5,10 +5,6 @@ import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 import { Button } from "react-native-paper";
 import {useNavigation} from '@react-navigation/native';
-import SelectBox from 'react-native-multi-selectbox'
-import { xorBy } from 'lodash'
-import Icon from '../MWGDashboard/Icon'
-import { Item } from "react-native-paper/lib/typescript/components/List/List";
 import X from '../../assets/X.png';
 import {AddChosenGenres, AddGenreRankingModel} from '../../Service/DataService'
 import UserContext from "../../Context/UserContext";
@@ -59,8 +55,6 @@ const GenreSelectionComponent2: FC = () => {
 
     const navigation = useNavigation<any>();
     const [selectedGenres, setSelectedGenres] = useState<any>([])
-    const hitSlop = { top: 14, bottom: 14, left: 14, right: 14 }
-    const [showOptions, setShowOptions] = useState(false)
     const [selectedId, setSelectedId] = useState(null);
 
     const DATA = [
@@ -226,7 +220,7 @@ const GenreSelectionComponent2: FC = () => {
             </View>
             <View style={{flexDirection:'row', flexWrap:'wrap', justifyContent:'space-around'}}>
               {
-                  selectedGenres.map((genre, i) => {
+                  selectedGenres.map((genre:object, i:number) => {
                       return (
                           <View style={{flexDirection:'row'}}>
                               <Text style={styles.selectedTxt}>{genre}</Text>
@@ -250,12 +244,12 @@ const GenreSelectionComponent2: FC = () => {
                 </View>
               </View>
              <View style={{flexDirection:'row'}}>
-               <View style={[{ flex:0.5, alignItems: "center", alignItems:'flex-start'}]}>
+               <View style={[{ flex:0.5, alignItems:'flex-start'}]}>
            <Button uppercase={false}  color='#FFFFFF' mode="text" onPress={() => console.log(selectedGenres)}>
                <Text style={styles.nextBtn}>{'\<'} Back </Text>
            </Button>
                </View>
-               <View style={[{ flex:0.5, alignItems: "center", alignItems:'flex-end'}]}>
+               <View style={[{ flex:0.5, alignItems:'flex-end'}]}>
            <Button uppercase={false}  color='#FFFFFF' mode="text" onPress={() => {onNext(MWGId, selectedGenres.join(','))}}>
                <Text style={styles.nextBtn}>Next {'\>'}</Text>
            </Button>

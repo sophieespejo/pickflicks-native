@@ -27,7 +27,7 @@ type RootStackParamList = {
   FinalMovie: undefined;
 };
 
-type Props = NativeStackScreenProps<RootStackParamList, "Introduction">;
+type Props = NativeStackScreenProps<RootStackParamList, "SelectStreamingService">;
 
 const SelectStreamServiceScreen: FC<Props> = ({ navigation }) => {
   return (

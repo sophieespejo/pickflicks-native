@@ -37,7 +37,7 @@ const FooterNavComponent: FC = () => {
   return (
     <View style={styles.container}>
       <Button
-        mode="text"
+        // mode="text"
         onPress={() => {
           navigation.navigate("UserProfile");
         }}
@@ -49,7 +49,7 @@ const FooterNavComponent: FC = () => {
         )}
       ></Button>
       <Button
-        mode="text"
+        // mode="text"
         onPress={() => {
           navigation.navigate("UserDashboard");
         }}

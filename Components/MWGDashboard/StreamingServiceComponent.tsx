@@ -1,5 +1,5 @@
 
-import { FC, useState } from "react";
+import { FC, useState, useEffect, useContext } from "react";
 import { StyleSheet, Text, View, Pressable, ImageBackground} from "react-native";
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
@@ -10,33 +10,43 @@ import NetflixLogo from '../../assets/netflix.jpg'
 import PrimeLogo from '../../assets/primevideo.jpg'
 import HBOMaxLogo from '../../assets/hbomax.png'
 import image from '../../assets/black.jpg'
-
+import { AddStreamingService } from '../../Service/DataService'
+import UserContext from '../../Context/UserContext';
 
   
 
 
 const StreamingServiceComponent: FC = () => {
     const navigation = useNavigation<any>();
+    let {  MWGId, setMWGId } = useContext(UserContext);
+
+    useEffect( () => {
+      async function getUserInfo(){
+        setMWGId(MWGId);
+      }
+      getUserInfo()
+    }, []);
+
 
     const [streamingService, setStreamingService] = useState<Array<object>>([
       {
         label: "Netflix",
-        value: 203,
+        value: '203',
         source: NetflixLogo
       },
       {
         label: "HBO Max",
-        value: 387,
+        value: '387',
         source: HBOMaxLogo
       },
       {
         label: "Hulu",
-        value: 157,
+        value: '157',
         source: HuluLogo
       },
       {
         label: "Amazon Prime",
-        value: 26,
+        value: '26',
         source: PrimeLogo
       },
     ]);
@@ -44,8 +54,17 @@ const StreamingServiceComponent: FC = () => {
     const [value, setValue] = useState("");
     const selectHandler = (value:any) => {
       setValue(value);
-      console.log(value);
     };
+
+    const onPress = async () => {
+      console.log(value);
+      let result = await AddStreamingService(MWGId, value)
+      if(result)
+      {
+        console.log(result);
+        navigation.navigate("ChooseGenres");
+      }
+    }
 
   let [fontsLoaded] = useFonts({
     Raleway_400Regular,
@@ -77,7 +96,7 @@ const StreamingServiceComponent: FC = () => {
             }
             </View>
             <View style={{flexDirection:'row'}}>
-              <View style={[{ flex:0.5, alignItems: "center", alignItems:'flex-start'}]}>
+              <View style={[{ flex:0.5, alignItems:'flex-start'}]}>
                 <Button 
                   uppercase={false} 
                   color='#FFFFFF' 
@@ -86,12 +105,12 @@ const StreamingServiceComponent: FC = () => {
                     <Text style={styles.nextBtn}> {'\<'} Cancel </Text>
                 </Button>
               </View>
-              <View style={[{ flex:0.5, alignItems: "center", alignItems:'flex-end'}]}>
+              <View style={[{ flex:0.5, alignItems:'flex-end'}]}>
                 <Button 
                   uppercase={false} 
                   color='#FFFFFF' 
                   mode="text" 
-                  onPress={() => {navigation.navigate()}}>
+                  onPress={() => onPress()}>
                     <Text style={styles.nextBtn}>Next {'\>'}</Text>
                 </Button>
               </View>

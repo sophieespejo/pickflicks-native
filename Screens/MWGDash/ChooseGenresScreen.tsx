@@ -31,7 +31,7 @@ type RootStackParamList = {
     FinalMovie : undefined,
   }
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Introduction'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'ChooseGenres'>;
 
 const ChooseGenresScreen: FC<Props> = ({navigation}) => {
 
