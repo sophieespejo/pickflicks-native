@@ -31,10 +31,11 @@ type RootStackParamList = {
     GenreRanking: undefined,
     MovieCard : undefined,
     FinalMovie : undefined,
+    FinalGenre : undefined
 
   }
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Introduction'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'FinalGenre'>;
 
 const GenreRankingScreen: FC<Props> = ({navigation}) => {
 

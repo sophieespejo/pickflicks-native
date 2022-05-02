@@ -7,9 +7,9 @@ import RedLogo from '../assets/RedLogo.png';
 import HeaderComponent from '../../Components/MWGDashboard/HeaderComponent';
 import StreamingServiceComponent from '../../Components/MWGDashboard/StreamingServiceComponent';
 import FooterNavComponent from '../../Components/UserDashboard-Body/FooterNavComponent';
-import GenreSelectionComponent from '../../Components/MWGDashboard/GenreSelectionComponent';
+//import GenreSelectionComponent from '../../Components/MWGDashboard/GenreSelectionComponent';
 import MovieCardComponent from '../../Components/MWGDashboard/MovieCardComponent';
-import { Provider as PaperProvider } from 'react-native-paper';
+//import { Provider as PaperProvider } from 'react-native-paper';
 import UserContext from '../../Context/UserContext';
 import { GetMoviesByMWGId } from '../../Service/DataService'
 import {ACTION_OFFSET, CARD} from "../../Components/Utilities/Utility"
@@ -52,7 +52,7 @@ const MovieCardScreen: FC<Props> = ({navigation}) => {
         setAllMovies(allFetchedMovies)
       }
       
-}
+    }
     getUserInfo()
   }, []);
 
