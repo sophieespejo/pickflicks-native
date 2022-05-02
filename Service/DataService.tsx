@@ -3,6 +3,7 @@ import ILoginDTO from "../interfaces/ILoginDTO";
 import IMWGModel from "../interfaces/IMWGModel";
 import IGenreRankingModel from '../interfaces/IGenreRankingModel'
 import INewMWGMatchModel from '../interfaces/INewMWGMatchModel'
+import INewMWGStatusModel from '../interfaces/INewMWGStatusModel'
 
 let url = 'https://pickflicksapi.azurewebsites.net'
 
@@ -158,5 +159,94 @@ async function AddLikeOrDislike(newMWGMatchModel: INewMWGMatchModel, ){
    return data;
 }
 
+async function GetTopMovieByMWGId(MWGId:number){
+    let res = await fetch('https://pickflicksapi.azurewebsites.net/mwgmatch/GetTopMovieByMWGId/' + (MWGId));
+    if(!res.ok)
+    {
+        const message = `An error has occured ${res.status}`
+        throw new Error(message);
+    }
+    let data = await res.json();
+    return data;
+}
 
-export { AddUser, Login, GetMWGById, AddLikeOrDislike, AddStreamingService, GetMoviesByMWGId, AddGenreRankingModel, GetUserByUsername, GetAllMWGAUserIsMemberOfuserId, AddFavoriteMWG, RemoveFavoriteMWG, AddMWG, AddChosenGenres};;
+async function AddMWGStatus(newMWGStatus: INewMWGStatusModel, ){
+    let res= await fetch(`${url}/mwgstatus/AddMWGStatus`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newMWGStatus)
+    });
+    let data = await res.json();
+   return data;
+}
+
+async function GetMWGStatusById(id:number){
+    let res = await fetch('https://pickflicksapi.azurewebsites.net/mwgstatus/GetMWGStatusById/' + (id));
+    if(!res.ok)
+    {
+        const message = `An error has occured ${res.status}`
+        throw new Error(message);
+    }
+    let data = await res.json();
+    return data;
+}
+
+async function GetMWGStatusByMWGId(MWGId:number){
+    let res = await fetch('https://pickflicksapi.azurewebsites.net/mwgstatus/GetMWGStatusByMWGId/' + (MWGId));
+    if(!res.ok)
+    {
+        const message = `An error has occured ${res.status}`
+        throw new Error(message);
+    }
+    let data = await res.json();
+    return data;
+}
+async function GetMWGStatusByUserId(UserId:number){
+    let res = await fetch('https://pickflicksapi.azurewebsites.net/mwgstatus/GetMWGStatusByUserId/' + (UserId));
+    if(!res.ok)
+    {
+        const message = `An error has occured ${res.status}`
+        throw new Error(message);
+    }
+    let data = await res.json();
+    return data;
+}
+
+async function UpdateGenreRanking(MWGId:number, UserId:number){
+    let res= await fetch(`${url}/mwgstatus/UpdateGenreRanking/${MWGId}/${UserId}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(null)
+    });
+    let data = await res.json();
+   return data;
+}
+async function UpdateSwipings(MWGId:number, UserId:number){
+    let res= await fetch(`${url}/mwgstatus/UpdateSwipings/${MWGId}/${UserId}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(null)
+    });
+    let data = await res.json();
+   return data;
+}
+async function ResetMWGStatusbyMWGId(MWGId:number){
+    let res= await fetch(`${url}/mwgstatus/UpdateSwipings/${MWGId}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(null)
+    });
+    let data = await res.json();
+   return data;
+}
+
+
+export { GetMWGStatusById, AddMWGStatus, ResetMWGStatusbyMWGId,UpdateSwipings, UpdateGenreRanking, GetMWGStatusByUserId, GetMWGStatusByMWGId, AddUser, Login, GetMWGById, GetTopMovieByMWGId, AddLikeOrDislike, AddStreamingService, GetMoviesByMWGId, AddGenreRankingModel, GetUserByUsername, GetAllMWGAUserIsMemberOfuserId, AddFavoriteMWG, RemoveFavoriteMWG, AddMWG, AddChosenGenres};

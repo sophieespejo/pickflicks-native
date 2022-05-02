@@ -11,7 +11,7 @@ import FooterNavComponent from '../../Components/UserDashboard-Body/FooterNavCom
 import MovieCardComponent from '../../Components/MWGDashboard/MovieCardComponent';
 //import { Provider as PaperProvider } from 'react-native-paper';
 import UserContext from '../../Context/UserContext';
-import { GetMoviesByMWGId, AddLikeOrDislike } from '../../Service/DataService'
+import { GetMoviesByMWGId, AddLikeOrDislike, GetTopMovieByMWGId} from '../../Service/DataService'
 import {ACTION_OFFSET, CARD} from "../../Components/Utilities/Utility"
 import {useNavigation} from '@react-navigation/native';
 import { setStatusBarNetworkActivityIndicatorVisible } from 'expo-status-bar';
@@ -43,7 +43,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'MovieCard'>;
 
 const MovieCardScreen: FC<Props> = () => {
   const navigation = useNavigation<any>();
-  let {  MWGId, setMWGId, userId, setUserId } = useContext(UserContext)
+  let {  MWGId, setMWGId, userId, setUserId, listOfMovieNamesUsedToCompare1, setListOfMovieNamesUsedToCompare1 } = useContext(UserContext)
   const [allMovies, setAllMovies] = useState<any>([])
   const swipe = useRef(new Animated.ValueXY()).current;
   const tiltSign = useRef(new Animated.Value(1)).current;
@@ -72,6 +72,7 @@ const MovieCardScreen: FC<Props> = () => {
     allVotes.push("0");
     setAllVotes([...allVotes]);
     setListOfMovieNamesUsedToCompare([...listOfMovieNamesUsedToCompare]);
+    setListOfMovieNamesUsedToCompare1(listOfMovieNamesUsedToCompare);
     if(allMovies.length == 1)
     {
       let newVotes = {
@@ -82,6 +83,7 @@ const MovieCardScreen: FC<Props> = () => {
         LikesDislikesIndexValues: allVotes.join(",")
 
       }
+      //i think we need to have a check if everyone has done it before we navigate to the FinalMovie Screen
       let result = await AddLikeOrDislike(newVotes);
       if(result)
       {
@@ -89,7 +91,7 @@ const MovieCardScreen: FC<Props> = () => {
         console.log(result);
         console.log(newVotes);
         console.log(listOfMovieNamesUsedToCompare)
-        navigation.navigate("LoadingPopcorn")
+        navigation.navigate("FinalMovie");
       }
     }
   }
@@ -97,6 +99,8 @@ const MovieCardScreen: FC<Props> = () => {
     console.log("swipe right",currentMovie, "1", allMovies.length);
     listOfMovieNamesUsedToCompare.push(currentMovie);
     setListOfMovieNamesUsedToCompare([...listOfMovieNamesUsedToCompare]);
+    setListOfMovieNamesUsedToCompare1(listOfMovieNamesUsedToCompare);
+
     allVotes.push("1");
     setAllVotes([...allVotes]);
     if(allMovies.length == 1)
@@ -109,6 +113,8 @@ const MovieCardScreen: FC<Props> = () => {
         LikesDislikesIndexValues: allVotes.join(",")
 
       }
+      
+      //i think we need to have a check if everyone has done it before we navigate to the FinalMovie Screen
       let result = await AddLikeOrDislike(newVotes);
       if(result)
       {
@@ -116,7 +122,7 @@ const MovieCardScreen: FC<Props> = () => {
         console.log(result);
         console.log(newVotes);
         console.log(listOfMovieNamesUsedToCompare)
-        navigation.navigate("LoadingPopcorn")
+        navigation.navigate("FinalMovie");
       }
     }
   }

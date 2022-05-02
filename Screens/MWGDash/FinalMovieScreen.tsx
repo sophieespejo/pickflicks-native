@@ -1,7 +1,7 @@
 import { NavigationRouteContext } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { FC } from 'react';
+import { FC, useEffect, useContext,} from 'react';
 import { StyleSheet, Text, View , Image} from 'react-native';
 import RedLogo from '../assets/RedLogo.png';
 import HeaderComponent from '../../Components/MWGDashboard/HeaderComponent';
@@ -10,6 +10,8 @@ import FooterNavComponent from '../../Components/UserDashboard-Body/FooterNavCom
 import GenreSelectionComponent from '../../Components/MWGDashboard/GenreSelectionComponent';
 import FinalMovieCardComponent from '../../Components/MWGDashboard/FinalMovieCardComponent';
 import { Provider as PaperProvider } from 'react-native-paper';
+import UserContext from '../../Context/UserContext';
+
 
 
 
@@ -33,9 +35,11 @@ type RootStackParamList = {
 
   }
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Introduction'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'FinalMovie'>;
 
 const FinalMovieScreen: FC<Props> = ({navigation}) => {
+  let {  MWGId, setMWGId, userId, setUserId , listOfMovieNamesUsedToCompare, setListOfMovieNamesUsedToCompare } = useContext(UserContext)
+
 
 
     return (
