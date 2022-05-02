@@ -96,13 +96,7 @@ const MWGCardComponent: FC = () => {
     }
 
 
-  let [fontsLoaded] = useFonts({
-    Raleway_400Regular,
-  });
 
-  if (!fontsLoaded) {
-    return <AppLoading />;
-  }
 
   
   return (
