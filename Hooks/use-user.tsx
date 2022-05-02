@@ -11,7 +11,9 @@ export default function UseUser() {
     const [genre1, setGenre1] = useState<number>(0);
     const [genre2, setGenre2] = useState<number>(0);
     const [genre3, setGenre3] = useState<number>(0);
+    const [listOfMovieNamesUsedToCompare, setListOfMovieNamesUsedToCompare] = useState<any>([]);
 
 
-    return { username, setUsername, userId, setUserId, userIcon, setUserIcon, MWGname, setMWGname, MWGId, setMWGId, MWGgenres, setMWGgenres, MWGmembersId, setMWGmembersId, genre1, setGenre1, genre2, setGenre2, genre3, setGenre3}
+
+    return { username, setUsername, userId, setUserId, userIcon, setUserIcon, MWGname, setMWGname, MWGId, setMWGId, MWGgenres, setMWGgenres, MWGmembersId, setMWGmembersId, genre1, setGenre1, genre2, setGenre2, genre3, setGenre3, listOfMovieNamesUsedToCompare, setListOfMovieNamesUsedToCompare}
 }

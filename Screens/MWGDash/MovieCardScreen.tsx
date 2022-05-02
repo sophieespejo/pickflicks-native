@@ -49,6 +49,8 @@ const MovieCardScreen: FC<Props> = () => {
   const tiltSign = useRef(new Animated.Value(1)).current;
   const [currentMovieName, setCurrentMovieName] = useState("");
   const [allVotes, setAllVotes] = useState<Array<string>>([]);
+  const [listOfMovieNamesUsedToCompare, setListOfMovieNamesUsedToCompare] = useState<any>([]);
+
 
   useEffect( () => {
     async function getUserInfo(){
@@ -65,9 +67,11 @@ const MovieCardScreen: FC<Props> = () => {
   }, []);
 
   const swipeLeft = async (currentMovie:any) => {
-    console.log("swipe left",currentMovie, "0",  allMovies.length);
+    console.log("swipe left",typeof(currentMovie), "0",  allMovies.length);
+    listOfMovieNamesUsedToCompare.push(currentMovie);
     allVotes.push("0");
     setAllVotes([...allVotes]);
+    setListOfMovieNamesUsedToCompare([...listOfMovieNamesUsedToCompare]);
     if(allMovies.length == 1)
     {
       let newVotes = {
@@ -84,12 +88,15 @@ const MovieCardScreen: FC<Props> = () => {
         console.log(allVotes.join(","));
         console.log(result);
         console.log(newVotes);
+        console.log(listOfMovieNamesUsedToCompare)
         navigation.navigate("LoadingPopcorn")
       }
     }
   }
   const swipeRight = async (currentMovie:any) => {
     console.log("swipe right",currentMovie, "1", allMovies.length);
+    listOfMovieNamesUsedToCompare.push(currentMovie);
+    setListOfMovieNamesUsedToCompare([...listOfMovieNamesUsedToCompare]);
     allVotes.push("1");
     setAllVotes([...allVotes]);
     if(allMovies.length == 1)
@@ -108,6 +115,7 @@ const MovieCardScreen: FC<Props> = () => {
         console.log(allVotes.join(","));
         console.log(result);
         console.log(newVotes);
+        console.log(listOfMovieNamesUsedToCompare)
         navigation.navigate("LoadingPopcorn")
       }
     }
