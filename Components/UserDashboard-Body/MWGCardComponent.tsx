@@ -34,8 +34,8 @@ const MWGCardComponent: FC = () => {
       async function fetchUserData() {
             setUsername(username);
             setUserId(userId)
-            console.log(username);
-            console.log(userId)
+            // console.log(username);
+            // console.log(userId)
           
       let response = await GetUserByUsername(username);
       let favoritedMWGArray = response.favoritedMWGId.split(',');
@@ -45,7 +45,7 @@ const MWGCardComponent: FC = () => {
       }
       // allFaveMWG.push(parseInt(favoritedMWGArray));
       setAllFaveMWG([...allFaveMWG]);
-      console.log(allFaveMWG);
+      // console.log(allFaveMWG);
       if(response != null)
         {
           let userMWG = await GetAllMWGAUserIsMemberOfuserId(response.id);

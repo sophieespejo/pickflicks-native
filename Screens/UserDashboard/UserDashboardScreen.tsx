@@ -35,16 +35,44 @@ interface IUserDashboardScreen {
 
 const UserDashboard: FC<Props> = ({navigation}) => {
 
-  let { username, setUsername, userId, setUserId, userIcon, setUserIcon } = useContext(UserContext)
+  let { token, setToken, username, setUsername, userId, setUserId, userIcon, setUserIcon } = useContext(UserContext)
 
   useEffect( () => {
     async function getUserInfo(){
-          setUsername(username);
-          setUserId(userId)
-          setUserIcon(userIcon)
+      if(token != null)
+      {
+        setUsername(username);
+        setUserId(userId);
+        setUserIcon(userIcon);
+      }
+      else
+      {
+        navigation.navigate('Login');
+      }
     }
     getUserInfo()
   }, []);
+
+  // useEffect( () => {
+  //   const userToken = async () => 
+  //   {
+  //       const token = await AsyncStorage.getItem('@storage_Token')
+  //       const Id = await AsyncStorage.getItem('@storage_Id')
+  //       const Username = await AsyncStorage.getItem('@storage_Username')
+  //       if(token != null)
+  //       {
+  //           console.log(token);
+  //           console.log(Id);
+  //           console.log(Username);
+
+  //           setUsername(Username);
+  //           setUserId(Id);
+  //           navigation.navigate('UserDashboard')
+  //       }
+  //   }
+  //   userToken();
+
+  // }, []);
 
 
   return (
