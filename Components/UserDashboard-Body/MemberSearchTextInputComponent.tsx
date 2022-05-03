@@ -45,6 +45,7 @@ import {
     const [allSearchedNames, setAllSearchedNames] = useState<Array<string>>([]);
     const [mwgMembersId, setmwgMembersId] = useState<Array<string>>([]);
     const [mwgMembersNames, setmwgMembersNames] = useState<Array<string>>([]);
+    const [mwgMembersIcons, setmwgMembersIcons] = useState<Array<string>>([]);
     const navigation = useNavigation<any>();
 
     let row: Array<any> = [];
@@ -70,9 +71,11 @@ import {
 
     const handleInvitations = async () => {
         console.log(newMWGname);
-        console.log(userId)
+        console.log(userId);
+        console.log(userIcon);
         mwgMembersId.push(userId);
         mwgMembersNames.push(username);
+        mwgMembersIcons.push(userIcon);
         let newMWG = {
           Id: 0,  
           MWGName: newMWGname,
@@ -81,6 +84,7 @@ import {
           MembersNames: mwgMembersNames.join(","),
           UserSuggestedMovies: '',
           ChosenGenres: '',
+          MembersIcons: mwgMembersIcons.join(","),
           StreamingService: '',
           IsDeleted: false
       }
@@ -104,6 +108,7 @@ import {
         setAllSearchedNames([...allSearchedNames]);
         mwgMembersId.push(foundUser.id);
         mwgMembersNames.push(searchedName);
+        mwgMembersIcons.push(foundUser.icon);
         setmwgMembersNames([...mwgMembersNames]);
         setSearchedName('');    
       }else{
@@ -123,8 +128,11 @@ import {
       let foundUser = await GetUserByUsername(searchedName);
       if (foundUser != null && foundUser.id != 0) {
         let removedIdIndex = mwgMembersId.indexOf(foundUser.id);
+        let removedIconIndex = mwgMembersId.indexOf(foundUser.icon);
         //console.log(removedIdIndex)
         mwgMembersId.splice(removedIdIndex, 1);
+        mwgMembersIcons.splice(removedIconIndex, 1);
+        setmwgMembersIcons([...mwgMembersIcons]);
         setmwgMembersId([...mwgMembersId]);
         //console.log(mwgMembersId)
       }
