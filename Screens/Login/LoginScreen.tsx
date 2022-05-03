@@ -47,6 +47,8 @@ const LoginScreen : FC<Props> = ({ navigation }) => {
 
                 setUsername(Username);
                 setUserId(Id);
+
+                setUserIcon(userIcon);
                 navigation.navigate('UserDashboard')
             }
         }
@@ -75,6 +77,7 @@ const LoginScreen : FC<Props> = ({ navigation }) => {
             await AsyncStorage.setItem('@storage_Username', username)
             
             setUserId(userData.id);
+            setUserIcon(userData.icon);
             navigation.navigate('UserDashboard')
         } else {
             // Do something

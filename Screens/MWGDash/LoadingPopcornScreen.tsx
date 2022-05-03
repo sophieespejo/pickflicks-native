@@ -30,10 +30,11 @@ type RootStackParamList = {
     ChooseGenres : undefined,
     GenreRanking: undefined,
     MovieCard : undefined,
+    LoadingPopcorn: undefined
 
   }
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Introduction'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'LoadingPopcorn'>;
 
 const LoadingPopcornScreen: FC<Props> = ({navigation}) => {
 
