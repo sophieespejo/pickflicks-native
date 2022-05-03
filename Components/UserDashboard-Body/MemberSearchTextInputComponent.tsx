@@ -18,9 +18,10 @@ import {
   import Magnifying from '../../assets/Magnifying.png';
   import X from '../../assets/X.png';
   import Swipeable from 'react-native-gesture-handler/Swipeable';
-  import { Button } from "react-native-paper";
-  import { GetUserByUsername, AddMWG } from '../../Service/DataService'
-  import RightActions from './RightActions'
+  import { Button, Avatar } from "react-native-paper";
+  import { GetUserByUsername, AddMWG, GetAllMWGAUserIsMemberOfuserId } from '../../Service/DataService'
+  import RightActions from './RightActions';
+  import girl5 from '../../assets/avatars/girl5.png'
 
   import UserContext from '../../Context/UserContext';
   
@@ -32,21 +33,20 @@ import {
       Introduction: undefined;
       UserDashboard: undefined;
       InvitationSent: undefined;
-      MemberSearch: { newMWGname: string },
+      MemberSearch: undefined,
     };
   
 
-  interface IMemberSearchTextInputComponent {
-    newMWGname: string;
-  }
+
   
-  const MemberSearchTextInputComponent: FC = ({newMWGname}:any) => {
-    let { username, setUsername, userId, setUserId, userIcon, setUserIcon } = useContext(UserContext)
+  const MemberSearchTextInputComponent: FC = () => {
+    let { username, setUsername, userId, setUserId, newMWGname, setnewMWGname, allMWG, setAllMWG, userIcon, setUserIcon } = useContext(UserContext)
     
     const [searchedName, setSearchedName] = useState<string>('');
     const [allSearchedNames, setAllSearchedNames] = useState<Array<string>>([]);
     const [mwgMembersId, setmwgMembersId] = useState<Array<string>>([]);
     const [mwgMembersNames, setmwgMembersNames] = useState<Array<string>>([]);
+    const [mwgMembersIcons, setmwgMembersIcons] = useState<Array<string>>([]);
     const navigation = useNavigation<any>();
 
     let row: Array<any> = [];
@@ -55,8 +55,9 @@ import {
     useEffect( () => {
       async function getUserInfo(){
             setUsername(username);
-            setUserId(userId)
-            setUserIcon(userIcon)
+            setUserId(userId);
+            setUserIcon(userIcon);
+            setnewMWGname(newMWGname);
       }
       getUserInfo()
     }, []);
@@ -71,24 +72,30 @@ import {
 
     const handleInvitations = async () => {
         console.log(newMWGname);
-        console.log(userId)
+        console.log(userId);
+        console.log(userIcon);
         mwgMembersId.push(userId);
         mwgMembersNames.push(username);
+        mwgMembersIcons.push(userIcon);
         let newMWG = {
           Id: 0,  
-          MWGName: newMWGname,//need to be set in other component
+          MWGName: newMWGname,
           GroupCreatorId: userId,
           MembersId: mwgMembersId.join(","),
           MembersNames: mwgMembersNames.join(","),
           UserSuggestedMovies: '',
           ChosenGenres: '',
+          MembersIcons: mwgMembersIcons.join(","),
           StreamingService: '',
           IsDeleted: false
       }
       let result = await AddMWG(newMWG);
       if (result) {
-        //console.log("yay it worked")
-        navigation.navigate("InvitationSent", { username: username, userId: userId});
+        let userMWG = await GetAllMWGAUserIsMemberOfuserId(userId);
+          // console.log(userMWG)
+        setAllMWG(userMWG);
+        //console.log(allMWG);
+        navigation.navigate("InvitationSent");
       }else{
         alert("Unable to create a new movie watch group. Please try again.")
       }
@@ -102,6 +109,7 @@ import {
         setAllSearchedNames([...allSearchedNames]);
         mwgMembersId.push(foundUser.id);
         mwgMembersNames.push(searchedName);
+        mwgMembersIcons.push(foundUser.icon);
         setmwgMembersNames([...mwgMembersNames]);
         setSearchedName('');    
       }else{
@@ -121,8 +129,11 @@ import {
       let foundUser = await GetUserByUsername(searchedName);
       if (foundUser != null && foundUser.id != 0) {
         let removedIdIndex = mwgMembersId.indexOf(foundUser.id);
+        let removedIconIndex = mwgMembersId.indexOf(foundUser.icon);
         //console.log(removedIdIndex)
         mwgMembersId.splice(removedIdIndex, 1);
+        mwgMembersIcons.splice(removedIconIndex, 1);
+        setmwgMembersIcons([...mwgMembersIcons]);
         setmwgMembersId([...mwgMembersId]);
         //console.log(mwgMembersId)
       }
@@ -174,7 +185,14 @@ import {
                     <Animated.View
                       style={{flex:0.4, margin: 0, transform: [{ scale }], alignContent: 'center', justifyContent: 'center', width:100}}
                     >
-                      <Button uppercase={false} mode='contained' color='red' onPress={() => handleDeleteMember(searchedName, index)} style={{height: '80%'}}><Text style={{fontSize:28, fontFamily: "Raleway_400Regular",}}>Remove</Text></Button>
+                      <Button 
+                        uppercase={false} 
+                        mode='contained' 
+                        color='red' 
+                        onPress={() => handleDeleteMember(searchedName, index)} 
+                        style={{height: '80%'}}>
+                          <Text style={{fontSize:28, fontFamily: "Raleway_400Regular",}}>Remove</Text>
+                      </Button>
                     </Animated.View>
                   )
                 }
@@ -186,9 +204,10 @@ import {
                     //rightOpenValue={-100}
                     key={index}
                     >
-                    <View style={[{alignItems:'center', marginTop:'10%'}]}>
-                      <View style={[{width:'80%', alignItems:'flex-start'}, styles.nameLine]}>
-                        <Text style={[{color:'white'}, styles.btnText]}>{searchedName}</Text>
+                    <View style={[{alignItems:'center', marginTop:'5%'}]}>
+                      <View style={[{width:'80%', flexDirection: 'row', alignItems: 'flex-end', paddingBottom: '2%'}, styles.nameLine]}>
+                        <Avatar.Image source={girl5} style={{alignItems: 'flex-start'}}/>
+                        <Text style={[{color:'white', marginLeft: '5%'}, styles.btnText]}>{searchedName}</Text>
                       </View>
                     </View>
                   </Swipeable>

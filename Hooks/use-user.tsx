@@ -5,7 +5,9 @@ export default function UseUser() {
     const [userId, setUserId] = useState<number>(0);
     const [userIcon, setUserIcon] = useState<string>("");
     const [MWGname, setMWGname] = useState<string>("");
+    const [newMWGname, setnewMWGname] = useState<string>("");
     const [MWGId, setMWGId] = useState<number>(0);
+    const [allMWG, setAllMWG] = useState<any>([]);
     const [MWGgenres, setMWGgenres] = useState<any>([]);
     const [MWGmembersId, setMWGmembersId] = useState<string>("");
     const [genre1, setGenre1] = useState<number>(0);
@@ -13,7 +15,8 @@ export default function UseUser() {
     const [genre3, setGenre3] = useState<number>(0);
     const [listOfMovieNamesUsedToCompare1, setListOfMovieNamesUsedToCompare1] = useState<any>([]);
 
+    const [token, setToken] = useState<any>("");
 
 
-    return { username, setUsername, userId, setUserId, userIcon, setUserIcon, MWGname, setMWGname, MWGId, setMWGId, MWGgenres, setMWGgenres, MWGmembersId, setMWGmembersId, genre1, setGenre1, genre2, setGenre2, genre3, setGenre3, listOfMovieNamesUsedToCompare1, setListOfMovieNamesUsedToCompare1}
+    return { token, setToken, username, setUsername, allMWG, setAllMWG, newMWGname, setnewMWGname, userId, setUserId, userIcon, setUserIcon, MWGname, setMWGname, MWGId, setMWGId, MWGgenres, setMWGgenres, MWGmembersId, setMWGmembersId, genre1, setGenre1, genre2, setGenre2, genre3, setGenre3}
 }

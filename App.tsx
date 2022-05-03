@@ -36,8 +36,7 @@ import ChangeNotificationsScreen from './Screens/UserProfile/ChangeNotifications
 
 type RootStackParamList = {
   Home: undefined; //means route doesnt have params
-    //UserDashboard: { username: string, userId: number };
-    UserDashboard: undefined;
+  UserDashboard: undefined;
   Login: undefined
   CreateAccountScreen: undefined,
   Loading: undefined,
@@ -74,12 +73,12 @@ const App:FC = () => {
     <NavigationContainer>
       <Stack.Navigator>
             <Stack.Screen
-                name="Login"
-                component={LoginScreen}
-                options={{headerShown:false}} />
-            <Stack.Screen
                 name="Loading"
                 component={LoadingScreen}
+                options={{headerShown:false}} />
+            <Stack.Screen
+                name="Login"
+                component={LoginScreen}
                 options={{headerShown:false}} />
             <Stack.Screen
                 name="UserDashboard"

@@ -13,12 +13,32 @@ import AppLoading from 'expo-app-loading';
 
 
 type RootStackParamList = {
-    Home: undefined; 
-    Profile: { name : string };
-    Login: { name: string }
+    Home: undefined; //means route doesnt have params
+    UserDashboard: undefined;
+    Login: undefined
     CreateAccountScreen: undefined,
     Loading: undefined,
-    Introduction: undefined
+    AvatarScreen: undefined
+    Introduction: undefined,
+    SelectStreamingService: undefined
+    NewMWGName: undefined,
+    MemberSearch: { username: string, userId: number, newMWGname: string },
+    InvitationSent: { username: string, userId: number},
+    ChooseGenres : undefined,
+    GenreRanking: undefined,
+    GenreRanking2: undefined,
+    GenreRanking3: undefined,
+    FinalGenre : undefined,
+    MovieCard : undefined,
+    FinalMovie : undefined,
+    MWGDashboard : undefined,
+    LoadingPopcorn : undefined,
+    UserProfile : undefined,
+    ChangeUsername :undefined,
+    ChangePassword1 : undefined,
+    ChangePassword2 : undefined,
+    ChangeNotifications : undefined,
+    TutorialMovieCard : undefined,
   }
   
   
@@ -76,7 +96,7 @@ type RootStackParamList = {
     return (
         <View style={styles.container}>
             <Image 
-                style={{height: 70, width: '100%', marginLeft: '13%'}} 
+                style={{height: 50, width: '100%', marginLeft: '13%'}} 
                 source={headerLogo} />
             <ScrollView 
                 horizontal
@@ -95,7 +115,7 @@ type RootStackParamList = {
                             <Text style={styles.introTxt}>Unsure about what movie to watch?</Text>
                         </View>
                     <View style={{alignItems: 'center'}}>
-                        <Image style={styles.firstAndThirdPics} source={firstPic}/>
+                        <Image style={styles.firstPic} source={firstPic}/>
                     </View>
                 </View>
                 <View style={{flex:1}}>
@@ -121,13 +141,21 @@ type RootStackParamList = {
                     <View style={{flex: 2, alignItems: 'center'}}>
                         <Image style={styles.fourthPic} source={fourthPic}/>
                     </View>
-                    <View style={{flex:1, alignItems: 'center', marginTop:'35%'}}>
+                    <View style={{flex:1, alignItems: 'center', marginTop:'25%'}}>
                         <Button 
                             mode="contained" 
                             color='#DC1B21C4' 
                             style={{borderRadius: 25, height: 50, width: 300, justifyContent: 'center'}} 
                             onPress={() => navigation.navigate('CreateAccountScreen')}
                             >Create an Account
+                        </Button>
+                        <Button 
+                            mode="text" 
+                            uppercase={false}
+                            color='#09A7F9' 
+                            style={{borderRadius: 25, height: 50, width: 300, justifyContent: 'center'}} 
+                            onPress={() => navigation.navigate('Login')}
+                            >Already have an account? Log in
                         </Button>
                     </View>
                 </View>  
@@ -172,6 +200,12 @@ const styles = StyleSheet.create({
       resizeMode: 'contain',
       //marginRight:50,
     },
+    firstPic: {
+        width: '80%',
+        height: '63%',
+        resizeMode: 'contain',
+        //marginRight:50,
+      },
     secondPic: {
         width: '70%',
         height: '65%',
@@ -179,7 +213,7 @@ const styles = StyleSheet.create({
     },
     fourthPic: {
         width: '90%',
-        height: '95%',
+        height: '85%',
         marginTop:'15%',
         resizeMode: 'contain',
     },
@@ -189,8 +223,9 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         flexDirection: 'row',
         paddingHorizontal: 1,
+    
         paddingTop: 1,
-        marginVertical:'175%',
+        marginVertical:'167%',
     },
     bullet: {
         paddingHorizontal: 5,

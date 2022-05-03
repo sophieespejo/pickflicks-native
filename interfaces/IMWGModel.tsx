@@ -4,6 +4,7 @@ export default interface IMWGModel{
     GroupCreatorId:number,
     MembersId:string,
     MembersNames:string,
+    MembersIcons: string,
     UserSuggestedMovies:string,
     ChosenGenres:string,
     StreamingService:string,
