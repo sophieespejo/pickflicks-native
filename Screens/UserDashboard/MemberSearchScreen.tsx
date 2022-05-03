@@ -29,7 +29,7 @@ const MemberSearchScreen: FC<Props> = ({navigation, route}) => {
     return (
         <View style={styles.container}>
             <JustLogoComponent/>
-            <MemberSearchTextInputComponent username={route.params.username} userId={route.params.userId} newMWGname={route.params.newMWGname} />
+            <MemberSearchTextInputComponent/>
             <FooterNavComponent/>
         </View>
     )

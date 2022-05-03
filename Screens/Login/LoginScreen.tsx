@@ -26,7 +26,7 @@ type RootStackParamList = {
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 
 const LoginScreen : FC<Props> = ({ navigation }) => {
-    let { username, setUsername, userId, setUserId, userIcon, setUserIcon } = useContext(UserContext);
+    let { token, setToken, username, setUsername, userId, setUserId, userIcon, setUserIcon } = useContext(UserContext);
     const [password, setPassword] = useState('');
 
     const toast = useToast();
@@ -34,12 +34,14 @@ const LoginScreen : FC<Props> = ({ navigation }) => {
     useEffect( () => {
         const userToken = async () => 
         {
-            const token = await AsyncStorage.getItem('@storage_Token')
+            const userToken = await AsyncStorage.getItem('@storage_Token')
             const Id = await AsyncStorage.getItem('@storage_Id')
             const Username = await AsyncStorage.getItem('@storage_Username')
-            if(token != null)
+
+            setToken(userToken);
+            if(userToken != null)
             {
-                console.log(token);
+                console.log(userToken);
                 console.log(Id);
                 console.log(Username);
 

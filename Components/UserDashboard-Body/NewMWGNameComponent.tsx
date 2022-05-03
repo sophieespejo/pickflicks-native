@@ -37,7 +37,7 @@ interface INewMWGNameComponent {
 }
 
 const NewMWGNameComponent: FC = () => {
-  let { username, setUsername, userId, setUserId, userIcon, setUserIcon } = useContext(UserContext)
+  let { username, setUsername, userId, setUserId, newMWGname, setnewMWGname, userIcon, setUserIcon } = useContext(UserContext)
 
   const [MWGname, setMWGname] = useState<string>("");
   const navigation = useNavigation<any>();
@@ -51,6 +51,11 @@ const NewMWGNameComponent: FC = () => {
     }
     getUserInfo()
   }, []);
+
+  const handlePress= () => {
+    setnewMWGname(MWGname);
+    navigation.navigate('MemberSearch');
+  }
   
   let [fontsLoaded] = useFonts({
     Raleway_400Regular,
@@ -73,7 +78,7 @@ const NewMWGNameComponent: FC = () => {
       </View>
       <View style={[{ flex:0.5, justifyContent:'flex-end', alignItems:'flex-end'}]}>
         <Button uppercase={false} color='#FFFFFF' mode="text" onPress={() => {
-          navigation.navigate("MemberSearch", {newMWGname: MWGname});
+          handlePress()
         }}>
 
             <Text style={styles.nextBtn}>Next {'\>'}</Text>

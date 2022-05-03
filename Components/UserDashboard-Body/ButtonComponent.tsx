@@ -34,13 +34,13 @@ interface IButtonComponent {
 
   
 
-  let [fontsLoaded] = useFonts({
-    Raleway_400Regular,
-  });
+  // let [fontsLoaded] = useFonts({
+  //   Raleway_400Regular,
+  // });
 
-  if (!fontsLoaded) {
-    return <AppLoading />;
-  }
+  // if (!fontsLoaded) {
+  //   return <AppLoading />;
+  // }
 
 
 

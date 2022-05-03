@@ -16,7 +16,10 @@ import { ACTION_OFFSET, CARD } from '../Utilities/Utility'
 
 interface IMovieCardComponent {
   movie: object,
-  children: React.ReactNode;
+  isFirst: any,
+  swipe: any, 
+  tiltSign: any,
+  // children: React.ReactNode;
 }
 
 const MovieCardComponent: FC = ({movie, isFirst, swipe, setCurrentMovieName, tiltSign, ...rest}) => {
