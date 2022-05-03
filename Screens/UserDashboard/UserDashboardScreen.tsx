@@ -1,9 +1,11 @@
 import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
 import { FC, useContext, useEffect } from 'react';
-import { StyleSheet, Text, View , Image, ScrollView, Button} from 'react-native';
+import { StyleSheet, Text, View , Image, ScrollView, Button, Pressable} from 'react-native';
 import HeaderComponent from '../../Components/UserDashboard-Body/HeaderComponent';
 import ButtonComponent from '../../Components/UserDashboard-Body/ButtonComponent';
 import MWGCardComponent from '../../Components/UserDashboard-Body/MWGCardComponent';
+import WaitingForYouComponent from '../../Components/UserDashboard-Body/WaitingForYouComponent';
+import WaitingForOthersComponent from '../../Components/UserDashboard-Body/WaitingForOthersComponent';
 import FooterNavComponent from '../../Components/UserDashboard-Body/FooterNavComponent';
 import NewMWGNameComponent from '../../Components/UserDashboard-Body/NewMWGNameComponent';
 import MemberSearchTextInputComponent from '../../Components/UserDashboard-Body/MemberSearchTextInputComponent';
@@ -11,6 +13,7 @@ import UserContext from '../../Context/UserContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
+import { useState } from 'react';
 
 
 
@@ -40,6 +43,20 @@ interface IUserDashboardScreen {
 const UserDashboard: FC<Props> = ({navigation}) => {
 
   let { token, setToken, username, setUsername, userId, setUserId, userIcon, setUserIcon } = useContext(UserContext)
+  const [WFYBool, setWFYBool] = useState<boolean>(false);
+  const [WFOBool, setWFOBool] = useState<boolean>(false);
+
+  const handleWFY = () => 
+  {
+    setWFYBool(true);
+    setWFOBool(false);
+  }
+
+  const handleWFO = () => 
+  {
+    setWFOBool(true);
+    setWFYBool(false);
+  }
 
   useEffect( () => {
     async function getUserInfo(){
@@ -65,26 +82,6 @@ const UserDashboard: FC<Props> = ({navigation}) => {
     return <AppLoading />;
   }
 
-  // useEffect( () => {
-  //   const userToken = async () => 
-  //   {
-  //       const token = await AsyncStorage.getItem('@storage_Token')
-  //       const Id = await AsyncStorage.getItem('@storage_Id')
-  //       const Username = await AsyncStorage.getItem('@storage_Username')
-  //       if(token != null)
-  //       {
-  //           console.log(token);
-  //           console.log(Id);
-  //           console.log(Username);
-
-  //           setUsername(Username);
-  //           setUserId(Id);
-  //           navigation.navigate('UserDashboard')
-  //       }
-  //   }
-  //   userToken();
-
-  // }, []);
 
   const handleSignout = async () => {
     const token = await AsyncStorage.removeItem('@storage_Token');
@@ -105,7 +102,17 @@ const UserDashboard: FC<Props> = ({navigation}) => {
             <HeaderComponent/>
             <ScrollView style={{flex:1}}>
               <ButtonComponent />
-              <MWGCardComponent />
+              <View style={{flexDirection:'row', width:'100%',justifyContent:'space-around', paddingTop:'5%'}}>
+                <Pressable onPress={() => handleWFY()} style={{borderBottomWidth:2, borderBottomColor:'#DC1B21'}}>
+                  <Text style={styles.waitingTxt}>Waiting for you</Text>
+                </Pressable>
+                <Pressable onPress={() => handleWFO()}  style={{borderBottomWidth:2, borderBottomColor:'#DC1B21'}}>
+                  <Text style={styles.waitingTxt}>Waiting for others</Text>
+                </Pressable>
+              </View>
+              {
+                WFYBool == true ? <WaitingForYouComponent /> : <WaitingForOthersComponent />
+              }
             </ScrollView>
             <View>
               <Button title="Sign Out" onPress={()=> handleSignout()}></Button>
@@ -121,6 +128,11 @@ const styles = StyleSheet.create({
       backgroundColor: '#1E1A1A',
       fontFamily:'Raleway_400Regular', 
     },
+    waitingTxt:{
+      fontFamily:'Raleway_400Regular',
+      fontSize:24,
+      color:'#FFFFFF'
+    }
   });
 
 export default UserDashboard;

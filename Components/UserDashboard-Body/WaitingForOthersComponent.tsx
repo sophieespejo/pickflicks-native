@@ -19,7 +19,7 @@ interface IMWGCardComponent {
 }
 
 //map through MWG created according to userID/logged in user
-const MWGCardComponent: FC = () => {
+const WaitingForOthersComponent: FC = () => {
   let { username, setUsername, userId, setUserId, allMWG, setAllMWG, setMWGname, MWGname, setMWGId, MWGId } = useContext(UserContext)
 
   //const [allMWG, setAllMWG] = useState<any>([]);
@@ -102,6 +102,7 @@ const MWGCardComponent: FC = () => {
   return (
 
     <View style={{ flex:1, alignItems:'center'}}>
+      <Text>BANGBANG</Text>
       
       {
 
@@ -247,7 +248,7 @@ const MWGCardComponent: FC = () => {
   );
 };
 
-export default MWGCardComponent;
+export default WaitingForOthersComponent;
 
 const styles = StyleSheet.create({
   wgButton: {

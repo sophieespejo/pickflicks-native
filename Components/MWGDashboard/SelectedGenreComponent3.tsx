@@ -45,6 +45,8 @@ const SelectedGenreComponent3: FC = () => {
         Genre3: onChangeValue,
       }
       let result = await AddGenreRankingModel(newGRModel);
+
+      
       if(result)
       {
         console.log(result);

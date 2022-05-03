@@ -19,7 +19,7 @@ interface IMWGCardComponent {
 }
 
 //map through MWG created according to userID/logged in user
-const MWGCardComponent: FC = () => {
+const WaitingForYouComponent: FC = () => {
   let { username, setUsername, userId, setUserId, allMWG, setAllMWG, setMWGname, MWGname, setMWGId, MWGId } = useContext(UserContext)
 
   //const [allMWG, setAllMWG] = useState<any>([]);
@@ -109,7 +109,6 @@ const MWGCardComponent: FC = () => {
       {
         return (
           <>
-          
                <Pressable key={group.id} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=> handlePress(group.mwgName, group.id)}>
                  <View >
                    <View  style={{paddingTop:'3%',flexDirection:'row', justifyContent:'center'}}>
@@ -247,7 +246,7 @@ const MWGCardComponent: FC = () => {
   );
 };
 
-export default MWGCardComponent;
+export default WaitingForYouComponent;
 
 const styles = StyleSheet.create({
   wgButton: {
