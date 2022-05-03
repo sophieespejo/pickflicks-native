@@ -12,7 +12,7 @@ import Popcorn from '../../assets/Popcorn.gif'
 
 
 const YourProfileComponent: FC = () => {
-    const navigation = useNavigation();
+    const navigation = useNavigation<any>();
 
   let [fontsLoaded] = useFonts({
     Raleway_400Regular,

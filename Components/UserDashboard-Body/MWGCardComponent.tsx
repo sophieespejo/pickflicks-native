@@ -20,9 +20,9 @@ interface IMWGCardComponent {
 
 //map through MWG created according to userID/logged in user
 const MWGCardComponent: FC = () => {
-  let { username, setUsername, userId, setUserId, setMWGname, MWGname, setMWGId, MWGId } = useContext(UserContext)
+  let { username, setUsername, userId, setUserId, allMWG, setAllMWG, setMWGname, MWGname, setMWGId, MWGId } = useContext(UserContext)
 
-  const [allMWG, setAllMWG] = useState<any>([]);
+  //const [allMWG, setAllMWG] = useState<any>([]);
   const [allFaveMWG, setAllFaveMWG] = useState<any>([]);
   const [favorite, setFavorite] = useState(0);
 
@@ -92,7 +92,7 @@ const MWGCardComponent: FC = () => {
       console.log(MWGname);
       setMWGname(MWGname);
       setMWGId(MWGId);
-      navigation.navigate('MovieCard');
+      navigation.navigate('MWGDashboard');
     }
 
 
@@ -104,7 +104,7 @@ const MWGCardComponent: FC = () => {
     <View style={{ flex:1, alignItems:'center'}}>
       {
 
-      allMWG.map((group:any, i:number) => {if(allFaveMWG.includes(parseInt(group.id)))
+      allMWG.map((group:any, i:number) => {if(allFaveMWG.includes(parseInt(group.id)) && !group.isDeleted)
       {
         return (
           
@@ -167,7 +167,7 @@ const MWGCardComponent: FC = () => {
       }
 
       {
-        allMWG.map((group:any, i:number) => {if(!allFaveMWG.includes(parseInt(group.id)))
+        allMWG.map((group:any, i:number) => {if(!allFaveMWG.includes(parseInt(group.id)) && !group.isDeleted)
           {
             return (
                    <Pressable key={group.id} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=> handlePress(group.mwgName, group.id)}>

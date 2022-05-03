@@ -89,7 +89,7 @@ const MovieCardScreen: FC<Props> = ({navigation}) => {
   });
 
   const removeTopCard = useCallback(() => {
-    setAllMovies((prevState) => prevState.slice(1));
+    setAllMovies((prevState:any) => prevState.slice(1));
     swipe.setValue({ x: 0, y: 0 });
   }, [swipe]);
 

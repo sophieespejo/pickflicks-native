@@ -19,7 +19,7 @@ import {
   import X from '../../assets/X.png';
   import Swipeable from 'react-native-gesture-handler/Swipeable';
   import { Button } from "react-native-paper";
-  import { GetUserByUsername, AddMWG } from '../../Service/DataService'
+  import { GetUserByUsername, AddMWG, GetAllMWGAUserIsMemberOfuserId } from '../../Service/DataService'
   import RightActions from './RightActions'
 
   import UserContext from '../../Context/UserContext';
@@ -32,16 +32,14 @@ import {
       Introduction: undefined;
       UserDashboard: undefined;
       InvitationSent: undefined;
-      MemberSearch: { newMWGname: string },
+      MemberSearch: undefined,
     };
   
 
-  interface IMemberSearchTextInputComponent {
-    newMWGname: string;
-  }
+
   
-  const MemberSearchTextInputComponent: FC = ({newMWGname}:any) => {
-    let { username, setUsername, userId, setUserId, userIcon, setUserIcon } = useContext(UserContext)
+  const MemberSearchTextInputComponent: FC = () => {
+    let { username, setUsername, userId, setUserId, newMWGname, setnewMWGname, allMWG, setAllMWG, userIcon, setUserIcon } = useContext(UserContext)
     
     const [searchedName, setSearchedName] = useState<string>('');
     const [allSearchedNames, setAllSearchedNames] = useState<Array<string>>([]);
@@ -55,8 +53,9 @@ import {
     useEffect( () => {
       async function getUserInfo(){
             setUsername(username);
-            setUserId(userId)
-            setUserIcon(userIcon)
+            setUserId(userId);
+            setUserIcon(userIcon);
+            setnewMWGname(newMWGname);
       }
       getUserInfo()
     }, []);
@@ -76,7 +75,7 @@ import {
         mwgMembersNames.push(username);
         let newMWG = {
           Id: 0,  
-          MWGName: newMWGname,//need to be set in other component
+          MWGName: newMWGname,
           GroupCreatorId: userId,
           MembersId: mwgMembersId.join(","),
           MembersNames: mwgMembersNames.join(","),
@@ -87,8 +86,11 @@ import {
       }
       let result = await AddMWG(newMWG);
       if (result) {
-        //console.log("yay it worked")
-        navigation.navigate("InvitationSent", { username: username, userId: userId});
+        let userMWG = await GetAllMWGAUserIsMemberOfuserId(userId);
+          // console.log(userMWG)
+        setAllMWG(userMWG);
+        //console.log(allMWG);
+        navigation.navigate("InvitationSent");
       }else{
         alert("Unable to create a new movie watch group. Please try again.")
       }
