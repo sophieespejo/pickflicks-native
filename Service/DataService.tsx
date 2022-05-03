@@ -62,6 +62,16 @@ async function GetMWGById(MWGId:number){
     let data = await res.json();
     return data;
 }
+async function GetMWGByMWGName(MWGName:string){
+    let res = await fetch('https://pickflicksapi.azurewebsites.net/MWG/GetMWGByMWGName/' + (MWGName));
+    if(!res.ok)
+    {
+        const message = `An error has occured ${res.status}`
+        throw new Error(message);
+    }
+    let data = await res.json();
+    return data;
+}
 
 async function AddFavoriteMWG(userId:number, MWGId:number){
     let res= await fetch(`${url}/User/AddFavoriteMWG/${userId}/${MWGId}`, {
@@ -249,4 +259,4 @@ async function ResetMWGStatusbyMWGId(MWGId:number){
 }
 
 
-export { GetMWGStatusById, AddMWGStatus, ResetMWGStatusbyMWGId,UpdateSwipings, UpdateGenreRanking, GetMWGStatusByUserId, GetMWGStatusByMWGId, AddUser, Login, GetMWGById, GetTopMovieByMWGId, AddLikeOrDislike, AddStreamingService, GetMoviesByMWGId, AddGenreRankingModel, GetUserByUsername, GetAllMWGAUserIsMemberOfuserId, AddFavoriteMWG, RemoveFavoriteMWG, AddMWG, AddChosenGenres};
+export { GetMWGByMWGName, GetMWGStatusById, AddMWGStatus, ResetMWGStatusbyMWGId,UpdateSwipings, UpdateGenreRanking, GetMWGStatusByUserId, GetMWGStatusByMWGId, AddUser, Login, GetMWGById, GetTopMovieByMWGId, AddLikeOrDislike, AddStreamingService, GetMoviesByMWGId, AddGenreRankingModel, GetUserByUsername, GetAllMWGAUserIsMemberOfuserId, AddFavoriteMWG, RemoveFavoriteMWG, AddMWG, AddChosenGenres};

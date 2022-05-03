@@ -48,6 +48,7 @@ const UserDashboard: FC<Props> = ({navigation}) => {
         setUsername(username);
         setUserId(userId);
         setUserIcon(userIcon);
+        console.log(userIcon);
       }
       else
       {

@@ -39,11 +39,13 @@ const LoginScreen : FC<Props> = ({ navigation }) => {
             const Username = await AsyncStorage.getItem('@storage_Username')
             const UserIcon = await AsyncStorage.getItem('@storage_Usericon')
             setToken(userToken);
+
             if(userToken != null)
             {
                 console.log(userToken);
                 console.log(Id);
                 console.log(Username);
+                console.log(UserIcon);
 
                 setUsername(Username);
                 setUserId(Id);
