@@ -56,7 +56,7 @@ const FinalMovieCardComponent: FC = () => {
            <View>
                <Text style={styles.titleTxtBold}> {MWGname}'s {'\n'} Movie is</Text>
                <View style={{marginTop:'3%'}}>
-                <Text style={styles.titleTxtBold}> {displayMovie} </Text>
+                <Text style={styles.titleTxtBold}> {displayObject.movieName} </Text>
                </View>
            </View>
 

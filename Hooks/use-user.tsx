@@ -18,5 +18,5 @@ export default function UseUser() {
     const [token, setToken] = useState<any>("");
 
 
-    return { token, setToken, username, setUsername, allMWG, setAllMWG, newMWGname, setnewMWGname, userId, setUserId, userIcon, setUserIcon, MWGname, setMWGname, MWGId, setMWGId, MWGgenres, setMWGgenres, MWGmembersId, setMWGmembersId, genre1, setGenre1, genre2, setGenre2, genre3, setGenre3}
+    return { token, setToken, username, setUsername, allMWG, setAllMWG, newMWGname, setnewMWGname, userId, setUserId, userIcon, setUserIcon, MWGname, setMWGname, MWGId, setMWGId, MWGgenres, setMWGgenres, MWGmembersId, setMWGmembersId, genre1, setGenre1, genre2, setGenre2, genre3, setGenre3, listOfMovieNamesUsedToCompare1, setListOfMovieNamesUsedToCompare1}
 }

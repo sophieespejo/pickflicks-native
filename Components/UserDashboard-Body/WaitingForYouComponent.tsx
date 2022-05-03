@@ -92,7 +92,8 @@ const WaitingForYouComponent: FC = () => {
       console.log(MWGname);
       setMWGname(MWGname);
       setMWGId(MWGId);
-      navigation.navigate('MWGDashboard');
+      // navigation.navigate('MWGDashboard');
+      navigation.navigate('MovieCard');
     }
 
 

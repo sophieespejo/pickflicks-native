@@ -36,6 +36,7 @@ type RootStackParamList = {
     ChooseGenres : undefined,
     GenreRanking: undefined,
     MovieCard : undefined,
+    FinalMovie: undefined,
 
   }
 
@@ -68,16 +69,15 @@ const MovieCardScreen: FC<Props> = () => {
 
   const swipeLeft = async (currentMovie:any) => {
     console.log("swipe left",typeof(currentMovie), "0",  allMovies.length);
-    listOfMovieNamesUsedToCompare.push(currentMovie);
+    listOfMovieNamesUsedToCompare1.push(currentMovie);
     allVotes.push("0");
     setAllVotes([...allVotes]);
-    setListOfMovieNamesUsedToCompare([...listOfMovieNamesUsedToCompare]);
-    setListOfMovieNamesUsedToCompare1(listOfMovieNamesUsedToCompare);
+    // setListOfMovieNamesUsedToCompare([...listOfMovieNamesUsedToCompare]);
+    setListOfMovieNamesUsedToCompare1([...listOfMovieNamesUsedToCompare1]);
     if(allMovies.length == 1)
     {
       let newVotes = {
         Id: 0, 
-        SessionId: 0,
         MWGId: MWGId,
         UserId: userId,
         LikesDislikesIndexValues: allVotes.join(",")
@@ -97,9 +97,9 @@ const MovieCardScreen: FC<Props> = () => {
   }
   const swipeRight = async (currentMovie:any) => {
     console.log("swipe right",currentMovie, "1", allMovies.length);
-    listOfMovieNamesUsedToCompare.push(currentMovie);
-    setListOfMovieNamesUsedToCompare([...listOfMovieNamesUsedToCompare]);
-    setListOfMovieNamesUsedToCompare1(listOfMovieNamesUsedToCompare);
+    listOfMovieNamesUsedToCompare1.push(currentMovie);
+    // setListOfMovieNamesUsedToCompare([...listOfMovieNamesUsedToCompare]);
+    setListOfMovieNamesUsedToCompare1([...listOfMovieNamesUsedToCompare]);
 
     allVotes.push("1");
     setAllVotes([...allVotes]);
@@ -107,11 +107,9 @@ const MovieCardScreen: FC<Props> = () => {
     {
       let newVotes = {
         Id: 0, 
-        SessionId: 0,
         MWGId: MWGId,
         UserId: userId,
         LikesDislikesIndexValues: allVotes.join(",")
-
       }
       
       //i think we need to have a check if everyone has done it before we navigate to the FinalMovie Screen

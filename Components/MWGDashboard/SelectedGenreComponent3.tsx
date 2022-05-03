@@ -8,7 +8,7 @@ import {useNavigation} from '@react-navigation/native';
 // import { Button } from "native-base";
 import { Slider } from "native-base";
 import UserContext from '../../Context/UserContext';
-import { GetMWGById, AddGenreRankingModel } from '../../Service/DataService'
+import { GetMWGById, AddGenreRankingModel, AddMWGStatus} from '../../Service/DataService'
 import GenreRankingScreen2 from "../../Screens/MWGDash/GenreRankingScreen2";
 
 
@@ -46,10 +46,21 @@ const SelectedGenreComponent3: FC = () => {
       }
       let result = await AddGenreRankingModel(newGRModel);
 
-      
+      //havent tested
+      // let newStatusModel = {
+      //   Id: 0,
+      //   MWGId: MWGId,
+      //   MembersId: MWGmembersId,
+      //   UserId: userId,
+      //   UserDoneWithGenreRankings: true,
+      //   UserDoneWithSwipes: false,
+      // }
+      // let statusResult = await AddMWGStatus(newStatusModel);
+
       if(result)
       {
         console.log(result);
+        // console.log(statusResult);
         console.log(newGRModel);
         navigation.navigate("FinalGenre");
       }
