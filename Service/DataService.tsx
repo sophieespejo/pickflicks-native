@@ -170,13 +170,13 @@ async function GetTopMovieByMWGId(MWGId:number){
     return data;
 }
 
-async function AddMWGStatus(newMWGStatus: INewMWGStatusModel, ){
-    let res= await fetch(`${url}/mwgstatus/AddMWGStatus`, {
+async function AddMWGStatus(MWGId :number, ){
+    let res= await fetch(`${url}/mwgstatus/AddMWGStatus/${MWGId}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(newMWGStatus)
+        body: JSON.stringify(null)
     });
     let data = await res.json();
    return data;
