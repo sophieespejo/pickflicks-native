@@ -21,7 +21,18 @@ import {
   import { Button, Avatar } from "react-native-paper";
   import { GetUserByUsername, AddMWG, GetAllMWGAUserIsMemberOfuserId } from '../../Service/DataService'
   import RightActions from './RightActions';
+  import girl1 from '../../assets/avatars/girl1.png'
+  import girl2 from '../../assets/avatars/girl2.png'
+  import girl3 from '../../assets/avatars/girl3.png'
+  import girl4 from '../../assets/avatars/girl4.png'
   import girl5 from '../../assets/avatars/girl5.png'
+  import girl6 from '../../assets/avatars/girl6.png'
+  import boy1 from '../../assets/avatars/boy1.png'
+  import boy2 from '../../assets/avatars/boy2.png'
+  import boy3 from '../../assets/avatars/boy3.png'
+  import boy4 from '../../assets/avatars/boy4.png'
+  import boy5 from '../../assets/avatars/boy5.png'
+  import boy6 from '../../assets/avatars/boy6.png'
 
   import UserContext from '../../Context/UserContext';
   
@@ -44,6 +55,7 @@ import {
     
     const [searchedName, setSearchedName] = useState<string>('');
     const [allSearchedNames, setAllSearchedNames] = useState<Array<string>>([]);
+    const [memberIcon, setMemberIcon] = useState<Array<string>>([]);
     const [mwgMembersId, setmwgMembersId] = useState<Array<string>>([]);
     const [mwgMembersNames, setmwgMembersNames] = useState<Array<string>>([]);
     const [mwgMembersIcons, setmwgMembersIcons] = useState<Array<string>>([]);
@@ -51,6 +63,21 @@ import {
 
     let row: Array<any> = [];
     let prevOpenedRow: any;
+
+    const icons = new Map([
+      ['boy1', boy1],
+      ['boy2', boy2],
+      ['boy3', boy3],
+      ['boy4', boy4],
+      ['boy5',boy5],
+      ['boy6',boy6],
+      ['girl1', girl1],
+      ['girl2', girl2],
+      ['girl3', girl3],
+      ['girl4', girl4],
+      ['girl5',girl5],
+      ['girl6',girl6],
+    ])
 
     useEffect( () => {
       async function getUserInfo(){
@@ -104,14 +131,24 @@ import {
     //when user searched a name and presses enter
     const handleKeyPress= async () => {
       let foundUser = await GetUserByUsername(searchedName);
+      // if (foundUser.id == userId){
+      //   Alert.alert('You are already included in the group', 'Please search for someone else')
+      // }
       if (foundUser != null && foundUser.id != 0) {
-        allSearchedNames.push(searchedName);
-        setAllSearchedNames([...allSearchedNames]);
-        mwgMembersId.push(foundUser.id);
-        mwgMembersNames.push(searchedName);
-        mwgMembersIcons.push(foundUser.icon);
-        setmwgMembersNames([...mwgMembersNames]);
-        setSearchedName('');    
+        if (foundUser.id == userId)
+        {
+          Alert.alert('You are already included in the group', 'Please search for someone else')
+        }else{
+          allSearchedNames.push(searchedName);
+          setAllSearchedNames([...allSearchedNames]);
+          memberIcon.push(foundUser.icon);
+          //setMemberIcon([...foundUser.icon]);
+          mwgMembersId.push(foundUser.id);
+          mwgMembersNames.push(searchedName);
+          mwgMembersIcons.push(foundUser.icon);
+          setmwgMembersNames([...mwgMembersNames]);
+          setSearchedName('');    
+        }
       }else{
         Alert.alert('User does not exist', 'Please try again')
       }
@@ -129,10 +166,12 @@ import {
       let foundUser = await GetUserByUsername(searchedName);
       if (foundUser != null && foundUser.id != 0) {
         let removedIdIndex = mwgMembersId.indexOf(foundUser.id);
-        let removedIconIndex = mwgMembersId.indexOf(foundUser.icon);
+        let removedIconIndex = mwgMembersIcons.indexOf(foundUser.icon);
+        let removedMemberIconIndex = memberIcon.indexOf(foundUser.icon);
         //console.log(removedIdIndex)
         mwgMembersId.splice(removedIdIndex, 1);
         mwgMembersIcons.splice(removedIconIndex, 1);
+        memberIcon.splice(removedMemberIconIndex, 1);
         setmwgMembersIcons([...mwgMembersIcons]);
         setmwgMembersId([...mwgMembersId]);
         //console.log(mwgMembersId)
@@ -190,7 +229,7 @@ import {
                         mode='contained' 
                         color='red' 
                         onPress={() => handleDeleteMember(searchedName, index)} 
-                        style={{height: '80%'}}>
+                        style={{height: '60%'}}>
                           <Text style={{fontSize:28, fontFamily: "Raleway_400Regular",}}>Remove</Text>
                       </Button>
                     </Animated.View>
@@ -205,10 +244,10 @@ import {
                     key={index}
                     >
                     <View style={[{alignItems:'center', marginTop:'5%'}]}>
-                      <View style={[{width:'80%', flexDirection: 'row', alignItems: 'flex-end', paddingBottom: '2%'}, styles.nameLine]}>
-                        <Avatar.Image source={girl5} style={{alignItems: 'flex-start'}}/>
-                        <Text style={[{color:'white', marginLeft: '5%'}, styles.btnText]}>{searchedName}</Text>
-                      </View>
+                              <View style={[{width:'80%', flexDirection: 'row', alignItems: 'flex-end', paddingBottom: '2%'}, styles.nameLine]}>
+                              <Avatar.Image source={icons.get(memberIcon[index])} style={{alignItems: 'flex-start'}}/>
+                              <Text style={[{color:'white', marginLeft: '5%'}, styles.btnText]}>{searchedName}</Text>
+                              </View>
                     </View>
                   </Swipeable>
                 )
