@@ -37,18 +37,19 @@ const LoginScreen : FC<Props> = ({ navigation }) => {
             const userToken = await AsyncStorage.getItem('@storage_Token')
             const Id = await AsyncStorage.getItem('@storage_Id')
             const Username = await AsyncStorage.getItem('@storage_Username')
-
+            const UserIcon = await AsyncStorage.getItem('@storage_Usericon')
             setToken(userToken);
+
             if(userToken != null)
             {
                 console.log(userToken);
                 console.log(Id);
                 console.log(Username);
+                console.log(UserIcon);
 
                 setUsername(Username);
                 setUserId(Id);
-
-                setUserIcon(userIcon);
+                setUserIcon(UserIcon);
                 navigation.navigate('UserDashboard')
             }
         }
@@ -75,6 +76,7 @@ const LoginScreen : FC<Props> = ({ navigation }) => {
             await AsyncStorage.setItem('@storage_Token', jsonTOKEN)
             await AsyncStorage.setItem('@storage_Id', storedId)
             await AsyncStorage.setItem('@storage_Username', username)
+            await AsyncStorage.setItem('@storage_Usericon', userData.icon)
             
             setUserId(userData.id);
             setUserIcon(userData.icon);
