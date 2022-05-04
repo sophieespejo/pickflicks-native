@@ -24,7 +24,7 @@ const WaitingForYouComponent: FC = () => {
 
   //const [allMWG, setAllMWG] = useState<any>([]);
   const [allFaveMWG, setAllFaveMWG] = useState<any>([]);
-  const [favorite, setFavorite] = useState(0);
+  //const [favorite, setFavorite] = useState(0);
 
   const navigation = useNavigation<any>();
 

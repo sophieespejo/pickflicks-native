@@ -80,7 +80,6 @@ const NewMWGNameComponent: FC = () => {
         <Button uppercase={false} color='#FFFFFF' mode="text" onPress={() => {
           handlePress()
         }}>
-
             <Text style={styles.nextBtn}>Next {'\>'}</Text>
         </Button>
       </View>
