@@ -33,10 +33,11 @@ type RootStackParamList = {
     ChooseGenres : undefined,
     GenreRanking: undefined,
     MovieCard : undefined,
+    ChangePassword1 : undefined,
 
   }
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Introduction'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'ChangePassword1'>;
 
 const ChangePasswordScreen1: FC<Props> = ({navigation}) => {
 

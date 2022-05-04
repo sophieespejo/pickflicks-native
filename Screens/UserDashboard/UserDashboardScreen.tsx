@@ -43,7 +43,7 @@ interface IUserDashboardScreen {
 const UserDashboard: FC<Props> = ({navigation}) => {
 
   let { token, setToken, username, setUsername, userId, setUserId, userIcon, setUserIcon } = useContext(UserContext)
-  const [WFYBool, setWFYBool] = useState<boolean>(false);
+  const [WFYBool, setWFYBool] = useState<boolean>(true);
   const [WFOBool, setWFOBool] = useState<boolean>(false);
 
   const handleWFY = () => 
@@ -104,15 +104,15 @@ const UserDashboard: FC<Props> = ({navigation}) => {
             <ScrollView style={{flex:1}}>
               <ButtonComponent />
               <View style={{flexDirection:'row', width:'100%',justifyContent:'space-around', paddingTop:'5%'}}>
-                <Pressable onPress={() => handleWFY()} style={{borderBottomWidth:2, borderBottomColor:'#DC1B21'}}>
-                  <Text style={styles.waitingTxt}>Waiting for you</Text>
+                <Pressable onPress={() => handleWFY()} style={WFYBool ? {borderBottomWidth:2, borderBottomColor:'#DC1B21'} : null}>
+                  <Text style={WFYBool ? styles.waitingTxt : styles.nonPressedTxt}>Waiting for you</Text>
                 </Pressable>
-                <Pressable onPress={() => handleWFO()}  style={{borderBottomWidth:2, borderBottomColor:'#DC1B21'}}>
-                  <Text style={styles.waitingTxt}>Waiting for others</Text>
+                <Pressable onPress={() => handleWFO()} style={WFOBool ? {borderBottomWidth:2, borderBottomColor:'#DC1B21'} : null}>
+                  <Text style={WFOBool ?styles.waitingTxt : styles.nonPressedTxt}>Waiting for others</Text>
                 </Pressable>
               </View>
               {
-                WFYBool == true ? <WaitingForYouComponent /> : <WaitingForOthersComponent />
+                WFOBool == true ? <WaitingForOthersComponent /> : <WaitingForYouComponent />
               }
             </ScrollView>
             <View>
@@ -133,7 +133,13 @@ const styles = StyleSheet.create({
       fontFamily:'Raleway_400Regular',
       fontSize:24,
       color:'#FFFFFF'
-    }
+    },
+    nonPressedTxt:{
+      fontFamily:'Raleway_400Regular',
+      fontSize:24,
+      color:'#FFFFFF',
+      opacity:0.23,
+    },
   });
 
 export default UserDashboard;

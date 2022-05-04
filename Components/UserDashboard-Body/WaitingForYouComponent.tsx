@@ -30,7 +30,7 @@ const WaitingForYouComponent: FC = () => {
 
   
   useEffect(  () => {
-      console.log(allMWG[0].membersId.split(','));
+      // setAllFaveMWG([]);
       async function fetchUserData() {
             setUsername(username);
             setUserId(userId)
@@ -39,18 +39,20 @@ const WaitingForYouComponent: FC = () => {
           
       let response = await GetUserByUsername(username);
       let favoritedMWGArray = response.favoritedMWGId.split(',');
-      // console.log(favoritedMWGArray);
+      console.log(favoritedMWGArray);
+
       for (var i of favoritedMWGArray) {
         allFaveMWG.push(parseInt(i));
       }
       // allFaveMWG.push(parseInt(favoritedMWGArray));
       setAllFaveMWG([...allFaveMWG]);
-      // console.log(allFaveMWG);
+      console.log(allFaveMWG);
+
       if(response != null)
         {
-          let userMWG = await GetAllMWGAUserIsMemberOfuserId(response.id);
-          // console.log(userMWG)
+          let userMWG = await GetMWGStatusByUserId(response.id);
           setAllMWG(userMWG);
+          console.log(userMWG);
         }
       }
       fetchUserData();
@@ -60,14 +62,15 @@ const WaitingForYouComponent: FC = () => {
     const handleAddFavoriteMWG = async (groupId:number) =>{
       let result = await AddFavoriteMWG(userId,groupId);
       let userData = await GetUserByUsername(username);
-      console.log(result);
+      // console.log(result);
       console.log(userData);
+      console.log(groupId);
       allFaveMWG.push(groupId);
       setAllFaveMWG([...allFaveMWG]);
       console.log(allFaveMWG);
       if(userData != null)
         {
-          let userMWG = await GetAllMWGAUserIsMemberOfuserId(userData.id);
+          let userMWG = await GetMWGStatusByUserId(userData.id);
           setAllMWG(userMWG);
         }
     }
@@ -83,8 +86,9 @@ const WaitingForYouComponent: FC = () => {
       console.log(allFaveMWG);
       if(userData != null)
         {
-          let userMWG = await GetAllMWGAUserIsMemberOfuserId(userData.id);
+          let userMWG = await GetMWGStatusByUserId(userData.id);
           setAllMWG(userMWG);
+          console.log(userMWG);
         }
     }
 
@@ -109,22 +113,12 @@ const WaitingForYouComponent: FC = () => {
       allMWG.map((group:any, i:number) => 
       
       { 
-        let statusResultforEachMember;
-        // for (const memberId of group.membersId.split(',')) 
-        // {
-        //   statusResultforEachMember = GetMWGStatusByUserId(memberId);
-        // }
-        (async () => {
-          for await (const memberId of group.membersId.split(',')) {
-            statusResultforEachMember = GetMWGStatusByUserId(memberId);
-          }
-        })();
-        if(allFaveMWG.includes(parseInt(group.id)) && !group.isDeleted)
+        if(allFaveMWG.includes(parseInt(group.mwgId)) && !group.isDeleted && group.userDoneWithGenreRankings == false && group.userDoneWithSwipes == false)
 
       {
         return (
           <>
-               <Pressable key={group.id} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=> handlePress()}>
+               <Pressable key={group.id} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=> handlePress(group.mwgName, group.mwgId)}>
                  <View >
                    <View  style={{paddingTop:'3%',flexDirection:'row', justifyContent:'center'}}>
                      <Text
@@ -184,11 +178,11 @@ const WaitingForYouComponent: FC = () => {
                         marginBottom: '7%'
                       }}
                     >
-                      Filler Text
+                        You need to start ranking genres/swiping movies!
                     </Text>
                   </View>
               </View>
-              <Pressable style={styles.heart} onPress={()=>handleRemoveFavoriteMWG(group.id)}>
+              <Pressable style={styles.heart} onPress={()=>handleRemoveFavoriteMWG(group.mwgId)}>
                 <Image  source={filledHeart} ></Image>
               </Pressable>
             </Pressable>
@@ -198,10 +192,10 @@ const WaitingForYouComponent: FC = () => {
       }
 
       {
-        allMWG.map((group:any, i:number) => {if(!allFaveMWG.includes(parseInt(group.id)) && !group.isDeleted)
+        allMWG.map((group:any, i:number) => {if(!allFaveMWG.includes(parseInt(group.mwgId)) && !group.isDeleted && group.userDoneWithGenreRankings == false && group.userDoneWithSwipes == false)
           {
             return (
-                   <Pressable key={group.id} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=> handlePress(group.mwgName, group.id)}>
+                   <Pressable key={group.id} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=> handlePress(group.mwgName, group.mwgId)}>
                      <View >
                        <View  style={{marginTop: '3%', flexDirection:'row', alignItems:'flex-start', justifyContent:'center'}}>
                          <Text
@@ -244,11 +238,11 @@ const WaitingForYouComponent: FC = () => {
                             marginBottom: '7%'
                           }}
                         >
-                          Filler Text
+                          You need to start ranking genres/swiping movies!
                         </Text>
                       </View>
                   </View>
-                  <Pressable style={styles.heart} onPress={()=>handleAddFavoriteMWG(group.id)}>
+                  <Pressable style={styles.heart} onPress={()=>handleAddFavoriteMWG(group.mwgId)}>
                     <Image  source={emptyHeart} ></Image>
                   </Pressable>
                 </Pressable>

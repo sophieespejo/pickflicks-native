@@ -14,6 +14,7 @@ export default function UseUser() {
     const [genre2, setGenre2] = useState<number>(0);
     const [genre3, setGenre3] = useState<number>(0);
     const [listOfMovieNamesUsedToCompare1, setListOfMovieNamesUsedToCompare1] = useState<any>([]);
+    
 
     const [token, setToken] = useState<any>("");
 
