@@ -5,7 +5,7 @@ import emptyHeart from "../../assets/emptyHeart.png";
 import filledHeart from "../../assets/filledHeart.png";
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
-import { GetUserByUsername, GetAllMWGAUserIsMemberOfuserId, AddFavoriteMWG, RemoveFavoriteMWG } from '../../Service/DataService'
+import { GetUserByUsername, GetAllMWGAUserIsMemberOfuserId, AddFavoriteMWG, RemoveFavoriteMWG, GetMWGStatusByUserId } from '../../Service/DataService'
 import {useNavigation} from '@react-navigation/native';
 //import { Avatar } from "react-native-paper";
 import { Avatar } from "native-base";
@@ -30,7 +30,7 @@ const WaitingForYouComponent: FC = () => {
 
   
   useEffect(  () => {
-
+      console.log(allMWG[0].membersId.split(','));
       async function fetchUserData() {
             setUsername(username);
             setUserId(userId)
@@ -106,11 +106,25 @@ const WaitingForYouComponent: FC = () => {
       
       {
 
-      allMWG.map((group:any, i:number) => {if(allFaveMWG.includes(parseInt(group.id)) && !group.isDeleted)
+      allMWG.map((group:any, i:number) => 
+      
+      { 
+        let statusResultforEachMember;
+        // for (const memberId of group.membersId.split(',')) 
+        // {
+        //   statusResultforEachMember = GetMWGStatusByUserId(memberId);
+        // }
+        (async () => {
+          for await (const memberId of group.membersId.split(',')) {
+            statusResultforEachMember = GetMWGStatusByUserId(memberId);
+          }
+        })();
+        if(allFaveMWG.includes(parseInt(group.id)) && !group.isDeleted)
+
       {
         return (
           <>
-               <Pressable key={group.id} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=> handlePress(group.mwgName, group.id)}>
+               <Pressable key={group.id} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=> handlePress()}>
                  <View >
                    <View  style={{paddingTop:'3%',flexDirection:'row', justifyContent:'center'}}>
                      <Text
