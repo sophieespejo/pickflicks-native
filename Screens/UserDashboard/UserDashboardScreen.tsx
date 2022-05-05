@@ -1,6 +1,6 @@
 import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
-import { FC, useContext, useEffect } from 'react';
-import { StyleSheet, Text, View , Image, ScrollView, Button, Pressable} from 'react-native';
+import { FC, useContext, useEffect, useCallback } from 'react';
+import { StyleSheet, Text, View , Image, ScrollView, Button, Pressable, RefreshControl} from 'react-native';
 import HeaderComponent from '../../Components/UserDashboard-Body/HeaderComponent';
 import ButtonComponent from '../../Components/UserDashboard-Body/ButtonComponent';
 import MWGCardComponent from '../../Components/UserDashboard-Body/MWGCardComponent';
@@ -14,6 +14,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 import { useState } from 'react';
+import { GetMWGStatusByUserId } from '../../Service/DataService';
 
 
 
@@ -42,9 +43,25 @@ interface IUserDashboardScreen {
 
 const UserDashboard: FC<Props> = ({navigation}) => {
 
-  let { token, setToken, username, setUsername, userId, setUserId, userIcon, setUserIcon } = useContext(UserContext)
+  let { token, setToken, username, setUsername, userId, setUserId, userIcon, setUserIcon, allMWG, setAllMWG} = useContext(UserContext)
   const [WFYBool, setWFYBool] = useState<boolean>(true);
   const [WFOBool, setWFOBool] = useState<boolean>(false);
+
+  const [refreshing, setRefreshing] = useState(false);
+
+  const wait = (timeout:any) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+  }
+  const onRefresh = useCallback(async () => {
+    setRefreshing(true);
+    const Id = await AsyncStorage.getItem('@storage_Id')
+    setUserId(Id);
+    // console.log(Id);
+    let result = await GetMWGStatusByUserId(userId);
+    setAllMWG(result);
+    // console.log(result);
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
 
   const handleWFY = () => 
   {
@@ -88,6 +105,8 @@ const UserDashboard: FC<Props> = ({navigation}) => {
     const token = await AsyncStorage.removeItem('@storage_Token');
     const Id = await AsyncStorage.removeItem('@storage_Id')
     const Username = await AsyncStorage.removeItem('@storage_Username')
+    const UserIcon = await AsyncStorage.removeItem('@storage_Usericon')
+
     if(token == null)
     {
       console.log(token);
@@ -101,7 +120,13 @@ const UserDashboard: FC<Props> = ({navigation}) => {
   return (
         <View style={styles.container}>
             <HeaderComponent/>
-            <ScrollView style={{flex:1}}>
+            <ScrollView style={{flex:1}} refreshControl={
+            <RefreshControl
+              tintColor={'white'}
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+            />
+            }>
               <ButtonComponent />
               <View style={{flexDirection:'row', width:'100%',justifyContent:'space-around', paddingTop:'5%'}}>
                 <Pressable onPress={() => handleWFY()} style={WFYBool ? {borderBottomWidth:2, borderBottomColor:'#DC1B21'} : null}>

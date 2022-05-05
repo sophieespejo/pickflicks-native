@@ -61,6 +61,7 @@ const LoadingScreen: FC<Props> = ({navigation}) => {
           setUserIcon(UserIcon);
           
           console.log(UserIcon);
+          console.log(Id);
           console.log(userToken)
           setTimeout(() => {
             navigation.navigate('UserDashboard') 
