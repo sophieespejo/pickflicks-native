@@ -15,6 +15,7 @@ import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 import { useState } from 'react';
 import { GetMWGStatusByUserId } from '../../Service/DataService';
+import LottieView from 'lottie-react-native';
 
 
 
@@ -46,7 +47,7 @@ const UserDashboard: FC<Props> = ({navigation}) => {
   let { token, setToken, username, setUsername, userId, setUserId, userIcon, setUserIcon, allMWG, setAllMWG} = useContext(UserContext)
   const [WFYBool, setWFYBool] = useState<boolean>(true);
   const [WFOBool, setWFOBool] = useState<boolean>(false);
-  
+  const pandaAnimation = require('../../assets/49799-the-panda-eats-popcorn.json');
 
   const [refreshing, setRefreshing] = useState(false);
 
@@ -121,13 +122,20 @@ const UserDashboard: FC<Props> = ({navigation}) => {
   return (
         <View style={styles.container}>
             <HeaderComponent/>
+            <LottieView
+        autoPlay
+        style={styles.lottieView}
+        source={pandaAnimation}
+      />
             <ScrollView style={{flex:1}} refreshControl={
             <RefreshControl
-              tintColor={'white'}
+              tintColor={'rgba(0, 0, 0, 0)'}
               refreshing={refreshing}
               onRefresh={onRefresh}
+              progressViewOffset={100}
             />
             }>
+
               <ButtonComponent />
               <View style={{flexDirection:'row', width:'100%',justifyContent:'space-around', paddingTop:'5%'}}>
                 <Pressable onPress={() => handleWFY()} style={WFYBool ? {borderBottomWidth:2, borderBottomColor:'#DC1B21'} : null}>
@@ -165,6 +173,13 @@ const styles = StyleSheet.create({
       fontSize:24,
       color:'#FFFFFF',
       opacity:0.23,
+    },
+    lottieView: {
+      height: '39%',
+      position: 'absolute',
+      top: '6.5%',
+      left: 0,
+      right: 0,
     },
   });
 
