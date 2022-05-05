@@ -45,6 +45,7 @@ const UserDashboard: FC<Props> = ({navigation}) => {
   let { token, setToken, username, setUsername, userId, setUserId, userIcon, setUserIcon } = useContext(UserContext)
   const [WFYBool, setWFYBool] = useState<boolean>(true);
   const [WFOBool, setWFOBool] = useState<boolean>(false);
+  
 
   const handleWFY = () => 
   {
