@@ -19,7 +19,7 @@ import {
   import X from '../../assets/X.png';
   import Swipeable from 'react-native-gesture-handler/Swipeable';
   import { Button, Avatar } from "react-native-paper";
-  import { GetUserByUsername, AddMWG, GetAllMWGAUserIsMemberOfuserId, AddMWGStatus, GetMWGByMWGName} from '../../Service/DataService'
+  import { GetUserByUsername, AddMWG, GetMWGStatusByUserId, AddMWGStatus, GetMWGByMWGName} from '../../Service/DataService'
   import RightActions from './RightActions';
   import girl1 from '../../assets/avatars/girl1.png'
   import girl2 from '../../assets/avatars/girl2.png'
@@ -118,15 +118,17 @@ import {
       }
       let result = await AddMWG(newMWG);
       if (result) {
-        let userMWG = await GetAllMWGAUserIsMemberOfuserId(userId);
+        
         let justCreatedMWG = await GetMWGByMWGName(newMWGname);
         if(justCreatedMWG)
         {
           let mwgStatusResult = await AddMWGStatus(justCreatedMWG.id);
           console.log(mwgStatusResult);
-          // console.log(userMWG)
-        setAllMWG(userMWG);
-        //console.log(allMWG);
+          if(mwgStatusResult)
+          {
+            let userMWG = await GetMWGStatusByUserId(userId);
+            setAllMWG(userMWG);
+          }
         navigation.navigate("InvitationSent");
         }
       }else{

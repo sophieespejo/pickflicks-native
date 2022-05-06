@@ -33,7 +33,7 @@ interface IStartWatchingBtnsComponent {
 
 const StartWatchingBtnsComponent: FC = () => {
   const navigation = useNavigation<any>();
-  let { setMWGname, MWGname, setMWGId, MWGId } = useContext(UserContext);
+  let { setMWGname, MWGname, setMWGId, MWGId, userIsAdmin, setUserIsAdmin, userIsReadyForGenres, setUserIsReadyForGenres, userIsReadyForSwipes, setUserIsReadyForSwipes, userIsReadyToSeeFinalMovie, setUserIsReadyToSeeFinalMovie, userIsWaiting, setUserIsWaiting } = useContext(UserContext);
 
   useEffect( () => {
     async function getUserInfo(){
@@ -42,6 +42,25 @@ const StartWatchingBtnsComponent: FC = () => {
     }
     getUserInfo()
   }, []);
+
+  const handlePress = () => {
+    if(userIsAdmin)
+    {
+      navigation.navigate('SelectStreamingService')
+    }
+    if(userIsReadyForGenres)
+    {
+      navigation.navigate('GenreRanking')
+    }
+    if(userIsReadyForSwipes)
+    {
+      navigation.navigate('FinalGenre')
+    }
+    if(userIsReadyToSeeFinalMovie)
+    {
+      navigation.navigate('FinalMovie')
+    }
+  }
   
   let [fontsLoaded] = useFonts({
     Raleway_400Regular,
@@ -57,10 +76,12 @@ const StartWatchingBtnsComponent: FC = () => {
   return (
     <View>
         <View style={{flex:1, height:90, marginTop:'5%', alignItems:'center'}}>
-            <Pressable style={{width:'90%'}} onPress={() => navigation.navigate("SelectStreamingService")}>
+            <Pressable disabled={userIsWaiting ? true : false} style={{width:'90%'}} onPress={() => handlePress()}>
                 <View style={styles.wgButton}>
                 <Image source={MovieClipper}></Image>
-                <Text style={{color:'#E3DDDD', fontSize:24, paddingLeft:60, justifyContent:'center', textAlign:'center', fontFamily:'Raleway_400Regular'}}>Start Watching {"\n"} a movie now</Text>
+                <Text style={{color:'#E3DDDD', fontSize:24, paddingLeft:60, justifyContent:'center', textAlign:'center', fontFamily:'Raleway_400Regular'}}>{
+                  userIsAdmin ? 'Start watching' : userIsReadyForGenres ? 'Start ranking genres' : userIsReadyForSwipes ? 'Start swiping movies' : userIsWaiting ? `Waiting for ${'\n'} others to finish` : ''
+                }</Text>
                 </View>
             </Pressable>
         </View>

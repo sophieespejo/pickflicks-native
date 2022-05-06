@@ -256,6 +256,7 @@ async function UpdateSwipings(MWGId:number, UserId:number){
     let data = await res.json();
    return data;
 }
+
 async function ResetMWGStatusbyMWGId(MWGId:number){
     let res= await fetch(`${url}/mwgstatus/UpdateSwipings/${MWGId}`, {
         method: "POST",
@@ -267,6 +268,7 @@ async function ResetMWGStatusbyMWGId(MWGId:number){
     let data = await res.json();
    return data;
 }
+
 async function UpdateMWGStatus(MWGId:number){
     let res= await fetch(`${url}/mwgstatus/UpdateMWGStatus/${MWGId}`, {
         method: "POST",
@@ -279,5 +281,17 @@ async function UpdateMWGStatus(MWGId:number){
    return data;
 }
 
+async function UpdateIsStartedByMWGId(MWGId:number){
+    let res= await fetch(`${url}/mwgstatus/UpdateIsStartedByMWGId/${MWGId}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(null)
+    });
+    let data = await res.json();
+   return data;
+}
 
-export { UpdateMWGStatus, GetUserById, GetMWGByMWGName, GetMWGStatusById, AddMWGStatus, ResetMWGStatusbyMWGId,UpdateSwipings, UpdateGenreRanking, GetMWGStatusByUserId, GetMWGStatusByMWGId, AddUser, Login, GetMWGById, GetTopMovieByMWGId, AddLikeOrDislike, AddStreamingService, GetMoviesByMWGId, AddGenreRankingModel, GetUserByUsername, GetAllMWGAUserIsMemberOfuserId, AddFavoriteMWG, RemoveFavoriteMWG, AddMWG, AddChosenGenres};
+
+export { UpdateMWGStatus, GetUserById, GetMWGByMWGName, UpdateIsStartedByMWGId, GetMWGStatusById, AddMWGStatus, ResetMWGStatusbyMWGId,UpdateSwipings, UpdateGenreRanking, GetMWGStatusByUserId, GetMWGStatusByMWGId, AddUser, Login, GetMWGById, GetTopMovieByMWGId, AddLikeOrDislike, AddStreamingService, GetMoviesByMWGId, AddGenreRankingModel, GetUserByUsername, GetAllMWGAUserIsMemberOfuserId, AddFavoriteMWG, RemoveFavoriteMWG, AddMWG, AddChosenGenres};

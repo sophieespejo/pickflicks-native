@@ -85,6 +85,10 @@ const UserDashboard: FC<Props> = ({navigation}) => {
         setUserId(userId);
         setUserIcon(userIcon);
         console.log(userIcon);
+        const Id = await AsyncStorage.getItem('@storage_Id')
+        setUserId(Id);
+        let result = await GetMWGStatusByUserId(userId);
+        setAllMWG(result);
       }
       else
       {
@@ -137,11 +141,11 @@ const UserDashboard: FC<Props> = ({navigation}) => {
             }>
 
               <ButtonComponent />
-              <View style={{flexDirection:'row', width:'100%',justifyContent:'space-around', paddingTop:'5%'}}>
-                <Pressable onPress={() => handleWFY()} style={WFYBool ? {borderBottomWidth:2, borderBottomColor:'#DC1B21'} : null}>
+              <View style={{flexDirection:'row', width:'100%',justifyContent:'space-around', paddingTop:'5%', backgroundColor: '#1E1A1A'}}>
+                <Pressable onPress={() => handleWFY()} style={WFYBool ? {borderBottomWidth:2, borderBottomColor:'#DC1B21', backgroundColor: '#1E1A1A'} : null}>
                   <Text style={WFYBool ? styles.waitingTxt : styles.nonPressedTxt}>Waiting for you</Text>
                 </Pressable>
-                <Pressable onPress={() => handleWFO()} style={WFOBool ? {borderBottomWidth:2, borderBottomColor:'#DC1B21'} : null}>
+                <Pressable onPress={() => handleWFO()} style={WFOBool ? {borderBottomWidth:2, borderBottomColor:'#DC1B21', backgroundColor: '#1E1A1A'} : null}>
                   <Text style={WFOBool ?styles.waitingTxt : styles.nonPressedTxt}>Waiting for others</Text>
                 </Pressable>
               </View>
@@ -177,9 +181,10 @@ const styles = StyleSheet.create({
     lottieView: {
       height: '39%',
       position: 'absolute',
-      top: '6.5%',
+      top: '6.2%',
       left: 0,
       right: 0,
+      overflow: 'hidden'
     },
   });
 

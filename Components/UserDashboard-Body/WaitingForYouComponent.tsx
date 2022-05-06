@@ -20,12 +20,10 @@ interface IMWGCardComponent {
 
 //map through MWG created according to userID/logged in user
 const WaitingForYouComponent: FC = () => {
-  let { username, setUsername, userId, setUserId, allMWG, setAllMWG, setMWGname, MWGname, setMWGId, MWGId } = useContext(UserContext)
+  let { username, setUsername, userId, setUserId, allMWG, setAllMWG, setMWGname, MWGname, setMWGId, MWGId, setUserIsAdmin, setUserIsReadyForGenres,  setUserIsReadyForSwipes,  setUserIsReadyToSeeFinalMovie,setUserIsWaiting } = useContext(UserContext)
 
   //const [allMWG, setAllMWG] = useState<any>([]);
   const [allFaveMWG, setAllFaveMWG] = useState<any>([]);
-  const [favorite, setFavorite] = useState(0);
-
   const navigation = useNavigation<any>();
 
   
@@ -34,8 +32,11 @@ const WaitingForYouComponent: FC = () => {
       async function fetchUserData() {
             setUsername(username);
             setUserId(userId)
-            // console.log(username);
-            // console.log(userId)
+            setUserIsAdmin(false);
+            setUserIsReadyForGenres(false);
+            setUserIsReadyForSwipes(false);
+            setUserIsReadyToSeeFinalMovie(false);
+            setUserIsWaiting(false);
           
       let response = await GetUserByUsername(username);
       let favoritedMWGArray = response.favoritedMWGId.split(',');
@@ -92,12 +93,29 @@ const WaitingForYouComponent: FC = () => {
         }
     }
 
-    const handlePress = (MWGname:string, MWGId:number) => {
+    const handlePress = (MWGname:string, MWGId:number, whatIsUser:string) => {
       console.log(MWGname);
       setMWGname(MWGname);
       setMWGId(MWGId);
-      // navigation.navigate('MWGDashboard');
-      navigation.navigate('MovieCard');
+      switch(whatIsUser)
+      {
+        case 'userIsAdmin':
+          setUserIsAdmin(true);
+          break;
+        case 'userIsReadyForGenres':
+          setUserIsReadyForGenres(true);
+          break;
+        case 'userIsReadyForSwipes':
+          setUserIsReadyForSwipes(true);
+          break;
+        case 'userIsReadyToSeeFinalMovie':
+          setUserIsReadyToSeeFinalMovie(true);
+            break;
+        default:
+          break;
+      }
+      navigation.navigate('MWGDashboard');
+      //navigation.navigate('MovieCard');
     }
 
 
@@ -106,7 +124,7 @@ const WaitingForYouComponent: FC = () => {
   
   return (
 
-    <View style={{ flex:1, alignItems:'center'}}>
+    <View style={{ flex:1, alignItems:'center', backgroundColor: '#1E1A1A'}}>
       
       {
 
@@ -139,7 +157,7 @@ const WaitingForYouComponent: FC = () => {
         if(allFaveMWG.includes(parseInt(group.mwgId)) && !group.isDeleted && group.isStarted == false && group.groupCreatorId == userId)
         {
           return (
-            <Pressable key={group.id} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=> handlePress(group.mwgName, group.mwgId)}>
+            <Pressable key={group.id} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=> handlePress(group.mwgName, group.mwgId, 'userIsAdmin')}>
             <View >
               <View  style={{marginTop: '3%', flexDirection:'row', alignItems:'flex-start', justifyContent:'center'}}>
                 <Text
@@ -199,7 +217,7 @@ const WaitingForYouComponent: FC = () => {
           if(group.userDoneWithGenreRankings == false && group.areAllMembersDoneWithGenre == false)
           {
             return (
-              <Pressable key={group.id} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=> handlePress(group.mwgName, group.mwgId)}>
+              <Pressable key={group.id} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=> handlePress(group.mwgName, group.mwgId, 'userIsReadyForGenres')}>
               <View >
                 <View  style={{marginTop: '3%', flexDirection:'row', alignItems:'flex-start', justifyContent:'center'}}>
                   <Text
@@ -255,7 +273,7 @@ const WaitingForYouComponent: FC = () => {
           if(group.areAllMembersDoneWithGenre == true && group.userDoneWithSwipes == false && group.areAllMembersDoneWithSwipes == false)
           {
             return (
-              <Pressable key={group.id} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=> handlePress(group.mwgName, group.mwgId)}>
+              <Pressable key={group.id} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=> handlePress(group.mwgName, group.mwgId, 'userIsReadyForSwipes')}>
               <View >
                 <View  style={{marginTop: '3%', flexDirection:'row', alignItems:'flex-start', justifyContent:'center'}}>
                   <Text
@@ -311,7 +329,7 @@ const WaitingForYouComponent: FC = () => {
           if(group.areAllMembersDoneWithGenre == true && group.areAllMembersDoneWithSwipes == true)
           {
             return (
-              <Pressable key={group.id} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=> handlePress(group.mwgName, group.mwgId)}>
+              <Pressable key={group.id} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=> handlePress(group.mwgName, group.mwgId, 'userIsReadyToSeeFinalMovie')}>
               <View >
                 <View  style={{marginTop: '3%', flexDirection:'row', alignItems:'flex-start', justifyContent:'center'}}>
                   <Text
@@ -370,7 +388,7 @@ const WaitingForYouComponent: FC = () => {
         if(!allFaveMWG.includes(parseInt(group.mwgId)) && !group.isDeleted && group.isStarted == false && group.groupCreatorId == userId)
         {
           return (
-            <Pressable key={group.id} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=> handlePress(group.mwgName, group.mwgId)}>
+            <Pressable key={group.id} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=> handlePress(group.mwgName, group.mwgId, 'userIsAdmin')}>
             <View >
               <View  style={{marginTop: '3%', flexDirection:'row', alignItems:'flex-start', justifyContent:'center'}}>
                 <Text
@@ -418,7 +436,7 @@ const WaitingForYouComponent: FC = () => {
              </View>
          </View>
          <Pressable style={styles.heart} onPress={()=>handleAddFavoriteMWG(group.mwgId)}>
-           <Image  source={filledHeart} ></Image>
+           <Image  source={emptyHeart} ></Image>
          </Pressable>
             </Pressable>
           )
@@ -430,7 +448,7 @@ const WaitingForYouComponent: FC = () => {
           if(group.userDoneWithGenreRankings == false && group.areAllMembersDoneWithGenre == false)
           {
             return (
-              <Pressable key={group.id} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=> handlePress(group.mwgName, group.mwgId)}>
+              <Pressable key={group.id} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=> handlePress(group.mwgName, group.mwgId, 'userIsReadyForGenres')}>
               <View >
                 <View  style={{marginTop: '3%', flexDirection:'row', alignItems:'flex-start', justifyContent:'center'}}>
                   <Text
@@ -486,7 +504,7 @@ const WaitingForYouComponent: FC = () => {
           if(group.areAllMembersDoneWithGenre == true && group.userDoneWithSwipes == false && group.areAllMembersDoneWithSwipes == false)
           {
             return (
-              <Pressable key={group.id} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=> handlePress(group.mwgName, group.mwgId)}>
+              <Pressable key={group.id} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=> handlePress(group.mwgName, group.mwgId, 'userIsReadyForSwipes')}>
               <View >
                 <View  style={{marginTop: '3%', flexDirection:'row', alignItems:'flex-start', justifyContent:'center'}}>
                   <Text
@@ -542,7 +560,7 @@ const WaitingForYouComponent: FC = () => {
           if(group.areAllMembersDoneWithGenre == true && group.areAllMembersDoneWithSwipes == true)
           {
             return (
-              <Pressable key={group.id} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=> handlePress(group.mwgName, group.mwgId)}>
+              <Pressable key={group.id} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=> handlePress(group.mwgName, group.mwgId, 'userIsReadyToSeeFinalMovie')}>
               <View >
                 <View  style={{marginTop: '3%', flexDirection:'row', alignItems:'flex-start', justifyContent:'center'}}>
                   <Text

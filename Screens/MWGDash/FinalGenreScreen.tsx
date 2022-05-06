@@ -39,6 +39,10 @@ type Props = NativeStackScreenProps<RootStackParamList, 'FinalGenre'>;
 
 const GenreRankingScreen: FC<Props> = ({navigation}) => {
 
+  setTimeout(() => {
+    navigation.navigate('MovieCard') 
+  }, 3000);
+
 
     return (
         <NativeBaseProvider>

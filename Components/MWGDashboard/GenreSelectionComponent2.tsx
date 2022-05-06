@@ -6,7 +6,7 @@ import AppLoading from 'expo-app-loading';
 import { Button } from "react-native-paper";
 import {useNavigation} from '@react-navigation/native';
 import X from '../../assets/X.png';
-import {AddChosenGenres, AddGenreRankingModel} from '../../Service/DataService'
+import {AddChosenGenres, AddGenreRankingModel, UpdateIsStartedByMWGId} from '../../Service/DataService'
 import UserContext from "../../Context/UserContext";
 
 
@@ -196,9 +196,13 @@ const GenreSelectionComponent2: FC = () => {
     //have admin create new instance of GR model here to get ID number incremented and then on next screen set ID as sessionID number?
     const onNext = async (MWGId:number, chosenGenres:string) => {
       let result = await AddChosenGenres(MWGId, chosenGenres);
-      
-        navigation.navigate("GenreRanking");
-        console.log(result)
+        let result1 = await UpdateIsStartedByMWGId(MWGId)
+        if(result1)
+        {
+          navigation.navigate("GenreRanking");
+        }
+        
+        console.log(result1)
       }
       
     

@@ -14,10 +14,14 @@ export default function UseUser() {
     const [genre2, setGenre2] = useState<number>(0);
     const [genre3, setGenre3] = useState<number>(0);
     const [listOfMovieNamesUsedToCompare1, setListOfMovieNamesUsedToCompare1] = useState<any>([]);
-    
+    const [userIsAdmin, setUserIsAdmin] = useState<boolean>(false);
+    const [userIsReadyForGenres, setUserIsReadyForGenres] = useState<boolean>(false);
+    const [userIsReadyForSwipes, setUserIsReadyForSwipes] = useState<boolean>(false);
+    const [userIsReadyToSeeFinalMovie, setUserIsReadyToSeeFinalMovie] = useState<boolean>(false);
+    const [userIsWaiting, setUserIsWaiting] = useState<boolean>(false);
 
     const [token, setToken] = useState<any>("");
 
 
-    return { token, setToken, username, setUsername, allMWG, setAllMWG, newMWGname, setnewMWGname, userId, setUserId, userIcon, setUserIcon, MWGname, setMWGname, MWGId, setMWGId, MWGgenres, setMWGgenres, MWGmembersId, setMWGmembersId, genre1, setGenre1, genre2, setGenre2, genre3, setGenre3, listOfMovieNamesUsedToCompare1, setListOfMovieNamesUsedToCompare1}
+    return { token, setToken, username, setUsername, allMWG, setAllMWG, newMWGname, setnewMWGname, userId, setUserId, userIcon, setUserIcon, MWGname, setMWGname, MWGId, setMWGId, MWGgenres, setMWGgenres, MWGmembersId, setMWGmembersId, genre1, setGenre1, genre2, setGenre2, genre3, setGenre3, listOfMovieNamesUsedToCompare1, setListOfMovieNamesUsedToCompare1, userIsAdmin, setUserIsAdmin, userIsReadyForGenres, setUserIsReadyForGenres, userIsReadyForSwipes, setUserIsReadyForSwipes, userIsReadyToSeeFinalMovie, setUserIsReadyToSeeFinalMovie, userIsWaiting, setUserIsWaiting}
 }
