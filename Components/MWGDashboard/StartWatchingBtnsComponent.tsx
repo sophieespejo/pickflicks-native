@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { FC, useContext, useEffect } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import { StyleSheet, Text, View, Image, TextInput, Pressable, ScrollView} from "react-native";
 import headerLogo from "../../assets/headerLogo.png";
 import MovieClipper from "../../assets/MovieClipper.png";
@@ -8,6 +8,21 @@ import AppLoading from 'expo-app-loading';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import MemberSearchTextInputComponent from '../UserDashboard-Body/MemberSearchTextInputComponent'
 import UserContext from '../../Context/UserContext';
+import { GetMWGById } from '../../Service/DataService'
+import girl1 from '../../assets/avatars/girl1.png'
+import girl2 from '../../assets/avatars/girl2.png'
+import girl3 from '../../assets/avatars/girl3.png'
+import girl4 from '../../assets/avatars/girl4.png'
+import girl5 from '../../assets/avatars/girl5.png'
+import girl6 from '../../assets/avatars/girl6.png'
+import boy1 from '../../assets/avatars/boy1.png'
+import boy2 from '../../assets/avatars/boy2.png'
+import boy3 from '../../assets/avatars/boy3.png'
+import boy4 from '../../assets/avatars/boy4.png'
+import boy5 from '../../assets/avatars/boy5.png'
+import boy6 from '../../assets/avatars/boy6.png'
+import {  Button, Avatar } from "react-native-paper";
+
 
 interface IStartWatchingBtnsComponent {
   username: string,
@@ -33,12 +48,35 @@ interface IStartWatchingBtnsComponent {
 
 const StartWatchingBtnsComponent: FC = () => {
   const navigation = useNavigation<any>();
-  let { setMWGname, MWGname, setMWGId, MWGId, userIsAdmin, setUserIsAdmin, userIsReadyForGenres, setUserIsReadyForGenres, userIsReadyForSwipes, setUserIsReadyForSwipes, userIsReadyToSeeFinalMovie, setUserIsReadyToSeeFinalMovie, userIsWaiting, setUserIsWaiting } = useContext(UserContext);
+  let { setMWGname, MWGname, setMWGId, MWGId, userIsAdmin, userId, setUserIsAdmin, userIsReadyForGenres, setUserIsReadyForGenres, userIsReadyForSwipes, setUserIsReadyForSwipes, userIsReadyToSeeFinalMovie, setUserIsReadyToSeeFinalMovie, userIsWaiting, setUserIsWaiting } = useContext(UserContext);
+  const [membersNames, setMembersNames] = useState<Array<string>>([]);
+  const [membersIcons, setMembersIcons] = useState<Array<string>>([]);
+  const [mwgCreatorId, setmwgCreatorId] = useState<string>("");
+  const icons = new Map([
+    ['boy1', boy1],
+    ['boy2', boy2],
+    ['boy3', boy3],
+    ['boy4', boy4],
+    ['boy5',boy5],
+    ['boy6',boy6],
+    ['girl1', girl1],
+    ['girl2', girl2],
+    ['girl3', girl3],
+    ['girl4', girl4],
+    ['girl5',girl5],
+    ['girl6',girl6],
+  ])
 
   useEffect( () => {
     async function getUserInfo(){
           setMWGname(MWGname);
           setMWGId(MWGId);
+          let mwg = await GetMWGById(MWGId);
+          
+          setMembersNames(mwg.membersNames.split(","));
+          setMembersIcons(mwg.membersIcons.split(","));
+          setmwgCreatorId(mwg.groupCreatorId);
+          
     }
     getUserInfo()
   }, []);
@@ -138,45 +176,45 @@ const StartWatchingBtnsComponent: FC = () => {
             </View>
         </View>
 
-        <View style={{flex:1, height:300, alignItems:'center', marginTop:'4%'}}>
-            <View style={[{flex:1, width:'90%'}, styles.LWAMT]}>
-                <View style={{flex:1, marginTop:'3%'}}>
+        <View style={{flex:1, height:300, alignItems:'center', marginTop:'4%', }}>
+            <View style={[{flex:1, width:'90%', backgroundColor:'orange'}, styles.LWAMT]}>
+                <View style={{flex:.2, marginTop:'3%', }}>
                 <Text style={{color:'#FFFFFF', fontSize:28, justifyContent:'center', textAlign:'center', fontFamily:'Raleway_400Regular'}}>Group Members</Text>
                 </View>
         
-                <View style={{flex:1, height:100,  flexDirection:'row', marginBottom:'4%', width:'80%', justifyContent:'space-evenly'}}>
+                <View style={{flex:1, height:100,  flexDirection:'row', marginBottom:'4%', width:'80%', justifyContent:'space-evenly', }}>
                         <ScrollView style={{flex:1}}>
-                          <View style={styles.nameLine}>
-                            <Text style={{color:'#FFFFFF', fontSize:25, fontFamily:'Raleway_400Regular', textAlign:'center'}}>Movies</Text>
-                          </View>
-                          <View style={styles.nameLine}>
-                            <Text style={{color:'#FFFFFF', fontSize:25, fontFamily:'Raleway_400Regular', textAlign:'center'}}>Movies</Text>
-                          </View>
+                          {/* map thru members here */}
+                          {
+                            membersNames.map((member, i) => {
+                              return (
+                                <View style={[{width:'99%', flexDirection: 'row', alignItems: 'flex-end', paddingBottom: '2%'}, styles.nameLine]}>
 
-                          <View style={styles.nameLine}>
-                            <Text style={{color:'#FFFFFF', fontSize:25, fontFamily:'Raleway_400Regular', textAlign:'center'}}>Movies</Text>
-                          </View>
+                                        <Avatar.Image source={icons.get(membersIcons[i])} style={{alignItems: 'flex-start'}}/>
 
-                          <View style={styles.nameLine}>
-                            <Text style={{color:'#FFFFFF', fontSize:25, fontFamily:'Raleway_400Regular', textAlign:'center'}}>Movies</Text>
-                          </View>
-                          <View style={styles.nameLine}>
-                            <Text style={{color:'#FFFFFF', fontSize:25, fontFamily:'Raleway_400Regular', textAlign:'center'}}>Movies</Text>
-                          </View>
-                          <View style={styles.nameLine}>
-                            <Text style={{color:'#FFFFFF', fontSize:25, fontFamily:'Raleway_400Regular', textAlign:'center'}}>Movies</Text>
-                          </View>
-                          <View style={styles.nameLine}>
-                            <Text style={{color:'#FFFFFF', fontSize:25, fontFamily:'Raleway_400Regular', textAlign:'center'}}>Movies</Text>
-                          </View>
-                          <View style={styles.nameLine}>
-                            <Text style={{color:'#FFFFFF', fontSize:25, fontFamily:'Raleway_400Regular', textAlign:'center'}}>Movies</Text>
-                          </View>
+                                <Text style={[{color:'white', marginLeft: '10%'}, styles.btnText]}>{member}</Text>
+                                </View>
+                              )
+                            })
+                          }
                         </ScrollView>
                 </View>
 
             </View>
         </View>
+        {
+          userId == mwgCreatorId ?  
+
+        <View style={{flex:1, height:50, marginTop:'5%', alignItems:'center', marginBottom: '5%'}}>
+            <Pressable disabled={userIsWaiting ? true : false} style={{width:'70%'}} onPress={() => handlePress()}>
+                <View style={styles.wgButton}>
+                <Text style={{color:'#E3DDDD', fontSize:24,justifyContent:'center', textAlign:'center', fontFamily:'Raleway_400Regular'}}>Delete Watch Group</Text>
+                </View>
+            </Pressable>
+        </View>
+           : null
+        }
+
 
         
 
@@ -223,6 +261,10 @@ const styles = StyleSheet.create({
     justifyContent:'center',
     height:'50%',
     width:'55%'
+  },
+  btnText:{
+    fontFamily: "Raleway_400Regular",
+    fontSize: 25,
   },
   container1: {
     flex: 0,

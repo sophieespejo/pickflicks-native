@@ -259,7 +259,7 @@ async function UpdateSwipings(MWGId:number, UserId:number){
 }
 
 async function ResetMWGStatusbyMWGId(MWGId:number){
-    let res= await fetch(`${url}/mwgstatus/UpdateSwipings/${MWGId}`, {
+    let res= await fetch(`${url}/mwgstatus/ResetMWGStatusbyMWGId/${MWGId}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"

@@ -4,10 +4,12 @@ import { StyleSheet, Text, View, Image, TextInput} from "react-native";
 import { useFonts, Raleway_400Regular, Raleway_600SemiBold} from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 import { Button } from "react-native-paper";
-import {useNavigation} from '@react-navigation/native';
+import {NavigationHelpersContext, useNavigation} from '@react-navigation/native';
 import JJKMovie from '../../assets/JJKMovie.jpg'
 import UserContext from '../../Context/UserContext';
-import { GetMoviesByMWGId, AddLikeOrDislike, GetTopMovieByMWGId} from '../../Service/DataService'
+import { GetMoviesByMWGId, AddLikeOrDislike, GetTopMovieByMWGId, ResetMWGStatusbyMWGId, GetMWGStatusByUserId} from '../../Service/DataService'
+
+
 
 
 // import { Button } from "native-base";
@@ -15,8 +17,8 @@ import { GetMoviesByMWGId, AddLikeOrDislike, GetTopMovieByMWGId} from '../../Ser
 
 
 const FinalMovieCardComponent: FC = () => {
-    const navigation = useNavigation();
-    let {  MWGname, MWGId, setMWGId, userId, setUserId , listOfMovieNamesUsedToCompare1, setListOfMovieNamesUsedToCompare1 } = useContext(UserContext);
+    const navigation = useNavigation<any>();
+    let {  MWGname, MWGId, setMWGId, userId, setUserId , listOfMovieNamesUsedToCompare1, setListOfMovieNamesUsedToCompare1, setAllMWG } = useContext(UserContext);
     const [displayMovie, setDisplayMovie] = useState<string>("");
     const [displayObject, setDisplayObject] = useState<any>({});
     // const [index, setIndex] = useState<number>(0);
@@ -37,6 +39,18 @@ const FinalMovieCardComponent: FC = () => {
       }
       getTopMovie()
     }, []);
+
+    const handleReset = async () => {
+      let result = await ResetMWGStatusbyMWGId(MWGId);
+      if(result)
+      {
+        let userMWG = await GetMWGStatusByUserId(userId);
+        setAllMWG(userMWG);
+        navigation.navigate('UserDashboard')
+      }else{
+        navigation.navigate('LoadingPopcorn')
+      }
+    }
 
 
 
@@ -70,6 +84,9 @@ const FinalMovieCardComponent: FC = () => {
                 <View style={{flex:1.2, alignItems:'center'}}>
                     <Text numberOfLines={3} ellipsizeMode='tail' style={styles.titleTxt}>{displayObject.movieOverview}</Text>
                     <Text style={styles.titleTxt}>Critics Ratings: {displayObject.movieIMDBRating}</Text>
+                    <Button icon="camera" mode="contained" onPress={() => handleReset()}>
+    Reset MWGStatusModel
+  </Button>
                 </View>
             </View>
 

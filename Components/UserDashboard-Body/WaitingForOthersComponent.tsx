@@ -89,7 +89,7 @@ const WaitingForOthersComponent: FC = () => {
       console.log(allFaveMWG);
       if(userData != null)
         {
-          let userMWG = await GetAllMWGAUserIsMemberOfuserId(userData.id);
+          let userMWG = await GetMWGStatusByUserId(userData.id);
           setAllMWG(userMWG);
         }
     }
@@ -187,7 +187,7 @@ const WaitingForOthersComponent: FC = () => {
                </Text>
              </View>
          </View>
-         <Pressable style={styles.heart} onPress={()=>handleAddFavoriteMWG(group.mwgId)}>
+         <Pressable style={styles.heart} onPress={()=>handleRemoveFavoriteMWG(group.mwgId)}>
            <Image  source={filledHeart} ></Image>
          </Pressable>
             </Pressable>
@@ -246,7 +246,7 @@ const WaitingForOthersComponent: FC = () => {
                  </Text>
                </View>
            </View>
-           <Pressable style={styles.heart} onPress={()=>handleAddFavoriteMWG(group.mwgId)}>
+           <Pressable style={styles.heart} onPress={()=>handleRemoveFavoriteMWG(group.mwgId)}>
              <Image  source={filledHeart} ></Image>
            </Pressable>
               </Pressable>
@@ -302,13 +302,18 @@ const WaitingForOthersComponent: FC = () => {
                    </Text>
                  </View>
              </View>
-             <Pressable style={styles.heart} onPress={()=>handleAddFavoriteMWG(group.mwgId)}>
+             <Pressable style={styles.heart} onPress={()=>handleRemoveFavoriteMWG(group.mwgId)}>
                <Image  source={filledHeart} ></Image>
              </Pressable>
                 </Pressable>
                 )
             }
           }
+
+        })
+        }
+        {
+          allMWG.map((group:any, i:number) => {
           //checks thru unfavorites
           if(!allFaveMWG.includes(parseInt(group.mwgId)) && !group.isDeleted && group.isStarted == false && group.groupCreatorId != userId)
           {
@@ -482,7 +487,7 @@ const WaitingForOthersComponent: FC = () => {
                 )
             }
           }
-        })
+          })
         }
 
 

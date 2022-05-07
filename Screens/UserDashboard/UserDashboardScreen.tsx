@@ -56,8 +56,8 @@ const UserDashboard: FC<Props> = ({navigation}) => {
   }
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
-    const Id = await AsyncStorage.getItem('@storage_Id')
-    setUserId(Id);
+    // const Id = await AsyncStorage.getItem('@storage_Id')
+    // setUserId(Id);
     // console.log(Id);
     let result = await GetMWGStatusByUserId(userId);
     setAllMWG(result);

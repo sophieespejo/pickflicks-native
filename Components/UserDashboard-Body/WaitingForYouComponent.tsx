@@ -128,7 +128,7 @@ const WaitingForYouComponent: FC = () => {
 
     <View style={{ flex:1, alignItems:'center', backgroundColor: '#1E1A1A'}}>
       
-      {
+    {
 
       //all MWGstatus that the user has, this correlates with whatever MWG user is in  
       allMWG.map((group:any, i:number) => 
@@ -206,7 +206,7 @@ const WaitingForYouComponent: FC = () => {
                </Text>
              </View>
          </View>
-         <Pressable style={styles.heart} onPress={()=>handleAddFavoriteMWG(group.mwgId)}>
+         <Pressable style={styles.heart} onPress={()=>handleRemoveFavoriteMWG(group.mwgId)}>
            <Image  source={filledHeart} ></Image>
          </Pressable>
             </Pressable>
@@ -266,7 +266,7 @@ const WaitingForYouComponent: FC = () => {
                  </Text>
                </View>
            </View>
-           <Pressable style={styles.heart} onPress={()=>handleAddFavoriteMWG(group.mwgId)}>
+           <Pressable style={styles.heart} onPress={()=>handleRemoveFavoriteMWG(group.mwgId)}>
              <Image  source={filledHeart} ></Image>
            </Pressable>
               </Pressable>
@@ -322,7 +322,7 @@ const WaitingForYouComponent: FC = () => {
                  </Text>
                </View>
            </View>
-           <Pressable style={styles.heart} onPress={()=>handleAddFavoriteMWG(group.mwgId)}>
+           <Pressable style={styles.heart} onPress={()=>handleRemoveFavoriteMWG(group.mwgId)}>
              <Image  source={filledHeart} ></Image>
            </Pressable>
          </Pressable>
@@ -378,7 +378,7 @@ const WaitingForYouComponent: FC = () => {
                  </Text>
                </View>
            </View>
-           <Pressable style={styles.heart} onPress={()=>handleAddFavoriteMWG(group.mwgId)}>
+           <Pressable style={styles.heart} onPress={()=>handleRemoveFavoriteMWG(group.mwgId)}>
              <Image  source={filledHeart} ></Image>
            </Pressable>
          </Pressable>
@@ -386,6 +386,15 @@ const WaitingForYouComponent: FC = () => {
           }
         }
 
+
+
+    }
+    )
+
+    
+    }
+    {
+      allMWG.map((group:any, i:number) => {
         //maps thru nonfavorites
         if(!allFaveMWG.includes(parseInt(group.mwgId)) && !group.isDeleted && group.isStarted == false && group.groupCreatorId == userId)
         {
@@ -616,9 +625,8 @@ const WaitingForYouComponent: FC = () => {
             )
           }
         }
-
-    })
-      }
+      })
+    }
 
       {/* {
         allMWG.map((group:any, i:number) => {if(!allFaveMWG.includes(parseInt(group.mwgId)) && !group.isDeleted && group.userDoneWithGenreRankings == false && group.userDoneWithSwipes == false)
