@@ -18,7 +18,7 @@ import UserContext from '../../Context/UserContext';
 
 const StreamingServiceComponent: FC = () => {
     const navigation = useNavigation<any>();
-    let {  MWGId, setMWGId } = useContext(UserContext);
+    let {  MWGId, setMWGId, setStreamingServiceId } = useContext(UserContext);
 
     useEffect( () => {
       async function getUserInfo(){
@@ -62,6 +62,9 @@ const StreamingServiceComponent: FC = () => {
       if(result)
       {
         console.log(result);
+        setStreamingServiceId(value);
+        console.log('streaming service value:')
+        console.log(value)
         navigation.navigate("ChooseGenres");
       }
     }

@@ -221,6 +221,7 @@ async function GetMWGStatusByMWGId(MWGId:number){
         throw new Error(message);
     }
     let data = await res.json();
+    console.log(data);
     return data;
 }
 async function GetMWGStatusByUserId(UserId:number){
@@ -294,4 +295,28 @@ async function UpdateIsStartedByMWGId(MWGId:number){
 }
 
 
-export { UpdateMWGStatus, GetUserById, GetMWGByMWGName, UpdateIsStartedByMWGId, GetMWGStatusById, AddMWGStatus, ResetMWGStatusbyMWGId,UpdateSwipings, UpdateGenreRanking, GetMWGStatusByUserId, GetMWGStatusByMWGId, AddUser, Login, GetMWGById, GetTopMovieByMWGId, AddLikeOrDislike, AddStreamingService, GetMoviesByMWGId, AddGenreRankingModel, GetUserByUsername, GetAllMWGAUserIsMemberOfuserId, AddFavoriteMWG, RemoveFavoriteMWG, AddMWG, AddChosenGenres};
+async function GetTopRankedGenre(MWGId:number){
+    let res = await fetch(`${url}/genreranking/GetTopRankedGenre/${MWGId}`);
+    if(!res.ok)
+    {
+        const message = `An error has occured ${res.status}`
+        throw new Error(message);
+    }
+    let data = await res.json();
+    return data;
+}
+
+async function AddAll15Movies(MWGId:number, genreId: number, streamingServiceId: number){
+    let res= await fetch(`${url}/movie/AddAll15Movies/${MWGId}/${genreId}/${streamingServiceId}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(null)
+    });
+    let data = await res.json();
+   return data;
+}
+
+
+export { UpdateMWGStatus, GetUserById, GetTopRankedGenre, GetMWGByMWGName, UpdateIsStartedByMWGId, GetMWGStatusById, AddMWGStatus, ResetMWGStatusbyMWGId,UpdateSwipings, UpdateGenreRanking, GetMWGStatusByUserId, GetMWGStatusByMWGId, AddUser, Login, GetMWGById, GetTopMovieByMWGId, AddLikeOrDislike, AddStreamingService, GetMoviesByMWGId, AddGenreRankingModel, GetUserByUsername, GetAllMWGAUserIsMemberOfuserId, AddFavoriteMWG, AddAll15Movies, RemoveFavoriteMWG, AddMWG, AddChosenGenres};

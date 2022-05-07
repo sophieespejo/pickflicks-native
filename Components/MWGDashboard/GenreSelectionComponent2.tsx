@@ -40,7 +40,7 @@ type RootStackParamList = {
 }
 
 const GenreSelectionComponent2: FC = () => {
-  let { userId, setUserId, setMWGname, MWGname, setMWGId, MWGId } = useContext(UserContext);
+  let { userId, setUserId, setMWGname, MWGname, setMWGId, MWGId, setGenreId } = useContext(UserContext);
 
   useEffect( () => {
     async function getUserInfo(){

@@ -32,11 +32,11 @@ const WaitingForYouComponent: FC = () => {
       async function fetchUserData() {
             setUsername(username);
             setUserId(userId)
-            setUserIsAdmin(false);
-            setUserIsReadyForGenres(false);
-            setUserIsReadyForSwipes(false);
-            setUserIsReadyToSeeFinalMovie(false);
-            setUserIsWaiting(false);
+            // setUserIsAdmin(false);
+            // setUserIsReadyForGenres(false);
+            // setUserIsReadyForSwipes(false);
+            // setUserIsReadyToSeeFinalMovie(false);
+            // setUserIsWaiting(false);
           
       let response = await GetUserByUsername(username);
       let favoritedMWGArray = response.favoritedMWGId.split(',');

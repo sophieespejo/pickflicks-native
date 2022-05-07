@@ -1,4 +1,4 @@
-import { FC, useState, useCallback, useEffect } from 'react';
+import { FC, useState, useCallback, useEffect, useContext } from 'react';
 import { StyleSheet, View, Image, Text, TextInput, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -9,24 +9,51 @@ import { AddUser } from '../../Service/DataService'
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 import { Avatar } from 'react-native-paper';
+import {useNavigation} from '@react-navigation/native';
+import UserContext from '../../Context/UserContext';
+
+
+
+
 
 type RootStackParamList = {
     Home: undefined; //means route doesnt have params
-    UserDashboard: { username : string };
-    Login: { name: string }
+    UserDashboard: undefined;
+    Login: undefined
     CreateAccountScreen: undefined,
     Loading: undefined,
-    Introduction: undefined
-    AvatarScreen: { username: string }
-};
+    AvatarScreen: undefined
+    Introduction: undefined,
+    SelectStreamingService: undefined
+    NewMWGName: undefined,
+    MemberSearch: { username: string, userId: number, newMWGname: string },
+    InvitationSent: { username: string, userId: number},
+    ChooseGenres : undefined,
+    GenreRanking: undefined,
+    GenreRanking2: undefined,
+    GenreRanking3: undefined,
+    FinalGenre : undefined,
+    MovieCard : undefined,
+    FinalMovie : undefined,
+    MWGDashboard : undefined,
+    LoadingPopcorn : undefined,
+    UserProfile : undefined,
+    ChangeUsername :undefined,
+    ChangePassword1 : undefined,
+    ChangePassword2 : undefined,
+    ChangeNotifications : undefined,
+    TutorialMovieCard : undefined,
+  }
+  
 
 type Props = NativeStackScreenProps<RootStackParamList, 'CreateAccountScreen'>;
 
-const CreateAccountScreen : FC<Props> = ({ navigation }) => {
-
+const CreateAccountScreen : FC<Props> = () => {
+    const navigation = useNavigation<any>();
+    let {  username, setUsername, MWGname, MWGId, setMWGId, userId, setUserId , listOfMovieNamesUsedToCompare1, setListOfMovieNamesUsedToCompare1 } = useContext(UserContext);
 
     const [textInput, setTextInput] = useState('');
-    const [username, setUsername] = useState('');
+
     const [veryifyPassowrd, setVerifyPassword] = useState('');
     const [veryifyPassowrd2, setVerifyPassword2] = useState('');
     const [password, setPassword] = useState('');
@@ -50,13 +77,14 @@ const CreateAccountScreen : FC<Props> = ({ navigation }) => {
     const handleSubmit = () => {
         setUsername(textInput);
         console.log(textInput);
+
         setUsernameCompleted(true);
         setTextInput('');
     }
 
     const hasErrors = () => {
         return (veryifyPassowrd != '' && veryifyPassowrd2 != '' && veryifyPassowrd != veryifyPassowrd2) 
-d    };
+    };
 
     const hasErrors2 = () => {
         return (veryifyPassowrd != '' && veryifyPassowrd == veryifyPassowrd2)
@@ -74,7 +102,7 @@ d    };
             console.log(result);
             setUsernameCompleted(true);
             pickingAvatar = true;
-            navigation.navigate('AvatarScreen', { username: username})
+            navigation.navigate('AvatarScreen')
         };
     };
 

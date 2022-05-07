@@ -1,4 +1,4 @@
-import { FC, useState, useCallback, useEffect } from 'react';
+import { FC, useState, useCallback, useEffect, useContext } from 'react';
 import { StyleSheet, View, Image, Text, TextInput, Keyboard, Pressable, KeyboardAvoidingView, TouchableWithoutFeedback } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -22,20 +22,44 @@ import girl4 from '../../assets/avatars/girl4.png';
 import girl5 from '../../assets/avatars/girl5.png';
 import girl6 from '../../assets/avatars/girl6.png';
 import { GetUserByUsername, EditUserIcon } from '../../Service/DataService';
+import {useNavigation} from '@react-navigation/native';
+import UserContext from '../../Context/UserContext';
+
 
 type RootStackParamList = {
     Home: undefined; //means route doesnt have params
-    UserDashboard: { username: string, userId: number };
-    Login: { name: string }
+    UserDashboard: undefined;
+    Login: undefined
     CreateAccountScreen: undefined,
     Loading: undefined,
-    Introduction: undefined
-    AvatarScreen: { username: string }
-};
+    AvatarScreen: undefined
+    Introduction: undefined,
+    SelectStreamingService: undefined
+    NewMWGName: undefined,
+    MemberSearch: { username: string, userId: number, newMWGname: string },
+    InvitationSent: { username: string, userId: number},
+    ChooseGenres : undefined,
+    GenreRanking: undefined,
+    GenreRanking2: undefined,
+    GenreRanking3: undefined,
+    FinalGenre : undefined,
+    MovieCard : undefined,
+    FinalMovie : undefined,
+    MWGDashboard : undefined,
+    LoadingPopcorn : undefined,
+    UserProfile : undefined,
+    ChangeUsername :undefined,
+    ChangePassword1 : undefined,
+    ChangePassword2 : undefined,
+    ChangeNotifications : undefined,
+    TutorialMovieCard : undefined,
+  }
 
 type Props = NativeStackScreenProps<RootStackParamList, 'AvatarScreen'>;
 
-const AvatarScreen: FC<Props> = ({ navigation, route }) => {
+const AvatarScreen: FC<Props> = () => {
+    const navigation = useNavigation<any>();
+    let {  username, userId, setUserId , listOfMovieNamesUsedToCompare1, setListOfMovieNamesUsedToCompare1 } = useContext(UserContext);
 
     useEffect(() => {
         // const fetch = async () => {
@@ -44,7 +68,6 @@ const AvatarScreen: FC<Props> = ({ navigation, route }) => {
         // fetch();
     }, []);
 
-    const [userId, setUserId] = useState('');
     const [userIcon, setUserIcon] = useState('');
     const [active1, setActive1] = useState('');
     const [active2, setActive2] = useState('');
@@ -270,8 +293,7 @@ const AvatarScreen: FC<Props> = ({ navigation, route }) => {
 
 const handleSubmit = async () => {
     // Get userData
-    let username = route.params.username;
-    console.log(username);
+
 
     // Get userDtoByUsername
     let userData = await GetUserByUsername(username)
@@ -283,9 +305,9 @@ const handleSubmit = async () => {
 
     // Edit userModel with icon name
     if (userData != null) {
-        let result = await EditUserIcon(userData.id, userIcon)
-        console.log(result);
-        navigation.navigate('UserDashboard', { username: username, userId: userId });
+        //let result = await EditUserIcon(userData.id, userIcon)
+        //console.log(result);
+        navigation.navigate('Login');
     }
 };
 

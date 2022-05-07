@@ -54,7 +54,7 @@ const StartWatchingBtnsComponent: FC = () => {
     }
     if(userIsReadyForSwipes)
     {
-      navigation.navigate('FinalGenre')
+      navigation.navigate('MovieCard')
     }
     if(userIsReadyToSeeFinalMovie)
     {
@@ -80,7 +80,7 @@ const StartWatchingBtnsComponent: FC = () => {
                 <View style={styles.wgButton}>
                 <Image source={MovieClipper}></Image>
                 <Text style={{color:'#E3DDDD', fontSize:24, paddingLeft:60, justifyContent:'center', textAlign:'center', fontFamily:'Raleway_400Regular'}}>{
-                  userIsAdmin ? 'Start watching' : userIsReadyForGenres ? 'Start ranking genres' : userIsReadyForSwipes ? 'Start swiping movies' : userIsWaiting ? `Waiting for ${'\n'} others to finish` : ''
+                   userIsReadyForGenres ? 'Start ranking genres' : userIsReadyForSwipes ? 'Start swiping movies' : userIsWaiting ? `Waiting for ${'\n'} others to finish` : userIsAdmin ? 'Start watching' : ''
                 }</Text>
                 </View>
             </Pressable>
