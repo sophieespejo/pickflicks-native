@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { FC, useContext, useEffect, useState } from "react";
-import { StyleSheet, Text, View, Image, TextInput, Pressable, ScrollView} from "react-native";
+import { StyleSheet, Text, View, Image, TextInput, Pressable, ScrollView, Animated} from "react-native";
 import headerLogo from "../../assets/headerLogo.png";
 import MovieClipper from "../../assets/MovieClipper.png";
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
@@ -22,12 +22,15 @@ import boy4 from '../../assets/avatars/boy4.png'
 import boy5 from '../../assets/avatars/boy5.png'
 import boy6 from '../../assets/avatars/boy6.png'
 import {  Button, Avatar } from "react-native-paper";
+import Swipeable from 'react-native-gesture-handler/Swipeable';
+import { DeleteMemberFromMWG, GetUserByUsername } from '../../Service/DataService'
 
 
-interface IStartWatchingBtnsComponent {
-  username: string,
-  userId: number
-}
+
+// interface IStartWatchingBtnsComponent {
+//   username: string,
+//   userId: number
+// }
 
   type RootStackParamList = {
       Home: undefined; //means route doesnt have params
@@ -48,10 +51,12 @@ interface IStartWatchingBtnsComponent {
 
 const StartWatchingBtnsComponent: FC = () => {
   const navigation = useNavigation<any>();
-  let { setMWGname, MWGname, setMWGId, MWGId, userIsAdmin, userId, setUserIsAdmin, userIsReadyForGenres, setUserIsReadyForGenres, userIsReadyForSwipes, setUserIsReadyForSwipes, userIsReadyToSeeFinalMovie, setUserIsReadyToSeeFinalMovie, userIsWaiting, setUserIsWaiting } = useContext(UserContext);
+  let { username, setMWGname, MWGname, setMWGId, MWGId, userIsAdmin, userId, userIsReadyForGenres, userIsReadyForSwipes, userIsReadyToSeeFinalMovie, userIsWaiting } = useContext(UserContext);
   const [membersNames, setMembersNames] = useState<Array<string>>([]);
   const [membersIcons, setMembersIcons] = useState<Array<string>>([]);
   const [mwgCreatorId, setmwgCreatorId] = useState<string>("");
+  let row: Array<any> = [];
+  let prevOpenedRow: any;
   const icons = new Map([
     ['boy1', boy1],
     ['boy2', boy2],
@@ -66,6 +71,14 @@ const StartWatchingBtnsComponent: FC = () => {
     ['girl5',girl5],
     ['girl6',girl6],
   ])
+
+  const closeRow = (index: number) => {
+    console.log('closerow');
+    if (prevOpenedRow && prevOpenedRow !== row[index]) {
+      prevOpenedRow.close();
+    }
+    prevOpenedRow = row[index];
+  }
 
   useEffect( () => {
     async function getUserInfo(){
@@ -97,6 +110,21 @@ const StartWatchingBtnsComponent: FC = () => {
     if(userIsReadyToSeeFinalMovie)
     {
       navigation.navigate('FinalMovie')
+    }
+  }
+
+  const handleDeleteMember = async (member:string, index:number ) => {
+    closeRow(index-1);
+    let deletedUser = await GetUserByUsername(member);
+    if(deletedUser != null)
+    {
+      let result = await DeleteMemberFromMWG(MWGId, deletedUser.id, member);
+      if(result)
+      {
+        //need to reset members array
+        //also need to add search feature to add new members...
+      }
+      
     }
   }
   
@@ -185,8 +213,51 @@ const StartWatchingBtnsComponent: FC = () => {
                 <View style={{flex:1, height:100,  flexDirection:'row', marginBottom:'4%', width:'80%', justifyContent:'space-evenly', }}>
                         <ScrollView style={{flex:1}}>
                           {/* map thru members here */}
-                          {
-                            membersNames.map((member, i) => {
+                          { userId == mwgCreatorId ? 
+                            membersNames.map((member, index) => {
+                              
+                              const renderRightView = (progress:number, dragX:any) => {
+                                const scale = dragX.interpolate({
+                                  inputRange: [-100, 0],
+                                  outputRange: [0.7, 0],
+                                  extrapolate: 'clamp'
+                                })
+                                
+                                return (
+                                  <Animated.View
+                                    style={{flex:0.6, margin: 0, transform: [{ scale }], alignContent: 'flex-end', justifyContent: 'flex-end', width:100}}
+                                  >
+                                    <Button 
+                                      uppercase={false} 
+                                      mode='contained' 
+                                      color='red' 
+                                      disabled = {username == member ? true : false}
+                                      onPress={() => handleDeleteMember(member, index)} 
+                                      style={{height: '50%'}}>
+                                        <Text style={{fontSize:24, fontFamily: "Raleway_400Regular",}}>Remove</Text>
+                                    </Button>
+                                  </Animated.View>
+                                )
+                              }
+                                return (
+                                <Swipeable 
+                                renderRightActions={(progress:any, dragx:any) => renderRightView(progress, dragx)}
+                                ref={(ref) => (row[index] = ref)}
+                                onSwipeableOpen={() => closeRow(index)}
+                                //rightOpenValue={-100}
+                                key={index}
+                                >
+                                  <View style={[{width:'99%', flexDirection: 'row', alignItems: 'flex-end', paddingBottom: '2%'}, styles.nameLine]}>
+
+                                        <Avatar.Image source={icons.get(membersIcons[index])} style={{alignItems: 'flex-start'}}/>
+
+                                        <Text style={[{color:'white', marginLeft: '10%'}, styles.btnText]}>{member}</Text>
+                                  </View>
+                                </Swipeable> 
+                                )                               
+                              
+                              
+                            }) : membersNames.map((member, i) => {
                               return (
                                 <View style={[{width:'99%', flexDirection: 'row', alignItems: 'flex-end', paddingBottom: '2%'}, styles.nameLine]}>
 
@@ -196,6 +267,7 @@ const StartWatchingBtnsComponent: FC = () => {
                                 </View>
                               )
                             })
+
                           }
                         </ScrollView>
                 </View>
