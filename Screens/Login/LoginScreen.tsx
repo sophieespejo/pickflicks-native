@@ -69,15 +69,16 @@ const LoginScreen : FC<Props> = ({ navigation }) => {
         if (fetchedToken.token != null) {
             
             let userData = await GetUserByUsername(username);
-            let userId = userData.id;
+            // let userId = userData.id;
 
-            const storedId = JSON.stringify(userId)
+            const storedId = JSON.stringify(userData.id)
             const jsonTOKEN = JSON.stringify(fetchedToken)
             await AsyncStorage.setItem('@storage_Token', jsonTOKEN)
             await AsyncStorage.setItem('@storage_Id', storedId)
             await AsyncStorage.setItem('@storage_Username', username)
             await AsyncStorage.setItem('@storage_Usericon', userData.icon)
             
+            console.log(userData.id)
             setUserId(userData.id);
             setUserIcon(userData.icon);
             navigation.navigate('UserDashboard')

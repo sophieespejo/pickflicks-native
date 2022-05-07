@@ -5,7 +5,7 @@ import emptyHeart from "../../assets/emptyHeart.png";
 import filledHeart from "../../assets/filledHeart.png";
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
-import { GetUserByUsername, GetAllMWGAUserIsMemberOfuserId, AddFavoriteMWG, RemoveFavoriteMWG } from '../../Service/DataService'
+import { GetUserByUsername, GetAllMWGAUserIsMemberOfuserId, AddFavoriteMWG, RemoveFavoriteMWG, GetMWGStatusByUserId } from '../../Service/DataService'
 import {useNavigation} from '@react-navigation/native';
 //import { Avatar } from "react-native-paper";
 import { Avatar } from "native-base";
@@ -20,7 +20,7 @@ interface IMWGCardComponent {
 
 //map through MWG created according to userID/logged in user
 const WaitingForOthersComponent: FC = () => {
-  let { username, setUsername, userId, setUserId, allMWG, setAllMWG, setMWGname, MWGname, setMWGId, MWGId } = useContext(UserContext)
+  let { username, setUsername, userId, setUserId, allMWG, setAllMWG, setMWGname, MWGname, setMWGId, MWGId, setUserIsAdmin, setUserIsReadyForGenres,  setUserIsReadyForSwipes,  setUserIsReadyToSeeFinalMovie,setUserIsWaiting } = useContext(UserContext)
 
   //const [allMWG, setAllMWG] = useState<any>([]);
   const [allFaveMWG, setAllFaveMWG] = useState<any>([]);
@@ -30,27 +30,32 @@ const WaitingForOthersComponent: FC = () => {
 
   
   useEffect(  () => {
-
+      // setAllFaveMWG([]);
       async function fetchUserData() {
             setUsername(username);
             setUserId(userId)
-            // console.log(username);
-            // console.log(userId)
+            // setUserIsAdmin(false);
+            // setUserIsReadyForGenres(false);
+            // setUserIsReadyForSwipes(false);
+            // setUserIsReadyToSeeFinalMovie(false);
+            // setUserIsWaiting(false);
           
       let response = await GetUserByUsername(username);
       let favoritedMWGArray = response.favoritedMWGId.split(',');
-      // console.log(favoritedMWGArray);
+      console.log(favoritedMWGArray);
+
       for (var i of favoritedMWGArray) {
         allFaveMWG.push(parseInt(i));
       }
       // allFaveMWG.push(parseInt(favoritedMWGArray));
       setAllFaveMWG([...allFaveMWG]);
-      // console.log(allFaveMWG);
+      console.log(allFaveMWG);
+
       if(response != null)
         {
-          let userMWG = await GetAllMWGAUserIsMemberOfuserId(response.id);
-          // console.log(userMWG)
+          let userMWG = await GetMWGStatusByUserId(response.id);
           setAllMWG(userMWG);
+          console.log(userMWG);
         }
       }
       fetchUserData();
@@ -60,14 +65,15 @@ const WaitingForOthersComponent: FC = () => {
     const handleAddFavoriteMWG = async (groupId:number) =>{
       let result = await AddFavoriteMWG(userId,groupId);
       let userData = await GetUserByUsername(username);
-      console.log(result);
+      // console.log(result);
       console.log(userData);
+      console.log(groupId);
       allFaveMWG.push(groupId);
       setAllFaveMWG([...allFaveMWG]);
       console.log(allFaveMWG);
       if(userData != null)
         {
-          let userMWG = await GetAllMWGAUserIsMemberOfuserId(userData.id);
+          let userMWG = await GetMWGStatusByUserId(userData.id);
           setAllMWG(userMWG);
         }
     }
@@ -88,161 +94,397 @@ const WaitingForOthersComponent: FC = () => {
         }
     }
 
-    const handlePress = (MWGname:string, MWGId:number) => {
+    const handlePress = (MWGname:string, MWGId:number, whatIsUser:string) => {
       console.log(MWGname);
       setMWGname(MWGname);
       setMWGId(MWGId);
+      switch(whatIsUser)
+      {
+        case 'userIsAdmin':
+          setUserIsAdmin(true);
+          break;
+        case 'userIsReadyForGenres':
+          setUserIsReadyForGenres(true);
+          break;
+        case 'userIsReadyForSwipes':
+          setUserIsReadyForSwipes(true);
+          break;
+        case 'userIsReadyToSeeFinalMovie':
+          setUserIsReadyToSeeFinalMovie(true);
+            break;
+        case 'userIsWaiting':
+          setUserIsWaiting(true);
+          break;
+        default:
+          break;
+      }
       navigation.navigate('MWGDashboard');
+      //navigation.navigate('MovieCard');
     }
-
-
-
 
   
   return (
 
-    <View style={{ flex:1, alignItems:'center'}}>
-      <Text>BANGBANG</Text>
+    <View style={{ flex:1, alignItems:'center', backgroundColor: '#1E1A1A'}}>
       
       {
 
-      allMWG.map((group:any, i:number) => {if(allFaveMWG.includes(parseInt(group.id)) && !group.isDeleted)
-      {
-        return (
-          <>
-          
-               <Pressable key={group.id} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=> handlePress(group.mwgName, group.id)}>
-                 <View >
-                   <View  style={{paddingTop:'3%',flexDirection:'row', justifyContent:'center'}}>
-                     <Text
-                      style={{
-                        color: "#FFFFFF",
-                        fontSize: 28,
-                        fontWeight: 'bold',
-                        // justifyContent: "center",
-                        // textAlign: "center",
-                        fontFamily:'Raleway_400Regular', 
-                        marginBottom: 0,
-                      }}
-                      >
-                      {group.mwgName}
-                    </Text>
-                  </View>
-                  {/* <View>
-                    <Avatar.Group _avatar={{
-                        size: "lg"
-                      }} max={3}>
-                        <Avatar bg="green.500" source={{
-                        uri: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
-                      }}>
-                        AJ
-                      </Avatar>
-                      <Avatar bg="cyan.500" source={{
-                      uri: "https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-                    }}>
-                        TE
-                        </Avatar>
-                    </Avatar.Group>
-                  </View> */}
-                  <View>
-                    <Text
-                      style={{
-                        paddingTop:'2%',
-                        color: "#FFFFFF",
-                        fontSize: 20,
-                        justifyContent: "center",
-                        textAlign: "center",
-                        fontFamily:'Raleway_400Regular', 
-                        marginBottom: '10%'
-                      }}
-                    >
-                      {group.membersNames}
-                    </Text>
-                  </View>
-                  
-                  <View>
-                    <Text
-                      style={{
-                        color: "#FFFFFF",
-                        fontSize: 20,
-                        justifyContent: "center",
-                        textAlign: "center",
-                        fontFamily:'Raleway_400Regular', 
-                        marginBottom: '7%'
-                      }}
-                    >
-                      Filler Text
-                    </Text>
-                  </View>
-              </View>
-              <Pressable style={styles.heart} onPress={()=>handleRemoveFavoriteMWG(group.id)}>
-                <Image  source={filledHeart} ></Image>
-              </Pressable>
-            </Pressable>
-          </>
-        )
-      }})
-      }
-
-      {
-        allMWG.map((group:any, i:number) => {if(!allFaveMWG.includes(parseInt(group.id)) && !group.isDeleted)
+        allMWG.map((group:any, i:number) => 
+        // isStarted is false AND not deleted 
+        //isStarted is true AND not deleted AND 
+          //userisdonewithgenre is true AND allmembersdoneiwthgenre is false
+          //allmembersdonewithgenre is true AND userisdonewithswipes is true AND allmembersdonewithswipes is false
+        
+        { 
+          //checks thru favorites
+          if(allFaveMWG.includes(parseInt(group.mwgId)) && !group.isDeleted && group.isStarted == false && group.groupCreatorId != userId)
           {
             return (
-                   <Pressable key={group.id} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=> handlePress(group.mwgName, group.id)}>
-                     <View >
-                       <View  style={{marginTop: '3%', flexDirection:'row', alignItems:'flex-start', justifyContent:'center'}}>
-                         <Text
-                          style={{
-                            color: "#FFFFFF",
-                            fontSize: 28,
-                            fontWeight: 'bold',
-                            // justifyContent: "center",
-                            // textAlign: "center",
-                            fontFamily:'Raleway_400Regular', 
-                            marginBottom: 0,
-                          }}
-                          >
-                          {group.mwgName}
-                        </Text>
-                      </View>
-                      <View>
-                        <Text
-                          style={{
-                            paddingTop:'2%',
-                            color: "#FFFFFF",
-                            fontSize: 20,
-                            justifyContent: "center",
-                            textAlign: "center",
-                            fontFamily:'Raleway_400Regular', 
-                            marginBottom: '10%'
-                          }}
-                        >
-                          {group.membersNames}
-                        </Text>
-                      </View>
-                      <View>
-                        <Text
-                          style={{
-                            color: "#FFFFFF",
-                            fontSize: 20,
-                            justifyContent: "center",
-                            textAlign: "center",
-                            fontFamily:'Raleway_400Regular', 
-                            marginBottom: '7%'
-                          }}
-                        >
-                          Filler Text
-                        </Text>
-                      </View>
-                  </View>
-                  <Pressable style={styles.heart} onPress={()=>handleAddFavoriteMWG(group.id)}>
-                    <Image  source={emptyHeart} ></Image>
-                  </Pressable>
-                </Pressable>
-                /* <Button title="test" onPress={() => console.log(allFaveMWG.includes(group.id))}></Button> */
+            <Pressable key={group.id} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=> handlePress(group.mwgName, group.mwgId, 'userIsWaiting')}>
+            <View >
+              <View  style={{marginTop: '3%', flexDirection:'row', alignItems:'flex-start', justifyContent:'center'}}>
+                <Text
+                 style={{
+                   color: "#FFFFFF",
+                   fontSize: 28,
+                   fontWeight: 'bold',
+                   // justifyContent: "center",
+                   // textAlign: "center",
+                   fontFamily:'Raleway_400Regular', 
+                   marginBottom: 0,
+                 }}
+                 >
+                 {group.mwgName}
+               </Text>
+             </View>
+             <View>
+               <Text
+                 style={{
+                   paddingTop:'2%',
+                   color: "#FFFFFF",
+                   fontSize: 20,
+                   justifyContent: "center",
+                   textAlign: "center",
+                   fontFamily:'Raleway_400Regular', 
+                   marginBottom: '10%'
+                 }}
+               >
+                 {group.membersNames}
+               </Text>
+             </View>
+             <View>
+               <Text
+                 style={{
+                   color: "#FFFFFF",
+                   fontSize: 20,
+                   justifyContent: "center",
+                   textAlign: "center",
+                   fontFamily:'Raleway_400Regular', 
+                   marginBottom: '7%'
+                 }}
+               >
+                 Waiting for admin to start
+               </Text>
+             </View>
+         </View>
+         <Pressable style={styles.heart} onPress={()=>handleAddFavoriteMWG(group.mwgId)}>
+           <Image  source={filledHeart} ></Image>
+         </Pressable>
+            </Pressable>
+
             )
-          }})
-      }
+          }
+          if(allFaveMWG.includes(parseInt(group.mwgId)) && !group.isDeleted && group.isStarted == true)
+          {
+            if(group.userDoneWithGenreRankings == true && group.areAllMembersDoneWithGenre == false)
+            {
+              return (
+              <Pressable key={group.id} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=> handlePress(group.mwgName, group.mwgId, 'userIsWaiting')}>
+              <View >
+                <View  style={{marginTop: '3%', flexDirection:'row', alignItems:'flex-start', justifyContent:'center'}}>
+                  <Text
+                   style={{
+                     color: "#FFFFFF",
+                     fontSize: 28,
+                     fontWeight: 'bold',
+                     // justifyContent: "center",
+                     // textAlign: "center",
+                     fontFamily:'Raleway_400Regular', 
+                     marginBottom: 0,
+                   }}
+                   >
+                   {group.mwgName}
+                 </Text>
+               </View>
+               <View>
+                 <Text
+                   style={{
+                     paddingTop:'2%',
+                     color: "#FFFFFF",
+                     fontSize: 20,
+                     justifyContent: "center",
+                     textAlign: "center",
+                     fontFamily:'Raleway_400Regular', 
+                     marginBottom: '10%'
+                   }}
+                 >
+                   {group.membersNames}
+                 </Text>
+               </View>
+               <View>
+                 <Text
+                   style={{
+                     color: "#FFFFFF",
+                     fontSize: 20,
+                     justifyContent: "center",
+                     textAlign: "center",
+                     fontFamily:'Raleway_400Regular', 
+                     marginBottom: '7%'
+                   }}
+                 >
+                   Waiting for others to rank genres
+                 </Text>
+               </View>
+           </View>
+           <Pressable style={styles.heart} onPress={()=>handleAddFavoriteMWG(group.mwgId)}>
+             <Image  source={filledHeart} ></Image>
+           </Pressable>
+              </Pressable>
+              )
+            }
+            if(group.areAllMembersDoneWithGenre == true && group.userDoneWithSwipes == true && group.areAllMembersDoneWithSwipes == false)
+            {
+              return (
+                <Pressable key={group.id} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=> handlePress(group.mwgName, group.mwgId, 'userIsWaiting')}>
+                <View >
+                  <View  style={{marginTop: '3%', flexDirection:'row', alignItems:'flex-start', justifyContent:'center'}}>
+                    <Text
+                     style={{
+                       color: "#FFFFFF",
+                       fontSize: 28,
+                       fontWeight: 'bold',
+                       // justifyContent: "center",
+                       // textAlign: "center",
+                       fontFamily:'Raleway_400Regular', 
+                       marginBottom: 0,
+                     }}
+                     >
+                     {group.mwgName}
+                   </Text>
+                 </View>
+                 <View>
+                   <Text
+                     style={{
+                       paddingTop:'2%',
+                       color: "#FFFFFF",
+                       fontSize: 20,
+                       justifyContent: "center",
+                       textAlign: "center",
+                       fontFamily:'Raleway_400Regular', 
+                       marginBottom: '10%'
+                     }}
+                   >
+                     {group.membersNames}
+                   </Text>
+                 </View>
+                 <View>
+                   <Text
+                     style={{
+                       color: "#FFFFFF",
+                       fontSize: 20,
+                       justifyContent: "center",
+                       textAlign: "center",
+                       fontFamily:'Raleway_400Regular', 
+                       marginBottom: '7%'
+                     }}
+                   >
+                     Waiting for others to finish swiping
+                   </Text>
+                 </View>
+             </View>
+             <Pressable style={styles.heart} onPress={()=>handleAddFavoriteMWG(group.mwgId)}>
+               <Image  source={filledHeart} ></Image>
+             </Pressable>
+                </Pressable>
+                )
+            }
+          }
+          //checks thru unfavorites
+          if(!allFaveMWG.includes(parseInt(group.mwgId)) && !group.isDeleted && group.isStarted == false && group.groupCreatorId != userId)
+          {
+            return (
+            <Pressable key={group.id} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=> handlePress(group.mwgName, group.mwgId, 'userIsWaiting')}>
+            <View >
+              <View  style={{marginTop: '3%', flexDirection:'row', alignItems:'flex-start', justifyContent:'center'}}>
+                <Text
+                 style={{
+                   color: "#FFFFFF",
+                   fontSize: 28,
+                   fontWeight: 'bold',
+                   // justifyContent: "center",
+                   // textAlign: "center",
+                   fontFamily:'Raleway_400Regular', 
+                   marginBottom: 0,
+                 }}
+                 >
+                 {group.mwgName}
+               </Text>
+             </View>
+             <View>
+               <Text
+                 style={{
+                   paddingTop:'2%',
+                   color: "#FFFFFF",
+                   fontSize: 20,
+                   justifyContent: "center",
+                   textAlign: "center",
+                   fontFamily:'Raleway_400Regular', 
+                   marginBottom: '10%'
+                 }}
+               >
+                 {group.membersNames}
+               </Text>
+             </View>
+             <View>
+               <Text
+                 style={{
+                   color: "#FFFFFF",
+                   fontSize: 20,
+                   justifyContent: "center",
+                   textAlign: "center",
+                   fontFamily:'Raleway_400Regular', 
+                   marginBottom: '7%'
+                 }}
+               >
+                 Waiting for admin to start
+               </Text>
+             </View>
+         </View>
+         <Pressable style={styles.heart} onPress={()=>handleAddFavoriteMWG(group.mwgId)}>
+           <Image  source={emptyHeart} ></Image>
+         </Pressable>
+            </Pressable>
+
+            )
+          }
+          if(!allFaveMWG.includes(parseInt(group.mwgId)) && !group.isDeleted && group.isStarted == true)
+          {
+            if(group.userDoneWithGenreRankings == true && group.areAllMembersDoneWithGenre == false)
+            {
+              return (
+              <Pressable key={group.id} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=> handlePress(group.mwgName, group.mwgId, 'userIsWaiting')}>
+              <View >
+                <View  style={{marginTop: '3%', flexDirection:'row', alignItems:'flex-start', justifyContent:'center'}}>
+                  <Text
+                   style={{
+                     color: "#FFFFFF",
+                     fontSize: 28,
+                     fontWeight: 'bold',
+                     // justifyContent: "center",
+                     // textAlign: "center",
+                     fontFamily:'Raleway_400Regular', 
+                     marginBottom: 0,
+                   }}
+                   >
+                   {group.mwgName}
+                 </Text>
+               </View>
+               <View>
+                 <Text
+                   style={{
+                     paddingTop:'2%',
+                     color: "#FFFFFF",
+                     fontSize: 20,
+                     justifyContent: "center",
+                     textAlign: "center",
+                     fontFamily:'Raleway_400Regular', 
+                     marginBottom: '10%'
+                   }}
+                 >
+                   {group.membersNames}
+                 </Text>
+               </View>
+               <View>
+                 <Text
+                   style={{
+                     color: "#FFFFFF",
+                     fontSize: 20,
+                     justifyContent: "center",
+                     textAlign: "center",
+                     fontFamily:'Raleway_400Regular', 
+                     marginBottom: '7%'
+                   }}
+                 >
+                   Waiting for others to finish ranking genres
+                 </Text>
+               </View>
+           </View>
+           <Pressable style={styles.heart} onPress={()=>handleAddFavoriteMWG(group.mwgId)}>
+             <Image  source={emptyHeart} ></Image>
+           </Pressable>
+              </Pressable>
+              )
+            }
+            if(group.areAllMembersDoneWithGenre == true && group.userDoneWithSwipes == true && group.areAllMembersDoneWithSwipes == false)
+            {
+              return (
+                <Pressable key={group.id} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=> handlePress(group.mwgName, group.mwgId, 'userIsWaiting')}>
+                <View >
+                  <View  style={{marginTop: '3%', flexDirection:'row', alignItems:'flex-start', justifyContent:'center'}}>
+                    <Text
+                     style={{
+                       color: "#FFFFFF",
+                       fontSize: 28,
+                       fontWeight: 'bold',
+                       // justifyContent: "center",
+                       // textAlign: "center",
+                       fontFamily:'Raleway_400Regular', 
+                       marginBottom: 0,
+                     }}
+                     >
+                     {group.mwgName}
+                   </Text>
+                 </View>
+                 <View>
+                   <Text
+                     style={{
+                       paddingTop:'2%',
+                       color: "#FFFFFF",
+                       fontSize: 20,
+                       justifyContent: "center",
+                       textAlign: "center",
+                       fontFamily:'Raleway_400Regular', 
+                       marginBottom: '10%'
+                     }}
+                   >
+                     {group.membersNames}
+                   </Text>
+                 </View>
+                 <View>
+                   <Text
+                     style={{
+                       color: "#FFFFFF",
+                       fontSize: 20,
+                       justifyContent: "center",
+                       textAlign: "center",
+                       fontFamily:'Raleway_400Regular', 
+                       marginBottom: '7%'
+                     }}
+                   >
+                     Waiting for others to finish swiping
+                   </Text>
+                 </View>
+             </View>
+             <Pressable style={styles.heart} onPress={()=>handleAddFavoriteMWG(group.mwgId)}>
+               <Image  source={emptyHeart} ></Image>
+             </Pressable>
+                </Pressable>
+                )
+            }
+          }
+        })
+        }
+
 
     </View>
   );

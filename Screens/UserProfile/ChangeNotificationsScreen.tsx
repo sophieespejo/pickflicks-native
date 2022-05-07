@@ -33,10 +33,11 @@ type RootStackParamList = {
     ChooseGenres : undefined,
     GenreRanking: undefined,
     MovieCard : undefined,
+    ChangeNotifications : undefined
 
   }
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Introduction'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'ChangeNotifications'>;
 
 const ChangeNotificationsScreen: FC<Props> = ({navigation}) => {
 

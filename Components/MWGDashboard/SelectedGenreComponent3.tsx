@@ -8,13 +8,13 @@ import {useNavigation} from '@react-navigation/native';
 // import { Button } from "native-base";
 import { Slider } from "native-base";
 import UserContext from '../../Context/UserContext';
-import { GetMWGById, AddGenreRankingModel, AddMWGStatus} from '../../Service/DataService'
+import { GetMWGById, AddGenreRankingModel, AddMWGStatus, GetMWGStatusByMWGId, UpdateGenreRanking, GetMWGStatusByUserId} from '../../Service/DataService'
 import GenreRankingScreen2 from "../../Screens/MWGDash/GenreRankingScreen2";
 
 
 const SelectedGenreComponent3: FC = () => {
     const navigation = useNavigation<any>();
-    let { username, setUsername, userId, setUserId, userIcon, setUserIcon, MWGname, setMWGname, MWGId, setMWGId, MWGgenres, setMWGgenres, MWGmembersId, setMWGmembersId,genre1,genre2, genre3, setGenre3 } = useContext(UserContext)
+    let { username, setUsername, userId, setUserId, userIcon, setUserIcon, MWGname, setMWGname, MWGId, setMWGId, MWGgenres, setMWGgenres, MWGmembersId, setMWGmembersId,genre1,genre2, genre3, setGenre3, setAllMWG} = useContext(UserContext)
     const [onChangeValue, setOnChangeValue] = useState(0);
 
     
@@ -29,7 +29,7 @@ const SelectedGenreComponent3: FC = () => {
           setMWGgenres(genreString);
         }
         
-  }
+      }
       getUserInfo()
     }, []);
 
@@ -46,23 +46,30 @@ const SelectedGenreComponent3: FC = () => {
       }
       let result = await AddGenreRankingModel(newGRModel);
 
-      //havent tested
-      // let newStatusModel = {
-      //   Id: 0,
-      //   MWGId: MWGId,
-      //   MembersId: MWGmembersId,
-      //   UserId: userId,
-      //   UserDoneWithGenreRankings: true,
-      //   UserDoneWithSwipes: false,
-      // }
-      // let statusResult = await AddMWGStatus(newStatusModel);
-
       if(result)
       {
         console.log(result);
-        // console.log(statusResult);
         console.log(newGRModel);
-        navigation.navigate("FinalGenre");
+        let result1 = await UpdateGenreRanking(MWGId, userId)
+        if(result1)
+        {
+          let movieObj = await GetMWGStatusByMWGId(MWGId);
+          if(movieObj != null)
+          {
+            let isMWGDoneWithRanking = movieObj[0].areAllMembersDoneWithGenre;
+            if(isMWGDoneWithRanking)
+            {
+              setTimeout(() => {
+                navigation.navigate('FinalGenre') 
+              }, 3000);
+            }
+            else{
+                let result = await GetMWGStatusByUserId(userId);
+                setAllMWG(result);
+                navigation.navigate('UserDashboard') 
+            }
+          }
+        }
       }
       
     }

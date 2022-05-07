@@ -4,7 +4,7 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { FC, useState, useEffect, useContext, useCallback, useRef } from 'react';
 import { StyleSheet, Text, View , Image, Animated, PanResponder} from 'react-native';
 import RedLogo from '../assets/RedLogo.png';
-import HeaderComponent from '../../Components/MWGDashboard/HeaderComponent';
+import HeaderComponent1 from '../../Components/MWGDashboard/MovieCardHeaderComponent';
 import StreamingServiceComponent from '../../Components/MWGDashboard/StreamingServiceComponent';
 import FooterNavComponent from '../../Components/UserDashboard-Body/FooterNavComponent';
 //import GenreSelectionComponent from '../../Components/MWGDashboard/GenreSelectionComponent';
@@ -15,6 +15,7 @@ import { GetMoviesByMWGId, AddLikeOrDislike, GetTopMovieByMWGId} from '../../Ser
 import {ACTION_OFFSET, CARD} from "../../Components/Utilities/Utility"
 import {useNavigation} from '@react-navigation/native';
 import { setStatusBarNetworkActivityIndicatorVisible } from 'expo-status-bar';
+import { GetMWGStatusByMWGId, UpdateSwipings } from '../../Service/DataService'
 
 
 
@@ -55,6 +56,7 @@ const MovieCardScreen: FC<Props> = () => {
 
   useEffect( () => {
     async function getUserInfo(){
+      console.log(MWGId)
       setMWGId(MWGId);
       setUserId(userId);
       let allFetchedMovies = await GetMoviesByMWGId(MWGId);
@@ -62,7 +64,6 @@ const MovieCardScreen: FC<Props> = () => {
       {
         setAllMovies(allFetchedMovies)
       }
-      
     }
     getUserInfo()
   }, []);
@@ -91,6 +92,22 @@ const MovieCardScreen: FC<Props> = () => {
         console.log(result);
         console.log(newVotes);
         console.log(listOfMovieNamesUsedToCompare)
+        let result1 = await UpdateSwipings(MWGId, userId);
+        if(result1)
+        {
+          let movieObj = await GetMWGStatusByMWGId(MWGId);
+          if(movieObj != null)
+          {
+            let isMWGDoneWithSwipes = movieObj[0].areAllMembersDoneWithSwipes;
+            console.log('everyone done', isMWGDoneWithSwipes)
+            if(isMWGDoneWithSwipes == true)
+            {
+              navigation.navigate("FinalMovie");
+            }else{
+              navigation.navigate("UserDashboard");
+            }
+          }
+        }
         navigation.navigate("FinalMovie");
       }
     }
@@ -120,7 +137,24 @@ const MovieCardScreen: FC<Props> = () => {
         console.log(result);
         console.log(newVotes);
         console.log(listOfMovieNamesUsedToCompare)
-        navigation.navigate("FinalMovie");
+        let result1 = await UpdateSwipings(MWGId, userId);
+        if(result1)
+        {
+          let movieObj = await GetMWGStatusByMWGId(MWGId);
+          if(movieObj != null)
+          {
+            let isMWGDoneWithSwipes = movieObj[0].areAllMembersDoneWithSwipes;
+            console.log('everyone done', isMWGDoneWithSwipes)
+            if(isMWGDoneWithSwipes == true)
+            {
+              navigation.navigate("FinalMovie");
+            }else{
+              navigation.navigate("UserDashboard");
+            }
+          }
+        }
+
+        
       }
     }
   }
@@ -178,7 +212,7 @@ const MovieCardScreen: FC<Props> = () => {
     return (
       <View style={styles.container1}>
 
-        <HeaderComponent/>
+        <HeaderComponent1/>
     <View style={styles.container}>
         {
           allMovies.map((movie:any, i:number) => {

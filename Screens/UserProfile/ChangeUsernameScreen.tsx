@@ -32,10 +32,11 @@ type RootStackParamList = {
     ChooseGenres : undefined,
     GenreRanking: undefined,
     MovieCard : undefined,
+    ChangeUsername : undefined
 
   }
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Introduction'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'ChangeUsername'>;
 
 const ChangeUsernameScreen: FC<Props> = ({navigation}) => {
 

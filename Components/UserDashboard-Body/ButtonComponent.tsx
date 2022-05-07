@@ -46,7 +46,7 @@ interface IButtonComponent {
 
 
   return (
-    <View style={{flex:1, marginTop:'5%', marginBottom: '3%', alignItems:'center'}}>
+    <View style={{flex:1, marginTop:'3%', marginBottom: '3%', alignItems:'center'}}>
       <Pressable style={{width:'90%', marginBottom:'3%'}} onPress={() => navigation.navigate('NewMWGName')}>
         <View style={styles.wgButton}>
           <Image source={MovieClipper}></Image>
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     borderWidth: 2,
     borderColor:'#E2DFDFDE',
-    backgroundColor:'#E2DFDFDE',
+    backgroundColor:'rgba(226, 223, 223, 1)',
     borderRadius: 25,
     alignItems:'center',
     justifyContent:'center',
