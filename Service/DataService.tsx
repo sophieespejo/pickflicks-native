@@ -330,5 +330,29 @@ async function DeleteMemberFromMWG(MWGId:number, deletedMemberId: number, delete
    return data;
 }
 
+async function AddMemberToMWG(MWGId:number, newMemberId: number, newMemberName: string){
+    let res= await fetch(`${url}/mwg/AddMemberToMWG/${MWGId}/${newMemberId}/${newMemberName}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(null)
+    });
+    let data = await res.json();
+   return data;
+}
 
-export { UpdateMWGStatus, GetUserById, DeleteMemberFromMWG, GetTopRankedGenre, GetMWGByMWGName, UpdateIsStartedByMWGId, GetMWGStatusById, AddMWGStatus, ResetMWGStatusbyMWGId,UpdateSwipings, UpdateGenreRanking, GetMWGStatusByUserId, GetMWGStatusByMWGId, AddUser, Login, GetMWGById, GetTopMovieByMWGId, AddLikeOrDislike, AddStreamingService, GetMoviesByMWGId, AddGenreRankingModel, GetUserByUsername, GetAllMWGAUserIsMemberOfuserId, AddFavoriteMWG, AddAll15Movies, RemoveFavoriteMWG, AddMWG, AddChosenGenres};
+async function EditUserIcon(userId:number, iconName: string){
+    let res= await fetch(`${url}/user/EditUserIcon/${userId}/${iconName}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(null)
+    });
+    let data = await res.json();
+   return data;
+}
+
+
+export { UpdateMWGStatus, EditUserIcon, GetUserById, AddMemberToMWG, DeleteMemberFromMWG, GetTopRankedGenre, GetMWGByMWGName, UpdateIsStartedByMWGId, GetMWGStatusById, AddMWGStatus, ResetMWGStatusbyMWGId,UpdateSwipings, UpdateGenreRanking, GetMWGStatusByUserId, GetMWGStatusByMWGId, AddUser, Login, GetMWGById, GetTopMovieByMWGId, AddLikeOrDislike, AddStreamingService, GetMoviesByMWGId, AddGenreRankingModel, GetUserByUsername, GetAllMWGAUserIsMemberOfuserId, AddFavoriteMWG, AddAll15Movies, RemoveFavoriteMWG, AddMWG, AddChosenGenres};

@@ -34,6 +34,10 @@ const FooterNavComponent: FC = () => {
 
   const navigation = useNavigation<any>();
 
+  const handleUserdashboard = async() => {
+    
+  }
+
   return (
     <View style={styles.container}>
       <Button

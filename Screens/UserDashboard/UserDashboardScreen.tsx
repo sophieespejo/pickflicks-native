@@ -80,13 +80,15 @@ const UserDashboard: FC<Props> = ({navigation}) => {
 
   useEffect( () => {
     async function getUserInfo(){
-      const something = navigation.addListener('focus', () => {
+      const something = navigation.addListener('focus', async() => {
         console.log('Refreshed');
         setUserIsAdmin(false);
         setUserIsReadyForGenres(false);
         setUserIsReadyForSwipes(false);
         setUserIsReadyToSeeFinalMovie(false);
         setUserIsWaiting(false);
+        let result = await GetMWGStatusByUserId(userId);
+        setAllMWG(result);
       });
       const token1 = await AsyncStorage.getItem('@storage_Token')
       console.log(token1)

@@ -59,7 +59,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'AvatarScreen'>;
 
 const AvatarScreen: FC<Props> = () => {
     const navigation = useNavigation<any>();
-    let {  username, userId, setUserId , setUserIcon, listOfMovieNamesUsedToCompare1, setListOfMovieNamesUsedToCompare1 } = useContext(UserContext);
+    let {  username, userId, setUserId , setUserIcon, userIcon, listOfMovieNamesUsedToCompare1, setListOfMovieNamesUsedToCompare1 } = useContext(UserContext);
 
     useEffect(() => {
         // const fetch = async () => {
@@ -305,8 +305,9 @@ const handleSubmit = async () => {
 
     // Edit userModel with icon name
     if (userData != null) {
-        //let result = await EditUserIcon(userData.id, userIcon)
-        //console.log(result);
+        let result = await EditUserIcon(userId, userIcon)
+        setUserIcon(userIcon);
+        console.log(result);
         navigation.navigate('Login');
     }
 };
