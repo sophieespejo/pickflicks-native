@@ -7,7 +7,7 @@ import { Button } from "react-native-paper";
 import {useNavigation} from '@react-navigation/native';
 // import { Button } from "native-base";
 import { Slider } from "native-base";
-import { AddAll15Movies, GetMWGById, GetMWGStatusByMWGId, GetTopRankedGenre } from '../../Service/DataService'
+import { AddAll15Movies, GetMWGById, GetMWGStatusByMWGId, GetTopRankedGenre, AddFinalGenre} from '../../Service/DataService'
 import UserContext from '../../Context/UserContext';
 import loadingGif from '../../assets/36292-loader-movie.json'
 import LottieView from 'lottie-react-native';
@@ -92,7 +92,7 @@ const FinalGenreComponent: FC = () => {
               break;
           }
           setGenreName(result)
-          
+          AddFinalGenre(MWGId, result);
         }
 
 

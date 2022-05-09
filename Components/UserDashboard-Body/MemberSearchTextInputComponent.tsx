@@ -110,13 +110,17 @@ import {
           GroupCreatorId: userId,
           MembersId: mwgMembersId.join(","),
           MembersNames: mwgMembersNames.join(","),
+          MembersIcons: mwgMembersIcons.join(","),
           UserSuggestedMovies: '',
           ChosenGenres: '',
-          MembersIcons: mwgMembersIcons.join(","),
           StreamingService: '',
+          FinalGenre: '',
+          FinalMovieIndex: 0,
           IsDeleted: false
-      }
-      let result = await AddMWG(newMWG);
+        }
+        let result = await AddMWG(newMWG);
+        console.log(result)
+        console.log("Added New MWG")
       if (result) {
         
         let justCreatedMWG = await GetMWGByMWGName(newMWGname);
@@ -264,7 +268,7 @@ import {
             </View>
             <View style={{alignItems:'center', marginTop:'8%'}}>
               <View style={styles.sendInvBtn}>
-                <Pressable onPress={handleInvitations}>
+                <Pressable onPress={() => handleInvitations()}>
                   <Text style={styles.btnText}>Send Invitations</Text>
                 </Pressable>
               </View>
