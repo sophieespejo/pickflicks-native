@@ -1,18 +1,10 @@
-import { NavigationRouteContext } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { FC, useContext, useEffect } from 'react';
-import { StyleSheet, Text, View , Image, ScrollView} from 'react-native';
-import RedLogo from '../assets/RedLogo.png';
+import { StyleSheet, View, ScrollView} from 'react-native';
 import HeaderComponent from '../../Components/MWGDashboard/HeaderComponent';
-import StreamingServiceComponent from '../../Components/MWGDashboard/StreamingServiceComponent';
 import FooterNavComponent from '../../Components/UserDashboard-Body/FooterNavComponent';
-//import GenreSelectionComponent from '../../Components/MWGDashboard/GenreSelectionComponent';
-import MovieCardComponent from '../../Components/MWGDashboard/MovieCardComponent';
 import StartWatchingBtnsComponent from '../../Components/MWGDashboard/StartWatchingBtnsComponent';
-import { Provider as PaperProvider } from 'react-native-paper';
 import UserContext from '../../Context/UserContext';
-// import { ScrollView } from 'native-base';
 
 
 

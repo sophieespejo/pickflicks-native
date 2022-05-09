@@ -1,12 +1,10 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { FC, useContext, useEffect } from "react";
-import { StyleSheet, Text, View, Image, TextInput, Pressable, ScrollView} from "react-native";
-import headerLogo from "../../assets/headerLogo.png";
+import { StyleSheet, Text, View, Image, Pressable, ScrollView} from "react-native";
 import MovieClipper from "../../assets/MovieClipper.png";
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
-import {NavigationContainer, useNavigation} from '@react-navigation/native';
-import MemberSearchTextInputComponent from '../UserDashboard-Body/MemberSearchTextInputComponent'
+import {useNavigation} from '@react-navigation/native';
 import UserContext from '../../Context/UserContext';
 
 interface IStartWatchingBtnsComponent {
@@ -56,7 +54,7 @@ const StartWatchingBtnsComponent: FC = () => {
     {
       navigation.navigate('MovieCard')
     }
-    if(userIsReadyToSeeFinalMovie)
+    if(userIsReadyToSeeFinalMovie == true)
     {
       navigation.navigate('FinalMovie')
     }
@@ -227,8 +225,6 @@ const styles = StyleSheet.create({
   container1: {
     flex: 0,
     alignItems: "center",
-
-    //position: 'absolute', top: 175, left: 23, right: 20, bottom: 0,
     backgroundColor:'pink'
   },
 });

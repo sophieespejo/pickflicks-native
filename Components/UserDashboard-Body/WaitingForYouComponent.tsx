@@ -12,23 +12,14 @@ import { Avatar } from "native-base";
 import UserContext from '../../Context/UserContext';
 
 
-
-interface IMWGCardComponent {
-  username: string,
-  userId: number
-}
-
-//map through MWG created according to userID/logged in user
 const WaitingForYouComponent: FC = () => {
   let { username, setUsername, userId, setUserId, allMWG, setAllMWG, setMWGname, MWGname, setMWGId, MWGId, setUserIsAdmin, setUserIsReadyForGenres,  setUserIsReadyForSwipes,  setUserIsReadyToSeeFinalMovie,setUserIsWaiting } = useContext(UserContext)
 
-  //const [allMWG, setAllMWG] = useState<any>([]);
   const [allFaveMWG, setAllFaveMWG] = useState<any>([]);
   const navigation = useNavigation<any>();
 
   
   useEffect(  () => {
-      // setAllFaveMWG([]);
       async function fetchUserData() {
             setUsername(username);
             setUserId(userId)
@@ -45,7 +36,6 @@ const WaitingForYouComponent: FC = () => {
       for (var i of favoritedMWGArray) {
         allFaveMWG.push(parseInt(i));
       }
-      // allFaveMWG.push(parseInt(favoritedMWGArray));
       setAllFaveMWG([...allFaveMWG]);
       console.log(allFaveMWG);
 
@@ -63,12 +53,8 @@ const WaitingForYouComponent: FC = () => {
     const handleAddFavoriteMWG = async (groupId:number) =>{
       let result = await AddFavoriteMWG(userId,groupId);
       let userData = await GetUserByUsername(username);
-      // console.log(result);
-      console.log(userData);
-      console.log(groupId);
       allFaveMWG.push(groupId);
       setAllFaveMWG([...allFaveMWG]);
-      console.log(allFaveMWG);
       if(userData != null)
         {
           let userMWG = await GetMWGStatusByUserId(userData.id);
@@ -79,22 +65,17 @@ const WaitingForYouComponent: FC = () => {
     const handleRemoveFavoriteMWG = async (groupId:number) =>{
       let result = await RemoveFavoriteMWG(userId,groupId);
       let userData = await GetUserByUsername(username);
-      console.log(result);
-      console.log(userData);
       let indexGroupId = allFaveMWG.indexOf(groupId);
       allFaveMWG.splice(indexGroupId,1);
       setAllFaveMWG([...allFaveMWG]);
-      console.log(allFaveMWG);
       if(userData != null)
         {
           let userMWG = await GetMWGStatusByUserId(userData.id);
           setAllMWG(userMWG);
-          console.log(userMWG);
         }
     }
 
     const handlePress = (MWGname:string, MWGId:number, whatIsUser:string) => {
-      console.log(MWGname);
       setMWGname(MWGname);
       setMWGId(MWGId);
       switch(whatIsUser)
@@ -115,7 +96,6 @@ const WaitingForYouComponent: FC = () => {
           break;
       }
       navigation.navigate('MWGDashboard');
-      //navigation.navigate('MovieCard');
     }
 
 
@@ -204,7 +184,7 @@ const WaitingForYouComponent: FC = () => {
                </Text>
              </View>
          </View>
-         <Pressable style={styles.heart} onPress={()=>handleAddFavoriteMWG(group.mwgId)}>
+         <Pressable style={styles.heart} onPress={()=>handleRemoveFavoriteMWG(group.mwgId)}>
            <Image  source={filledHeart} ></Image>
          </Pressable>
             </Pressable>
@@ -264,7 +244,7 @@ const WaitingForYouComponent: FC = () => {
                  </Text>
                </View>
            </View>
-           <Pressable style={styles.heart} onPress={()=>handleAddFavoriteMWG(group.mwgId)}>
+           <Pressable style={styles.heart} onPress={()=>handleRemoveFavoriteMWG(group.mwgId)}>
              <Image  source={filledHeart} ></Image>
            </Pressable>
               </Pressable>
@@ -320,7 +300,7 @@ const WaitingForYouComponent: FC = () => {
                  </Text>
                </View>
            </View>
-           <Pressable style={styles.heart} onPress={()=>handleAddFavoriteMWG(group.mwgId)}>
+           <Pressable style={styles.heart} onPress={()=>handleRemoveFavoriteMWG(group.mwgId)}>
              <Image  source={filledHeart} ></Image>
            </Pressable>
          </Pressable>
@@ -617,182 +597,6 @@ const WaitingForYouComponent: FC = () => {
 
     })
       }
-
-      {/* {
-        allMWG.map((group:any, i:number) => {if(!allFaveMWG.includes(parseInt(group.mwgId)) && !group.isDeleted && group.userDoneWithGenreRankings == false && group.userDoneWithSwipes == false)
-          {
-            {
-              if(group.userDoneWithGenreRankings == false && group.areAllMembersDoneWithGenre == false)
-              {
-                return (
-                  <Pressable key={group.id} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=> handlePress(group.mwgName, group.mwgId)}>
-                  <View >
-                    <View  style={{marginTop: '3%', flexDirection:'row', alignItems:'flex-start', justifyContent:'center'}}>
-                      <Text
-                       style={{
-                         color: "#FFFFFF",
-                         fontSize: 28,
-                         fontWeight: 'bold',
-                         // justifyContent: "center",
-                         // textAlign: "center",
-                         fontFamily:'Raleway_400Regular', 
-                         marginBottom: 0,
-                       }}
-                       >
-                       {group.mwgName}
-                     </Text>
-                   </View>
-                   <View>
-                     <Text
-                       style={{
-                         paddingTop:'2%',
-                         color: "#FFFFFF",
-                         fontSize: 20,
-                         justifyContent: "center",
-                         textAlign: "center",
-                         fontFamily:'Raleway_400Regular', 
-                         marginBottom: '10%'
-                       }}
-                     >
-                       {group.membersNames}
-                     </Text>
-                   </View>
-                   <View>
-                     <Text
-                       style={{
-                         color: "#FFFFFF",
-                         fontSize: 20,
-                         justifyContent: "center",
-                         textAlign: "center",
-                         fontFamily:'Raleway_400Regular', 
-                         marginBottom: '7%'
-                       }}
-                     >
-                       You need to start ranking genres/swiping movies!
-                     </Text>
-                   </View>
-               </View>
-               <Pressable style={styles.heart} onPress={()=>handleAddFavoriteMWG(group.mwgId)}>
-                 <Image  source={emptyHeart} ></Image>
-               </Pressable>
-             </Pressable>
-                )
-              }
-              if(group.areAllMembersDoneWithGenre == true && group.userDoneWithSwipes == false && group.areAllMembersDoneWithSwipes == false)
-              {
-                return (
-                  <Pressable key={group.id} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=> handlePress(group.mwgName, group.mwgId)}>
-                  <View >
-                    <View  style={{marginTop: '3%', flexDirection:'row', alignItems:'flex-start', justifyContent:'center'}}>
-                      <Text
-                       style={{
-                         color: "#FFFFFF",
-                         fontSize: 28,
-                         fontWeight: 'bold',
-                         // justifyContent: "center",
-                         // textAlign: "center",
-                         fontFamily:'Raleway_400Regular', 
-                         marginBottom: 0,
-                       }}
-                       >
-                       {group.mwgName}
-                     </Text>
-                   </View>
-                   <View>
-                     <Text
-                       style={{
-                         paddingTop:'2%',
-                         color: "#FFFFFF",
-                         fontSize: 20,
-                         justifyContent: "center",
-                         textAlign: "center",
-                         fontFamily:'Raleway_400Regular', 
-                         marginBottom: '10%'
-                       }}
-                     >
-                       {group.membersNames}
-                     </Text>
-                   </View>
-                   <View>
-                     <Text
-                       style={{
-                         color: "#FFFFFF",
-                         fontSize: 20,
-                         justifyContent: "center",
-                         textAlign: "center",
-                         fontFamily:'Raleway_400Regular', 
-                         marginBottom: '7%'
-                       }}
-                     >
-                       You need to start ranking genres/swiping movies!
-                     </Text>
-                   </View>
-               </View>
-               <Pressable style={styles.heart} onPress={()=>handleAddFavoriteMWG(group.mwgId)}>
-                 <Image  source={emptyHeart} ></Image>
-               </Pressable>
-             </Pressable>
-                )
-              }
-              if(group.areAllMembersDoneWithGenre == true && group.areAllMembersDoneWithSwipes == true)
-              {
-                return (
-                  <Pressable key={group.id} style={[styles.wgButton, {flex:1, marginTop:'5%'}]} onPress={()=> handlePress(group.mwgName, group.mwgId)}>
-                  <View >
-                    <View  style={{marginTop: '3%', flexDirection:'row', alignItems:'flex-start', justifyContent:'center'}}>
-                      <Text
-                       style={{
-                         color: "#FFFFFF",
-                         fontSize: 28,
-                         fontWeight: 'bold',
-                         // justifyContent: "center",
-                         // textAlign: "center",
-                         fontFamily:'Raleway_400Regular', 
-                         marginBottom: 0,
-                       }}
-                       >
-                       {group.mwgName}
-                     </Text>
-                   </View>
-                   <View>
-                     <Text
-                       style={{
-                         paddingTop:'2%',
-                         color: "#FFFFFF",
-                         fontSize: 20,
-                         justifyContent: "center",
-                         textAlign: "center",
-                         fontFamily:'Raleway_400Regular', 
-                         marginBottom: '10%'
-                       }}
-                     >
-                       {group.membersNames}
-                     </Text>
-                   </View>
-                   <View>
-                     <Text
-                       style={{
-                         color: "#FFFFFF",
-                         fontSize: 20,
-                         justifyContent: "center",
-                         textAlign: "center",
-                         fontFamily:'Raleway_400Regular', 
-                         marginBottom: '7%'
-                       }}
-                     >
-                       You need to start ranking genres/swiping movies!
-                     </Text>
-                   </View>
-               </View>
-               <Pressable style={styles.heart} onPress={()=>handleAddFavoriteMWG(group.mwgId)}>
-                 <Image  source={emptyHeart} ></Image>
-               </Pressable>
-             </Pressable>
-                )
-              }
-            }
-          }})
-      } */}
 
     </View>
   );

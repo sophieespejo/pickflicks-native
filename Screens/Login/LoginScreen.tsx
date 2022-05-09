@@ -1,9 +1,9 @@
-import { FC, useState, useCallback, useEffect, useContext } from 'react';
-import { StyleSheet, View, Image, Text, TextInput, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback } from 'react-native';
+import { FC, useState, useEffect, useContext } from 'react';
+import { StyleSheet, View, Image, Text, TextInput, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import PickFlicksLogo from '../../assets/logo.png';
-import { Button, HelperText } from 'react-native-paper';
+import { Button } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { GetUserByUsername, Login } from '../../Service/DataService';
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
@@ -42,10 +42,10 @@ const LoginScreen : FC<Props> = ({ navigation }) => {
 
             if(userToken != null)
             {
-                console.log(userToken);
-                console.log(Id);
-                console.log(Username);
-                console.log(UserIcon);
+                console.log('LoginScreen// This is the userToken:', userToken);
+                console.log('LoginScreen// This is the userId:', Id);
+                console.log('LoginScreen// This is the username:', Username);
+                console.log('LoginScreen// This is the userIcon:', UserIcon);
 
                 setUsername(Username);
                 setUserId(Id);
@@ -69,7 +69,6 @@ const LoginScreen : FC<Props> = ({ navigation }) => {
         if (fetchedToken.token != null) {
             
             let userData = await GetUserByUsername(username);
-            // let userId = userData.id;
 
             const storedId = JSON.stringify(userData.id)
             const jsonTOKEN = JSON.stringify(fetchedToken)
@@ -78,12 +77,11 @@ const LoginScreen : FC<Props> = ({ navigation }) => {
             await AsyncStorage.setItem('@storage_Username', username)
             await AsyncStorage.setItem('@storage_Usericon', userData.icon)
             
-            console.log(userData.id)
+            console.log('LoginScreen and PressingLogIn// This is the userId:', userData.id)
             setUserId(userData.id);
             setUserIcon(userData.icon);
             navigation.navigate('UserDashboard')
         } else {
-            // Do something
             toast.show({
                 title: "Username and/or password is incorrect. Please try again",
                 placement: "bottom"
@@ -198,7 +196,6 @@ const styles = StyleSheet.create({
         fontSize: 25,
         color: 'white',
         marginTop: 20,
-        // alignItems: 'center',
         fontFamily:'Raleway_400Regular', 
     }, 
     nextBtn: {

@@ -1,5 +1,5 @@
-import { FC, useState, useCallback, useEffect, useContext } from 'react';
-import { StyleSheet, View, Image, Text, TextInput, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback } from 'react-native';
+import { FC, useState, useEffect, useContext } from 'react';
+import { StyleSheet, View, Image, Text, TextInput, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import PickFlicksLogo from '../../assets/logo.png';
@@ -8,7 +8,6 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { AddUser } from '../../Service/DataService'
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
-import { Avatar } from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
 import UserContext from '../../Context/UserContext';
 
@@ -50,7 +49,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'CreateAccountScreen'>;
 
 const CreateAccountScreen : FC<Props> = () => {
     const navigation = useNavigation<any>();
-    let {  username, setUsername, MWGname, MWGId, setMWGId, userId, setUserId , listOfMovieNamesUsedToCompare1, setListOfMovieNamesUsedToCompare1 } = useContext(UserContext);
+    let {  username, setUsername} = useContext(UserContext);
 
     const [textInput, setTextInput] = useState('');
 
@@ -62,10 +61,6 @@ const CreateAccountScreen : FC<Props> = () => {
     let pickingAvatar = false;
 
     useEffect( () => {
-        // const fetch = async () => {
-              
-        // }
-        // fetch();
         if (veryifyPassowrd != veryifyPassowrd2) {
             console.log('Please fix');
         } else {

@@ -1,11 +1,9 @@
-import { FC, useState, useCallback, useEffect, useContext } from 'react';
-import { StyleSheet, View, Image, Text, TextInput, Keyboard, Pressable, KeyboardAvoidingView, TouchableWithoutFeedback } from 'react-native';
+import { FC, useState, useEffect, useContext } from 'react';
+import { StyleSheet, View, Text, Keyboard, Pressable, TouchableWithoutFeedback } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import PickFlicksLogo from '../assets/logo.png';
-import { Button, Colors, HelperText } from 'react-native-paper';
+import { Button} from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { AddUser } from '../../Service/DataService';
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 import { Avatar } from 'react-native-paper';
@@ -21,7 +19,7 @@ import girl3 from '../../assets/avatars/girl3.png';
 import girl4 from '../../assets/avatars/girl4.png';
 import girl5 from '../../assets/avatars/girl5.png';
 import girl6 from '../../assets/avatars/girl6.png';
-import { GetUserByUsername, EditUserIcon } from '../../Service/DataService';
+import { GetUserByUsername } from '../../Service/DataService';
 import {useNavigation} from '@react-navigation/native';
 import UserContext from '../../Context/UserContext';
 
@@ -62,10 +60,7 @@ const AvatarScreen: FC<Props> = () => {
     let {  username, userId, setUserId , listOfMovieNamesUsedToCompare1, setListOfMovieNamesUsedToCompare1 } = useContext(UserContext);
 
     useEffect(() => {
-        // const fetch = async () => {
 
-        // }
-        // fetch();
     }, []);
 
     const [userIcon, setUserIcon] = useState('');

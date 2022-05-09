@@ -1,8 +1,7 @@
-import { NavigationRouteContext } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { FC, useContext, useEffect } from 'react';
-import { StyleSheet, Text, View , Image} from 'react-native';
+import { StyleSheet, View , Image} from 'react-native';
 import RedLogo from '../assets/RedLogo.png';
 import UserContext from '../Context/UserContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -60,9 +59,9 @@ const LoadingScreen: FC<Props> = ({navigation}) => {
           setUserId(Id);
           setUserIcon(UserIcon);
           
-          console.log(UserIcon);
-          console.log(Id);
-          console.log(userToken)
+          console.log('LoadingScreen// This is the userIcon:', UserIcon);
+          console.log('LoadingScreen// This is the userId:', Id);
+          console.log('LoadingScreen// This is the userToken:', userToken)
           setTimeout(() => {
             navigation.navigate('UserDashboard') 
           }, 2000);

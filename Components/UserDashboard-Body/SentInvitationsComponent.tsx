@@ -1,7 +1,5 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { StyleSheet, Text, View, Image, Pressable} from "react-native";
-import headerLogo from "../../assets/headerLogo.png";
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 import CheckMark from '../../assets/CheckMark.png'
@@ -11,6 +9,18 @@ import {useNavigation} from '@react-navigation/native';
 
 const SentInvitationsComponent: FC = () => {
   const navigation = useNavigation<any>();
+
+  useEffect( () => {
+    const sentInvitationTimeOut = async () => 
+    {
+          setTimeout(() => {
+            navigation.navigate('UserDashboard') 
+          }, 2000);
+    }
+    
+    sentInvitationTimeOut();
+
+  }, []);
   let [fontsLoaded] = useFonts({
     Raleway_400Regular,
   });

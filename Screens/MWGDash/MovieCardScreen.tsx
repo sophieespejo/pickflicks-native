@@ -1,21 +1,14 @@
-import { NavigationRouteContext } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { FC, useState, useEffect, useContext, useCallback, useRef } from 'react';
-import { StyleSheet, Text, View , Image, Animated, PanResponder} from 'react-native';
-import RedLogo from '../assets/RedLogo.png';
+import { StyleSheet, View , Animated, PanResponder} from 'react-native';
 import HeaderComponent1 from '../../Components/MWGDashboard/MovieCardHeaderComponent';
-import StreamingServiceComponent from '../../Components/MWGDashboard/StreamingServiceComponent';
 import FooterNavComponent from '../../Components/UserDashboard-Body/FooterNavComponent';
-//import GenreSelectionComponent from '../../Components/MWGDashboard/GenreSelectionComponent';
 import MovieCardComponent from '../../Components/MWGDashboard/MovieCardComponent';
-//import { Provider as PaperProvider } from 'react-native-paper';
 import UserContext from '../../Context/UserContext';
 import { GetMoviesByMWGId, AddLikeOrDislike, GetTopMovieByMWGId} from '../../Service/DataService'
 import {ACTION_OFFSET, CARD} from "../../Components/Utilities/Utility"
 import {useNavigation} from '@react-navigation/native';
-import { setStatusBarNetworkActivityIndicatorVisible } from 'expo-status-bar';
-import { GetMWGStatusByMWGId, UpdateSwipings } from '../../Service/DataService'
+import { GetMWGStatusByMWGId, UpdateSwipings, AddFinalMovieIndex } from '../../Service/DataService'
 
 
 
@@ -73,7 +66,6 @@ const MovieCardScreen: FC<Props> = () => {
     listOfMovieNamesUsedToCompare1.push(currentMovie);
     allVotes.push("0");
     setAllVotes([...allVotes]);
-    // setListOfMovieNamesUsedToCompare([...listOfMovieNamesUsedToCompare]);
     setListOfMovieNamesUsedToCompare1([...listOfMovieNamesUsedToCompare1]);
     if(allMovies.length == 1)
     {
@@ -102,6 +94,11 @@ const MovieCardScreen: FC<Props> = () => {
             console.log('everyone done', isMWGDoneWithSwipes)
             if(isMWGDoneWithSwipes == true)
             {
+              let result = await GetTopMovieByMWGId(MWGId);
+              console.log('Top Movie Index:', result)
+              let finalMovieIndexBackEnd = await AddFinalMovieIndex(MWGId, result);
+              console.log(finalMovieIndexBackEnd);
+              console.log('Added FinalMovieIndex to BackEnd success')
               navigation.navigate("FinalMovie");
             }else{
               navigation.navigate("UserDashboard");
@@ -115,7 +112,6 @@ const MovieCardScreen: FC<Props> = () => {
   const swipeRight = async (currentMovie:any) => {
     console.log("swipe right",currentMovie, "1", allMovies.length);
     listOfMovieNamesUsedToCompare1.push(currentMovie);
-    // setListOfMovieNamesUsedToCompare([...listOfMovieNamesUsedToCompare]);
     setListOfMovieNamesUsedToCompare1([...listOfMovieNamesUsedToCompare]);
 
     allVotes.push("1");
@@ -147,6 +143,11 @@ const MovieCardScreen: FC<Props> = () => {
             console.log('everyone done', isMWGDoneWithSwipes)
             if(isMWGDoneWithSwipes == true)
             {
+              let result = await GetTopMovieByMWGId(MWGId);
+              console.log('Top Movie Index:', result)
+              let finalMovieIndexBackEnd = await AddFinalMovieIndex(MWGId, result);
+              console.log(finalMovieIndexBackEnd);
+              console.log('Added FinalMovieIndex to BackEnd success')
               navigation.navigate("FinalMovie");
             }else{
               navigation.navigate("UserDashboard");

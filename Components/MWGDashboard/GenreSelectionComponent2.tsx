@@ -1,12 +1,11 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { FC, useContext, useState, useEffect } from "react";
-import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, FlatList, Pressable } from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity, FlatList, Pressable } from "react-native";
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 import { Button } from "react-native-paper";
 import {useNavigation} from '@react-navigation/native';
 import X from '../../assets/X.png';
-import {AddChosenGenres, AddGenreRankingModel, UpdateIsStartedByMWGId} from '../../Service/DataService'
+import {AddChosenGenres, UpdateIsStartedByMWGId} from '../../Service/DataService'
 import UserContext from "../../Context/UserContext";
 
 
@@ -162,7 +161,7 @@ const GenreSelectionComponent2: FC = () => {
 
 
     const addGenre = (id:any) => {
-        if(selectedGenres.length < 5 && !selectedGenres.includes(id))
+        if(selectedGenres.length < 3 && !selectedGenres.includes(id))
         {
             selectedGenres.push(id);
             setSelectedGenres([...selectedGenres]);
@@ -200,9 +199,7 @@ const GenreSelectionComponent2: FC = () => {
         if(result1)
         {
           navigation.navigate("GenreRanking");
-        }
-        
-        console.log(result1)
+        }       
       }
       
     
@@ -226,7 +223,7 @@ const GenreSelectionComponent2: FC = () => {
               {
                   selectedGenres.map((genre:object, i:number) => {
                       return (
-                          <View style={{flexDirection:'row'}}>
+                          <View key={i} style={{flexDirection:'row'}}>
                               <Text style={styles.selectedTxt}>{genre}</Text>
                               <Pressable onPress={() => removeGenre(genre)} style={{justifyContent:'center'}}>
                                 <Image source={X} style={{height:20, width:20}}/>

@@ -1,11 +1,9 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { FC, useState, useEffect, useContext } from "react";
-import { StyleSheet, Text, View, Image, TextInput} from "react-native";
+import { StyleSheet, Text, View} from "react-native";
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 import { Button } from "react-native-paper";
 import {useNavigation} from '@react-navigation/native';
-// import { Button } from "native-base";
 import { Slider } from "native-base";
 import UserContext from '../../Context/UserContext';
 import { GetMWGById } from '../../Service/DataService'
@@ -53,17 +51,21 @@ const SelectedGenreComponent2: FC = () => {
       <View style={{flex: 1, alignItems:'center'}}>
         <View style={{ flex: 1, backgroundColor:'#DC1B21C4', borderRadius:30, width:'92%', marginTop:'8%',marginBottom:'8%', justifyContent:'center'}}>
            
-            <View style={{flex:0.8}}>
+            <View style={{flex:0.2}}>
                 <Text style={styles.titleTxt}>Top 5 Genres</Text>
             </View>
 
 
             <View style={{flex:1, alignItems:'center', marginBottom:'10%'}}>
-                <View style={{marginBottom:'10%'}}>
+              <View  style={{paddingBottom:'20%', justifyContent:'flex-start'}}>
+                <Text style={styles.scoreTxt}>{Math.floor(onChangeValue/10)}</Text>
+              </View>
+                <View>
                     <Text style={styles.GenreTxt}>{MWGgenres[1]}</Text>
                 </View>
                 
-                  <Slider  style={{marginTop:'5%'}} 
+                  <Slider 
+                  style={{marginTop:'8%'}}
                     colorScheme="gray" w="3/4" 
                     maxW="300" 
                     defaultValue={10} 
@@ -114,6 +116,12 @@ const styles = StyleSheet.create({
       marginTop:'4%',
       color: '#FFFFFF',
   },
+  scoreTxt:{
+    fontFamily:'Raleway_400Regular',
+    fontSize: 100,
+    textAlign:'center',
+    color: '#FFFFFF',
+},
   nextBtn:{
     fontFamily: "Raleway_400Regular",
     fontSize: 25

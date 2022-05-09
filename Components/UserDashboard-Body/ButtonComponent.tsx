@@ -1,11 +1,10 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { FC, useContext, useEffect } from "react";
-import { StyleSheet, Text, View, Image, TextInput, Pressable } from "react-native";
-import headerLogo from "../../assets/headerLogo.png";
+import { FC} from "react";
+import { StyleSheet, Text, View, Image, Pressable } from "react-native";
 import MovieClipper from "../../assets/MovieClipper.png";
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
-import {NavigationContainer, useNavigation} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 
 
 
@@ -73,8 +72,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 0,
     alignItems: "center",
-
-    //position: 'absolute', top: 175, left: 23, right: 20, bottom: 0,
     backgroundColor:'pink'
   },
 });

@@ -1,21 +1,16 @@
 import {
-  createNativeStackNavigator,
   NativeStackScreenProps,
 } from "@react-navigation/native-stack";
 import { FC } from "react";
 import {
   StyleSheet,
-  Text,
   View,
   Image,
-  ScrollView,
-  Pressable,
 } from "react-native";
 import Home from "../../assets/Home2.png";
 import UserProfile from "../../assets/UserProfile2.png";
 import { Button } from "react-native-paper";
 import { useNavigation } from '@react-navigation/native';
-import UserProfileScreen from '../../Screens/UserProfile/UserProfileScreen'
 
 type RootStackParamList = {
   Home: undefined; //means route doesnt have params

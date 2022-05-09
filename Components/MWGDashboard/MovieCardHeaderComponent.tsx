@@ -1,6 +1,5 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { FC, useContext, useEffect } from "react";
-import { StyleSheet, Text, View, Image, TextInput} from "react-native";
+import { FC, useContext } from "react";
+import { StyleSheet, View, Image, TextInput} from "react-native";
 import headerLogo from "../../assets/headerLogo.png";
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
@@ -9,16 +8,14 @@ import UserContext from '../../Context/UserContext';
 
 
 const MovieCardHeaderComponent: FC = () => {
-  let { setMWGname, MWGname, setMWGId, MWGId, genreName } = useContext(UserContext);
+  let { setMWGname, MWGname, genreName } = useContext(UserContext);
 
-  useEffect( () => {
-    async function getUserInfo(){
-          setMWGname(MWGname);
-          console.log(genreName)
-          //setMWGId(MWGId);
-    }
-    getUserInfo()
-  }, []);
+  // useEffect( () => {
+  //   async function getUserInfo(){
+  //         setMWGname(MWGname);
+  //   }
+  //   getUserInfo()
+  // }, []);
 
   let [fontsLoaded] = useFonts({
     Raleway_400Regular,
@@ -43,7 +40,6 @@ const MovieCardHeaderComponent: FC = () => {
 const styles = StyleSheet.create({
   outsideContainer: {
     flex: 0.2,
-    // position: 'relative', top: 0, left: 23, right: 0, bottom: 0,
     backgroundColor: 'green'
   },
   headerLogo: {

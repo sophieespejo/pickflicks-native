@@ -1,6 +1,5 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { FC } from "react";
-import { StyleSheet, Text, View, Image, TextInput} from "react-native";
+import { StyleSheet, View, Image, TextInput} from "react-native";
 import headerLogo from "../../assets/headerLogo.png";
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';

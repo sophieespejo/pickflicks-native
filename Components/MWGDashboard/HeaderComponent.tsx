@@ -11,13 +11,12 @@ import UserContext from '../../Context/UserContext';
 const HeaderComponent: FC = () => {
   let { setMWGname, MWGname, setMWGId, MWGId } = useContext(UserContext);
 
-  useEffect( () => {
-    async function getUserInfo(){
-          setMWGname(MWGname);
-          //setMWGId(MWGId);
-    }
-    getUserInfo()
-  }, []);
+  // useEffect( () => {
+  //   async function getUserInfo(){
+  //         setMWGname(MWGname);
+  //   }
+  //   getUserInfo()
+  // }, []);
 
   let [fontsLoaded] = useFonts({
     Raleway_400Regular,

@@ -1,13 +1,10 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { FC, useState, useEffect, useContext } from "react";
-import { StyleSheet, Text, View, Image, TextInput} from "react-native";
+import { StyleSheet, Text, View} from "react-native";
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 import { Button } from "react-native-paper";
 import {useNavigation} from '@react-navigation/native';
-// import { Button } from "native-base";
-import { Slider } from "native-base";
-import { AddAll15Movies, GetMWGById, GetMWGStatusByMWGId, GetTopRankedGenre, AddFinalGenre} from '../../Service/DataService'
+import { AddAll15Movies, GetMWGStatusByMWGId, GetTopRankedGenre} from '../../Service/DataService'
 import UserContext from '../../Context/UserContext';
 import loadingGif from '../../assets/36292-loader-movie.json'
 import LottieView from 'lottie-react-native';
@@ -25,7 +22,6 @@ const FinalGenreComponent: FC = () => {
 
     useEffect( () => {
       async function getUserInfo(){
-        //console.log(MWGId)
         setMWGname(MWGname);
         setMWGId(MWGId);
         let finalGenre = await GetTopRankedGenre(MWGId);
@@ -92,7 +88,6 @@ const FinalGenreComponent: FC = () => {
               break;
           }
           setGenreName(result)
-          AddFinalGenre(MWGId, result);
         }
 
 

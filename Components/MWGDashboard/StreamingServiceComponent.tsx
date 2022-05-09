@@ -63,8 +63,7 @@ const StreamingServiceComponent: FC = () => {
       {
         console.log(result);
         setStreamingServiceId(value);
-        console.log('streaming service value:')
-        console.log(value)
+        console.log('//StreamingServiceComponent streaming service value:', value)
         navigation.navigate("ChooseGenres");
       }
     }

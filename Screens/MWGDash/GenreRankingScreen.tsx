@@ -1,17 +1,11 @@
-import { NavigationRouteContext } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { FC, useState, useEffect, useContext } from 'react';
-import { StyleSheet, Text, View , Image} from 'react-native';
-import RedLogo from '../assets/RedLogo.png';
+import { FC} from 'react';
+import { StyleSheet, View } from 'react-native';
 import HeaderComponent from '../../Components/MWGDashboard/HeaderComponent';
-import StreamingServiceComponent from '../../Components/MWGDashboard/StreamingServiceComponent';
 import FooterNavComponent from '../../Components/UserDashboard-Body/FooterNavComponent';
 import SelectedGenreComponent from '../../Components/MWGDashboard/SelectedGenreComponent';
-import { Provider as PaperProvider } from 'react-native-paper';
 import { NativeBaseProvider } from "native-base";
-import UserContext from '../../Context/UserContext';
-import { GetMWGById } from '../../Service/DataService'
+
 
 
 
@@ -37,7 +31,6 @@ type RootStackParamList = {
 type Props = NativeStackScreenProps<RootStackParamList, 'GenreRanking'>;
 
 const GenreRankingScreen: FC<Props> = ({navigation, route}) => {
-  // let { username, setUsername, userId, setUserId, userIcon, setUserIcon, MWGname, setMWGname, MWGId, setMWGId, MWGgenres, setMWGgenres } = useContext(UserContext)
 
   // useEffect( () => {
   //   async function getUserInfo(){

@@ -1,14 +1,10 @@
-import { NavigationRouteContext } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { FC } from "react";
-import { StyleSheet, Text, View, Image } from "react-native";
-import RedLogo from "../assets/RedLogo.png";
+import { StyleSheet, View } from "react-native";
 import HeaderComponent from "../../Components/MWGDashboard/HeaderComponent";
 import StreamingServiceComponent from "../../Components/MWGDashboard/StreamingServiceComponent";
 import FooterNavComponent from "../../Components/UserDashboard-Body/FooterNavComponent";
-import { Provider as PaperProvider } from "react-native-paper";
-import { NativeBaseProvider } from "native-base";
+
 
 type RootStackParamList = {
   Home: undefined; //means route doesnt have params
