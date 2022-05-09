@@ -70,7 +70,7 @@ const LoginScreen : FC<Props> = ({ navigation }) => {
             
             let userData = await GetUserByUsername(username);
             // let userId = userData.id;
-
+            console.log(userData);
             const storedId = JSON.stringify(userData.id)
             const jsonTOKEN = JSON.stringify(fetchedToken)
             await AsyncStorage.setItem('@storage_Token', jsonTOKEN)

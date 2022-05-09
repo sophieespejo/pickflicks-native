@@ -23,7 +23,7 @@ import boy5 from '../../assets/avatars/boy5.png'
 import boy6 from '../../assets/avatars/boy6.png'
 import {  Button, Avatar } from "react-native-paper";
 import Swipeable from 'react-native-gesture-handler/Swipeable';
-import { DeleteMemberFromMWG, GetUserByUsername, AddMemberToMWG } from '../../Service/DataService'
+import { DeleteMemberFromMWG, GetUserByUsername, AddMemberToMWG, DeleteByMWGId} from '../../Service/DataService'
 import Magnifying from '../../assets/Magnifying.png';
 
 
@@ -167,6 +167,17 @@ const StartWatchingBtnsComponent: FC = () => {
           }
         }else{
           Alert.alert('User does not exist', 'Please try again')
+        }
+      }
+
+      const handleDeleteGroup = async () => {
+        let result = await DeleteByMWGId(MWGId);
+        if(result)
+        {
+          console.log(result, 'yes deleted')
+          navigation.navigate('UserDashboard')
+        }else{
+          alert('nope')
         }
       }
   
@@ -355,7 +366,7 @@ const StartWatchingBtnsComponent: FC = () => {
         {
           userId == mwgCreatorId ?  
           <View style={{flex:1, height:50, marginTop:'5%', alignItems:'center', marginBottom: '5%'}}>
-            <Pressable disabled={userIsWaiting ? true : false} style={{width:'70%'}} onPress={() => handlePress()}>
+            <Pressable disabled={userIsWaiting ? true : false} style={{width:'70%'}} onPress={() => handleDeleteGroup()}>
                 <View style={styles.wgButton}>
                   <Text style={{color:'#E3DDDD', fontSize:24,justifyContent:'center', textAlign:'center', fontFamily:'Raleway_400Regular'}}>Delete Watch Group</Text>
                 </View>

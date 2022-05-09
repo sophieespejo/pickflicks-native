@@ -1,6 +1,6 @@
 import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
 import { FC, useContext, useEffect, useCallback } from 'react';
-import { StyleSheet, Text, View , Image, ScrollView, Button, Pressable, RefreshControl} from 'react-native';
+import { StyleSheet, Text, View , Image, ScrollView, Button, Pressable, RefreshControl, Alert} from 'react-native';
 import HeaderComponent from '../../Components/UserDashboard-Body/HeaderComponent';
 import ButtonComponent from '../../Components/UserDashboard-Body/ButtonComponent';
 import MWGCardComponent from '../../Components/UserDashboard-Body/MWGCardComponent';
@@ -129,7 +129,7 @@ const UserDashboard: FC<Props> = ({navigation}) => {
 
     if(token == null)
     {
-      console.log(token);
+      console.log(token, Id, Username, UserIcon);
       navigation.navigate('Login');
     }else{
       alert("didn't work")

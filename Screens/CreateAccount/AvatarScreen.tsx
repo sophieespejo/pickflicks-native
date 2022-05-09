@@ -299,7 +299,7 @@ const handleSubmit = async () => {
     let userData = await GetUserByUsername(username)
     console.log(userData);
     setUserId(userData.id);
-
+    setUserIcon(userIcon);
     console.log(userData.id)
     
 
