@@ -52,7 +52,7 @@ const SelectedGenreComponent3: FC = () => {
           if(movieObj != null)
           {
             let isMWGDoneWithRanking = movieObj[0].areAllMembersDoneWithGenre;
-            if(isMWGDoneWithRanking)
+            if(isMWGDoneWithRanking == true)
             {
                 navigation.navigate('FinalGenre') 
             }

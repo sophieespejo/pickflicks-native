@@ -22,6 +22,7 @@ import girl6 from '../../assets/avatars/girl6.png';
 import { GetUserByUsername } from '../../Service/DataService';
 import {useNavigation} from '@react-navigation/native';
 import UserContext from '../../Context/UserContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 type RootStackParamList = {
@@ -288,6 +289,12 @@ const AvatarScreen: FC<Props> = () => {
 
 const handleSubmit = async () => {
     // Get userData
+    // const userToken = await AsyncStorage.getItem('@storage_Token')
+    // if(userToken != null)
+    // {
+    //     navigation.navigate('UserDashboard')
+    // }
+
 
 
     // Get userDtoByUsername

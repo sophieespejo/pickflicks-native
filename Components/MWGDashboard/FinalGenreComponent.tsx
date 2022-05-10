@@ -87,8 +87,8 @@ const FinalGenreComponent: FC = () => {
               setResult("");
               break;
           }
-          setGenreName(result)
         }
+        setGenreName(result)
 
 
         

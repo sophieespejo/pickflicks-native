@@ -53,6 +53,7 @@ const GenreRankingScreen: FC<Props> = () => {
       let finalGenreBackEnd = await AddFinalGenre(MWGId, genreName);
       console.log(finalGenreBackEnd);
       console.log('This added FinalGenre field to Backend success')
+      
       // if(movieObj != null)
       // {
       //   console.log(movieObj[0].areAllMembersDoneWithGenre);

@@ -1,18 +1,8 @@
-import { NavigationRouteContext } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { FC } from 'react';
-import { StyleSheet, Text, View , Image} from 'react-native';
-import RedLogo from '../assets/RedLogo.png';
+import { StyleSheet, View } from 'react-native';
 import HeaderComponent from '../../Components/UserProfile/HeaderComponent';
-import StreamingServiceComponent from '../../Components/MWGDashboard/StreamingServiceComponent';
 import FooterNavComponent from '../../Components/UserDashboard-Body/FooterNavComponent';
-import GenreSelectionComponent from '../../Components/MWGDashboard/GenreSelectionComponent';
-import MovieCardComponent from '../../Components/MWGDashboard/MovieCardComponent';
-import LoadingPopcornGifComponent from '../../Components/MWGDashboard/LoadingPopcornGifComponent';
-import YourProfileComponent from '../../Components/UserProfile/YourProfileComponent';
-import ChangeUsernameComponent from '../../Components/UserProfile/ChangeUsernameComponent';
-import ChangePasswordComponent1 from '../../Components/UserProfile/ChangePasswordComponent1';
 import ChangePasswordComponent2 from '../../Components/UserProfile/ChangePasswordComponent2';
 import { Provider as PaperProvider } from 'react-native-paper';
 
@@ -34,10 +24,11 @@ type RootStackParamList = {
     ChooseGenres : undefined,
     GenreRanking: undefined,
     MovieCard : undefined,
+    ChangePassword2 : undefined,
 
   }
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Introduction'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'ChangePassword2'>;
 
 const ChangePasswordScreen2: FC<Props> = ({navigation}) => {
 

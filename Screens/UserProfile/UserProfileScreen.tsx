@@ -32,30 +32,10 @@ type Props = NativeStackScreenProps<RootStackParamList, 'UserProfile'>;
 
 const UserProfileScreen: FC<Props> = ({navigation}) => {
 
-  // const handleSignout = async () => {
-  //   const token = await AsyncStorage.removeItem('@storage_Token');
-  //   const Id = await AsyncStorage.removeItem('@storage_Id')
-  //   const Username = await AsyncStorage.removeItem('@storage_Username')
-  //   const UserIcon = await AsyncStorage.removeItem('@storage_Usericon')
-
-  //   if(token == null)
-  //   {
-  //     navigation.navigate('Login');
-  //   }
-  //   else
-  //   {
-  //     alert("Unable to Logout")
-  //   }
-  // }
-
-
     return (
         <View style={styles.container}>
             <HeaderComponent/>
             <YourProfileComponent/>
-            {/* <View style={{backgroundColor:'blue'}}>
-              <Button title="Sign Out" onPress={()=> handleSignout()}></Button>
-            </View> */}
             <FooterNavComponent/>
         </View>
     )

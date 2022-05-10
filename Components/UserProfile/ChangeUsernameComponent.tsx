@@ -1,18 +1,25 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { FC, useState } from "react";
-import { StyleSheet, Text, View, Image, TextInput, Pressable, ScrollView, TouchableWithoutFeedback, Keyboard} from "react-native";
+import { FC, useState, useContext } from "react";
+import { StyleSheet, Text, View, TextInput, Pressable, TouchableWithoutFeedback, Keyboard} from "react-native";
 import { useFonts, Raleway_400Regular, Raleway_600SemiBold} from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
-import { Button } from "react-native-paper";
 import {useNavigation} from '@react-navigation/native';
-import JJKMovie from '../../assets/JJKMovie.jpg'
-import Popcorn from '../../assets/Popcorn.gif'
-// import { Button } from "native-base";
-  
+import {EditUsername } from '../../Service/DataService';
+import UserContext from '../../Context/UserContext';  
 
 
 const ChangeUsernameComponent: FC = () => {
-    const navigation = useNavigation();
+
+  let { userId } = useContext(UserContext)
+
+  const navigation = useNavigation();
+  const [textInput, setTextInput] = useState('');
+
+  const handleSaveUsername = async () => 
+  {
+    console.log('//ChangeUsernameComponent', textInput);
+    let result = await EditUsername(userId, textInput);
+    console.log('//ChangeUsernameComponent EditUserNameFetch ran', result);
+  }
 
   let [fontsLoaded] = useFonts({
     Raleway_400Regular,
@@ -40,13 +47,13 @@ const ChangeUsernameComponent: FC = () => {
                             textContentType={'name'}
                             placeholder={'Try a new Username'}
                             placeholderTextColor={'white'}
-                            onChangeText={(e) => console.log('pewpew')}
+                            onChangeText={(e) => setTextInput(e)}
                             // value={}
                         />
                 {/* Message for when username is not available ternary here */}
                 <Text style={styles.Txt2}>username not available!</Text>
 
-                <Pressable style={{alignItems:'center', paddingTop:'5%'}}>
+                <Pressable onPress={() => handleSaveUsername()} style={{alignItems:'center', paddingTop:'5%'}}>
                     <Text style={styles.SaveTxt}>Save</Text>
                 </Pressable>
            </View>

@@ -1,18 +1,34 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { FC, useState } from "react";
-import { StyleSheet, Text, View, Image, TextInput, Pressable, ScrollView, TouchableWithoutFeedback, Keyboard} from "react-native";
+import { FC, useState, useContext } from "react";
+import { StyleSheet, Text, View, TextInput, Pressable, TouchableWithoutFeedback, Keyboard} from "react-native";
 import { useFonts, Raleway_400Regular, Raleway_600SemiBold} from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
-import { Button } from "react-native-paper";
 import {useNavigation} from '@react-navigation/native';
-import JJKMovie from '../../assets/JJKMovie.jpg'
-import Popcorn from '../../assets/Popcorn.gif'
-// import { Button } from "native-base";
+import UserContext from '../../Context/UserContext';
+
   
 
 
 const ChangePasswordComponent1: FC = () => {
-    const navigation = useNavigation();
+
+  let { userId, username} = useContext(UserContext)
+  const [textInput, setTextInput] = useState("");
+
+  const navigation = useNavigation<any>();
+
+  const handleNext = async () => 
+  {
+    navigation.navigate('ChangePassword2');  
+  //   let userData = {
+  //     Username: username,
+  //     Password: textInput
+  // };
+  //not login, should be the new endpoint in userService
+    // let passwordResult = await Login(userData);
+    // if(passwordResult)
+    // {
+    //   navigation.navigate('ChangePassword2');    
+    // }
+  }
 
   let [fontsLoaded] = useFonts({
     Raleway_400Regular,
@@ -30,23 +46,20 @@ const ChangePasswordComponent1: FC = () => {
                <Text style={styles.Txt}>Enter your current {'\n'} Password</Text>
                <TextInput
                             style={styles.input}
-                            // onChangeText={onChangeText}
-                            // value={''}
                             enablesReturnKeyAutomatically={true}
                             keyboardAppearance={'dark'}
                             contextMenuHidden={true}
                             selectionColor={'white'}
                             textAlign={'center'}
                             textContentType={'name'}
-                            placeholder={'Enter your new Password'}
+                            placeholder={'Enter your current Password'}
                             placeholderTextColor={'white'}
-                            onChangeText={(e) => console.log('pewpew')}
-                            // value={}
+                            onChangeText={(e) => setTextInput(e)}
+                            value={textInput}
                         />
-                {/* Message for when username is not available ternary here */}
                 <Text style={styles.Txt2}>Incorrect Password</Text>
 
-                <Pressable style={{alignItems:'center', paddingTop:'5%'}}>
+                <Pressable onPress={() => handleNext()} style={{alignItems:'center', paddingTop:'5%'}}>
                     <Text style={styles.SaveTxt}>Next</Text>
                 </Pressable>
            </View>
@@ -71,8 +84,6 @@ const styles = StyleSheet.create({
     color: '#EBE1E1',
     marginTop: 20,
     alignSelf:'center',
-    // textAlign:'center',
-    // alignItems: 'center',
     fontFamily:'Raleway_400Regular', 
     }, 
   titleTxtBold:{

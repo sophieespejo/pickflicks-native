@@ -1,13 +1,11 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { FC, useState, useEffect, useContext } from "react";
-import { StyleSheet, Text, View, Image, TextInput,Pressable, Button} from "react-native";
+import { StyleSheet, Text, View, Image,Pressable} from "react-native";
 import emptyHeart from "../../assets/emptyHeart.png";
 import filledHeart from "../../assets/filledHeart.png";
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 import { GetUserByUsername, GetAllMWGAUserIsMemberOfuserId, AddFavoriteMWG, RemoveFavoriteMWG, GetMWGStatusByUserId } from '../../Service/DataService'
 import {useNavigation} from '@react-navigation/native';
-//import { Avatar } from "react-native-paper";
 import { Avatar } from "native-base";
 import UserContext from '../../Context/UserContext';
 
@@ -38,6 +36,7 @@ const WaitingForYouComponent: FC = () => {
       }
       setAllFaveMWG([...allFaveMWG]);
       console.log(allFaveMWG);
+      console.log(response.id)
 
       if(response != null)
         {

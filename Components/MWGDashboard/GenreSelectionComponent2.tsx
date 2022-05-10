@@ -165,6 +165,9 @@ const GenreSelectionComponent2: FC = () => {
         {
             selectedGenres.push(id);
             setSelectedGenres([...selectedGenres]);
+            // console.log(this.state.data)
+            // console.log(DATA.indexOf(id))
+            // DATA.splice(DATA.indexOf(id), 1);
         }else{
             alert("no thanks")
         }
@@ -177,7 +180,7 @@ const GenreSelectionComponent2: FC = () => {
 
     const Item = ({ item, onPress }) => (
         <TouchableOpacity onPress={onPress} style={[styles.item]}>
-          <Text style={[styles.titleTxt]}>{item.title}</Text>
+          <Text style={selectedGenres.includes(item.id) ? [styles.listTxt] : [styles.titleTxt]}>{item.title}</Text>
         </TouchableOpacity>
       );
       
@@ -269,6 +272,15 @@ const styles = StyleSheet.create({
       marginTop:'4%',
       marginBottom:7,
       color: '#FFFFFF',
+  },
+  listTxt:{
+      fontFamily:'Raleway_400Regular',
+      fontSize: 30,
+      textAlign:'center',
+      marginTop:'4%',
+      marginBottom:7,
+      color: 'black',
+      textDecorationLine: 'line-through',
   },
   selectedTxt:{
       fontFamily:'Raleway_400Regular',
