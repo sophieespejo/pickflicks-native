@@ -1,31 +1,36 @@
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { FC, useState, useEffect, useContext } from "react";
-import { StyleSheet, Text, View, Image,Pressable} from "react-native";
+import { StyleSheet, Text, View, Image, TextInput,Pressable, Button} from "react-native";
 import emptyHeart from "../../assets/emptyHeart.png";
 import filledHeart from "../../assets/filledHeart.png";
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 import { GetUserByUsername, GetAllMWGAUserIsMemberOfuserId, AddFavoriteMWG, RemoveFavoriteMWG, GetMWGStatusByUserId } from '../../Service/DataService'
 import {useNavigation} from '@react-navigation/native';
+//import { Avatar } from "react-native-paper";
 import { Avatar } from "native-base";
 import UserContext from '../../Context/UserContext';
 
 
+
+
+
+//map through MWG created according to userID/logged in user
 const WaitingForYouComponent: FC = () => {
   let { username, setUsername, userId, setUserId, allMWG, setAllMWG, setMWGname, MWGname, setMWGId, MWGId, setUserIsAdmin, setUserIsReadyForGenres,  setUserIsReadyForSwipes,  setUserIsReadyToSeeFinalMovie,setUserIsWaiting } = useContext(UserContext)
 
+  //const [allMWG, setAllMWG] = useState<any>([]);
   const [allFaveMWG, setAllFaveMWG] = useState<any>([]);
+  //const [favorite, setFavorite] = useState(0);
+
   const navigation = useNavigation<any>();
 
   
   useEffect(  () => {
+      // setAllFaveMWG([]);
       async function fetchUserData() {
             setUsername(username);
             setUserId(userId)
-            // setUserIsAdmin(false);
-            // setUserIsReadyForGenres(false);
-            // setUserIsReadyForSwipes(false);
-            // setUserIsReadyToSeeFinalMovie(false);
-            // setUserIsWaiting(false);
           
       let response = await GetUserByUsername(username);
       let favoritedMWGArray = response.favoritedMWGId.split(',');
@@ -34,9 +39,9 @@ const WaitingForYouComponent: FC = () => {
       for (var i of favoritedMWGArray) {
         allFaveMWG.push(parseInt(i));
       }
+      // allFaveMWG.push(parseInt(favoritedMWGArray));
       setAllFaveMWG([...allFaveMWG]);
       console.log(allFaveMWG);
-      console.log(response.id)
 
       if(response != null)
         {
@@ -52,8 +57,12 @@ const WaitingForYouComponent: FC = () => {
     const handleAddFavoriteMWG = async (groupId:number) =>{
       let result = await AddFavoriteMWG(userId,groupId);
       let userData = await GetUserByUsername(username);
+      // console.log(result);
+      console.log(userData);
+      console.log(groupId);
       allFaveMWG.push(groupId);
       setAllFaveMWG([...allFaveMWG]);
+      console.log(allFaveMWG);
       if(userData != null)
         {
           let userMWG = await GetMWGStatusByUserId(userData.id);
@@ -64,17 +73,22 @@ const WaitingForYouComponent: FC = () => {
     const handleRemoveFavoriteMWG = async (groupId:number) =>{
       let result = await RemoveFavoriteMWG(userId,groupId);
       let userData = await GetUserByUsername(username);
+      console.log(result);
+      console.log(userData);
       let indexGroupId = allFaveMWG.indexOf(groupId);
       allFaveMWG.splice(indexGroupId,1);
       setAllFaveMWG([...allFaveMWG]);
+      console.log(allFaveMWG);
       if(userData != null)
         {
           let userMWG = await GetMWGStatusByUserId(userData.id);
           setAllMWG(userMWG);
+          console.log(userMWG);
         }
     }
 
     const handlePress = (MWGname:string, MWGId:number, whatIsUser:string) => {
+      console.log(MWGname);
       setMWGname(MWGname);
       setMWGId(MWGId);
       switch(whatIsUser)
@@ -95,6 +109,7 @@ const WaitingForYouComponent: FC = () => {
           break;
       }
       navigation.navigate('MWGDashboard');
+      //navigation.navigate('MovieCard');
     }
 
 
@@ -105,7 +120,7 @@ const WaitingForYouComponent: FC = () => {
 
     <View style={{ flex:1, alignItems:'center', backgroundColor: '#1E1A1A'}}>
       
-      {
+    {
 
       //all MWGstatus that the user has, this correlates with whatever MWG user is in  
       allMWG.map((group:any, i:number) => 
@@ -355,7 +370,7 @@ const WaitingForYouComponent: FC = () => {
                  </Text>
                </View>
            </View>
-           <Pressable style={styles.heart} onPress={()=>handleAddFavoriteMWG(group.mwgId)}>
+           <Pressable style={styles.heart} onPress={()=>handleRemoveFavoriteMWG(group.mwgId)}>
              <Image  source={filledHeart} ></Image>
            </Pressable>
          </Pressable>
@@ -363,6 +378,15 @@ const WaitingForYouComponent: FC = () => {
           }
         }
 
+
+
+    }
+    )
+
+    
+    }
+    {
+      allMWG.map((group:any, i:number) => {
         //maps thru nonfavorites
         if(!allFaveMWG.includes(parseInt(group.mwgId)) && !group.isDeleted && group.isStarted == false && group.groupCreatorId == userId)
         {
@@ -593,10 +617,8 @@ const WaitingForYouComponent: FC = () => {
             )
           }
         }
-
-    })
-      }
-
+      })
+    }
     </View>
   );
 };
