@@ -12,9 +12,17 @@ import { Avatar } from "native-base";
 import UserContext from '../../Context/UserContext';
 
 
+
+interface IMWGCardComponent {
+  username: string,
+  userId: number
+}
+
+//map through MWG created according to userID/logged in user
 const WaitingForOthersComponent: FC = () => {
   let { username, setUsername, userId, setUserId, allMWG, setAllMWG, setMWGname, MWGname, setMWGId, MWGId, setUserIsAdmin, setUserIsReadyForGenres,  setUserIsReadyForSwipes,  setUserIsReadyToSeeFinalMovie,setUserIsWaiting } = useContext(UserContext)
 
+  //const [allMWG, setAllMWG] = useState<any>([]);
   const [allFaveMWG, setAllFaveMWG] = useState<any>([]);
   const [favorite, setFavorite] = useState(0);
 
@@ -22,6 +30,7 @@ const WaitingForOthersComponent: FC = () => {
 
   
   useEffect(  () => {
+      // setAllFaveMWG([]);
       async function fetchUserData() {
             setUsername(username);
             setUserId(userId)
@@ -33,16 +42,20 @@ const WaitingForOthersComponent: FC = () => {
           
       let response = await GetUserByUsername(username);
       let favoritedMWGArray = response.favoritedMWGId.split(',');
+      console.log(favoritedMWGArray);
 
       for (var i of favoritedMWGArray) {
         allFaveMWG.push(parseInt(i));
       }
+      // allFaveMWG.push(parseInt(favoritedMWGArray));
       setAllFaveMWG([...allFaveMWG]);
+      console.log(allFaveMWG);
 
       if(response != null)
         {
           let userMWG = await GetMWGStatusByUserId(response.id);
           setAllMWG(userMWG);
+          console.log(userMWG);
         }
       }
       fetchUserData();
@@ -52,9 +65,12 @@ const WaitingForOthersComponent: FC = () => {
     const handleAddFavoriteMWG = async (groupId:number) =>{
       let result = await AddFavoriteMWG(userId,groupId);
       let userData = await GetUserByUsername(username);
-
+      // console.log(result);
+      console.log(userData);
+      console.log(groupId);
       allFaveMWG.push(groupId);
       setAllFaveMWG([...allFaveMWG]);
+      console.log(allFaveMWG);
       if(userData != null)
         {
           let userMWG = await GetMWGStatusByUserId(userData.id);
@@ -65,17 +81,21 @@ const WaitingForOthersComponent: FC = () => {
     const handleRemoveFavoriteMWG = async (groupId:number) =>{
       let result = await RemoveFavoriteMWG(userId,groupId);
       let userData = await GetUserByUsername(username);
+      console.log(result);
+      console.log(userData);
       let indexGroupId = allFaveMWG.indexOf(groupId);
       allFaveMWG.splice(indexGroupId,1);
       setAllFaveMWG([...allFaveMWG]);
+      console.log(allFaveMWG);
       if(userData != null)
         {
-          let userMWG = await GetAllMWGAUserIsMemberOfuserId(userData.id);
+          let userMWG = await GetMWGStatusByUserId(userData.id);
           setAllMWG(userMWG);
         }
     }
 
     const handlePress = (MWGname:string, MWGId:number, whatIsUser:string) => {
+      console.log(MWGname);
       setMWGname(MWGname);
       setMWGId(MWGId);
       switch(whatIsUser)
@@ -99,6 +119,7 @@ const WaitingForOthersComponent: FC = () => {
           break;
       }
       navigation.navigate('MWGDashboard');
+      //navigation.navigate('MovieCard');
     }
 
   
@@ -288,6 +309,11 @@ const WaitingForOthersComponent: FC = () => {
                 )
             }
           }
+
+        })
+        }
+        {
+          allMWG.map((group:any, i:number) => {
           //checks thru unfavorites
           if(!allFaveMWG.includes(parseInt(group.mwgId)) && !group.isDeleted && group.isStarted == false && group.groupCreatorId != userId)
           {
@@ -461,7 +487,7 @@ const WaitingForOthersComponent: FC = () => {
                 )
             }
           }
-        })
+          })
         }
 
 
