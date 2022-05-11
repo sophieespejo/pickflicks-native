@@ -92,7 +92,7 @@ const SelectedGenreComponent: FC = () => {
             <View style={{flexDirection:'row'}}>
 
               <View style={[{ flex:0.5, alignItems:'flex-start'}]}>
-          <Button uppercase={false} color='#FFFFFF' mode="text" onPress={() => {navigation.navigate()}}>
+          <Button uppercase={false} color='#FFFFFF' mode="text" onPress={() => {navigation.navigate("ChooseGenres")}}>
               <Text style={styles.nextBtn}> {'\<'} Back </Text>
           </Button>
               </View>

@@ -1,4 +1,4 @@
-import { FC, useContext, useState, useEffect } from "react";
+import { FC, useContext, useState, useEffect, useRef} from "react";
 import { StyleSheet, Text, View, Image, TouchableOpacity, FlatList, Pressable } from "react-native";
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
@@ -41,14 +41,33 @@ type RootStackParamList = {
 const GenreSelectionComponent2: FC = () => {
   let { userId, setUserId, setMWGname, MWGname, setMWGId, MWGId, setGenreId } = useContext(UserContext);
 
+  type FlatListViewRef = FlatList & {
+    flashScrollIndicators: () => void;
+  };
+
+  const flatListRef = useRef<FlatListViewRef | null>(null);
+
   useEffect( () => {
     async function getUserInfo(){
           setUserId(userId)
           setMWGname(MWGname);
           setMWGId(MWGId);
+
+          setTimeout(function () {
+            flatListRef.current?.flashScrollIndicators();
+        }, 1000);
     }
     getUserInfo()
   }, []);
+
+  const flashScroll = () => 
+  {
+    flatListRef.current?.flashScrollIndicators();
+  }
+
+  var myInterval = setInterval(flashScroll, 10000);
+  myInterval;
+
 
 
 
@@ -58,33 +77,13 @@ const GenreSelectionComponent2: FC = () => {
 
     const DATA = [
       {
-        title: 'Drama',
-        id: 'Drama',
-      },
-      {
         title: 'Action',
         id: 'Action',
       },
-      // {
-      //   title: 'Action & Adventure',
-      //   id: 'Action & Adventure',
-      // },
-      // {
-      //   title: 'Adult',
-      //   id: 'Adult',
-      // },
       {
         title: 'Animation',
         id: 'Animation',
       },
-      // {
-      //   title: 'Anime',
-      //   id: 'Anime',
-      // },
-      // {
-      //   title: 'Biography',
-      //   id: 'Biography',
-      // },
       {
         title: 'Comedy',
         id: 'Comedy',
@@ -97,6 +96,26 @@ const GenreSelectionComponent2: FC = () => {
         title: 'Documentary',
         id: 'Documentary',
       },
+      {
+        title: 'Drama',
+        id: 'Drama',
+      },
+      // {
+      //   title: 'Action & Adventure',
+      //   id: 'Action & Adventure',
+      // },
+      // {
+      //   title: 'Adult',
+      //   id: 'Adult',
+      // },
+      // {
+      //   title: 'Anime',
+      //   id: 'Anime',
+      // },
+      // {
+      //   title: 'Biography',
+      //   id: 'Biography',
+      // },
       {
         title: 'Family',
         id: 'Family',
@@ -168,9 +187,13 @@ const GenreSelectionComponent2: FC = () => {
             // console.log(this.state.data)
             // console.log(DATA.indexOf(id))
             // DATA.splice(DATA.indexOf(id), 1);
-        }else{
-            alert("no thanks")
-        }
+          }
+          else if (selectedGenres.includes(id)){
+            alert("You already chose this genre!")
+          }
+          else {
+            alert("You already have 3 genres!")
+          }
     }
 
     const removeGenre = (id:any) => {
@@ -220,7 +243,7 @@ const GenreSelectionComponent2: FC = () => {
       <View style={{flex: 1, alignItems:'center'}}>
         <View style={{ flex: 1, backgroundColor:'#DC1B21C4', borderRadius:30, width:'92%', marginTop:'8%',marginBottom:'8%', justifyContent:'center'}}>
             <View style={{flex:0, paddingBottom:0}}>
-                <Text style={styles.titleTxt}>Choose 5 Genres to rank</Text>
+                <Text style={styles.titleTxt}>Choose 3 Genres to rank</Text>
             </View>
             <View style={{flexDirection:'row', flexWrap:'wrap', justifyContent:'space-around'}}>
               {
@@ -241,6 +264,7 @@ const GenreSelectionComponent2: FC = () => {
               <View style={{flex:1, alignItems: 'center', marginTop:'10%'}}>
                 <View>
                     <FlatList
+                        ref={flatListRef}
                         data={DATA}
                         renderItem={renderItem}
                         keyExtractor={(item) => item.id}
@@ -249,7 +273,7 @@ const GenreSelectionComponent2: FC = () => {
               </View>
              <View style={{flexDirection:'row'}}>
                <View style={[{ flex:0.5, alignItems:'flex-start'}]}>
-           <Button uppercase={false}  color='#FFFFFF' mode="text" onPress={() => console.log(selectedGenres)}>
+           <Button uppercase={false}  color='#FFFFFF' mode="text" onPress={() => navigation.navigate("SelectStreamingService")}>
                <Text style={styles.nextBtn}>{'\<'} Back </Text>
            </Button>
                </View>

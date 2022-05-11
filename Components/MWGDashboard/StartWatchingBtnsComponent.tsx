@@ -1,11 +1,12 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { FC, useContext, useEffect } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import { StyleSheet, Text, View, Image, Pressable, ScrollView} from "react-native";
 import MovieClipper from "../../assets/MovieClipper.png";
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 import {useNavigation} from '@react-navigation/native';
 import UserContext from '../../Context/UserContext';
+import { GetMWGById } from '../../Service/DataService';
 
 interface IStartWatchingBtnsComponent {
   username: string,
@@ -33,10 +34,12 @@ const StartWatchingBtnsComponent: FC = () => {
   const navigation = useNavigation<any>();
   let { setMWGname, MWGname, setMWGId, MWGId, userIsAdmin, setUserIsAdmin, userIsReadyForGenres, setUserIsReadyForGenres, userIsReadyForSwipes, setUserIsReadyForSwipes, userIsReadyToSeeFinalMovie, setUserIsReadyToSeeFinalMovie, userIsWaiting, setUserIsWaiting } = useContext(UserContext);
 
+  const [membersNames, setMembersNames] = useState<any>([]);
+
   useEffect( () => {
     async function getUserInfo(){
-          setMWGname(MWGname);
-          setMWGId(MWGId);
+      let result = await GetMWGById(MWGId);
+      setMembersNames(result.membersNames.split(','));
     }
     getUserInfo()
   }, []);
@@ -138,38 +141,22 @@ const StartWatchingBtnsComponent: FC = () => {
 
         <View style={{flex:1, height:300, alignItems:'center', marginTop:'4%'}}>
             <View style={[{flex:1, width:'90%'}, styles.LWAMT]}>
-                <View style={{flex:1, marginTop:'3%'}}>
+                <View style={{flex:0, marginTop:'3%'}}>
                 <Text style={{color:'#FFFFFF', fontSize:28, justifyContent:'center', textAlign:'center', fontFamily:'Raleway_400Regular'}}>Group Members</Text>
                 </View>
         
                 <View style={{flex:1, height:100,  flexDirection:'row', marginBottom:'4%', width:'80%', justifyContent:'space-evenly'}}>
                         <ScrollView style={{flex:1}}>
-                          <View style={styles.nameLine}>
-                            <Text style={{color:'#FFFFFF', fontSize:25, fontFamily:'Raleway_400Regular', textAlign:'center'}}>Movies</Text>
-                          </View>
-                          <View style={styles.nameLine}>
-                            <Text style={{color:'#FFFFFF', fontSize:25, fontFamily:'Raleway_400Regular', textAlign:'center'}}>Movies</Text>
-                          </View>
-
-                          <View style={styles.nameLine}>
-                            <Text style={{color:'#FFFFFF', fontSize:25, fontFamily:'Raleway_400Regular', textAlign:'center'}}>Movies</Text>
-                          </View>
-
-                          <View style={styles.nameLine}>
-                            <Text style={{color:'#FFFFFF', fontSize:25, fontFamily:'Raleway_400Regular', textAlign:'center'}}>Movies</Text>
-                          </View>
-                          <View style={styles.nameLine}>
-                            <Text style={{color:'#FFFFFF', fontSize:25, fontFamily:'Raleway_400Regular', textAlign:'center'}}>Movies</Text>
-                          </View>
-                          <View style={styles.nameLine}>
-                            <Text style={{color:'#FFFFFF', fontSize:25, fontFamily:'Raleway_400Regular', textAlign:'center'}}>Movies</Text>
-                          </View>
-                          <View style={styles.nameLine}>
-                            <Text style={{color:'#FFFFFF', fontSize:25, fontFamily:'Raleway_400Regular', textAlign:'center'}}>Movies</Text>
-                          </View>
-                          <View style={styles.nameLine}>
-                            <Text style={{color:'#FFFFFF', fontSize:25, fontFamily:'Raleway_400Regular', textAlign:'center'}}>Movies</Text>
-                          </View>
+                          {
+                            membersNames.map((item:string, idx:number) => {
+                              return (
+                                <View key={idx} style={styles.nameLine}>
+                                  <Text style={{color:'#FFFFFF', fontSize:25, fontFamily:'Raleway_400Regular', textAlign:'center'}}>{item}</Text>
+                                </View>
+                              )
+                            }
+                            )
+                          }
                         </ScrollView>
                 </View>
 

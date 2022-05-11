@@ -103,7 +103,7 @@ const StreamingServiceComponent: FC = () => {
                   uppercase={false} 
                   color='#FFFFFF' 
                   mode="text" 
-                  onPress={() => {navigation.navigate()}}>
+                  onPress={() => {navigation.navigate("UserDashboard")}}>
                     <Text style={styles.nextBtn}> {'\<'} Cancel </Text>
                 </Button>
               </View>

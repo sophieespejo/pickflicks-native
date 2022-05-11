@@ -89,7 +89,7 @@ const SelectedGenreComponent3: FC = () => {
                 <Text style={styles.scoreTxt}>{Math.floor(onChangeValue/10)}</Text>
               </View>
                 <View>
-                    <Text style={styles.GenreTxt}>{MWGgenres[0]}</Text>
+                    <Text style={styles.GenreTxt}>{MWGgenres[2]}</Text>
                 </View>
                 
                   <Slider 
@@ -119,7 +119,7 @@ const SelectedGenreComponent3: FC = () => {
             <View style={{flexDirection:'row'}}>
 
               <View style={[{ flex:0.5,  alignItems:'flex-start'}]}>
-          <Button uppercase={false} color='#FFFFFF' mode="text" onPress={() => {navigation.navigate("GenreRanking")}}>
+          <Button uppercase={false} color='#FFFFFF' mode="text" onPress={() => {navigation.navigate("GenreRanking2")}}>
               <Text style={styles.nextBtn}> {'\<'} Back </Text>
           </Button>
               </View>
