@@ -8,5 +8,7 @@ export default interface IMWGModel{
     UserSuggestedMovies:string,
     ChosenGenres:string,
     StreamingService:string,
+    FinalGenre:string,
+    FinalMovieIndex:number,
     IsDeleted:boolean
 }

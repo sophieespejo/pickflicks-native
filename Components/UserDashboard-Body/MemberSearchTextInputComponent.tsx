@@ -19,7 +19,7 @@ import {
   import X from '../../assets/X.png';
   import Swipeable from 'react-native-gesture-handler/Swipeable';
   import { Button, Avatar } from "react-native-paper";
-  import { GetUserByUsername, AddMWG, GetMWGStatusByUserId, AddMWGStatus, GetMWGByMWGName} from '../../Service/DataService'
+  import { GetUserByUsername, AddMWG, GetMWGStatusByUserId, AddMWGStatus, GetMWGByMWGName, AddInvitations} from '../../Service/DataService'
   import RightActions from './RightActions';
   import girl1 from '../../assets/avatars/girl1.png'
   import girl2 from '../../assets/avatars/girl2.png'
@@ -101,35 +101,40 @@ import {
         console.log(newMWGname);
         console.log(userId);
         console.log(userIcon);
-        mwgMembersId.push(userId);
-        mwgMembersNames.push(username);
-        mwgMembersIcons.push(userIcon);
+      //   mwgMembersId.push(userId);
+      //   mwgMembersNames.push(username);
+      //   mwgMembersIcons.push(userIcon);
         let newMWG = {
           Id: 0,  
           MWGName: newMWGname,
           GroupCreatorId: userId,
-          MembersId: mwgMembersId.join(","),
-          MembersNames: mwgMembersNames.join(","),
+          MembersId: userId,
+          MembersNames: username,
           UserSuggestedMovies: '',
           ChosenGenres: '',
-          MembersIcons: mwgMembersIcons.join(","),
+          MembersIcons: userIcon,
           StreamingService: '',
+          FinalGenre: '',
+          FinalMovieIndex: 0,
           IsDeleted: false
       }
+      //when creator creates a new MWG, invitations are sent to each member and a new MWGmodel is created with just the creators info
+      //once at least one person joins, along with MWGStatusModels
+      //everytime a new person joins, their name is added to the MWG model and their MWGStatus model is created
       let result = await AddMWG(newMWG);
       if (result) {
-        
-        let justCreatedMWG = await GetMWGByMWGName(newMWGname);
-        if(justCreatedMWG)
+        //need to get MWGId of MWG that was just created
+        let newMWGId = await GetMWGByMWGName(newMWGname);
+        if(newMWGId != null)
         {
-          let mwgStatusResult = await AddMWGStatus(justCreatedMWG.id);
-          console.log(mwgStatusResult);
-          if(mwgStatusResult)
+          console.log(newMWGId.id);
+          let sentResults = await AddInvitations(newMWGId.id, newMWGname, mwgMembersNames.join(","));
+          if(sentResults)
           {
             let userMWG = await GetMWGStatusByUserId(userId);
             setAllMWG(userMWG);
+            navigation.navigate("InvitationSent");
           }
-        navigation.navigate("InvitationSent");
         }
       }else{
         alert("Unable to create a new movie watch group. Please try again.")
