@@ -74,31 +74,31 @@ const UserDashboard: FC<Props> = ({navigation}) => {
 
   useEffect( () => {
     async function getUserInfo(){
-      const something = navigation.addListener('focus', () => {
+      const something = navigation.addListener('focus', async () => {
         console.log('//UserDashboardScreen Page is Refreshed');
         setUserIsAdmin(false);
         setUserIsReadyForGenres(false);
         setUserIsReadyForSwipes(false);
         setUserIsReadyToSeeFinalMovie(false);
         setUserIsWaiting(false);
+        const token1 = await AsyncStorage.getItem('@storage_Token')
+        console.log(token1)
+        if(token1 != null)
+        {
+          setUsername(username);
+          setUserId(userId);
+          setUserIcon(userIcon);
+          const Id = await AsyncStorage.getItem('@storage_Id')
+          setUserId(Id);
+          let result = await GetMWGStatusByUserId(userId);
+          console.log('//UserDashboardScreen This is the userDatabyId', result);
+          setAllMWG(result);
+        }
+        else
+        {
+          navigation.navigate('Login');
+        }
       });
-      const token1 = await AsyncStorage.getItem('@storage_Token')
-      console.log(token1)
-      if(token1 != null)
-      {
-        setUsername(username);
-        setUserId(userId);
-        setUserIcon(userIcon);
-        const Id = await AsyncStorage.getItem('@storage_Id')
-        setUserId(Id);
-        let result = await GetMWGStatusByUserId(userId);
-        console.log('//UserDashboardScreen This is the userDatabyId', result);
-        setAllMWG(result);
-      }
-      else
-      {
-        navigation.navigate('Login');
-      }
     }
     getUserInfo()
   }, []);

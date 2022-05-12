@@ -18,6 +18,7 @@ const ChangePasswordComponent2: FC = () => {
 
   const [textInput, setTextInput] = useState('');
   const [textInput2, setTextInput2] = useState('');
+  const [success, setSuccess] = useState(false);
 
   const handleSave = async () => 
   {
@@ -28,7 +29,12 @@ const ChangePasswordComponent2: FC = () => {
       let newPasswordResult = await EditPassword(userId, textInput);
       if(newPasswordResult)
       {
+        setSuccess(true);
         console.log('//ChangePassword2Component EditPassword endpoint ran:', newPasswordResult);
+      }
+      else
+      {
+        setSuccess(false);
       }
     }
   }
@@ -59,7 +65,7 @@ const ChangePasswordComponent2: FC = () => {
                             textContentType={'name'}
                             placeholderTextColor={'white'}
                             onChangeText={(e) => setTextInput(e)}
-                            value={textInput}
+                            value={success ? '' : textInput}
                         />
            </View>
                 </TouchableWithoutFeedback>
@@ -80,17 +86,17 @@ const ChangePasswordComponent2: FC = () => {
                             textContentType={'name'}
                             placeholderTextColor={'white'}
                             onChangeText={(e) => setTextInput2(e)}
-                            value={textInput2}
+                            value={success ? '' : textInput2}
                         />
                         {
                           textInput == "" && textInput2 == "" ? null :
-                          textInput == textInput2 ? 
-                          <Text style={styles.PasswordsMatch}>Passwords match!</Text> :
-                          <Text style={styles.PasswordsDontMatch}>Passwords do not match!</Text>
+                          success == true && textInput == textInput2 ? <Text style={styles.PasswordsMatch}>Password Changed Successfully!</Text> :
+                          textInput == textInput2 ? <Text style={styles.PasswordsMatch}>Passwords match!</Text> : 
+                          textInput != textInput2 ? <Text style={styles.PasswordsDontMatch}>Passwords do not match!</Text> : null
                         }
                         
 
-                      <Pressable style={{alignItems:'center', paddingTop:'5%'}}>
+                      <Pressable onPress={() => handleSave()} style={{alignItems:'center', paddingTop:'5%'}}>
                           <Text style={styles.SaveTxt}>Save</Text>
                       </Pressable>
            </View>

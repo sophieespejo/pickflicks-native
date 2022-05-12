@@ -1,9 +1,9 @@
-import { FC, useState, useContext } from "react";
+import { FC, useState, useContext, useEffect } from "react";
 import { StyleSheet, Text, View, TextInput, Pressable, TouchableWithoutFeedback, Keyboard} from "react-native";
 import { useFonts, Raleway_400Regular, Raleway_600SemiBold} from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 import {useNavigation} from '@react-navigation/native';
-import {EditUsername } from '../../Service/DataService';
+import {EditUsername, GetUserByUsername } from '../../Service/DataService';
 import UserContext from '../../Context/UserContext';  
 
 
@@ -13,12 +13,41 @@ const ChangeUsernameComponent: FC = () => {
 
   const navigation = useNavigation();
   const [textInput, setTextInput] = useState('');
+  const [userResult, setUserResult] = useState(false)
+  const [doesUserExist, setDoesUserExist] = useState(false);
+  const [placeholder, setPlaceholder] = useState('');
+
+  useEffect( () => {
+    const Username = async () => 
+    {
+      setPlaceholder("Try a new Username");
+    }
+    
+    Username();
+
+  }, []);
 
   const handleSaveUsername = async () => 
   {
+    if(textInput == '')
+    {
+      alert('Input a new username!')
+    }
     console.log('//ChangeUsernameComponent', textInput);
-    let result = await EditUsername(userId, textInput);
-    console.log('//ChangeUsernameComponent EditUserNameFetch ran', result);
+    let checkUserExistence = await GetUserByUsername(textInput);
+    if(checkUserExistence.username != null)
+    {
+      setDoesUserExist(true);
+    }
+    else
+    {
+      let result = await EditUsername(userId, textInput);
+      console.log('//ChangeUsernameComponent EditUserNameFetch ran', result);
+      if(result)
+      {
+        setUserResult(true);
+      }
+    }
   }
 
   let [fontsLoaded] = useFonts({
@@ -37,21 +66,24 @@ const ChangeUsernameComponent: FC = () => {
                <Text style={styles.Txt}>Enter your new {'\n'} Username</Text>
                <TextInput
                             style={styles.input}
-                            // onChangeText={onChangeText}
-                            // value={''}
                             enablesReturnKeyAutomatically={true}
                             keyboardAppearance={'dark'}
                             contextMenuHidden={true}
                             selectionColor={'white'}
                             textAlign={'center'}
                             textContentType={'name'}
-                            placeholder={'Try a new Username'}
+                            placeholder={placeholder}
                             placeholderTextColor={'white'}
                             onChangeText={(e) => setTextInput(e)}
-                            // value={}
+                            value={textInput}
+                            onFocus={() => setPlaceholder('')}
+                            onBlur={() => setPlaceholder("Try a new Username")}
                         />
-                {/* Message for when username is not available ternary here */}
-                <Text style={styles.Txt2}>username not available!</Text>
+                {
+                  userResult ? <Text style={styles.Txt3}>Username Changed!</Text> :
+                  doesUserExist ? <Text style={styles.Txt2}>Username is already taken!</Text> : 
+                  !userResult ? null : <Text style={styles.Txt2}>Username not available!</Text>
+                }
 
                 <Pressable onPress={() => handleSaveUsername()} style={{alignItems:'center', paddingTop:'5%'}}>
                     <Text style={styles.SaveTxt}>Save</Text>
@@ -105,7 +137,14 @@ const styles = StyleSheet.create({
     fontFamily:'Raleway_400Regular',
     fontSize: 22,
     textAlign:'center',
-    color: '#EBE1E1D1',
+    color: 'red',
+    paddingTop:'4%'
+  },
+  Txt3:{
+    fontFamily:'Raleway_400Regular',
+    fontSize: 22,
+    textAlign:'center',
+    color: 'green',
     paddingTop:'4%'
   }
 });

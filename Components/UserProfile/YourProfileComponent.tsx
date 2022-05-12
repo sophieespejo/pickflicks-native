@@ -1,4 +1,4 @@
-import { FC, useContext } from "react";
+import { FC, useContext, useEffect } from "react";
 import { StyleSheet, Text, View, Pressable,Button } from "react-native";
 import { useFonts, Raleway_400Regular, Raleway_600SemiBold} from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
@@ -40,6 +40,16 @@ const YourProfileComponent: FC = () => {
     ['girl5',girl5],
     ['girl6',girl6],
   ])
+
+  useEffect( () => {
+    const avatarScreen = async () => 
+    {
+          setUserIcon(userIcon);
+    }
+    
+    avatarScreen();
+
+  }, []);
 
   const navigation = useNavigation<any>();
 

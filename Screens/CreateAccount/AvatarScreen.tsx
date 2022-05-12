@@ -19,7 +19,7 @@ import girl3 from '../../assets/avatars/girl3.png';
 import girl4 from '../../assets/avatars/girl4.png';
 import girl5 from '../../assets/avatars/girl5.png';
 import girl6 from '../../assets/avatars/girl6.png';
-import { GetUserByUsername } from '../../Service/DataService';
+import { GetUserByUsername, EditUserIcon } from '../../Service/DataService';
 import {useNavigation} from '@react-navigation/native';
 import UserContext from '../../Context/UserContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -58,13 +58,13 @@ type Props = NativeStackScreenProps<RootStackParamList, 'AvatarScreen'>;
 
 const AvatarScreen: FC<Props> = () => {
     const navigation = useNavigation<any>();
-    let {  username, userId, setUserId , listOfMovieNamesUsedToCompare1, setListOfMovieNamesUsedToCompare1 } = useContext(UserContext);
+    let {  userIcon, setUserIcon, username, userId, setUserId , listOfMovieNamesUsedToCompare1, setListOfMovieNamesUsedToCompare1 } = useContext(UserContext);
 
     useEffect(() => {
-
+        
     }, []);
 
-    const [userIcon, setUserIcon] = useState('');
+    // const [userIcon, setUserIcon] = useState('');
     const [active1, setActive1] = useState('');
     const [active2, setActive2] = useState('');
     const [active3, setActive3] = useState('');
@@ -296,10 +296,9 @@ const handleSubmit = async () => {
     // }
 
 
-
     // Get userDtoByUsername
     let userData = await GetUserByUsername(username)
-    console.log(userData);
+    console.log('//AvatarScreen onSubmit', userData);
     setUserId(userData.id);
 
     console.log(userData.id)
@@ -307,9 +306,31 @@ const handleSubmit = async () => {
 
     // Edit userModel with icon name
     if (userData != null) {
-        //let result = await EditUserIcon(userData.id, userIcon)
-        //console.log(result);
-        navigation.navigate('Login');
+        if(userData.icon == userIcon)
+        {
+            alert("This is already your avatar!")
+        }
+        else
+        {
+            let result = await EditUserIcon(userData.id, userIcon)
+            console.log('//AvatarScreen changing Icon results:', result);
+            const userToken = await AsyncStorage.getItem('@storage_Token')
+            if(result)
+            {
+                if(userToken != null)
+                {
+                    navigation.navigate('UserProfile')
+                }
+                else
+                {
+                    navigation.navigate('Login');
+                }
+            }
+            else
+            {
+                alert("Could not change your icon!")
+            }
+        }
     }
 };
 

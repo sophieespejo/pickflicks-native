@@ -19,7 +19,7 @@ type RootStackParamList = {
 }
 
 
-  type Props = NativeStackScreenProps<RootStackParamList, 'InvitationSent'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'InvitationSent'>;
 
   
 

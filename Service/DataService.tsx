@@ -361,6 +361,30 @@ async function EditPassword(userId:number, newPassword:string){
     let data = await res.json();
    return data;
 }
+async function EditUserIcon(userId:number, iconName:string){
+    let res= await fetch(`${url}/User/EditUserIcon/${userId}/${iconName}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(null)
+    });
+    let data = await res.json();
+   return data;
+}
+async function CheckPassword(userData: ILoginDTO){
+    let res= await fetch(`${url}/User/CheckPassword`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(userData)
+    });
+    let data = await res.json();
+   return data;
+}
 
 
-export { EditPassword, EditUsername, AddFinalMovieIndex, AddFinalGenre, UpdateMWGStatus, GetUserById, GetTopRankedGenre, GetMWGByMWGName, UpdateIsStartedByMWGId, GetMWGStatusById, AddMWGStatus, ResetMWGStatusbyMWGId,UpdateSwipings, UpdateGenreRanking, GetMWGStatusByUserId, GetMWGStatusByMWGId, AddUser, Login, GetMWGById, GetTopMovieByMWGId, AddLikeOrDislike, AddStreamingService, GetMoviesByMWGId, AddGenreRankingModel, GetUserByUsername, GetAllMWGAUserIsMemberOfuserId, AddFavoriteMWG, AddAll15Movies, RemoveFavoriteMWG, AddMWG, AddChosenGenres};
+
+
+export { CheckPassword, EditUserIcon, EditPassword, EditUsername, AddFinalMovieIndex, AddFinalGenre, UpdateMWGStatus, GetUserById, GetTopRankedGenre, GetMWGByMWGName, UpdateIsStartedByMWGId, GetMWGStatusById, AddMWGStatus, ResetMWGStatusbyMWGId,UpdateSwipings, UpdateGenreRanking, GetMWGStatusByUserId, GetMWGStatusByMWGId, AddUser, Login, GetMWGById, GetTopMovieByMWGId, AddLikeOrDislike, AddStreamingService, GetMoviesByMWGId, AddGenreRankingModel, GetUserByUsername, GetAllMWGAUserIsMemberOfuserId, AddFavoriteMWG, AddAll15Movies, RemoveFavoriteMWG, AddMWG, AddChosenGenres};
