@@ -1,6 +1,5 @@
 import {
   createNativeStackNavigator,
-  NativeStackScreenProps,
 } from "@react-navigation/native-stack";
 import { FC, useState, useEffect, useContext } from "react";
 import {

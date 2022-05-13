@@ -1,7 +1,3 @@
-import {
-    createNativeStackNavigator,
-    NativeStackScreenProps,
-  } from "@react-navigation/native-stack";
   import { FC, useState, useContext, useEffect } from "react";
   import {
     StyleSheet,
@@ -9,9 +5,8 @@ import {
     TextInput,
     View,
     Image, Alert,
-    Keyboard, TouchableWithoutFeedback, Pressable, ScrollView, Animated
+    Pressable, ScrollView, Animated
   } from "react-native";
-  // import { Button } from "react-native-paper";
   import { useFonts, Raleway_400Regular } from "@expo-google-fonts/raleway";
   import AppLoading from "expo-app-loading";
   import {useNavigation} from '@react-navigation/native';
@@ -90,7 +85,6 @@ import {
     }, []);
 
     const closeRow = (index: number) => {
-      console.log('closerow');
       if (prevOpenedRow && prevOpenedRow !== row[index]) {
         prevOpenedRow.close();
       }
@@ -98,9 +92,6 @@ import {
     }
 
     const handleInvitations = async () => {
-        console.log(newMWGname);
-        console.log(userId);
-        console.log(userIcon);
         mwgMembersId.push(userId);
         mwgMembersNames.push(username);
         mwgMembersIcons.push(userIcon);
@@ -110,13 +101,16 @@ import {
           GroupCreatorId: userId,
           MembersId: mwgMembersId.join(","),
           MembersNames: mwgMembersNames.join(","),
+          MembersIcons: mwgMembersIcons.join(","),
           UserSuggestedMovies: '',
           ChosenGenres: '',
-          MembersIcons: mwgMembersIcons.join(","),
           StreamingService: '',
+          FinalGenre: '',
+          FinalMovieIndex: 0,
           IsDeleted: false
-      }
-      let result = await AddMWG(newMWG);
+        }
+        let result = await AddMWG(newMWG);
+        console.log("//MembersSearchTextInputComponent Added New MWG Success")
       if (result) {
         
         let justCreatedMWG = await GetMWGByMWGName(newMWGname);
@@ -139,9 +133,6 @@ import {
     //when user searched a name and presses enter
     const handleKeyPress= async () => {
       let foundUser = await GetUserByUsername(searchedName);
-      // if (foundUser.id == userId){
-      //   Alert.alert('You are already included in the group', 'Please search for someone else')
-      // }
       if (foundUser != null && foundUser.id != 0) {
         if (foundUser.id == userId)
         {
@@ -150,7 +141,6 @@ import {
           allSearchedNames.push(searchedName);
           setAllSearchedNames([...allSearchedNames]);
           memberIcon.push(foundUser.icon);
-          //setMemberIcon([...foundUser.icon]);
           mwgMembersId.push(foundUser.id);
           mwgMembersNames.push(searchedName);
           mwgMembersIcons.push(foundUser.icon);
@@ -164,11 +154,9 @@ import {
 
     const handleDeleteMember = async (searchedName:string, index:number ) => {
       let removedMemberNameIndex = mwgMembersNames.indexOf(searchedName);
-      //console.log(removedMemberNameIndex);
       mwgMembersNames.splice(removedMemberNameIndex, 1);
       setmwgMembersNames([...mwgMembersNames]);
       setAllSearchedNames([...mwgMembersNames]);
-      //console.log(mwgMembersNames)
       closeRow(index-1)
 
       let foundUser = await GetUserByUsername(searchedName);
@@ -176,13 +164,11 @@ import {
         let removedIdIndex = mwgMembersId.indexOf(foundUser.id);
         let removedIconIndex = mwgMembersIcons.indexOf(foundUser.icon);
         let removedMemberIconIndex = memberIcon.indexOf(foundUser.icon);
-        //console.log(removedIdIndex)
         mwgMembersId.splice(removedIdIndex, 1);
         mwgMembersIcons.splice(removedIconIndex, 1);
         memberIcon.splice(removedMemberIconIndex, 1);
         setmwgMembersIcons([...mwgMembersIcons]);
         setmwgMembersId([...mwgMembersId]);
-        //console.log(mwgMembersId)
       }
     }
 
@@ -264,7 +250,7 @@ import {
             </View>
             <View style={{alignItems:'center', marginTop:'8%'}}>
               <View style={styles.sendInvBtn}>
-                <Pressable onPress={handleInvitations}>
+                <Pressable onPress={() => handleInvitations()}>
                   <Text style={styles.btnText}>Send Invitations</Text>
                 </Pressable>
               </View>

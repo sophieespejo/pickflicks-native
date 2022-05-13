@@ -1,20 +1,17 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { FC, useState, useEffect, useContext } from "react";
 import { StyleSheet, Text, View, Image, TextInput} from "react-native";
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 import { Button } from "react-native-paper";
 import {useNavigation} from '@react-navigation/native';
-// import { Button } from "native-base";
 import { Slider } from "native-base";
 import UserContext from '../../Context/UserContext';
-import { GetMWGById, AddGenreRankingModel, AddMWGStatus, GetMWGStatusByMWGId, UpdateGenreRanking, GetMWGStatusByUserId} from '../../Service/DataService'
-import GenreRankingScreen2 from "../../Screens/MWGDash/GenreRankingScreen2";
+import { GetMWGById, AddGenreRankingModel, GetMWGStatusByMWGId, UpdateGenreRanking, GetMWGStatusByUserId} from '../../Service/DataService'
 
 
 const SelectedGenreComponent3: FC = () => {
     const navigation = useNavigation<any>();
-    let { username, setUsername, userId, setUserId, userIcon, setUserIcon, MWGname, setMWGname, MWGId, setMWGId, MWGgenres, setMWGgenres, MWGmembersId, setMWGmembersId,genre1,genre2, genre3, setGenre3, setAllMWG} = useContext(UserContext)
+    let { userId, MWGname, setMWGname, MWGId, setMWGId, MWGgenres, setMWGgenres, MWGmembersId, genre1,genre2, genre3, setGenre3, setAllMWG} = useContext(UserContext)
     const [onChangeValue, setOnChangeValue] = useState(0);
 
     
@@ -48,8 +45,6 @@ const SelectedGenreComponent3: FC = () => {
 
       if(result)
       {
-        console.log(result);
-        console.log(newGRModel);
         let result1 = await UpdateGenreRanking(MWGId, userId)
         if(result1)
         {
@@ -57,11 +52,9 @@ const SelectedGenreComponent3: FC = () => {
           if(movieObj != null)
           {
             let isMWGDoneWithRanking = movieObj[0].areAllMembersDoneWithGenre;
-            if(isMWGDoneWithRanking)
+            if(isMWGDoneWithRanking == true)
             {
-              setTimeout(() => {
                 navigation.navigate('FinalGenre') 
-              }, 3000);
             }
             else{
                 let result = await GetMWGStatusByUserId(userId);
@@ -86,17 +79,21 @@ const SelectedGenreComponent3: FC = () => {
       <View style={{flex: 1, alignItems:'center'}}>
         <View style={{ flex: 1, backgroundColor:'#DC1B21C4', borderRadius:30, width:'92%', marginTop:'8%',marginBottom:'8%', justifyContent:'center'}}>
            
-            <View style={{flex:0.8}}>
+            <View style={{flex:0.2}}>
                 <Text style={styles.titleTxt}>Top 5 Genres</Text>
             </View>
 
 
             <View style={{flex:1, alignItems:'center', marginBottom:'10%'}}>
-                <View style={{marginBottom:'10%'}}>
+              <View  style={{paddingBottom:'20%', justifyContent:'flex-start'}}>
+                <Text style={styles.scoreTxt}>{Math.floor(onChangeValue/10)}</Text>
+              </View>
+                <View>
                     <Text style={styles.GenreTxt}>{MWGgenres[2]}</Text>
                 </View>
                 
-                  <Slider  style={{marginTop:'5%'}} 
+                  <Slider 
+                  style={{marginTop:'8%'}}
                     colorScheme="gray" w="3/4" 
                     maxW="300" 
                     defaultValue={10} 
@@ -122,7 +119,7 @@ const SelectedGenreComponent3: FC = () => {
             <View style={{flexDirection:'row'}}>
 
               <View style={[{ flex:0.5,  alignItems:'flex-start'}]}>
-          <Button uppercase={false} color='#FFFFFF' mode="text" onPress={() => {navigation.navigate("GenreRanking")}}>
+          <Button uppercase={false} color='#FFFFFF' mode="text" onPress={() => {navigation.navigate("GenreRanking2")}}>
               <Text style={styles.nextBtn}> {'\<'} Back </Text>
           </Button>
               </View>
@@ -151,6 +148,12 @@ const styles = StyleSheet.create({
     fontFamily: "Raleway_400Regular",
     fontSize: 25
   },
+  scoreTxt:{
+    fontFamily:'Raleway_400Regular',
+    fontSize: 100,
+    textAlign:'center',
+    color: '#FFFFFF',
+},
   numberScale:{
     fontFamily: "Raleway_400Regular",
     fontSize: 35,

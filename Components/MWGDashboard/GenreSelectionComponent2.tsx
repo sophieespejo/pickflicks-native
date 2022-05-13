@@ -1,12 +1,11 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { FC, useContext, useState, useEffect } from "react";
-import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, FlatList, Pressable } from "react-native";
+import { FC, useContext, useState, useEffect, useRef} from "react";
+import { StyleSheet, Text, View, Image, TouchableOpacity, FlatList, Pressable } from "react-native";
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 import { Button } from "react-native-paper";
 import {useNavigation} from '@react-navigation/native';
 import X from '../../assets/X.png';
-import {AddChosenGenres, AddGenreRankingModel, UpdateIsStartedByMWGId} from '../../Service/DataService'
+import {AddChosenGenres, UpdateIsStartedByMWGId} from '../../Service/DataService'
 import UserContext from "../../Context/UserContext";
 
 
@@ -42,14 +41,33 @@ type RootStackParamList = {
 const GenreSelectionComponent2: FC = () => {
   let { userId, setUserId, setMWGname, MWGname, setMWGId, MWGId, setGenreId } = useContext(UserContext);
 
+  type FlatListViewRef = FlatList & {
+    flashScrollIndicators: () => void;
+  };
+
+  const flatListRef = useRef<FlatListViewRef | null>(null);
+
   useEffect( () => {
     async function getUserInfo(){
           setUserId(userId)
           setMWGname(MWGname);
           setMWGId(MWGId);
+
+          setTimeout(function () {
+            flatListRef.current?.flashScrollIndicators();
+        }, 1000);
     }
     getUserInfo()
   }, []);
+
+  const flashScroll = () => 
+  {
+    flatListRef.current?.flashScrollIndicators();
+  }
+
+  var myInterval = setInterval(flashScroll, 10000);
+  myInterval;
+
 
 
 
@@ -59,33 +77,13 @@ const GenreSelectionComponent2: FC = () => {
 
     const DATA = [
       {
-        title: 'Drama',
-        id: 'Drama',
-      },
-      {
         title: 'Action',
         id: 'Action',
       },
-      // {
-      //   title: 'Action & Adventure',
-      //   id: 'Action & Adventure',
-      // },
-      // {
-      //   title: 'Adult',
-      //   id: 'Adult',
-      // },
       {
         title: 'Animation',
         id: 'Animation',
       },
-      // {
-      //   title: 'Anime',
-      //   id: 'Anime',
-      // },
-      // {
-      //   title: 'Biography',
-      //   id: 'Biography',
-      // },
       {
         title: 'Comedy',
         id: 'Comedy',
@@ -98,6 +96,26 @@ const GenreSelectionComponent2: FC = () => {
         title: 'Documentary',
         id: 'Documentary',
       },
+      {
+        title: 'Drama',
+        id: 'Drama',
+      },
+      // {
+      //   title: 'Action & Adventure',
+      //   id: 'Action & Adventure',
+      // },
+      // {
+      //   title: 'Adult',
+      //   id: 'Adult',
+      // },
+      // {
+      //   title: 'Anime',
+      //   id: 'Anime',
+      // },
+      // {
+      //   title: 'Biography',
+      //   id: 'Biography',
+      // },
       {
         title: 'Family',
         id: 'Family',
@@ -162,13 +180,20 @@ const GenreSelectionComponent2: FC = () => {
 
 
     const addGenre = (id:any) => {
-        if(selectedGenres.length < 5 && !selectedGenres.includes(id))
+        if(selectedGenres.length < 3 && !selectedGenres.includes(id))
         {
             selectedGenres.push(id);
             setSelectedGenres([...selectedGenres]);
-        }else{
-            alert("no thanks")
-        }
+            // console.log(this.state.data)
+            // console.log(DATA.indexOf(id))
+            // DATA.splice(DATA.indexOf(id), 1);
+          }
+          else if (selectedGenres.includes(id)){
+            alert("You already chose this genre!")
+          }
+          else {
+            alert("You already have 3 genres!")
+          }
     }
 
     const removeGenre = (id:any) => {
@@ -178,7 +203,7 @@ const GenreSelectionComponent2: FC = () => {
 
     const Item = ({ item, onPress }) => (
         <TouchableOpacity onPress={onPress} style={[styles.item]}>
-          <Text style={[styles.titleTxt]}>{item.title}</Text>
+          <Text style={selectedGenres.includes(item.id) ? [styles.listTxt] : [styles.titleTxt]}>{item.title}</Text>
         </TouchableOpacity>
       );
       
@@ -200,9 +225,7 @@ const GenreSelectionComponent2: FC = () => {
         if(result1)
         {
           navigation.navigate("GenreRanking");
-        }
-        
-        console.log(result1)
+        }       
       }
       
     
@@ -220,13 +243,13 @@ const GenreSelectionComponent2: FC = () => {
       <View style={{flex: 1, alignItems:'center'}}>
         <View style={{ flex: 1, backgroundColor:'#DC1B21C4', borderRadius:30, width:'92%', marginTop:'8%',marginBottom:'8%', justifyContent:'center'}}>
             <View style={{flex:0, paddingBottom:0}}>
-                <Text style={styles.titleTxt}>Choose 5 Genres to rank</Text>
+                <Text style={styles.titleTxt}>Choose 3 Genres to rank</Text>
             </View>
             <View style={{flexDirection:'row', flexWrap:'wrap', justifyContent:'space-around'}}>
               {
                   selectedGenres.map((genre:object, i:number) => {
                       return (
-                          <View style={{flexDirection:'row'}}>
+                          <View key={i} style={{flexDirection:'row'}}>
                               <Text style={styles.selectedTxt}>{genre}</Text>
                               <Pressable onPress={() => removeGenre(genre)} style={{justifyContent:'center'}}>
                                 <Image source={X} style={{height:20, width:20}}/>
@@ -239,8 +262,9 @@ const GenreSelectionComponent2: FC = () => {
                             
 
               <View style={{flex:1, alignItems: 'center', marginTop:'10%'}}>
-                <View>
+                <View style={{width:'90%'}}>
                     <FlatList
+                        ref={flatListRef}
                         data={DATA}
                         renderItem={renderItem}
                         keyExtractor={(item) => item.id}
@@ -249,7 +273,7 @@ const GenreSelectionComponent2: FC = () => {
               </View>
              <View style={{flexDirection:'row'}}>
                <View style={[{ flex:0.5, alignItems:'flex-start'}]}>
-           <Button uppercase={false}  color='#FFFFFF' mode="text" onPress={() => console.log(selectedGenres)}>
+           <Button uppercase={false}  color='#FFFFFF' mode="text" onPress={() => navigation.navigate("SelectStreamingService")}>
                <Text style={styles.nextBtn}>{'\<'} Back </Text>
            </Button>
                </View>
@@ -272,6 +296,15 @@ const styles = StyleSheet.create({
       marginTop:'4%',
       marginBottom:7,
       color: '#FFFFFF',
+  },
+  listTxt:{
+      fontFamily:'Raleway_400Regular',
+      fontSize: 30,
+      textAlign:'center',
+      marginTop:'4%',
+      marginBottom:7,
+      color: 'black',
+      textDecorationLine: 'line-through',
   },
   selectedTxt:{
       fontFamily:'Raleway_400Regular',

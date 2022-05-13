@@ -1,12 +1,8 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { FC, useState } from "react";
-import { StyleSheet, Text, View, Image, TextInput, Pressable, ScrollView} from "react-native";
+import { FC, useState, useContext } from "react";
+import { StyleSheet, Text, View, Pressable} from "react-native";
 import { useFonts, Raleway_400Regular, Raleway_600SemiBold} from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
-import { Button } from "react-native-paper";
 import {useNavigation} from '@react-navigation/native';
-import JJKMovie from '../../assets/JJKMovie.jpg'
-import Popcorn from '../../assets/Popcorn.gif'
 import { Checkbox } from "native-base";
   
 

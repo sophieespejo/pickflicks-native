@@ -1,14 +1,10 @@
-import { NavigationRouteContext } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { FC, useState, useEffect, useContext } from 'react';
-import { StyleSheet, Text, View , Image} from 'react-native';
-import RedLogo from '../assets/RedLogo.png';
+import { FC} from 'react';
+import { StyleSheet, View } from 'react-native';
 import HeaderComponent from '../../Components/MWGDashboard/HeaderComponent';
-import StreamingServiceComponent from '../../Components/MWGDashboard/StreamingServiceComponent';
 import FooterNavComponent from '../../Components/UserDashboard-Body/FooterNavComponent';
 import GenreSelectionComponent2 from '../../Components/MWGDashboard/GenreSelectionComponent2';
-import { Provider as PaperProvider } from 'react-native-paper';
+
 
 
 

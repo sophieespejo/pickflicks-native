@@ -1,12 +1,9 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { FC, useState, useContext } from "react";
-import { StyleSheet, Text, View, Image, TextInput, Pressable, ScrollView} from "react-native";
+import { FC, useContext, useEffect } from "react";
+import { StyleSheet, Text, View, Pressable,Button } from "react-native";
 import { useFonts, Raleway_400Regular, Raleway_600SemiBold} from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 import { Avatar } from "react-native-paper";
 import {useNavigation} from '@react-navigation/native';
-import JJKMovie from '../../assets/JJKMovie.jpg'
-import Popcorn from '../../assets/Popcorn.gif'
 import girl1 from '../../assets/avatars/girl1.png'
 import girl2 from '../../assets/avatars/girl2.png'
 import girl3 from '../../assets/avatars/girl3.png'
@@ -20,6 +17,8 @@ import boy4 from '../../assets/avatars/boy4.png'
 import boy5 from '../../assets/avatars/boy5.png'
 import boy6 from '../../assets/avatars/boy6.png'
 import UserContext from '../../Context/UserContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
   
 
@@ -41,6 +40,16 @@ const YourProfileComponent: FC = () => {
     ['girl5',girl5],
     ['girl6',girl6],
   ])
+
+  useEffect( () => {
+    const avatarScreen = async () => 
+    {
+          setUserIcon(userIcon);
+    }
+    
+    avatarScreen();
+
+  }, []);
 
   const navigation = useNavigation<any>();
 
@@ -65,6 +74,22 @@ const YourProfileComponent: FC = () => {
   const handleNotificationsNavigation = () => {
     navigation.navigate("ChangeNotifications")
   }
+
+  const handleSignout = async () => {
+    const token = await AsyncStorage.removeItem('@storage_Token');
+    const Id = await AsyncStorage.removeItem('@storage_Id')
+    const Username = await AsyncStorage.removeItem('@storage_Username')
+    const UserIcon = await AsyncStorage.removeItem('@storage_Usericon')
+
+    if(token == null && Id == null && Username == null && UserIcon == null)
+    {
+      navigation.navigate('Login');
+    }
+    else
+    {
+      alert("Unable to Logout")
+    }
+  }
   
   return (
       <View style={{flex: 1, alignItems:'center'}}>
@@ -72,7 +97,7 @@ const YourProfileComponent: FC = () => {
            
 
 
-            <View style={{flex:0.38, justifyContent:'center', alignItems:'center', marginTop:'5%'}}>
+            <View style={{flex:1, justifyContent:'center', alignItems:'center', marginTop:'5%'}}>
                 <Avatar.Image size={125} source={icons.get(userIcon)}/>
                 <Pressable onPress={() => handleIconChange()}>
                     <Text style={styles.IconTxt}>Change your icon</Text>    
@@ -80,7 +105,7 @@ const YourProfileComponent: FC = () => {
             </View>
 
 
-            <View style={{flex:1, marginTop:'10%'}}>
+            <View style={{flex:1.5, marginTop:'10%', alignItems:'center', justifyContent:'space-evenly'}}>
 
             <Pressable onPress={() => handleUsernameNavigation()} style={{flex:0.15, width:'80%', justifyContent:'space-between', flexDirection:'row', alignSelf:'center'}}>
                 <Text style={styles.Txt}>Username</Text>
@@ -96,6 +121,10 @@ const YourProfileComponent: FC = () => {
                 <Text style={styles.Txt}>Notifications</Text>
                 <Text style={styles.Txt}>{'\>'}</Text>
             </Pressable>
+            </View>
+
+            <View style={{flex:1}}>
+              <Button title="Sign Out" onPress={()=> handleSignout()}></Button>
             </View>
 
 

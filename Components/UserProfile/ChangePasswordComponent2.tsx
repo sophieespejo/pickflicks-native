@@ -1,18 +1,43 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { FC, useState } from "react";
-import { StyleSheet, Text, View, Image, TextInput, Pressable, ScrollView, TouchableWithoutFeedback, Keyboard} from "react-native";
+import { FC, useState, useContext } from "react";
+import { StyleSheet, Text, View, TextInput, Pressable, ScrollView, TouchableWithoutFeedback, Keyboard} from "react-native";
 import { useFonts, Raleway_400Regular, Raleway_600SemiBold} from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
-import { Button } from "react-native-paper";
 import {useNavigation} from '@react-navigation/native';
-import JJKMovie from '../../assets/JJKMovie.jpg'
-import Popcorn from '../../assets/Popcorn.gif'
-// import { Button } from "native-base";
+import { EditPassword } from '../../Service/DataService';
+import UserContext from '../../Context/UserContext';  
+
+
   
 
 
 const ChangePasswordComponent2: FC = () => {
-    const navigation = useNavigation();
+  const navigation = useNavigation();
+
+  let { userId, username} = useContext(UserContext)
+
+
+  const [textInput, setTextInput] = useState('');
+  const [textInput2, setTextInput2] = useState('');
+  const [success, setSuccess] = useState(false);
+
+  const handleSave = async () => 
+  {
+    console.log('//ChangePassword2Component TextInput is:', textInput);
+    console.log('//ChangePassword2Component TextInput2 is:', textInput2);
+    if(textInput == textInput2)
+    {
+      let newPasswordResult = await EditPassword(userId, textInput);
+      if(newPasswordResult)
+      {
+        setSuccess(true);
+        console.log('//ChangePassword2Component EditPassword endpoint ran:', newPasswordResult);
+      }
+      else
+      {
+        setSuccess(false);
+      }
+    }
+  }
 
   let [fontsLoaded] = useFonts({
     Raleway_400Regular,
@@ -31,18 +56,16 @@ const ChangePasswordComponent2: FC = () => {
                <Text style={styles.Txt}>Enter your new Password</Text>
                <TextInput
                             style={styles.input}
-                            // onChangeText={onChangeText}
-                            // value={''}
+                            secureTextEntry
                             enablesReturnKeyAutomatically={true}
                             keyboardAppearance={'dark'}
                             contextMenuHidden={true}
                             selectionColor={'white'}
                             textAlign={'center'}
                             textContentType={'name'}
-                            // placeholder={'Try a new Username'}
                             placeholderTextColor={'white'}
-                            onChangeText={(e) => console.log('pewpew')}
-                            // value={}
+                            onChangeText={(e) => setTextInput(e)}
+                            value={success ? '' : textInput}
                         />
            </View>
                 </TouchableWithoutFeedback>
@@ -54,22 +77,26 @@ const ChangePasswordComponent2: FC = () => {
                <Text style={styles.Txt}>Confirm your new Password</Text>
                <TextInput
                             style={styles.input}
-                            // onChangeText={onChangeText}
-                            // value={''}
+                            secureTextEntry
                             enablesReturnKeyAutomatically={true}
                             keyboardAppearance={'dark'}
                             contextMenuHidden={true}
                             selectionColor={'white'}
                             textAlign={'center'}
                             textContentType={'name'}
-                            // placeholder={'Try a new Username'}
                             placeholderTextColor={'white'}
-                            onChangeText={(e) => console.log('pewpew')}
-                            // value={}
+                            onChangeText={(e) => setTextInput2(e)}
+                            value={success ? '' : textInput2}
                         />
-                        <Text style={styles.Txt2}>Passwords do not match!</Text>
+                        {
+                          textInput == "" && textInput2 == "" ? null :
+                          success == true && textInput == textInput2 ? <Text style={styles.PasswordsMatch}>Password Changed Successfully!</Text> :
+                          textInput == textInput2 ? <Text style={styles.PasswordsMatch}>Passwords match!</Text> : 
+                          textInput != textInput2 ? <Text style={styles.PasswordsDontMatch}>Passwords do not match!</Text> : null
+                        }
+                        
 
-                      <Pressable style={{alignItems:'center', paddingTop:'5%'}}>
+                      <Pressable onPress={() => handleSave()} style={{alignItems:'center', paddingTop:'5%'}}>
                           <Text style={styles.SaveTxt}>Save</Text>
                       </Pressable>
            </View>
@@ -95,8 +122,6 @@ const styles = StyleSheet.create({
     color: '#EBE1E1',
     marginTop: 20,
     alignSelf:'center',
-    // textAlign:'center',
-    // alignItems: 'center',
     fontFamily:'Raleway_400Regular', 
     }, 
   titleTxtBold:{
@@ -123,6 +148,20 @@ const styles = StyleSheet.create({
     fontSize: 22,
     textAlign:'center',
     color: '#EBE1E1D1',
+    paddingTop:'4%'
+  },
+  PasswordsMatch:{
+    fontFamily:'Raleway_400Regular',
+    fontSize: 22,
+    textAlign:'center',
+    color: 'green',
+    paddingTop:'4%'
+  },
+  PasswordsDontMatch:{
+    fontFamily:'Raleway_400Regular',
+    fontSize: 22,
+    textAlign:'center',
+    color: 'red',
     paddingTop:'4%'
   }
 });

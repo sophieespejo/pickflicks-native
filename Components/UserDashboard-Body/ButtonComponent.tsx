@@ -1,11 +1,10 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { FC, useContext, useEffect } from "react";
-import { StyleSheet, Text, View, Image, TextInput, Pressable } from "react-native";
-import headerLogo from "../../assets/headerLogo.png";
+import { FC} from "react";
+import { StyleSheet, Text, View, Image, Pressable } from "react-native";
 import MovieClipper from "../../assets/MovieClipper.png";
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
-import {NavigationContainer, useNavigation} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 
 
 
@@ -46,7 +45,7 @@ interface IButtonComponent {
 
 
   return (
-    <View style={{flex:1, marginTop:'3%', marginBottom: '3%', alignItems:'center'}}>
+    <View style={{flex:1, paddingTop:'3%', marginBottom: '3%', alignItems:'center'}}>
       <Pressable style={{width:'90%', marginBottom:'3%'}} onPress={() => navigation.navigate('NewMWGName')}>
         <View style={styles.wgButton}>
           <Image source={MovieClipper}></Image>
@@ -73,8 +72,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 0,
     alignItems: "center",
-
-    //position: 'absolute', top: 175, left: 23, right: 20, bottom: 0,
     backgroundColor:'pink'
   },
 });

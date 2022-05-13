@@ -1,11 +1,9 @@
-import { FC, useState, useCallback, useEffect, useContext } from 'react';
-import { StyleSheet, View, Image, Text, TextInput, Keyboard, Pressable, KeyboardAvoidingView, TouchableWithoutFeedback } from 'react-native';
+import { FC, useState, useEffect, useContext } from 'react';
+import { StyleSheet, View, Text, Keyboard, Pressable, TouchableWithoutFeedback } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import PickFlicksLogo from '../assets/logo.png';
-import { Button, Colors, HelperText } from 'react-native-paper';
+import { Button} from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { AddUser } from '../../Service/DataService';
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 import { Avatar } from 'react-native-paper';
@@ -24,6 +22,7 @@ import girl6 from '../../assets/avatars/girl6.png';
 import { GetUserByUsername, EditUserIcon } from '../../Service/DataService';
 import {useNavigation} from '@react-navigation/native';
 import UserContext from '../../Context/UserContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 type RootStackParamList = {
@@ -59,16 +58,13 @@ type Props = NativeStackScreenProps<RootStackParamList, 'AvatarScreen'>;
 
 const AvatarScreen: FC<Props> = () => {
     const navigation = useNavigation<any>();
-    let {  username, userId, setUserId , setUserIcon, userIcon, listOfMovieNamesUsedToCompare1, setListOfMovieNamesUsedToCompare1 } = useContext(UserContext);
+    let {  userIcon, setUserIcon, username, userId, setUserId , listOfMovieNamesUsedToCompare1, setListOfMovieNamesUsedToCompare1 } = useContext(UserContext);
 
     useEffect(() => {
-        // const fetch = async () => {
-
-        // }
-        // fetch();
+        
     }, []);
 
-    //const [userIcon, setUserIcon] = useState('');
+    // const [userIcon, setUserIcon] = useState('');
     const [active1, setActive1] = useState('');
     const [active2, setActive2] = useState('');
     const [active3, setActive3] = useState('');
@@ -293,11 +289,16 @@ const AvatarScreen: FC<Props> = () => {
 
 const handleSubmit = async () => {
     // Get userData
+    // const userToken = await AsyncStorage.getItem('@storage_Token')
+    // if(userToken != null)
+    // {
+    //     navigation.navigate('UserDashboard')
+    // }
 
 
     // Get userDtoByUsername
     let userData = await GetUserByUsername(username)
-    console.log(userData);
+    console.log('//AvatarScreen onSubmit', userData);
     setUserId(userData.id);
     setUserIcon(userIcon);
     console.log(userData.id)
@@ -309,6 +310,31 @@ const handleSubmit = async () => {
         setUserIcon(userIcon);
         console.log(result);
         navigation.navigate('Login');
+        if(userData.icon == userIcon)
+        {
+            alert("This is already your avatar!")
+        }
+        else
+        {
+            let result = await EditUserIcon(userData.id, userIcon)
+            console.log('//AvatarScreen changing Icon results:', result);
+            const userToken = await AsyncStorage.getItem('@storage_Token')
+            if(result)
+            {
+                if(userToken != null)
+                {
+                    navigation.navigate('UserProfile')
+                }
+                else
+                {
+                    navigation.navigate('Login');
+                }
+            }
+            else
+            {
+                alert("Could not change your icon!")
+            }
+        }
     }
 };
 

@@ -1,18 +1,50 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { FC, useState } from "react";
-import { StyleSheet, Text, View, Image, TextInput, Pressable, ScrollView, TouchableWithoutFeedback, Keyboard} from "react-native";
+import { FC, useState, useContext,useEffect} from "react";
+import { StyleSheet, Text, View, TextInput, Pressable, TouchableWithoutFeedback, Keyboard} from "react-native";
 import { useFonts, Raleway_400Regular, Raleway_600SemiBold} from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
-import { Button } from "react-native-paper";
 import {useNavigation} from '@react-navigation/native';
-import JJKMovie from '../../assets/JJKMovie.jpg'
-import Popcorn from '../../assets/Popcorn.gif'
-// import { Button } from "native-base";
+import UserContext from '../../Context/UserContext';
+import {CheckPassword} from '../../Service/DataService';
+
   
 
 
 const ChangePasswordComponent1: FC = () => {
-    const navigation = useNavigation();
+
+  let { userId, username} = useContext(UserContext)
+  const [textInput, setTextInput] = useState("");
+  const [incorrectPassword, setIncorrectPassword] = useState(false)
+  const [placeholder, setPlaceholder] = useState('');
+
+  const navigation = useNavigation<any>();
+
+  useEffect( () => {
+    const Password = async () => 
+    {
+      setPlaceholder("Enter your current Password");
+    }
+    
+    Password();
+
+  }, []);
+
+  const handleNext = async () => 
+  {
+    let userData = {
+      Username: username,
+      Password: textInput
+    };
+    let passwordResult = await CheckPassword(userData);
+    if(passwordResult)
+    {
+      setIncorrectPassword(false);    
+      navigation.navigate('ChangePassword2');
+    }
+    else
+    {
+      setIncorrectPassword(true);
+    }
+  }
 
   let [fontsLoaded] = useFonts({
     Raleway_400Regular,
@@ -30,23 +62,25 @@ const ChangePasswordComponent1: FC = () => {
                <Text style={styles.Txt}>Enter your current {'\n'} Password</Text>
                <TextInput
                             style={styles.input}
-                            // onChangeText={onChangeText}
-                            // value={''}
+                            secureTextEntry
                             enablesReturnKeyAutomatically={true}
                             keyboardAppearance={'dark'}
                             contextMenuHidden={true}
                             selectionColor={'white'}
                             textAlign={'center'}
                             textContentType={'name'}
-                            placeholder={'Enter your new Password'}
+                            placeholder={placeholder}
                             placeholderTextColor={'white'}
-                            onChangeText={(e) => console.log('pewpew')}
-                            // value={}
+                            onChangeText={(e) => setTextInput(e)}
+                            onFocus={() => setPlaceholder('')}
+                            onBlur={() => setPlaceholder('Enter your current Password')}
+                            value={textInput}
                         />
-                {/* Message for when username is not available ternary here */}
-                <Text style={styles.Txt2}>Incorrect Password</Text>
+                {
+                  incorrectPassword ? <Text style={styles.Txt2}>Incorrect Password</Text> : null
+                }        
 
-                <Pressable style={{alignItems:'center', paddingTop:'5%'}}>
+                <Pressable onPress={() => handleNext()} style={{alignItems:'center', paddingTop:'5%'}}>
                     <Text style={styles.SaveTxt}>Next</Text>
                 </Pressable>
            </View>
@@ -71,8 +105,6 @@ const styles = StyleSheet.create({
     color: '#EBE1E1',
     marginTop: 20,
     alignSelf:'center',
-    // textAlign:'center',
-    // alignItems: 'center',
     fontFamily:'Raleway_400Regular', 
     }, 
   titleTxtBold:{
@@ -98,7 +130,7 @@ const styles = StyleSheet.create({
     fontFamily:'Raleway_400Regular',
     fontSize: 22,
     textAlign:'center',
-    color: '#EBE1E1D1',
+    color: 'red',
     paddingTop:'4%'
   }
 });

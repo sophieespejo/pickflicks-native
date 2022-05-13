@@ -1,13 +1,9 @@
-import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { FC, useEffect, useContext } from 'react';
-import { StyleSheet, Text, View , Image, ScrollView} from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import JustLogoComponent from '../../Components/UserDashboard-Body/JustLogoComponent';
-import ButtonComponent from '../../Components/UserDashboard-Body/ButtonComponent';
-import MWGCardComponent from '../../Components/UserDashboard-Body/MWGCardComponent';
 import FooterNavComponent from '../../Components/UserDashboard-Body/FooterNavComponent';
 import NewMWGNameComponent from '../../Components/UserDashboard-Body/NewMWGNameComponent';
-import MemberSearchTextInputComponent from '../../Components/UserDashboard-Body/MemberSearchTextInputComponent';
-import HeaderComponent from '../../Components/UserDashboard-Body/HeaderComponent';
 import UserContext from '../../Context/UserContext';
 
 

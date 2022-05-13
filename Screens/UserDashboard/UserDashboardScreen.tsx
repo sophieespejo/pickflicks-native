@@ -1,17 +1,14 @@
-import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { FC, useContext, useEffect, useCallback } from 'react';
-import { StyleSheet, Text, View , Image, ScrollView, Button, Pressable, RefreshControl, Alert} from 'react-native';
+import { StyleSheet, Text, View , ScrollView, Button, Pressable, RefreshControl} from 'react-native';
 import HeaderComponent from '../../Components/UserDashboard-Body/HeaderComponent';
 import ButtonComponent from '../../Components/UserDashboard-Body/ButtonComponent';
-import MWGCardComponent from '../../Components/UserDashboard-Body/MWGCardComponent';
 import WaitingForYouComponent from '../../Components/UserDashboard-Body/WaitingForYouComponent';
 import WaitingForOthersComponent from '../../Components/UserDashboard-Body/WaitingForOthersComponent';
 import FooterNavComponent from '../../Components/UserDashboard-Body/FooterNavComponent';
-import NewMWGNameComponent from '../../Components/UserDashboard-Body/NewMWGNameComponent';
-import MemberSearchTextInputComponent from '../../Components/UserDashboard-Body/MemberSearchTextInputComponent';
 import UserContext from '../../Context/UserContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
+import { useFonts, Raleway_400Regular, Raleway_600SemiBold } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 import { useState } from 'react';
 import { GetMWGStatusByUserId } from '../../Service/DataService';
@@ -56,13 +53,10 @@ const UserDashboard: FC<Props> = ({navigation}) => {
   }
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
-    // const Id = await AsyncStorage.getItem('@storage_Id')
-    // setUserId(Id);
-    // console.log(Id);
+    const Id = await AsyncStorage.getItem('@storage_Id')
+    setUserId(Id);
     let result = await GetMWGStatusByUserId(userId);
     setAllMWG(result);
-    //setAllMWG([...result]);
-    // console.log(result);
     wait(2000).then(() => setRefreshing(false));
   }, []);
 
@@ -80,40 +74,38 @@ const UserDashboard: FC<Props> = ({navigation}) => {
 
   useEffect( () => {
     async function getUserInfo(){
-      const something = navigation.addListener('focus', async() => {
-        console.log('Refreshed');
+      const something = navigation.addListener('focus', async () => {
+        console.log('//UserDashboardScreen Page is Refreshed');
         setUserIsAdmin(false);
         setUserIsReadyForGenres(false);
         setUserIsReadyForSwipes(false);
         setUserIsReadyToSeeFinalMovie(false);
         setUserIsWaiting(false);
-        let result = await GetMWGStatusByUserId(userId);
-        setAllMWG(result);
+        const token1 = await AsyncStorage.getItem('@storage_Token')
+        console.log(token1)
+        if(token1 != null)
+        {
+          setUsername(username);
+          setUserId(userId);
+          setUserIcon(userIcon);
+          const Id = await AsyncStorage.getItem('@storage_Id')
+          setUserId(Id);
+          let result = await GetMWGStatusByUserId(userId);
+          console.log('//UserDashboardScreen This is the userDatabyId', result);
+          setAllMWG(result);
+        }
+        else
+        {
+          navigation.navigate('Login');
+        }
       });
-      const token1 = await AsyncStorage.getItem('@storage_Token')
-      console.log(token1)
-      if(token1 != null)
-      {
-        console.log('running')
-        setUsername(username);
-        setUserId(userId);
-        setUserIcon(userIcon);
-        const Id = await AsyncStorage.getItem('@storage_Id')
-        setUserId(Id);
-        let result = await GetMWGStatusByUserId(userId);
-        setAllMWG(result);
-      }
-      else
-      {
-        navigation.navigate('Login');
-      }
-      //return something;
     }
     getUserInfo()
   }, []);
 
   let [fontsLoaded] = useFonts({
     Raleway_400Regular,
+    Raleway_600SemiBold
   });
 
   if (!fontsLoaded) {
@@ -153,6 +145,19 @@ const UserDashboard: FC<Props> = ({navigation}) => {
               progressViewOffset={100}
             />
             }>
+              <View style={{backgroundColor:'#1E1A1A'}}>
+              <View style={styles.InvitationButton}> 
+                <Text style={styles.InvitationTxt}>Accept Invitation to Join MWG</Text>
+                <View style={{flexDirection:'row', justifyContent:'space-evenly', width:'80%', marginTop:'2%'}}>
+                  <Pressable>
+                  <Text style={styles.AcceptTxt}>Accept</Text>
+                  </Pressable>
+                  <Pressable>
+                  <Text style={styles.DeclineTxt}>Decline</Text>
+                  </Pressable>
+                </View>
+              </View>
+              </View>
               <ButtonComponent />
               <View style={{flexDirection:'row', width:'100%',justifyContent:'space-around', paddingTop:'5%', backgroundColor: '#1E1A1A'}}>
                 <Pressable onPress={() => handleWFY()} style={WFYBool ? {borderBottomWidth:2, borderBottomColor:'#DC1B21', backgroundColor: '#1E1A1A'} : null}>
@@ -166,9 +171,6 @@ const UserDashboard: FC<Props> = ({navigation}) => {
                 WFOBool == true ? <WaitingForOthersComponent /> : <WaitingForYouComponent />
               }
             </ScrollView>
-            <View>
-              <Button title="Sign Out" onPress={()=> handleSignout()}></Button>
-            </View>
             <FooterNavComponent/>
         </View>
     )
@@ -184,6 +186,36 @@ const styles = StyleSheet.create({
       fontFamily:'Raleway_400Regular',
       fontSize:24,
       color:'#FFFFFF'
+    },
+    AcceptTxt:{
+      fontFamily:'Raleway_400Regular',
+      fontSize:24,
+      color:'green',
+      textAlign:'center'
+    },
+    DeclineTxt:{
+      fontFamily:'Raleway_400Regular',
+      fontSize:24,
+      color:'red',
+      textAlign:'center'
+    },
+    InvitationTxt:{
+      fontFamily:'Raleway_600SemiBold',
+      fontSize:24,
+      color:'black',
+      textAlign:'center'
+    },
+    InvitationButton: {
+      backgroundColor:'#F5F5DC',
+      width:'90%',
+      borderWidth: 2,
+      borderColor:'#F5F5DC',
+      borderRadius: 25,
+      alignItems:'center',
+      alignSelf:'center',
+      justifyContent:'center',
+      height:90,
+      marginTop:'3%'
     },
     nonPressedTxt:{
       fontFamily:'Raleway_400Regular',

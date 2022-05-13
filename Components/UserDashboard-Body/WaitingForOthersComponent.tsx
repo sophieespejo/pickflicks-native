@@ -312,6 +312,7 @@ const WaitingForOthersComponent: FC = () => {
 
         })
         }
+        
         {
           allMWG.map((group:any, i:number) => {
           //checks thru unfavorites

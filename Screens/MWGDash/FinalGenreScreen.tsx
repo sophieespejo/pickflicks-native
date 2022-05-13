@@ -1,18 +1,12 @@
-import { NavigationRouteContext } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { FC, useEffect, useContext } from 'react';
-import { StyleSheet, Text, View , Image} from 'react-native';
-import RedLogo from '../assets/RedLogo.png';
+import { StyleSheet, View} from 'react-native';
 import HeaderComponent1 from '../../Components/MWGDashboard/MovieCardHeaderComponent';
-import StreamingServiceComponent from '../../Components/MWGDashboard/StreamingServiceComponent';
 import FooterNavComponent from '../../Components/UserDashboard-Body/FooterNavComponent';
-import SelectedGenreComponent from '../../Components/MWGDashboard/SelectedGenreComponent';
 import FinalGenreComponent from '../../Components/MWGDashboard/FinalGenreComponent';
-import { Provider as PaperProvider } from 'react-native-paper';
 import { NativeBaseProvider } from "native-base";
 import UserContext from '../../Context/UserContext';
-import { GetMWGStatusByMWGId, AddAll15Movies } from '../../Service/DataService'
+import { GetMWGStatusByMWGId, AddFinalGenre} from '../../Service/DataService'
 import {useNavigation} from '@react-navigation/native';
 
 
@@ -42,7 +36,7 @@ type RootStackParamList = {
 type Props = NativeStackScreenProps<RootStackParamList, 'FinalGenre'>;
 
 const GenreRankingScreen: FC<Props> = () => {
-  let { username, setUsername, userId, setUserId, userIcon, setUserIcon, MWGname, setMWGname, MWGId, setMWGId, MWGgenres, setMWGgenres, genreId, streamingServiceId, MWGmembersId, setMWGmembersId,genre1,genre2, genre3, setGenre3, setAllMWG } = useContext(UserContext)
+  let { genreName, setGenreName, MWGname, setMWGname, MWGId, setMWGId } = useContext(UserContext)
   const navigation = useNavigation<any>();
 
 
@@ -53,8 +47,13 @@ const GenreRankingScreen: FC<Props> = () => {
       setMWGname(MWGname);
       setMWGId(MWGId);
       console.log(MWGId)
+      console.log(genreName);
       let movieObj = await GetMWGStatusByMWGId(MWGId);
-      console.log(movieObj)
+
+      let finalGenreBackEnd = await AddFinalGenre(MWGId, genreName);
+      console.log(finalGenreBackEnd);
+      console.log('This added FinalGenre field to Backend success')
+      
       // if(movieObj != null)
       // {
       //   console.log(movieObj[0].areAllMembersDoneWithGenre);

@@ -1,12 +1,8 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { FC, useState, useCallback, useEffect } from "react";
-import { StyleSheet, Text, View, Image, TextInput, Animated} from "react-native";
+import { FC, useCallback, useEffect } from "react";
+import { StyleSheet, Text, View, Image, Animated} from "react-native";
 import { useFonts, Raleway_400Regular, Raleway_600SemiBold} from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
-import { Button } from "react-native-paper";
 import {useNavigation} from '@react-navigation/native';
-import thumbsdown from '../../assets/thumbsdown.png'
-import thumbsup from '../../assets/thumbsup.png'
 import sadFace from '../../assets/sadFace.png'
 import smileFace from '../../assets/smileFace.png'
 import Choice  from '../Utilities/Choice'
