@@ -424,5 +424,17 @@ async function DeleteByMWGId(MWGId:number){
    return data;
 }
 
+async function AddInvitations(MWGId:number, MWGName: string, InvitedMembers: string){
+    let res= await fetch(`${url}/invitation/AddInvitations/${MWGId}/${MWGName}/${InvitedMembers}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(null)
+    });
+    let data = await res.json();
+   return data;
+}
 
-export { CheckPassword, EditUserIcon, EditPassword, EditUsername, AddFinalMovieIndex, AddFinalGenre, UpdateMWGStatus, GetUserById, GetTopRankedGenre, GetMWGByMWGName, UpdateIsStartedByMWGId, GetMWGStatusById, AddMWGStatus, ResetMWGStatusbyMWGId,UpdateSwipings, UpdateGenreRanking, GetMWGStatusByUserId, GetMWGStatusByMWGId, AddUser, Login, GetMWGById, GetTopMovieByMWGId, AddLikeOrDislike, AddStreamingService, GetMoviesByMWGId, AddGenreRankingModel, GetUserByUsername, GetAllMWGAUserIsMemberOfuserId, AddFavoriteMWG, AddAll15Movies, RemoveFavoriteMWG, AddMWG, AddChosenGenres};
+
+export { CheckPassword, EditUserIcon, EditPassword, EditUsername, AddFinalMovieIndex, AddFinalGenre, UpdateMWGStatus, AddInvitations, EditUserIcon, DeleteByMWGId, GetUserById, AddMemberToMWG, DeleteMemberFromMWG, GetTopRankedGenre, GetMWGByMWGName, UpdateIsStartedByMWGId, GetMWGStatusById, AddMWGStatus, ResetMWGStatusbyMWGId,UpdateSwipings, UpdateGenreRanking, GetMWGStatusByUserId, GetMWGStatusByMWGId, AddUser, Login, GetMWGById, GetTopMovieByMWGId, AddLikeOrDislike, AddStreamingService, GetMoviesByMWGId, AddGenreRankingModel, GetUserByUsername, GetAllMWGAUserIsMemberOfuserId, AddFavoriteMWG, AddAll15Movies, RemoveFavoriteMWG, AddMWG, AddChosenGenres};
