@@ -262,7 +262,7 @@ const GenreSelectionComponent2: FC = () => {
                             
 
               <View style={{flex:1, alignItems: 'center', marginTop:'10%'}}>
-                <View>
+                <View style={{width:'90%'}}>
                     <FlatList
                         ref={flatListRef}
                         data={DATA}

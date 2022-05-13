@@ -129,6 +129,7 @@ const UserDashboard: FC<Props> = ({navigation}) => {
               progressViewOffset={100}
             />
             }>
+              <View style={{backgroundColor:'#1E1A1A'}}>
               <View style={styles.InvitationButton}> 
                 <Text style={styles.InvitationTxt}>Accept Invitation to Join MWG</Text>
                 <View style={{flexDirection:'row', justifyContent:'space-evenly', width:'80%', marginTop:'2%'}}>
@@ -139,6 +140,7 @@ const UserDashboard: FC<Props> = ({navigation}) => {
                   <Text style={styles.DeclineTxt}>Decline</Text>
                   </Pressable>
                 </View>
+              </View>
               </View>
               <ButtonComponent />
               <View style={{flexDirection:'row', width:'100%',justifyContent:'space-around', paddingTop:'5%', backgroundColor: '#1E1A1A'}}>
@@ -188,10 +190,10 @@ const styles = StyleSheet.create({
       textAlign:'center'
     },
     InvitationButton: {
+      backgroundColor:'#F5F5DC',
       width:'90%',
       borderWidth: 2,
       borderColor:'#F5F5DC',
-      backgroundColor:'#F5F5DC',
       borderRadius: 25,
       alignItems:'center',
       alignSelf:'center',

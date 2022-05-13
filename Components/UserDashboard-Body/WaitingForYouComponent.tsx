@@ -21,6 +21,7 @@ const WaitingForYouComponent: FC = () => {
 
   //const [allMWG, setAllMWG] = useState<any>([]);
   const [allFaveMWG, setAllFaveMWG] = useState<any>([]);
+  const [noFave, setNoFave] = useState<boolean>(false);
   //const [favorite, setFavorite] = useState(0);
 
   const navigation = useNavigation<any>();
@@ -33,8 +34,13 @@ const WaitingForYouComponent: FC = () => {
             setUserId(userId)
           
       let response = await GetUserByUsername(username);
+      // console.log(response)
       let favoritedMWGArray = response.favoritedMWGId.split(',');
-      console.log(favoritedMWGArray);
+      // if(response.favoritedMWGId == null)
+      // {
+      //   console.log('im here');
+      //   setNoFave(true);
+      // }
 
       for (var i of favoritedMWGArray) {
         allFaveMWG.push(parseInt(i));
@@ -109,7 +115,6 @@ const WaitingForYouComponent: FC = () => {
           break;
       }
       navigation.navigate('MWGDashboard');
-      //navigation.navigate('MovieCard');
     }
 
 
@@ -119,6 +124,7 @@ const WaitingForYouComponent: FC = () => {
   return (
 
     <View style={{ flex:1, alignItems:'center', backgroundColor: '#1E1A1A'}}>
+      {noFave ? <Text> NO GROUPS </Text> : null}
       
     {
 

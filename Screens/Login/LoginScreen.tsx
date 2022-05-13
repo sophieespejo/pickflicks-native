@@ -213,7 +213,8 @@ const styles = StyleSheet.create({
         height: 50,
         width: 300, 
         justifyContent: 'center',
-        marginTop: 40
+        marginTop: 40,
+        alignSelf:'center'
     },
     dontHaveAccountTxt: {
         color: 'white',
