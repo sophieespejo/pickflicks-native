@@ -65,6 +65,9 @@ const YourProfileComponent: FC = () => {
    navigation.navigate("AvatarScreen");
   }
 
+  const handleInvitationsNavigation = () => {
+    navigation.navigate("Invitations")
+  }
   const handleUsernameNavigation = () => {
     navigation.navigate("ChangeUsername")
   }
@@ -107,25 +110,29 @@ const YourProfileComponent: FC = () => {
 
             <View style={{flex:1.5, marginTop:'10%', alignItems:'center', justifyContent:'space-evenly'}}>
 
-            <Pressable onPress={() => handleUsernameNavigation()} style={{flex:0.15, width:'80%', justifyContent:'space-between', flexDirection:'row', alignSelf:'center'}}>
+            <Pressable onPress={() => handleInvitationsNavigation()} style={{flex:0.25, width:'80%', justifyContent:'space-between', flexDirection:'row', alignSelf:'center'}}>
+                <Text style={styles.Txt}>Invitations</Text>
+                <Text style={styles.Txt}>{'\>'}</Text>
+            </Pressable>
+            <Pressable onPress={() => handleUsernameNavigation()} style={{flex:0.25, width:'80%', justifyContent:'space-between', flexDirection:'row', alignSelf:'center'}}>
                 <Text style={styles.Txt}>Username</Text>
                 <Text style={styles.Txt}>{'\>'}</Text>
             </Pressable>
 
-            <Pressable onPress={() => handlePasswordNavigation()} style={{flex:0.15, width:'80%', justifyContent:'space-between', flexDirection:'row', alignSelf:'center'}}>
+            <Pressable onPress={() => handlePasswordNavigation()} style={{flex:0.25, width:'80%', justifyContent:'space-between', flexDirection:'row', alignSelf:'center'}}>
                 <Text style={styles.Txt}>Password</Text>
                 <Text style={styles.Txt}>{'\>'}</Text>
             </Pressable>
 
-            <Pressable onPress={() => handleNotificationsNavigation()} style={{flex:0.15, width:'80%', justifyContent:'space-between', flexDirection:'row', alignSelf:'center'}}>
+            <Pressable onPress={() => handleNotificationsNavigation()} style={{flex:0.25, width:'80%', justifyContent:'space-between', flexDirection:'row', alignSelf:'center'}}>
                 <Text style={styles.Txt}>Notifications</Text>
                 <Text style={styles.Txt}>{'\>'}</Text>
             </Pressable>
             </View>
 
-            <View style={{flex:1}}>
-              <Button title="Sign Out" onPress={()=> handleSignout()}></Button>
-            </View>
+            <Pressable style={{flex:0.7}} onPress={()=> handleSignout()}>
+              <Text style={styles.SignOutTxt}>Sign Out</Text>  
+            </Pressable>
 
 
 
@@ -155,6 +162,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color:'#09A7F9',
     paddingTop:'4%'
+  },
+  SignOutTxt:{
+    fontFamily: "Raleway_400Regular",
+    fontSize: 20,
+    color:'#09A7F9',
+    alignSelf:'center'
   },
   Txt:{
     fontFamily:'Raleway_400Regular',

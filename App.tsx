@@ -28,10 +28,10 @@ import ChangeUsernameScreen from './Screens/UserProfile/ChangeUsernameScreen';
 import {NativeBaseProvider } from 'native-base'
 import UserContext from './Context/UserContext'
 import UseUser from './Hooks/use-user'
-//import MWGDashboard from './Screens/MWGDash/MWGdashboardScreen'
 import ChangePasswordScreen1 from './Screens/UserProfile/ChangePasswordScreen1';
 import ChangePasswordScreen2 from './Screens/UserProfile/ChangePasswordScreen2';
 import ChangeNotificationsScreen from './Screens/UserProfile/ChangeNotificationsScreen';
+import InvitationsScreen from './Screens/UserProfile/InvitationsScreen';
 
 
 type RootStackParamList = {
@@ -61,6 +61,7 @@ type RootStackParamList = {
   ChangePassword2 : undefined,
   ChangeNotifications : undefined,
   TutorialMovieCard : undefined,
+  Invitations : undefined,
 }
 
 
@@ -151,6 +152,10 @@ const App:FC = () => {
               <Stack.Screen
                 name="UserProfile"
                 component={UserProfileScreen}
+                options={{headerShown:false}}/>
+              <Stack.Screen
+                name="Invitations"
+                component={InvitationsScreen}
                 options={{headerShown:false}}/>
               <Stack.Screen
                 name="ChangeNotifications"
