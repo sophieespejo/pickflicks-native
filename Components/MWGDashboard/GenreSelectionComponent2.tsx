@@ -9,35 +9,6 @@ import {AddChosenGenres, UpdateIsStartedByMWGId} from '../../Service/DataService
 import UserContext from "../../Context/UserContext";
 
 
-  
-type RootStackParamList = {
-  Home: undefined; //means route doesnt have params
-    //UserDashboard: { username: string, userId: number };
-    UserDashboard: undefined;
-  Login: undefined
-  CreateAccountScreen: undefined,
-  Loading: undefined,
-  AvatarScreen: undefined
-  Introduction: undefined,
-  SelectStreamingService: undefined
-  NewMWGName: undefined,
-  MemberSearch: { username: string, userId: number, newMWGname: string },
-  InvitationSent: { username: string, userId: number},
-  ChooseGenres : undefined,
-  GenreRanking: undefined,
-  FinalGenre : undefined,
-  MovieCard : undefined,
-  FinalMovie : undefined,
-  MWGDashboard : undefined,
-  LoadingPopcorn : undefined,
-  UserProfile : undefined,
-  ChangeUsername :undefined,
-  ChangePassword1 : undefined,
-  ChangePassword2 : undefined,
-  ChangeNotifications : undefined,
-  TutorialMovieCard : undefined,
-}
-
 const GenreSelectionComponent2: FC = () => {
   let { userId, setUserId, setMWGname, MWGname, setMWGId, MWGId, setGenreId } = useContext(UserContext);
 
@@ -229,8 +200,6 @@ const GenreSelectionComponent2: FC = () => {
       }
       
     
-
-
   let [fontsLoaded] = useFonts({
     Raleway_400Regular,
   });

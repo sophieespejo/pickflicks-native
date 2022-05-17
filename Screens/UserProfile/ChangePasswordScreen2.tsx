@@ -5,28 +5,8 @@ import HeaderComponent from '../../Components/UserProfile/HeaderComponent';
 import FooterNavComponent from '../../Components/UserDashboard-Body/FooterNavComponent';
 import ChangePasswordComponent2 from '../../Components/UserProfile/ChangePasswordComponent2';
 import { Provider as PaperProvider } from 'react-native-paper';
+import { RootStackParamList } from '../../interfaces/RootStackParamList';
 
-
-
-
-type RootStackParamList = {
-    Home: undefined; //means route doesnt have params
-    UserDashboard: { username: string, userId: number }
-    Login: { name: string }
-    CreateAccountScreen: undefined,
-    Loading: undefined,
-    AvatarScreen: undefined
-    Introduction: undefined,
-    SelectStreamingService: undefined
-    NewMWGName: { username: string, userId: number },
-    MemberSearch: { username: string, userId: number, newMWGname: string },
-    InvitationSent: { username: string, userId: number};
-    ChooseGenres : undefined,
-    GenreRanking: undefined,
-    MovieCard : undefined,
-    ChangePassword2 : undefined,
-
-  }
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ChangePassword2'>;
 

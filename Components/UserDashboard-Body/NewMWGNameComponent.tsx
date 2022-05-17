@@ -14,20 +14,7 @@ import AppLoading from "expo-app-loading";
 import {useNavigation} from '@react-navigation/native';
 import UserContext from '../../Context/UserContext';
 
-
-type RootStackParamList = {
-    Home: undefined; //means route doesnt have params
-    UserDashboard: { username: string, userId: number}
-    Login: { username: string}
-    CreateAccountScreen: undefined,
-    Loading: undefined,
-    Introduction: undefined,
-    NewMWGName: undefined
-    MemberSearch: { newMWGname: string },
-  }
   
-  
-  const Stack = createNativeStackNavigator<RootStackParamList>();
 
 interface INewMWGNameComponent {
   username: string,

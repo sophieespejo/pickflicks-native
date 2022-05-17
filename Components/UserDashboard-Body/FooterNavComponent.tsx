@@ -3,8 +3,10 @@ import {
   StyleSheet,
   View,
   Image,
+  Pressable,
 } from "react-native";
 import Home from "../../assets/Home2.png";
+import NotificationFooter from '../../assets/NotificationFooter.png'
 import UserProfile from "../../assets/UserProfile2.png";
 import { Button } from "react-native-paper";
 import { useNavigation } from '@react-navigation/native';
@@ -20,19 +22,27 @@ const FooterNavComponent: FC = () => {
 
   return (
     <View style={styles.container}>
-      <Button
+      {/* <Button
+        style={{backgroundColor:'purple', marginBottom:'5%'}}
         // mode="text"
         onPress={() => {
           navigation.navigate("UserProfile");
         }}
         icon={() => (
           <Image
-            source={UserProfile}
-            style={{ width: 30, height: 30, tintColor: "white" }}
+            source={NotificationFooter}
+            style={{ width: 38, height: 40 }}
           />
         )}
-      ></Button>
-      <Button
+      ></Button> */}
+      <Pressable style={{}} onPress={() => {navigation.navigate("UserProfile")}}>
+        <Image source={NotificationFooter} style={{ width: 38, height: 40 }}/>
+      </Pressable>
+
+      <Pressable style={{paddingTop:'2%'}} onPress={() => {navigation.navigate("UserDashboard")}}>
+        <Image source={Home} style={{ width: 30, height: 30}}/>
+      </Pressable>
+      {/* <Button
         // mode="text"
         onPress={() => {
           navigation.navigate("UserDashboard");
@@ -43,18 +53,21 @@ const FooterNavComponent: FC = () => {
             style={{ width: 30, height: 30, tintColor: "white" }}
           />
         )}
-      ></Button>
+      ></Button> */}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 0.07,
+    flex: 0.08,
     backgroundColor: "#38333343",
+    // backgroundColor:'purple',
     flexDirection: "row",
-    paddingTop: 20,
+    paddingTop: '5%',
     justifyContent: "space-evenly",
+    alignContent:'center',
+    
   },
 });
 

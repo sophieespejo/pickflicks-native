@@ -4,8 +4,6 @@ import { useFonts, Raleway_400Regular, Raleway_600SemiBold} from '@expo-google-f
 import AppLoading from 'expo-app-loading';
 import {useNavigation} from '@react-navigation/native';
 import Popcorn from '../../assets/Popcorn.gif'
-
-// import { Button } from "native-base";
   
 
 

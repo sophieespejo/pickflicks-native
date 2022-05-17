@@ -18,6 +18,7 @@ import boy5 from '../../assets/avatars/boy5.png'
 import boy6 from '../../assets/avatars/boy6.png'
 import UserContext from '../../Context/UserContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import notifee from '@notifee/react-native';
 
 
   
@@ -87,6 +88,20 @@ const YourProfileComponent: FC = () => {
     if(token == null && Id == null && Username == null && UserIcon == null)
     {
       navigation.navigate('Login');
+      // const channelId = await notifee.createChannel({
+      //   id: 'default',
+      //   name: 'Default Channel',
+      // });
+  
+      // // Display a notification
+      // await notifee.displayNotification({
+      //   title: 'Notification Title',
+      //   body: 'Main body content of the notification',
+      //   android: {
+      //     channelId,
+      //     smallIcon: 'name-of-a-small-icon', // optional, defaults to 'ic_launcher'.
+      //   },
+      // });
     }
     else
     {

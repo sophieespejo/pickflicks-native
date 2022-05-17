@@ -55,9 +55,8 @@ const LoginScreen : FC<Props> = ({ navigation }) => {
             Username: username,
             Password: password
         };
-        setUsername(username);
         let fetchedToken = await Login(userData);
-        console.log(fetchedToken);
+        console.log('LogIn Screen', username);
 
         if (fetchedToken.token != null) {
             
@@ -121,7 +120,7 @@ const LoginScreen : FC<Props> = ({ navigation }) => {
                             textAlign={'center'}
                             textContentType={'name'}
                             onChangeText={(e) => setUsername(e)}
-                            value={username}
+                            // value={username}
                         />
                     </View>
                     <View style={{alignItems: 'center'}}>
@@ -136,7 +135,7 @@ const LoginScreen : FC<Props> = ({ navigation }) => {
                             textContentType={'name'}
                             secureTextEntry={true}
                             onChangeText={(e) => setPassword(e)}
-                            value={password}
+                            // value={password}
                         />
                     </View>
                     <View style={{alignItems: 'center'}}>

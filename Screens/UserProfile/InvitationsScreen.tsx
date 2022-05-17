@@ -5,28 +5,8 @@ import InvitationsHeaderComponent from '../../Components/UserProfile/Invitations
 import FooterNavComponent from '../../Components/UserDashboard-Body/FooterNavComponent';
 import InvitationsComponent from '../../Components/UserProfile/InvitationsComponent';
 import { ScrollView } from 'native-base';
+import { RootStackParamList } from '../../interfaces/RootStackParamList';
 
-
-
-type RootStackParamList = {
-    Home: undefined; //means route doesnt have params
-    UserDashboard: undefined;
-    Login: { name: string }
-    CreateAccountScreen: undefined,
-    Loading: undefined,
-    AvatarScreen: undefined
-    Introduction: undefined,
-    SelectStreamingService: undefined
-    NewMWGName: undefined,
-    MemberSearch: { newMWGname: string },
-    InvitationSent: undefined;
-    ChooseGenres : undefined,
-    GenreRanking: undefined,
-    MovieCard : undefined,
-    UserProfile : undefined,
-    Invitations : undefined,
-
-  }
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Invitations'>;
 

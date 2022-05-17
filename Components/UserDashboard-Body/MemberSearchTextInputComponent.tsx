@@ -14,7 +14,7 @@
   import X from '../../assets/X.png';
   import Swipeable from 'react-native-gesture-handler/Swipeable';
   import { Button, Avatar } from "react-native-paper";
-  import { GetUserByUsername, AddMWG, GetMWGStatusByUserId, AddMWGStatus, GetMWGByMWGName} from '../../Service/DataService'
+  import { AddInvitations, GetUserByUsername, AddMWG, GetMWGStatusByUserId, AddMWGStatus, GetMWGByMWGName} from '../../Service/DataService'
   import UserContext from '../../Context/UserContext';
   import RightActions from './RightActions';
   import girl1 from '../../assets/avatars/girl1.png'

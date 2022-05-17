@@ -25,6 +25,7 @@ const WaitingForYouComponent: FC = () => {
   useEffect(  () => {
       // setAllFaveMWG([]);
       async function fetchUserData() {
+            console.log(username)
             setUsername(username);
             setUserId(userId)
           
@@ -48,7 +49,7 @@ const WaitingForYouComponent: FC = () => {
         {
           let userMWG = await GetMWGStatusByUserId(response.id);
           setAllMWG(userMWG);
-          console.log(userMWG);
+          // console.log(userMWG);
         }
       }
       fetchUserData();

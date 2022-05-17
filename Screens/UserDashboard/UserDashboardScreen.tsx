@@ -39,7 +39,14 @@ const UserDashboard: FC<Props> = ({navigation}) => {
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
     const Id = await AsyncStorage.getItem('@storage_Id')
+    const UserToken = await AsyncStorage.getItem('@storage_Token')
+    const UserIcon = await AsyncStorage.getItem('@storage_Username')
+    const StoredUsername = await AsyncStorage.getItem('@storage_Usericon')
+
     setUserId(Id);
+    setUsername(StoredUsername);
+    setUserIcon(UserIcon);
+    setToken(UserToken);
     let result = await GetMWGStatusByUserId(userId);
     setAllMWG(result);
     wait(2000).then(() => setRefreshing(false));
@@ -61,6 +68,7 @@ const UserDashboard: FC<Props> = ({navigation}) => {
     async function getUserInfo(){
       const something = navigation.addListener('focus', async () => {
         console.log('//UserDashboardScreen Page is Refreshed');
+        console.log(userId);
         setUserIsAdmin(false);
         setUserIsReadyForGenres(false);
         setUserIsReadyForSwipes(false);
@@ -74,9 +82,10 @@ const UserDashboard: FC<Props> = ({navigation}) => {
           setUserId(userId);
           setUserIcon(userIcon);
           const Id = await AsyncStorage.getItem('@storage_Id')
-          setUserId(Id);
+          console.log('RIGHT HERE', Id)
+          setUserId(Number(Id));
           let result = await GetMWGStatusByUserId(userId);
-          console.log('//UserDashboardScreen This is the userDatabyId', result);
+          // console.log('//UserDashboardScreen This is the userDatabyId', result);
           setAllMWG(result);
         }
         else
@@ -95,22 +104,6 @@ const UserDashboard: FC<Props> = ({navigation}) => {
 
   if (!fontsLoaded) {
     return <AppLoading />;
-  }
-
-
-  const handleSignout = async () => {
-    const token = await AsyncStorage.removeItem('@storage_Token');
-    const Id = await AsyncStorage.removeItem('@storage_Id')
-    const Username = await AsyncStorage.removeItem('@storage_Username')
-    const UserIcon = await AsyncStorage.removeItem('@storage_Usericon')
-
-    if(token == null)
-    {
-      console.log(token, Id, Username, UserIcon);
-      navigation.navigate('Login');
-    }else{
-      alert("didn't work")
-    }
   }
 
 

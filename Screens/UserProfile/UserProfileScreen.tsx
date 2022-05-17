@@ -5,28 +5,7 @@ import HeaderComponent from '../../Components/UserProfile/HeaderComponent';
 import FooterNavComponent from '../../Components/UserDashboard-Body/FooterNavComponent';
 import YourProfileComponent from '../../Components/UserProfile/YourProfileComponent';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-
-
-
-type RootStackParamList = {
-    Home: undefined; //means route doesnt have params
-    UserDashboard: undefined;
-    Login: { name: string }
-    CreateAccountScreen: undefined,
-    Loading: undefined,
-    AvatarScreen: undefined
-    Introduction: undefined,
-    SelectStreamingService: undefined
-    NewMWGName: undefined,
-    MemberSearch: { newMWGname: string },
-    InvitationSent: undefined;
-    ChooseGenres : undefined,
-    GenreRanking: undefined,
-    MovieCard : undefined,
-    UserProfile : undefined,
-
-  }
+import { RootStackParamList } from '../../interfaces/RootStackParamList';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'UserProfile'>;
 

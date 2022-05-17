@@ -29,8 +29,9 @@ const WaitingForOthersComponent: FC = () => {
   useEffect(  () => {
       // setAllFaveMWG([]);
       async function fetchUserData() {
-            setUsername(username);
-            setUserId(userId)
+        console.log('USERNAME', username)
+            // setUsername(username);
+            // setUserId(userId)
             // setUserIsAdmin(false);
             // setUserIsReadyForGenres(false);
             // setUserIsReadyForSwipes(false);
@@ -52,7 +53,7 @@ const WaitingForOthersComponent: FC = () => {
         {
           let userMWG = await GetMWGStatusByUserId(response.id);
           setAllMWG(userMWG);
-          console.log(userMWG);
+          // console.log(userMWG);
         }
       }
       fetchUserData();
