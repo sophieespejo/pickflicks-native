@@ -23,36 +23,8 @@ import { GetUserByUsername, EditUserIcon } from '../../Service/DataService';
 import {useNavigation} from '@react-navigation/native';
 import UserContext from '../../Context/UserContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { RootStackParamList } from '../../interfaces/RootStackParamList';
 
-
-type RootStackParamList = {
-    Home: undefined; //means route doesnt have params
-    UserDashboard: undefined;
-    Login: undefined
-    CreateAccountScreen: undefined,
-    Loading: undefined,
-    AvatarScreen: undefined
-    Introduction: undefined,
-    SelectStreamingService: undefined
-    NewMWGName: undefined,
-    MemberSearch: { username: string, userId: number, newMWGname: string },
-    InvitationSent: { username: string, userId: number},
-    ChooseGenres : undefined,
-    GenreRanking: undefined,
-    GenreRanking2: undefined,
-    GenreRanking3: undefined,
-    FinalGenre : undefined,
-    MovieCard : undefined,
-    FinalMovie : undefined,
-    MWGDashboard : undefined,
-    LoadingPopcorn : undefined,
-    UserProfile : undefined,
-    ChangeUsername :undefined,
-    ChangePassword1 : undefined,
-    ChangePassword2 : undefined,
-    ChangeNotifications : undefined,
-    TutorialMovieCard : undefined,
-  }
 
 type Props = NativeStackScreenProps<RootStackParamList, 'AvatarScreen'>;
 

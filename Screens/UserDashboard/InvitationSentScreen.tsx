@@ -3,20 +3,7 @@ import { FC } from 'react';
 import { StyleSheet, View} from 'react-native';
 import SentInvitationsComponent from '../../Components/UserDashboard-Body/SentInvitationsComponent';
 import {useNavigation} from '@react-navigation/native';
-
-
-
-type RootStackParamList = {
-  Home: undefined; //means route doesnt have params
-  UserDashboard: undefined
-  Login: undefined
-  CreateAccountScreen: undefined,
-  Loading: undefined,
-  Introduction: undefined,
-  NewMWGName: undefined,
-  MemberSearch: undefined,
-  InvitationSent: undefined;
-}
+import { RootStackParamList } from '../../interfaces/RootStackParamList';
 
 
 type Props = NativeStackScreenProps<RootStackParamList, 'InvitationSent'>;

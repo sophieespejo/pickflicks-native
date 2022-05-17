@@ -15,6 +15,7 @@
   import Swipeable from 'react-native-gesture-handler/Swipeable';
   import { Button, Avatar } from "react-native-paper";
   import { GetUserByUsername, AddMWG, GetMWGStatusByUserId, AddMWGStatus, GetMWGByMWGName} from '../../Service/DataService'
+  import UserContext from '../../Context/UserContext';
   import RightActions from './RightActions';
   import girl1 from '../../assets/avatars/girl1.png'
   import girl2 from '../../assets/avatars/girl2.png'
@@ -28,22 +29,6 @@
   import boy4 from '../../assets/avatars/boy4.png'
   import boy5 from '../../assets/avatars/boy5.png'
   import boy6 from '../../assets/avatars/boy6.png'
-
-  import UserContext from '../../Context/UserContext';
-  
-  type RootStackParamList = {
-      Home: undefined; //means route doesnt have params
-      Login: { name: string };
-      CreateAccount: undefined;
-      Loading: undefined;
-      Introduction: undefined;
-      UserDashboard: undefined;
-      InvitationSent: undefined;
-      MemberSearch: undefined,
-    };
-  
-
-
   
   const MemberSearchTextInputComponent: FC = () => {
     let { username, setUsername, userId, setUserId, newMWGname, setnewMWGname, allMWG, setAllMWG, userIcon, setUserIcon } = useContext(UserContext)

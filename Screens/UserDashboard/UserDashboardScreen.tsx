@@ -13,24 +13,9 @@ import AppLoading from 'expo-app-loading';
 import { useState } from 'react';
 import { GetMWGStatusByUserId } from '../../Service/DataService';
 import LottieView from 'lottie-react-native';
+import { RootStackParamList } from '../../interfaces/RootStackParamList';
 
 
-
-type RootStackParamList = {
-    Home: undefined; //means route doesnt have params
-    Login: undefined
-    CreateAccount: undefined,
-    Loading: undefined,
-    Introduction: undefined
-    //UserDashboard: { username: string, userId: number };
-    UserDashboard: undefined;
-    MemberSearch: { newMWGname: string  },
-    InvitationSent: undefined;
-    NewMWGName: undefined,
-    MWGDashboard: undefined
-  }
-  
-  
 type Props = NativeStackScreenProps<RootStackParamList, 'UserDashboard'>;
 
 interface IUserDashboardScreen {

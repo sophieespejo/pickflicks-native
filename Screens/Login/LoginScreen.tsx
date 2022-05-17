@@ -11,17 +11,8 @@ import AppLoading from 'expo-app-loading';
 import { useToast } from 'native-base';
 import UserContext from '../../Context/UserContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { RootStackParamList } from '../../interfaces/RootStackParamList';
 
-type RootStackParamList = {
-    Home: undefined; //means route doesnt have params
-    UserDashboard: undefined;
-    Login: { name: string }
-    CreateAccountScreen: undefined,
-    Loading: undefined,
-    Introduction: undefined
-    AvatarScreen: { username: string }
-    MemberSearch: { username: string, userId: number },
-};
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 
