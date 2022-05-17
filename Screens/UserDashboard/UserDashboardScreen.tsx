@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { FC, useContext, useEffect, useCallback } from 'react';
-import { StyleSheet, Text, View , ScrollView, Button, Pressable, RefreshControl} from 'react-native';
+import { StyleSheet, Text, View , ScrollView, Button, Pressable, RefreshControl, Image} from 'react-native';
 import HeaderComponent from '../../Components/UserDashboard-Body/HeaderComponent';
 import ButtonComponent from '../../Components/UserDashboard-Body/ButtonComponent';
 import WaitingForYouComponent from '../../Components/UserDashboard-Body/WaitingForYouComponent';
@@ -13,24 +13,9 @@ import AppLoading from 'expo-app-loading';
 import { useState } from 'react';
 import { GetMWGStatusByUserId } from '../../Service/DataService';
 import LottieView from 'lottie-react-native';
+import { RootStackParamList } from '../../interfaces/RootStackParamList';
 
 
-
-type RootStackParamList = {
-    Home: undefined; //means route doesnt have params
-    Login: undefined
-    CreateAccount: undefined,
-    Loading: undefined,
-    Introduction: undefined
-    //UserDashboard: { username: string, userId: number };
-    UserDashboard: undefined;
-    MemberSearch: { newMWGname: string  },
-    InvitationSent: undefined;
-    NewMWGName: undefined,
-    MWGDashboard: undefined
-  }
-  
-  
 type Props = NativeStackScreenProps<RootStackParamList, 'UserDashboard'>;
 
 interface IUserDashboardScreen {
@@ -145,19 +130,7 @@ const UserDashboard: FC<Props> = ({navigation}) => {
               progressViewOffset={100}
             />
             }>
-              <View style={{backgroundColor:'#1E1A1A'}}>
-              <View style={styles.InvitationButton}> 
-                <Text style={styles.InvitationTxt}>Accept Invitation to Join MWG</Text>
-                <View style={{flexDirection:'row', justifyContent:'space-evenly', width:'80%', marginTop:'2%'}}>
-                  <Pressable>
-                  <Text style={styles.AcceptTxt}>Accept</Text>
-                  </Pressable>
-                  <Pressable>
-                  <Text style={styles.DeclineTxt}>Decline</Text>
-                  </Pressable>
-                </View>
-              </View>
-              </View>
+              
               <ButtonComponent />
               <View style={{flexDirection:'row', width:'100%',justifyContent:'space-around', paddingTop:'5%', backgroundColor: '#1E1A1A'}}>
                 <Pressable onPress={() => handleWFY()} style={WFYBool ? {borderBottomWidth:2, borderBottomColor:'#DC1B21', backgroundColor: '#1E1A1A'} : null}>

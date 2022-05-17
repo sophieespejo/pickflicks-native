@@ -9,30 +9,9 @@ import { GetMoviesByMWGId, AddLikeOrDislike, GetTopMovieByMWGId} from '../../Ser
 import {ACTION_OFFSET, CARD} from "../../Components/Utilities/Utility"
 import {useNavigation} from '@react-navigation/native';
 import { GetMWGStatusByMWGId, UpdateSwipings, AddFinalMovieIndex } from '../../Service/DataService'
+import { RootStackParamList } from '../../interfaces/RootStackParamList';
 
 
-
-
-
-
-type RootStackParamList = {
-    Home: undefined; //means route doesnt have params
-    UserDashboard: { username: string, userId: number }
-    Login: { name: string }
-    CreateAccountScreen: undefined,
-    Loading: undefined,
-    AvatarScreen: undefined
-    Introduction: undefined,
-    SelectStreamingService: undefined
-    NewMWGName: { username: string, userId: number },
-    MemberSearch: { username: string, userId: number, newMWGname: string },
-    InvitationSent: { username: string, userId: number};
-    ChooseGenres : undefined,
-    GenreRanking: undefined,
-    MovieCard : undefined,
-    FinalMovie: undefined,
-
-  }
 
 type Props = NativeStackScreenProps<RootStackParamList, 'MovieCard'>;
 

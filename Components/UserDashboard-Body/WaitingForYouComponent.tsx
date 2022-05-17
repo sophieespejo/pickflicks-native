@@ -1,4 +1,3 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { FC, useState, useEffect, useContext } from "react";
 import { StyleSheet, Text, View, Image, TextInput,Pressable, Button} from "react-native";
 import emptyHeart from "../../assets/emptyHeart.png";
@@ -7,8 +6,6 @@ import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 import { GetUserByUsername, GetAllMWGAUserIsMemberOfuserId, AddFavoriteMWG, RemoveFavoriteMWG, GetMWGStatusByUserId } from '../../Service/DataService'
 import {useNavigation} from '@react-navigation/native';
-//import { Avatar } from "react-native-paper";
-import { Avatar } from "native-base";
 import UserContext from '../../Context/UserContext';
 
 
@@ -19,10 +16,8 @@ import UserContext from '../../Context/UserContext';
 const WaitingForYouComponent: FC = () => {
   let { username, setUsername, userId, setUserId, allMWG, setAllMWG, setMWGname, MWGname, setMWGId, MWGId, setUserIsAdmin, setUserIsReadyForGenres,  setUserIsReadyForSwipes,  setUserIsReadyToSeeFinalMovie,setUserIsWaiting } = useContext(UserContext)
 
-  //const [allMWG, setAllMWG] = useState<any>([]);
   const [allFaveMWG, setAllFaveMWG] = useState<any>([]);
   const [noFave, setNoFave] = useState<boolean>(false);
-  //const [favorite, setFavorite] = useState(0);
 
   const navigation = useNavigation<any>();
 

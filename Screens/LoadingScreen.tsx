@@ -5,38 +5,7 @@ import { StyleSheet, View , Image} from 'react-native';
 import RedLogo from '../assets/RedLogo.png';
 import UserContext from '../Context/UserContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-
-
-
-type RootStackParamList = {
-  Home: undefined; //means route doesnt have params
-  UserDashboard: undefined;
-  Login: undefined
-  CreateAccountScreen: undefined,
-  Loading: undefined,
-  AvatarScreen: undefined
-  Introduction: undefined,
-  SelectStreamingService: undefined
-  NewMWGName: undefined,
-  MemberSearch: { username: string, userId: number, newMWGname: string },
-  InvitationSent: { username: string, userId: number},
-  ChooseGenres : undefined,
-  GenreRanking: undefined,
-  GenreRanking2: undefined,
-  GenreRanking3: undefined,
-  FinalGenre : undefined,
-  MovieCard : undefined,
-  FinalMovie : undefined,
-  MWGDashboard : undefined,
-  LoadingPopcorn : undefined,
-  UserProfile : undefined,
-  ChangeUsername :undefined,
-  ChangePassword1 : undefined,
-  ChangePassword2 : undefined,
-  ChangeNotifications : undefined,
-  TutorialMovieCard : undefined,
-}
+import { RootStackParamList } from '../interfaces/RootStackParamList';
 
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Introduction'>;

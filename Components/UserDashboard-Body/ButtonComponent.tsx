@@ -1,4 +1,3 @@
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { FC} from "react";
 import { StyleSheet, Text, View, Image, Pressable } from "react-native";
 import MovieClipper from "../../assets/MovieClipper.png";
@@ -7,26 +6,11 @@ import AppLoading from 'expo-app-loading';
 import {useNavigation} from '@react-navigation/native';
 
 
-
 interface IButtonComponent {
   username: string,
   userId: number,
   children: React.ReactNode;
 }
-
-  type RootStackParamList = {
-      Home: undefined; //means route doesnt have params
-      Login: undefined,
-      CreateAccount: undefined;
-      Loading: undefined;
-      Introduction: undefined;
-      UserDashboard: undefined;
-      InvitationSent: undefined;
-      MemberSearch: { newMWGname: string },
-      NewMWGName: undefined,
-    };
-  
-  type Props = NativeStackScreenProps<any, "UserDashboard">;
   
   const ButtonComponent: FC = () => {
   const navigation = useNavigation<any>();

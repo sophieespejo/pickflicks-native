@@ -5,19 +5,8 @@ import JustLogoComponent from '../../Components/UserDashboard-Body/JustLogoCompo
 import FooterNavComponent from '../../Components/UserDashboard-Body/FooterNavComponent';
 import NewMWGNameComponent from '../../Components/UserDashboard-Body/NewMWGNameComponent';
 import UserContext from '../../Context/UserContext';
+import { RootStackParamList } from '../../interfaces/RootStackParamList';
 
-
-type RootStackParamList = {
-    Home: undefined; //means route doesnt have params
-    Login: undefined
-    CreateAccount: undefined,
-    Loading: undefined,
-    Introduction: undefined
-    UserDashboard: undefined
-    NewMWGName: undefined
-    MemberSearch: { username: string, userId: number, newMWGname: string  },
-  }
-  
   
 type Props = NativeStackScreenProps<RootStackParamList, 'NewMWGName'>;
 

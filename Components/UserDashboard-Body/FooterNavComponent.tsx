@@ -1,6 +1,3 @@
-import {
-  NativeStackScreenProps,
-} from "@react-navigation/native-stack";
 import { FC } from "react";
 import {
   StyleSheet,
@@ -12,18 +9,6 @@ import UserProfile from "../../assets/UserProfile2.png";
 import { Button } from "react-native-paper";
 import { useNavigation } from '@react-navigation/native';
 
-type RootStackParamList = {
-  Home: undefined; //means route doesnt have params
-  Profile: { name: string };
-  Login: { name: string };
-  CreateAccount: undefined;
-  Loading: undefined;
-  Introduction: undefined;
-  UserDashboard: undefined;
-  UserProfile: undefined;
-};
-
-type Props = NativeStackScreenProps<RootStackParamList, "UserDashboard">;
 
 const FooterNavComponent: FC = () => {
 

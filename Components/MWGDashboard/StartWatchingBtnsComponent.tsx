@@ -28,29 +28,6 @@ import Magnifying from '../../assets/Magnifying.png';
 
 
 
-
-// interface IStartWatchingBtnsComponent {
-//   username: string,
-//   userId: number
-// }
-
-  type RootStackParamList = {
-      Home: undefined; //means route doesnt have params
-      Profile: { name: string };
-      Login: { username: string, userId: number },
-      CreateAccount: undefined;
-      Loading: undefined;
-      Introduction: undefined;
-      UserDashboard: { username: string, userId: number };
-      InvitationSent: undefined;
-      MemberSearch: { username: string, userId: number },
-      NewMWGName: { username: string, userId: number },
-      MWGDashboard: { mwgName: string, mwgId: number }
-
-    };
-  
-  type Props = NativeStackScreenProps<RootStackParamList, "MWGDashboard">;
-
 const StartWatchingBtnsComponent: FC = () => {
   const navigation = useNavigation<any>();
   let { username, setMWGname, MWGname, setMWGId, MWGId, userIsAdmin, userId, userIsReadyForGenres, userIsReadyForSwipes, userIsReadyToSeeFinalMovie, userIsWaiting } = useContext(UserContext);

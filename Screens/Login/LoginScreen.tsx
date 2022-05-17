@@ -1,5 +1,5 @@
 import { FC, useState, useEffect, useContext } from 'react';
-import { StyleSheet, View, Image, Text, TextInput, Keyboard, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, View, Image, Text, TextInput, Keyboard, TouchableWithoutFeedback, Platform, Dimensions} from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import PickFlicksLogo from '../../assets/logo.png';
@@ -11,22 +11,13 @@ import AppLoading from 'expo-app-loading';
 import { useToast } from 'native-base';
 import UserContext from '../../Context/UserContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { RootStackParamList } from '../../interfaces/RootStackParamList';
 
-type RootStackParamList = {
-    Home: undefined; //means route doesnt have params
-    UserDashboard: undefined;
-    Login: { name: string }
-    CreateAccountScreen: undefined,
-    Loading: undefined,
-    Introduction: undefined
-    AvatarScreen: { username: string }
-    MemberSearch: { username: string, userId: number },
-};
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 
 const LoginScreen : FC<Props> = ({ navigation }) => {
-    let { token, setToken, username, setUsername, userId, setUserId, userIcon, setUserIcon } = useContext(UserContext);
+    let { device, setDevice, token, setToken, username, setUsername, userId, setUserId, userIcon, setUserIcon } = useContext(UserContext);
     const [password, setPassword] = useState('');
 
     const toast = useToast();
@@ -34,6 +25,8 @@ const LoginScreen : FC<Props> = ({ navigation }) => {
     useEffect( () => {
         const userToken = async () => 
         {
+            setDevice(Platform.OS);
+            // console.log(Dimensions.get('screen'))
             const userToken = await AsyncStorage.getItem('@storage_Token')
             const Id = await AsyncStorage.getItem('@storage_Id')
             const Username = await AsyncStorage.getItem('@storage_Username')
@@ -104,23 +97,23 @@ const LoginScreen : FC<Props> = ({ navigation }) => {
         <>
             <View style={styles.bgColor}>
             <KeyboardAwareScrollView
+                enableOnAndroid={true}
+                enableAutomaticScroll={(Platform.OS === 'ios')}
                 style={{ backgroundColor: '#4c69a5' }}
                 resetScrollToCoords={{ x: 0, y: 0 }}
                 contentContainerStyle={styles.bgColor}
                 scrollEnabled={false}
             >
             <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-                <SafeAreaView>
+                <View style={{}}>
                     <Image 
                         source={PickFlicksLogo}
-                        style={{height: 337, width: 337}}
+                        style={device == "ios" ? {height: 337, width: 337, marginTop:'12%'} : {height: 337, width: 337}}
                     />
                     <View style={{alignItems: 'center'}}>
-                        <Text style={styles.createAccountTxt}>Username</Text>
+                        <Text style={device == "ios" ? [{marginTop:'10%'}, styles.createAccountTxt] : [{marginTop:'5%'}, styles.createAccountTxt]}>Username</Text>
                         <TextInput
                             style={styles.input}
-                            // onChangeText={onChangeText}
-                            // value={''}
                             enablesReturnKeyAutomatically={true}
                             keyboardAppearance={'dark'}
                             contextMenuHidden={true}
@@ -132,11 +125,9 @@ const LoginScreen : FC<Props> = ({ navigation }) => {
                         />
                     </View>
                     <View style={{alignItems: 'center'}}>
-                        <Text style={styles.createAccountTxt}>Password</Text>
+                        <Text style={device == "ios" ? [{marginTop:'10%'}, styles.createAccountTxt] : [{marginTop:'5%'}, styles.createAccountTxt]}>Password</Text>
                         <TextInput
                             style={styles.input}
-                            // onChangeText={onChangeText}
-                            // value={''}
                             enablesReturnKeyAutomatically={true}
                             keyboardAppearance={'dark'}
                             contextMenuHidden={true}
@@ -153,7 +144,6 @@ const LoginScreen : FC<Props> = ({ navigation }) => {
                         <Button 
                                 mode='text' 
                                 color='white'
-                                style={styles.createAccountTxt2} 
                                 uppercase={false}
                                 onPress={handleNavigateToCreateAccount}
                         ><Text style={styles.createAccountTxt2}>Create one here!</Text>
@@ -167,7 +157,7 @@ const LoginScreen : FC<Props> = ({ navigation }) => {
                             Log In
                         </Button>
                     </View>
-                </SafeAreaView>
+                </View>
             </TouchableWithoutFeedback>
             </KeyboardAwareScrollView>
             </View>
@@ -179,14 +169,13 @@ const styles = StyleSheet.create({
     bgColor: {
         backgroundColor: '#1E1A1A',
         flex: 1,
-        alignItems: 'center'
+        alignItems: 'center',
     }, 
     createAccountTxt: {
         alignItems: 'center',
         fontFamily:'Raleway_400Regular', 
         fontSize: 36,
         color: 'white',
-        marginTop: '10%'
     }, 
     input: {
         borderBottomWidth: 1,

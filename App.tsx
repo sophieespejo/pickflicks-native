@@ -28,40 +28,11 @@ import ChangeUsernameScreen from './Screens/UserProfile/ChangeUsernameScreen';
 import {NativeBaseProvider } from 'native-base'
 import UserContext from './Context/UserContext'
 import UseUser from './Hooks/use-user'
-//import MWGDashboard from './Screens/MWGDash/MWGdashboardScreen'
 import ChangePasswordScreen1 from './Screens/UserProfile/ChangePasswordScreen1';
 import ChangePasswordScreen2 from './Screens/UserProfile/ChangePasswordScreen2';
 import ChangeNotificationsScreen from './Screens/UserProfile/ChangeNotificationsScreen';
-
-
-type RootStackParamList = {
-  Home: undefined; //means route doesnt have params
-  UserDashboard: undefined;
-  Login: undefined
-  CreateAccountScreen: undefined,
-  Loading: undefined,
-  AvatarScreen: undefined
-  Introduction: undefined,
-  SelectStreamingService: undefined
-  NewMWGName: undefined,
-  MemberSearch: { username: string, userId: number, newMWGname: string },
-  InvitationSent: { username: string, userId: number},
-  ChooseGenres : undefined,
-  GenreRanking: undefined,
-  GenreRanking2: undefined,
-  GenreRanking3: undefined,
-  FinalGenre : undefined,
-  MovieCard : undefined,
-  FinalMovie : undefined,
-  MWGDashboard : undefined,
-  LoadingPopcorn : undefined,
-  UserProfile : undefined,
-  ChangeUsername :undefined,
-  ChangePassword1 : undefined,
-  ChangePassword2 : undefined,
-  ChangeNotifications : undefined,
-  TutorialMovieCard : undefined,
-}
+import InvitationsScreen from './Screens/UserProfile/InvitationsScreen';
+import { RootStackParamList } from './interfaces/RootStackParamList';
 
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -151,6 +122,10 @@ const App:FC = () => {
               <Stack.Screen
                 name="UserProfile"
                 component={UserProfileScreen}
+                options={{headerShown:false}}/>
+              <Stack.Screen
+                name="Invitations"
+                component={InvitationsScreen}
                 options={{headerShown:false}}/>
               <Stack.Screen
                 name="ChangeNotifications"
