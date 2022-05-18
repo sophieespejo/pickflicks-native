@@ -1,5 +1,5 @@
-import { FC, useEffect, useContext, useState} from "react";
-import { StyleSheet, View, Image, Text, TextInput, Pressable} from "react-native";
+import { FC, useEffect, useContext} from "react";
+import { StyleSheet, View, Text, Pressable} from "react-native";
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 import { Avatar } from "react-native-paper";
@@ -18,8 +18,6 @@ import boy4 from '../../assets/avatars/boy4.png'
 import boy5 from '../../assets/avatars/boy5.png'
 import boy6 from '../../assets/avatars/boy6.png'
 import LottieView from 'lottie-react-native';
-import loadingGif from '../../assets/36292-loader-movie.json';
-
 
 
 
@@ -68,6 +66,7 @@ const InvitationsComponent: FC = () => {
     console.log(result);
     setInvitationMWG([...tempArr]);
   }
+
   const handleNo = async (MWGId:number) => 
   {
     let result = await DeleteInvitation(MWGId, userId);
@@ -88,17 +87,18 @@ const InvitationsComponent: FC = () => {
       {
         invitationMWG.length == 0 ? 
         <>
-        <View style={{flex:1, marginTop:'42%'}}>
+          <View style={{flex:1, marginTop:'42%'}}>
 
-        <LottieView
-                autoPlay
-                style={styles.lottieView}
-                source={pandaAnimation}
-              />
-        </View>
-              <View style={{flex:1}}>
-        <Text style={[styles.waitingTxt]}>You have no invitations, {'\n'} come back later!</Text>
-              </View>
+            <LottieView
+              autoPlay
+              style={styles.lottieView}
+              source={pandaAnimation}
+            />
+          </View>
+          
+          <View style={{flex:1}}>
+            <Text style={[styles.waitingTxt]}>You have no invitations, {'\n'} come back later!</Text>
+          </View>
         </>
         :
           invitationMWG.map((item : any, idx: number) => 

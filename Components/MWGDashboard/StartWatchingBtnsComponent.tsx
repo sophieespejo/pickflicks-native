@@ -1,12 +1,9 @@
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { FC, useContext, useEffect, useState } from "react";
-import { StyleSheet, Text, View, Image, TextInput, Pressable, ScrollView, Animated, Alert} from "react-native";
-import headerLogo from "../../assets/headerLogo.png";
+import { Modal, StyleSheet, Text, View, Image, TextInput, Pressable, ScrollView, Animated, Alert} from "react-native";
 import MovieClipper from "../../assets/MovieClipper.png";
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
-import MemberSearchTextInputComponent from '../UserDashboard-Body/MemberSearchTextInputComponent'
 import UserContext from '../../Context/UserContext';
 import { GetMWGById } from '../../Service/DataService'
 import girl1 from '../../assets/avatars/girl1.png'
@@ -23,13 +20,16 @@ import boy5 from '../../assets/avatars/boy5.png'
 import boy6 from '../../assets/avatars/boy6.png'
 import {  Button, Avatar } from "react-native-paper";
 import Swipeable from 'react-native-gesture-handler/Swipeable';
-import { DeleteMemberFromMWG, GetUserByUsername, AddMemberToMWG, DeleteByMWGId} from '../../Service/DataService'
+import { DeleteInvitation, AddInvitations, DeleteMemberFromMWG, GetUserByUsername, AddMemberToMWG, DeleteByMWGId} from '../../Service/DataService'
 import Magnifying from '../../assets/Magnifying.png';
+import ExclamationIcon from '../../assets/ExclamationIcon.png';
 
 
 
 const StartWatchingBtnsComponent: FC = () => {
   const navigation = useNavigation<any>();
+  const [modalVisible, setModalVisible] = useState(false);
+
   let { username, setMWGname, MWGname, setMWGId, MWGId, userIsAdmin, userId, userIsReadyForGenres, userIsReadyForSwipes, userIsReadyToSeeFinalMovie, userIsWaiting } = useContext(UserContext);
   const [membersNames, setMembersNames] = useState<Array<string>>([]);
   const [membersIcons, setMembersIcons] = useState<Array<string>>([]);
@@ -67,6 +67,7 @@ const StartWatchingBtnsComponent: FC = () => {
 
   useEffect( () => {
     async function getUserInfo(){
+      console.log(membersNames)
           setMWGname(MWGname);
           setMWGId(MWGId);
           let mwg = await GetMWGById(MWGId);
@@ -104,7 +105,8 @@ const StartWatchingBtnsComponent: FC = () => {
     if(deletedUser != null)
     {
       let result = await DeleteMemberFromMWG(MWGId, deletedUser.id, member);
-      if(result)
+      let deleteInvitation = await DeleteInvitation(MWGId, deletedUser.id);
+      if(result && deleteInvitation)
       {
         //need to reset members array
         let mwg = await GetMWGById(MWGId);
@@ -123,26 +125,34 @@ const StartWatchingBtnsComponent: FC = () => {
       //when user searched a name and presses enter
       const handleKeyPress= async () => {
         let foundUser = await GetUserByUsername(searchedName);
-        // if (foundUser.id == userId){
-        //   Alert.alert('You are already included in the group', 'Please search for someone else')
-        // }
+
         if (foundUser != null && foundUser.id != 0) {
           if (foundUser.id == userId)
           {
             Alert.alert('You are already included in the group', 'Please search for someone else')
-          }else{
+            console.log(membersNames);
+          }
+          else if(membersNames.includes(searchedName))
+          {
+            Alert.alert('The member is already part of this group', 'Please search for someone else')
+          }
+          else{
             allSearchedNames.push(searchedName);
             setAllSearchedNames([...allSearchedNames]);
            searchedMemberIcon.push(foundUser.icon);
            setSearchedMemberIcon([...searchedMemberIcon]);
-           let result = await AddMemberToMWG(MWGId, foundUser.id, searchedName)
-           if(result)
+          //  let result = await AddMemberToMWG(MWGId, foundUser.id, searchedName)
+           let sentResults = await AddInvitations(MWGId, MWGname, allSearchedNames.join(","));
+
+           if(sentResults)
            {
              console.log('yes added', MWGId, foundUser.id, searchedName)
            }
            setSearchedName('');    
           }
-        }else{
+        }
+        else
+        {
           Alert.alert('User does not exist', 'Please try again')
         }
       }
@@ -152,6 +162,7 @@ const StartWatchingBtnsComponent: FC = () => {
         if(result)
         {
           console.log(result, 'yes deleted')
+          setModalVisible(!modalVisible)
           navigation.navigate('UserDashboard')
         }else{
           alert('nope')
@@ -290,14 +301,14 @@ const StartWatchingBtnsComponent: FC = () => {
                                 )                                       
                             }) : membersNames.map((member, i) => {
                               return (
-                                <View key={member}style={[{width:'99%', flexDirection: 'row', alignItems: 'flex-end', paddingBottom: '2%'}, styles.nameLine]}>
+                                <View key={i}style={[{width:'99%', flexDirection: 'row', alignItems: 'flex-end', paddingBottom: '2%'}, styles.nameLine]}>
                                     <Avatar.Image source={icons.get(membersIcons[i])} style={{alignItems: 'flex-start'}}/>
                                     <Text style={[{color:'white', marginLeft: '10%'}, styles.btnText]}>{member}</Text>
                                 </View>
                               )
                             })
                       }
-                      {
+                      {/* {
                         userId == mwgCreatorId ? 
                         allSearchedNames.map((searchedName, index) => {
                           const renderRightView = (progress:number, dragX:any) => {
@@ -335,7 +346,7 @@ const StartWatchingBtnsComponent: FC = () => {
                               </Swipeable> 
                             )   
                         }) : null
-                      }
+                      } */}
                       </ScrollView>
                 </View>
             </View>
@@ -343,7 +354,7 @@ const StartWatchingBtnsComponent: FC = () => {
         {
           userId == mwgCreatorId ?  
           <View style={{flex:1, height:50, marginTop:'5%', alignItems:'center', marginBottom: '5%'}}>
-            <Pressable disabled={userIsWaiting ? true : false} style={{width:'70%'}} onPress={() => handleDeleteGroup()}>
+            <Pressable disabled={userIsWaiting ? true : false} style={{width:'70%'}} onPress={() => setModalVisible(true)}>
                 <View style={styles.wgButton}>
                   <Text style={{color:'#E3DDDD', fontSize:24,justifyContent:'center', textAlign:'center', fontFamily:'Raleway_400Regular'}}>Delete Watch Group</Text>
                 </View>
@@ -351,7 +362,43 @@ const StartWatchingBtnsComponent: FC = () => {
           </View>
            : null
         }
+
+
+        {/* Modal */}
+        <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Image source={ExclamationIcon} style={{width:50, height:50, marginBottom:'5%'}}/>
+            <Text style={styles.modalText}>Are you sure you want to {'\n'} delete {MWGname}?</Text>
+            <View style={{flexDirection:'row', width:'90%', justifyContent:'space-evenly'}}>
+
+            <Pressable
+              style={[styles.button, styles.buttonClose1]}
+              onPress={() => handleDeleteGroup()}
+            >
+              <Text style={styles.textStyle}>Yes</Text>
+            </Pressable>
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => setModalVisible(!modalVisible)}
+            >
+              <Text style={styles.textStyle}>No</Text>
+            </Pressable>
+            </View>
+          </View>
+        </View>
+      </Modal>
        </View>
+
+       
   );
 };
 
@@ -411,4 +458,55 @@ const styles = StyleSheet.create({
     marginLeft:"5%",
     color:'#FFFFFF'
   },
+
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    // marginTop: 22
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "#C4C4C4",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    width:'30%',
+    elevation: 2,
+    marginTop:'5%'
+  },
+
+  buttonClose: {
+    backgroundColor: "red",
+  },
+  buttonClose1: {
+    backgroundColor: "green",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+    fontFamily: "Raleway_400Regular",
+    fontSize: 17,
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
+    fontFamily: "Raleway_400Regular",
+    fontSize: 21,
+    lineHeight:37,
+    color:'#383333'
+  }
 });
