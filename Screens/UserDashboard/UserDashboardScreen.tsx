@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
     lottieView: {
       height: '39%',
       position: 'absolute',
-      top: '5.65%',
+      top: '6.1%',
       left: 0,
       right: 0,
       overflow: 'hidden'

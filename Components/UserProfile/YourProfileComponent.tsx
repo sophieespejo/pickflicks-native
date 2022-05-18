@@ -1,5 +1,5 @@
 import { FC, useContext, useEffect } from "react";
-import { StyleSheet, Text, View, Pressable,Button } from "react-native";
+import { StyleSheet, Text, View, Pressable,Button, Image} from "react-native";
 import { useFonts, Raleway_400Regular, Raleway_600SemiBold} from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 import { Avatar } from "react-native-paper";
@@ -19,13 +19,11 @@ import boy6 from '../../assets/avatars/boy6.png'
 import UserContext from '../../Context/UserContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import notifee from '@notifee/react-native';
-
-
-  
+import NotificationsIcon from '../../assets/NotificationsIcon.png'
 
 
 const YourProfileComponent: FC = () => {
-  let { userIcon, setUserIcon, username, setUsername, userId, setUserId, allMWG, setAllMWG, setMWGname, MWGname, setMWGId, MWGId } = useContext(UserContext)
+  let { userIcon, setUserIcon, invitationMWG} = useContext(UserContext)
 
   const icons = new Map([
     ['boy1', boy1],
@@ -45,7 +43,7 @@ const YourProfileComponent: FC = () => {
   useEffect( () => {
     const avatarScreen = async () => 
     {
-          setUserIcon(userIcon);
+      setUserIcon(userIcon);
     }
     
     avatarScreen();
@@ -127,6 +125,10 @@ const YourProfileComponent: FC = () => {
 
             <Pressable onPress={() => handleInvitationsNavigation()} style={{flex:0.25, width:'80%', justifyContent:'space-between', flexDirection:'row', alignSelf:'center'}}>
                 <Text style={styles.Txt}>Invitations</Text>
+                {
+                  invitationMWG.length == 0 ? null : 
+                  <Image source={NotificationsIcon} style={{width:30, height:30, marginRight:'40%'}}/>
+                }
                 <Text style={styles.Txt}>{'\>'}</Text>
             </Pressable>
             <Pressable onPress={() => handleUsernameNavigation()} style={{flex:0.25, width:'80%', justifyContent:'space-between', flexDirection:'row', alignSelf:'center'}}>

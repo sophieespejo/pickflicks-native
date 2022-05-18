@@ -1,10 +1,9 @@
 import { FC, useEffect, useContext, useState} from "react";
 import { StyleSheet, View, Image, Text, TextInput, Pressable} from "react-native";
-import headerLogo from "../../assets/headerLogo.png";
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 import { Avatar } from "react-native-paper";
-import {GetAllUnacceptedInvitationsByUserId, GetMWGById} from '../../Service/DataService';
+import {GetAllUnacceptedInvitationsByUserId, GetMWGById, AcceptInvitation,DeleteInvitation} from '../../Service/DataService';
 import UserContext from '../../Context/UserContext';
 import girl1 from '../../assets/avatars/girl1.png'
 import girl2 from '../../assets/avatars/girl2.png'
@@ -18,57 +17,63 @@ import boy3 from '../../assets/avatars/boy3.png'
 import boy4 from '../../assets/avatars/boy4.png'
 import boy5 from '../../assets/avatars/boy5.png'
 import boy6 from '../../assets/avatars/boy6.png'
+import LottieView from 'lottie-react-native';
+import loadingGif from '../../assets/36292-loader-movie.json';
+
 
 
 
 const InvitationsComponent: FC = () => {
-  let {userId} = useContext(UserContext)
-  const [invitations, setInvitations] = useState<any[]>([]);
-  const [tempMWGId, setTempMWGId] = useState<any[]>([]);
-  const [tempMWG, setTempMWG] = useState<any[]>([]);
+  let {userId, invitationMWG, setInvitationMWG} = useContext(UserContext)
+  const pandaAnimation = require('../../assets/49799-the-panda-eats-popcorn.json');
+
+
+  const icons = new Map([
+    ['boy1', boy1],
+    ['boy2', boy2],
+    ['boy3', boy3],
+    ['boy4', boy4],
+    ['boy5',boy5],
+    ['boy6',boy6],
+    ['girl1', girl1],
+    ['girl2', girl2],
+    ['girl3', girl3],
+    ['girl4', girl4],
+    ['girl5',girl5],
+    ['girl6',girl6],
+  ])
+
+  const tempArr: Array<Object> = [];
 
   useEffect( () => {
-    const Invitations = async () => 
-    {
-      setTempMWGId([]);
-      setTempMWG([]);
-      
-      let AllUnacceptedInvites = await GetAllUnacceptedInvitationsByUserId(userId);
-      console.log("This is first Fetch:", AllUnacceptedInvites);
-      setInvitations(AllUnacceptedInvites);
-      
-      if(AllUnacceptedInvites != null)
-      {
-        for (const item of invitations) {
-          // if(!tempMWGId.includes(item))
-          // {
-            // tempMWGId.push(item.mwgId);
-            console.log('This is MWGId', item.mwgId)
+      async function Invitations(){
+        let allUnacceptedInvitations = await GetAllUnacceptedInvitationsByUserId(userId);
 
-            // for (const item of tempMWGId) {
-              let result = await GetMWGById(item.mwgId);
-              if(result)
-              {
-                console.log("this is result", result)
-                tempMWG.push(result);
-
-              }
-            // }
-            setTempMWG(tempMWG)
-      
-            console.log('This is MWG', tempMWG);
-              
+        if(allUnacceptedInvitations != null)
+        {
+          for (const item of allUnacceptedInvitations) 
+          {
+            let result = await GetMWGById(item.mwgId);
+            tempArr.push(result);
+          }
+          setInvitationMWG([...tempArr]);
         }
-
       }
+      Invitations()
+    }, []);
 
-      
-
-    }
-    
-    Invitations();
-
-  }, []);
+  const handleYes = async (MWGId:number) => 
+  {
+    let result = await AcceptInvitation(MWGId, userId);
+    console.log(result);
+    setInvitationMWG([...tempArr]);
+  }
+  const handleNo = async (MWGId:number) => 
+  {
+    let result = await DeleteInvitation(MWGId, userId);
+    console.log(result);
+    setInvitationMWG([...tempArr]);
+  }
 
   let [fontsLoaded] = useFonts({
     Raleway_400Regular,
@@ -80,38 +85,48 @@ const InvitationsComponent: FC = () => {
   
   return (
     <View style={{flex:1}}>
-        {/* Start Map Here */}
-        {
-          tempMWG.map((item : any, idx: number) => 
+      {
+        invitationMWG.length == 0 ? 
+        <>
+        <View style={{flex:1, marginTop:'42%'}}>
+
+        <LottieView
+                autoPlay
+                style={styles.lottieView}
+                source={pandaAnimation}
+              />
+        </View>
+              <View style={{flex:1}}>
+        <Text style={[styles.waitingTxt]}>You have no invitations, {'\n'} come back later!</Text>
+              </View>
+        </>
+        :
+          invitationMWG.map((item : any, idx: number) => 
           {
             return (
           <View key={idx} style={{marginTop:'8%',borderBottomColor: '#E2DFDFDE'}}>
               <View style={{flexDirection:'row', alignSelf:'center', alignItems:'center', width:'85%', justifyContent:'space-around'}}>
-                  <Avatar.Image size={50} source={boy1}/>
-                  <Text style={[styles.waitingTxt]}>An wants you to join {'\n'} {item.mwgName}?</Text>
+                  <Avatar.Image size={50} source={icons.get(item.membersIcons.split(',')[0])}/>
+                  <Text style={[styles.waitingTxt]}>
+                    {item.membersNames.split(',')[0]} wants you to join {'\n'} {item.mwgName}?</Text>
               </View>
               <View style={{alignSelf:'center', marginTop:'4%'}}>
                   <Text style={[styles.currentMembers]}>Current Members: {item.membersNames}</Text>
               </View>
               <View style={{flexDirection:'row', marginTop:'4%', alignSelf:'center', width:'90%', justifyContent:'space-around',borderBottomColor: '#4D4A4A',borderBottomWidth: 1}}>
-                  <Pressable style={{marginBottom:'3%'}}><Text style={[styles.AcceptTxt]}>Yes</Text></Pressable>
-                  <Pressable><Text style={[styles.DeclineTxt]}>No</Text></Pressable>
+                  <Pressable style={{marginBottom:'3%'}} onPress={() => handleYes(item.id)}>
+                    <Text style={[styles.AcceptTxt]}>Yes</Text>
+                    </Pressable>
+                  <Pressable onPress={() => handleNo(item.id)}>
+                    <Text style={[styles.DeclineTxt]}>No</Text>
+                    </Pressable>
               </View>
           </View>
             )
           })
-        }
-        {/* End Map Here */}
-
-
-
-
-
         
-
-
-
-
+      }
+      
     </View>
   );
 };
@@ -144,7 +159,17 @@ const styles = StyleSheet.create({
       seperationLine:{
         borderBottomColor: '#4D4A4A',
         borderBottomWidth: 1,
-      }
+      },
+      lottieView: {
+        flex:1,
+        // backgroundColor:'green',
+        justifyContent:'center',
+        alignSelf:'center',
+        alignItems:'center',
+        // top:'40%',
+        height:'100%'
+        // position:'relative'
+      },
   
 });
 

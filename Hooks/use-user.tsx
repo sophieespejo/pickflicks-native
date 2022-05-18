@@ -23,9 +23,11 @@ export default function UseUser() {
     const [userIsReadyForSwipes, setUserIsReadyForSwipes] = useState<boolean>(false);
     const [userIsReadyToSeeFinalMovie, setUserIsReadyToSeeFinalMovie] = useState<boolean>(false);
     const [userIsWaiting, setUserIsWaiting] = useState<boolean>(false);
+    const [invitationMWG, setInvitationMWG] = useState<Array<any>>([]);
+
 
     const [token, setToken] = useState<any>("");
 
 
-    return { device, setDevice, token, setToken, username, setUsername, genreName, setGenreName, streamingServiceId, setStreamingServiceId,genreId, setGenreId, allMWG, setAllMWG, newMWGname, setnewMWGname, userId, setUserId, userIcon, setUserIcon, MWGname, setMWGname, MWGId, setMWGId, MWGgenres, setMWGgenres, MWGmembersId, setMWGmembersId, genre1, setGenre1, genre2, setGenre2, genre3, setGenre3, listOfMovieNamesUsedToCompare1, setListOfMovieNamesUsedToCompare1, userIsAdmin, setUserIsAdmin, userIsReadyForGenres, setUserIsReadyForGenres, userIsReadyForSwipes, setUserIsReadyForSwipes, userIsReadyToSeeFinalMovie, setUserIsReadyToSeeFinalMovie, userIsWaiting, setUserIsWaiting}
+    return { invitationMWG, setInvitationMWG, device, setDevice, token, setToken, username, setUsername, genreName, setGenreName, streamingServiceId, setStreamingServiceId,genreId, setGenreId, allMWG, setAllMWG, newMWGname, setnewMWGname, userId, setUserId, userIcon, setUserIcon, MWGname, setMWGname, MWGId, setMWGId, MWGgenres, setMWGgenres, MWGmembersId, setMWGmembersId, genre1, setGenre1, genre2, setGenre2, genre3, setGenre3, listOfMovieNamesUsedToCompare1, setListOfMovieNamesUsedToCompare1, userIsAdmin, setUserIsAdmin, userIsReadyForGenres, setUserIsReadyForGenres, userIsReadyForSwipes, setUserIsReadyForSwipes, userIsReadyToSeeFinalMovie, setUserIsReadyToSeeFinalMovie, userIsWaiting, setUserIsWaiting}
 }
