@@ -469,5 +469,28 @@ async function GetAllUnacceptedInvitationsByUserId(UserId:number){
     return data;
 }
 
+async function suggestedMovieNames(MWGId:number, newMovie:string){
+    let res= await fetch(`${url}/MWG/suggestedMovieNames/${MWGId}/${newMovie}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(null)
+    });
+    let data = await res.json();
+   return data;
+}
+async function suggestedMovieGenres(MWGId:number, newGenre:string){
+    let res= await fetch(`${url}/MWG/suggestedMovieGenres/${MWGId}/${newGenre}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(null)
+    });
+    let data = await res.json();
+   return data;
+}
 
-export { DeleteInvitation, AcceptInvitation, GetAllUnacceptedInvitationsByUserId, CheckPassword, EditPassword, EditUsername, AddFinalMovieIndex, AddFinalGenre, UpdateMWGStatus, AddInvitations, EditUserIcon, DeleteByMWGId, GetUserById, AddMemberToMWG, DeleteMemberFromMWG, GetTopRankedGenre, GetMWGByMWGName, UpdateIsStartedByMWGId, GetMWGStatusById, AddMWGStatus, ResetMWGStatusbyMWGId,UpdateSwipings, UpdateGenreRanking, GetMWGStatusByUserId, GetMWGStatusByMWGId, AddUser, Login, GetMWGById, GetTopMovieByMWGId, AddLikeOrDislike, AddStreamingService, GetMoviesByMWGId, AddGenreRankingModel, GetUserByUsername, GetAllMWGAUserIsMemberOfuserId, AddFavoriteMWG, AddAll15Movies, RemoveFavoriteMWG, AddMWG, AddChosenGenres};
+
+export { suggestedMovieNames, suggestedMovieGenres, DeleteInvitation, AcceptInvitation, GetAllUnacceptedInvitationsByUserId, CheckPassword, EditPassword, EditUsername, AddFinalMovieIndex, AddFinalGenre, UpdateMWGStatus, AddInvitations, EditUserIcon, DeleteByMWGId, GetUserById, AddMemberToMWG, DeleteMemberFromMWG, GetTopRankedGenre, GetMWGByMWGName, UpdateIsStartedByMWGId, GetMWGStatusById, AddMWGStatus, ResetMWGStatusbyMWGId,UpdateSwipings, UpdateGenreRanking, GetMWGStatusByUserId, GetMWGStatusByMWGId, AddUser, Login, GetMWGById, GetTopMovieByMWGId, AddLikeOrDislike, AddStreamingService, GetMoviesByMWGId, AddGenreRankingModel, GetUserByUsername, GetAllMWGAUserIsMemberOfuserId, AddFavoriteMWG, AddAll15Movies, RemoveFavoriteMWG, AddMWG, AddChosenGenres};

@@ -6,7 +6,7 @@ import FooterNavComponent from '../../Components/UserDashboard-Body/FooterNavCom
 import FinalGenreComponent from '../../Components/MWGDashboard/FinalGenreComponent';
 import { NativeBaseProvider } from "native-base";
 import UserContext from '../../Context/UserContext';
-import { GetMWGStatusByMWGId, AddFinalGenre} from '../../Service/DataService'
+import { GetMWGStatusByMWGId, UpdateMWGStatus} from '../../Service/DataService'
 import {useNavigation} from '@react-navigation/native';
 import { RootStackParamList } from '../../interfaces/RootStackParamList';
 
@@ -24,13 +24,15 @@ const GenreRankingScreen: FC<Props> = () => {
       console.log("bpoooo")
       setMWGname(MWGname);
       setMWGId(MWGId);
+      // setGenreName(genreName);
       console.log(MWGId)
-      console.log(genreName);
+      // console.log('THis is genrename', genreName);
       let movieObj = await GetMWGStatusByMWGId(MWGId);
+      await UpdateMWGStatus (MWGId);
 
-      let finalGenreBackEnd = await AddFinalGenre(MWGId, genreName);
-      console.log(finalGenreBackEnd);
-      console.log('This added FinalGenre field to Backend success')
+      // let finalGenreBackEnd = await AddFinalGenre(MWGId, genreName);
+      // console.log(finalGenreBackEnd);
+      // console.log('This added FinalGenre field to Backend success')
       
       // if(movieObj != null)
       // {

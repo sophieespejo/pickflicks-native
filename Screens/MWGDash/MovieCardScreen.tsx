@@ -76,15 +76,13 @@ const MovieCardScreen: FC<Props> = () => {
               let result = await GetTopMovieByMWGId(MWGId);
               console.log('Top Movie Index:', result)
               let finalMovieIndexBackEnd = await AddFinalMovieIndex(MWGId, result);
-              console.log(finalMovieIndexBackEnd);
-              console.log('Added FinalMovieIndex to BackEnd success')
+              console.log('Added FinalMovieIndex to BackEnd success', finalMovieIndexBackEnd);
               navigation.navigate("FinalMovie");
             }else{
               navigation.navigate("UserDashboard");
             }
           }
         }
-        navigation.navigate("FinalMovie");
       }
     }
   }

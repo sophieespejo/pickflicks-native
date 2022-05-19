@@ -77,29 +77,29 @@
     }
 
     const handleInvitations = async () => {
-        mwgMembersId.push(userId);
-        mwgMembersNames.push(username);
-        mwgMembersIcons.push(userIcon);
+        // mwgMembersId.push(userId);
+        // mwgMembersNames.push(username);
+        // mwgMembersIcons.push(userIcon);
         console.log(newMWGname);
         console.log(userId);
         console.log(userIcon);
-      //   mwgMembersId.push(userId);
-      //   mwgMembersNames.push(username);
-      //   mwgMembersIcons.push(userIcon);
+
         let newMWG = {
           Id: 0,  
           MWGName: newMWGname,
           GroupCreatorId: userId,
-          MembersId: mwgMembersId.join(","),
-          MembersNames: mwgMembersNames.join(","),
-          MembersIcons: mwgMembersIcons.join(","),
-          UserSuggestedMovies: '',
+          MembersId: userId.toString(),
+          MembersNames: username,
+          MembersIcons: userIcon,
+          suggestedMovieNames: '',
+          suggestedMovieGenres: '',
           ChosenGenres: '',
           StreamingService: '',
           FinalGenre: '',
           FinalMovieIndex: 0,
           IsDeleted: false
         }
+        
         let result = await AddMWG(newMWG);
         console.log("//MembersSearchTextInputComponent Added New MWG Success")
       if (result) {

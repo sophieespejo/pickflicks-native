@@ -5,7 +5,7 @@ import AppLoading from 'expo-app-loading';
 import {useNavigation} from '@react-navigation/native';
 import UserContext from '../../Context/UserContext';
 import { Button } from 'react-native-paper';
-import { GetMoviesByMWGId, GetMWGById, ResetMWGStatusbyMWGId, GetMWGStatusByUserId} from '../../Service/DataService'
+import { suggestedMovieGenres, suggestedMovieNames, GetMoviesByMWGId, GetMWGById, ResetMWGStatusbyMWGId, GetMWGStatusByUserId} from '../../Service/DataService';
   
 
 
@@ -24,8 +24,7 @@ const FinalMovieCardComponent: FC = () => {
         // console.log(finalMovieIndexBackEnd);
         // console.log('Added FinalMovieIndex to BackEnd success')
         let result = await GetMWGById(MWGId);
-
-
+        console.log(result)
         // let finalMovie = listOfMovieNamesUsedToCompare1[result];
         // setDisplayMovie(finalMovie);
         // console.log(finalMovie);
@@ -34,6 +33,10 @@ const FinalMovieCardComponent: FC = () => {
         let movieResults = await GetMoviesByMWGId(MWGId);
         setDisplayObject(movieResults[result.finalMovieIndex]);
         console.log(movieResults[result.finalMovieIndex])
+
+        let addToPastMovies = await suggestedMovieNames(MWGId, displayObject.movieName);
+        let addToPastGenres = await suggestedMovieGenres(MWGId,result.finalGenre);
+        console.log(addToPastMovies, addToPastGenres);
       }
       getTopMovie()
     }, []);

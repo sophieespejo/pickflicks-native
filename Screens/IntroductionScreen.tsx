@@ -1,4 +1,3 @@
-//this should have the carousel
 import { FC, useState } from 'react'
 import { StyleSheet, Text, ScrollView, View, Image } from 'react-native';
 import { Button } from 'react-native-paper';

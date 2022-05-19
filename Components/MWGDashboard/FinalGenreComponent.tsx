@@ -4,7 +4,7 @@ import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 import { Button } from "react-native-paper";
 import {useNavigation} from '@react-navigation/native';
-import { AddAll15Movies, GetMWGStatusByMWGId, GetTopRankedGenre} from '../../Service/DataService'
+import { AddAll15Movies, GetMWGStatusByMWGId, GetTopRankedGenre, AddFinalGenre} from '../../Service/DataService'
 import UserContext from '../../Context/UserContext';
 import loadingGif from '../../assets/36292-loader-movie.json'
 import LottieView from 'lottie-react-native';
@@ -15,13 +15,14 @@ import LottieView from 'lottie-react-native';
 
 const FinalGenreComponent: FC = () => {
     const navigation = useNavigation<any>();
-    let { genreId, streamingServiceId, username, genreName, setGenreName, setUsername, userId, setUserId, userIcon, setUserIcon, setGenreId, MWGname, setMWGname, MWGId, setMWGId, MWGgenres, setMWGgenres, MWGmembersId, setMWGmembersId,genre1,genre2, genre3, setGenre3, setAllMWG } = useContext(UserContext)
+    let { genreId, streamingServiceId, setStreamingServiceId, username, genreName, setGenreName, setUsername, userId, setUserId, userIcon, setUserIcon, setGenreId, MWGname, setMWGname, MWGId, setMWGId, MWGgenres, setMWGgenres, MWGmembersId, setMWGmembersId,genre1,genre2, genre3, setGenre3, setAllMWG } = useContext(UserContext)
     const [result, setResult] = useState("");
     const [isFetching15, setIsFetching15] = useState(false);
 
 
     useEffect( () => {
       async function getUserInfo(){
+        setStreamingServiceId(streamingServiceId);
         setMWGname(MWGname);
         setMWGId(MWGId);
         let finalGenre = await GetTopRankedGenre(MWGId);
@@ -88,7 +89,9 @@ const FinalGenreComponent: FC = () => {
               break;
           }
         }
-        setGenreName(result)
+        let finalGenreBackEnd = await AddFinalGenre(MWGId, result);
+        console.log(finalGenreBackEnd);
+        console.log('This added FinalGenre field to Backend success')
 
 
         

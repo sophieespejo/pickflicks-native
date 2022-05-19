@@ -23,12 +23,15 @@ import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { DeleteInvitation, AddInvitations, DeleteMemberFromMWG, GetUserByUsername, AddMemberToMWG, DeleteByMWGId} from '../../Service/DataService'
 import Magnifying from '../../assets/Magnifying.png';
 import ExclamationIcon from '../../assets/ExclamationIcon.png';
+import LottieView from 'lottie-react-native';
+
 
 
 
 const StartWatchingBtnsComponent: FC = () => {
   const navigation = useNavigation<any>();
   const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible1, setModalVisible1] = useState(false);
 
   let { username, setMWGname, MWGname, setMWGId, MWGId, userIsAdmin, userId, userIsReadyForGenres, userIsReadyForSwipes, userIsReadyToSeeFinalMovie, userIsWaiting } = useContext(UserContext);
   const [membersNames, setMembersNames] = useState<Array<string>>([]);
@@ -38,6 +41,11 @@ const StartWatchingBtnsComponent: FC = () => {
   const [searchedName, setSearchedName] = useState<string>('');
   const [memberIcon, setMemberIcon] = useState<Array<string>>([]);
   const [searchedMemberIcon, setSearchedMemberIcon] = useState<Array<string>>([]);
+  const [currentMWGPastMovies, setCurrentMWGPastMovies] = useState<Array<string>>([]);
+  const [currentMWGPastGenres, setCurrentMWGPastGenres] = useState<Array<string>>([]);
+
+  const sleepingPanda = require('../../assets/sleepingPanda.json');
+
 
 
   let row: Array<any> = [];
@@ -71,6 +79,11 @@ const StartWatchingBtnsComponent: FC = () => {
           setMWGname(MWGname);
           setMWGId(MWGId);
           let mwg = await GetMWGById(MWGId);
+          console.log(mwg)
+          let pastMovies = mwg.suggestedMovieNames.split(',');
+          let pastGenres = mwg.suggestedMovieGenres.split(',');
+          setCurrentMWGPastMovies(pastMovies);
+          setCurrentMWGPastGenres(pastGenres);
           
           setMembersNames(mwg.membersNames.split(","));
           setMembersIcons(mwg.membersIcons.split(","));
@@ -178,8 +191,6 @@ const StartWatchingBtnsComponent: FC = () => {
   }
 
 
-
-
   return (
     <View>
         <View style={{flex:1, height:90, marginTop:'5%', alignItems:'center'}}>
@@ -217,21 +228,33 @@ const StartWatchingBtnsComponent: FC = () => {
                       <View>
                         <ScrollView>
                           <View style={{borderBottomColor:'#FFFFFF', borderBottomWidth:1}}>
-                              <Text style={{color:'#FFFFFF', fontSize:18, fontFamily:'Raleway_400Regular', textAlign:'center'}}>Movies</Text>
+                              <Text style={{color:'#FFFFFF', fontSize:25, fontFamily:'Raleway_400Regular', textAlign:'center'}}>Movies</Text>
                           </View>
-                            <Text style={{color:'#FFFFFF', fontSize:23, fontFamily:'Raleway_400Regular'}}>Movies</Text>
-                            <Text style={{color:'#FFFFFF', fontSize:23, fontFamily:'Raleway_400Regular'}}>Movies</Text>
-                            <Text style={{color:'#FFFFFF', fontSize:23, fontFamily:'Raleway_400Regular'}}>Movies</Text>
+                          {
+                            currentMWGPastMovies.map((item:any, i:number) => 
+                            {
+                              return (
+                                <Text style={{color:'#FFFFFF', fontSize:23, fontFamily:'Raleway_400Regular'}}>{item}</Text>
+
+                              )
+                            })
+                          }
                         </ScrollView>
                       </View>
                       <View>
                         <View style={{borderBottomColor:'#FFFFFF', borderBottomWidth:1}}>
-                            <Text style={{color:'#FFFFFF', fontSize:18, fontFamily:'Raleway_400Regular', textAlign:'center'}}>Genre</Text>
+                            <Text style={{color:'#FFFFFF', fontSize:25, fontFamily:'Raleway_400Regular', textAlign:'center'}}>Genre</Text>
                         </View>
                         <ScrollView>
-                            <Text style={{color:'#FFFFFF', fontSize:23, fontFamily:'Raleway_400Regular', textAlign:'center'}}>Movies</Text>
-                            <Text style={{color:'#FFFFFF', fontSize:23, fontFamily:'Raleway_400Regular', textAlign:'center'}}>Movies</Text>
-                            <Text style={{color:'#FFFFFF', fontSize:23, fontFamily:'Raleway_400Regular', textAlign:'center'}}>Movies</Text>
+                        {
+                            currentMWGPastGenres.map((item:any, i:number) => 
+                            {
+                              return (
+                                <Text style={{color:'#FFFFFF', fontSize:23, fontFamily:'Raleway_400Regular'}}>{item}</Text>
+
+                              )
+                            })
+                          }
                         </ScrollView>
                       </View>
                 </View>
@@ -255,7 +278,7 @@ const StartWatchingBtnsComponent: FC = () => {
                                 placeholder="Add members"
                                 placeholderTextColor="#FFFFFF"
                                 onChangeText={(e) => setSearchedName(e)}
-                                onSubmitEditing={()=> handleKeyPress()}
+                                onSubmitEditing={()=> setModalVisible1(true)}
                                 value={searchedName}
                               />
                         </View>
@@ -308,45 +331,7 @@ const StartWatchingBtnsComponent: FC = () => {
                               )
                             })
                       }
-                      {/* {
-                        userId == mwgCreatorId ? 
-                        allSearchedNames.map((searchedName, index) => {
-                          const renderRightView = (progress:number, dragX:any) => {
-                            const scale = dragX.interpolate({
-                              inputRange: [-100, 0],
-                              outputRange: [0.7, 0],
-                              extrapolate: 'clamp'
-                            })
-                            return (
-                              <Animated.View
-                                style={{flex:0.6, margin: 0, transform: [{ scale }], alignContent: 'flex-end', justifyContent: 'flex-end', width:100}}>
-                                <Button 
-                                  uppercase={false} 
-                                  mode='contained' 
-                                  color='red' 
-                                  onPress={() => handleDeleteMember(searchedName, index)} 
-                                  style={{height: '50%'}}>
-                                    <Text style={{fontSize:24, fontFamily: "Raleway_400Regular",}}>Remove</Text>
-                                </Button>
-                              </Animated.View>
-                            )
-                          }
-                            return (
-                              <Swipeable 
-                                renderRightActions={(progress:any, dragx:any) => renderRightView(progress, dragx)}
-                                ref={(ref) => (row[index] = ref)}
-                                onSwipeableOpen={() => closeRow(index)}
-                                //rightOpenValue={-100}
-                                key={index}>
-                                  <View style={[{width:'99%', flexDirection: 'row', alignItems: 'flex-end', paddingBottom: '2%'}, styles.nameLine]}>
-                                    <Avatar.Image source={icons.get(searchedMemberIcon[index])} style={{alignItems: 'flex-start'}}/>
-                                      <Text style={[{color:'white', marginLeft: '10%'}, styles.btnText]}>{searchedName}</Text>
-                                  </View>
-
-                              </Swipeable> 
-                            )   
-                        }) : null
-                      } */}
+                    
                       </ScrollView>
                 </View>
             </View>
@@ -364,7 +349,7 @@ const StartWatchingBtnsComponent: FC = () => {
         }
 
 
-        {/* Modal */}
+        {/* Modal for Deleting Groups*/}
         <Modal
         animationType="slide"
         transparent={true}
@@ -376,7 +361,12 @@ const StartWatchingBtnsComponent: FC = () => {
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Image source={ExclamationIcon} style={{width:50, height:50, marginBottom:'5%'}}/>
+          <LottieView
+                autoPlay
+                style={styles.lottieView}
+                source={sleepingPanda}
+              />
+            {/* <Image source={ExclamationIcon} style={{width:50, height:50, marginBottom:'5%'}}/> */}
             <Text style={styles.modalText}>Are you sure you want to {'\n'} delete {MWGname}?</Text>
             <View style={{flexDirection:'row', width:'90%', justifyContent:'space-evenly'}}>
 
@@ -396,6 +386,41 @@ const StartWatchingBtnsComponent: FC = () => {
           </View>
         </View>
       </Modal>
+      
+        {/* Modal for Adding Members*/}
+        <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible1}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+          setModalVisible1(!modalVisible1);
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Image source={ExclamationIcon} style={{width:50, height:50, marginBottom:'5%'}}/>
+            <Text style={styles.modalText}>Are you sure you want to invite {'\n'} {searchedName}?</Text>
+            <View style={{flexDirection:'row', width:'90%', justifyContent:'space-evenly'}}>
+
+            <Pressable
+              style={[styles.button, styles.buttonClose1]}
+              onPress={() => handleKeyPress()}
+            >
+              <Text style={styles.textStyle}>Yes</Text>
+            </Pressable>
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => setModalVisible1(!modalVisible1)}
+            >
+              <Text style={styles.textStyle}>No</Text>
+            </Pressable>
+            </View>
+          </View>
+        </View>
+      </Modal>
+
+      
        </View>
 
        
@@ -405,6 +430,10 @@ const StartWatchingBtnsComponent: FC = () => {
 export default StartWatchingBtnsComponent;
 
 const styles = StyleSheet.create({
+    lottieView:{
+      height:150,
+      bottom:'3%',
+    },
     nameLine:{
       flex:1,
       borderBottomColor: '#707070',
