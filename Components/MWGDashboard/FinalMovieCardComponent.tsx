@@ -32,11 +32,14 @@ const FinalMovieCardComponent: FC = () => {
         //need to fetch movie summary and ratings
         let movieResults = await GetMoviesByMWGId(MWGId);
         setDisplayObject(movieResults[result.finalMovieIndex]);
-        console.log(movieResults[result.finalMovieIndex])
+        console.log('This is moviename?', movieResults[result.finalMovieIndex].movieName)
 
-        let addToPastMovies = await suggestedMovieNames(MWGId, displayObject.movieName);
-        let addToPastGenres = await suggestedMovieGenres(MWGId,result.finalGenre);
-        console.log(addToPastMovies, addToPastGenres);
+        if(!result.suggestedMovieNames.split(',').includes(movieResults[result.finalMovieIndex].movieName))
+        {
+          let addToPastMovies = await suggestedMovieNames(MWGId, movieResults[result.finalMovieIndex].movieName);
+          let addToPastGenres = await suggestedMovieGenres(MWGId,result.finalGenre);
+          console.log(addToPastMovies, addToPastGenres);
+        }
       }
       getTopMovie()
     }, []);

@@ -67,24 +67,30 @@ const UserDashboard: FC<Props> = ({navigation}) => {
   useEffect( () => {
     async function getUserInfo(){
       const something = navigation.addListener('focus', async () => {
+        const personId = await AsyncStorage.getItem('@storage_Id');
+        console.log('This is token Id', personId);
         console.log('//UserDashboardScreen Page is Refreshed');
-        console.log(userId);
+
         setUserIsAdmin(false);
         setUserIsReadyForGenres(false);
         setUserIsReadyForSwipes(false);
         setUserIsReadyToSeeFinalMovie(false);
         setUserIsWaiting(false);
+
         const token1 = await AsyncStorage.getItem('@storage_Token')
-        console.log(token1)
+        console.log('//UserDashboardScreen Page This is userToken:',token1)
+        
         if(token1 != null)
         {
-          setUsername(username);
-          setUserId(userId);
-          setUserIcon(userIcon);
-          const Id = await AsyncStorage.getItem('@storage_Id')
-          console.log('RIGHT HERE', Id)
-          setUserId(Number(Id));
-          let result = await GetMWGStatusByUserId(userId);
+          const personUsername = await AsyncStorage.getItem('@storage_Username');
+          const personIcon = await AsyncStorage.getItem('@storage_Usericon');
+
+          setUsername(personUsername);
+          setUserId(Number(personId));
+          setUserIcon(personIcon);
+          console.log('RIGHT HERE', personId)
+          
+          let result = await GetMWGStatusByUserId(Number(personId));
           // console.log('//UserDashboardScreen This is the userDatabyId', result);
           setAllMWG(result);
         }

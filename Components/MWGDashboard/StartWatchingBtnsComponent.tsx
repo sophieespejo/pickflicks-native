@@ -234,7 +234,7 @@ const StartWatchingBtnsComponent: FC = () => {
                             currentMWGPastMovies.map((item:any, i:number) => 
                             {
                               return (
-                                <Text style={{color:'#FFFFFF', fontSize:23, fontFamily:'Raleway_400Regular'}}>{item}</Text>
+                                <Text key={i} style={{color:'#FFFFFF', fontSize:23, fontFamily:'Raleway_400Regular'}}>{item}</Text>
 
                               )
                             })
@@ -250,7 +250,7 @@ const StartWatchingBtnsComponent: FC = () => {
                             currentMWGPastGenres.map((item:any, i:number) => 
                             {
                               return (
-                                <Text style={{color:'#FFFFFF', fontSize:23, fontFamily:'Raleway_400Regular'}}>{item}</Text>
+                                <Text key={i} style={{color:'#FFFFFF', fontSize:23, fontFamily:'Raleway_400Regular'}}>{item}</Text>
 
                               )
                             })

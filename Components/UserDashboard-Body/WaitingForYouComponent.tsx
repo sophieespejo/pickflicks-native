@@ -20,7 +20,6 @@ const WaitingForYouComponent: FC = () => {
   const [noFave, setNoFave] = useState<boolean>(false);
 
   const navigation = useNavigation<any>();
-
   
   useEffect(  () => {
       // setAllFaveMWG([]);
