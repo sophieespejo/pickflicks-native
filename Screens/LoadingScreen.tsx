@@ -11,7 +11,7 @@ import { RootStackParamList } from '../interfaces/RootStackParamList';
 type Props = NativeStackScreenProps<RootStackParamList, 'Introduction'>;
 
 const LoadingScreen: FC<Props> = ({navigation}) => {
-  let { token, setUserIcon, setToken, username, setUsername, userId, setUserId } = useContext(UserContext);
+  let { token, setUserIcon, setToken, setDevice, username, setUsername, userId, setUserId } = useContext(UserContext);
 
   useEffect( () => {
     const userToken = async () => 
@@ -20,6 +20,7 @@ const LoadingScreen: FC<Props> = ({navigation}) => {
         const Id = await AsyncStorage.getItem('@storage_Id')
         const Username = await AsyncStorage.getItem('@storage_Username')
         const UserIcon = await AsyncStorage.getItem('@storage_Usericon')
+        const UserDevice = await AsyncStorage.getItem('@storage_UserDevice')
 
         setToken(userToken);
         if(userToken != null)
@@ -27,10 +28,12 @@ const LoadingScreen: FC<Props> = ({navigation}) => {
           setUsername(Username);
           setUserId(Id);
           setUserIcon(UserIcon);
+          setDevice(UserDevice);
           
           console.log('LoadingScreen// This is the userIcon:', UserIcon);
           console.log('LoadingScreen// This is the userId:', Id);
           console.log('LoadingScreen// This is the userToken:', userToken)
+          console.log('LoadingScreen// This is the userDevice:', UserDevice)
           setTimeout(() => {
             navigation.navigate('UserDashboard') 
           }, 2000);

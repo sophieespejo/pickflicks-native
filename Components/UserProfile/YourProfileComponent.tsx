@@ -18,7 +18,6 @@ import boy5 from '../../assets/avatars/boy5.png'
 import boy6 from '../../assets/avatars/boy6.png'
 import UserContext from '../../Context/UserContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import notifee from '@notifee/react-native';
 import NotificationsIcon from '../../assets/NotificationsIcon.png'
 
 
@@ -43,7 +42,8 @@ const YourProfileComponent: FC = () => {
   useEffect( () => {
     const avatarScreen = async () => 
     {
-      setUserIcon(userIcon);
+      const UserIcon = await AsyncStorage.getItem('@storage_Usericon')
+      setUserIcon(UserIcon);
     }
     
     avatarScreen();
@@ -82,24 +82,11 @@ const YourProfileComponent: FC = () => {
     const Id = await AsyncStorage.removeItem('@storage_Id')
     const Username = await AsyncStorage.removeItem('@storage_Username')
     const UserIcon = await AsyncStorage.removeItem('@storage_Usericon')
+    const UserDevice = await AsyncStorage.removeItem('@storage_UserDevice')
 
-    if(token == null && Id == null && Username == null && UserIcon == null)
+    if(token == null && Id == null && Username == null && UserIcon == null && UserDevice == null)
     {
       navigation.navigate('Login');
-      // const channelId = await notifee.createChannel({
-      //   id: 'default',
-      //   name: 'Default Channel',
-      // });
-  
-      // // Display a notification
-      // await notifee.displayNotification({
-      //   title: 'Notification Title',
-      //   body: 'Main body content of the notification',
-      //   android: {
-      //     channelId,
-      //     smallIcon: 'name-of-a-small-icon', // optional, defaults to 'ic_launcher'.
-      //   },
-      // });
     }
     else
     {

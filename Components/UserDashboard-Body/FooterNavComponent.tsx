@@ -15,7 +15,7 @@ import UserContext from '../../Context/UserContext';
 
 
 const FooterNavComponent: FC = () => {
-  let {invitationMWG, setInvitationMWG, userId} = useContext(UserContext)
+  let {invitationMWG, setInvitationMWG, userId, userIcon} = useContext(UserContext)
   const tempArr: Array<Object> = [];
 
 

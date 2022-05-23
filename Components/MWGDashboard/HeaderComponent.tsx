@@ -9,7 +9,8 @@ import UserContext from '../../Context/UserContext';
 
 
 const HeaderComponent: FC = () => {
-  let { setMWGname, MWGname, setMWGId, MWGId } = useContext(UserContext);
+  let { device, MWGname} = useContext(UserContext);
+
 
   // useEffect( () => {
   //   async function getUserInfo(){
@@ -28,7 +29,7 @@ const HeaderComponent: FC = () => {
   
   return (
     <View style={{flex:0.15, paddingTop: 20}}>
-      <View style={{flex:0.7, paddingTop:10, marginRight: '10%'}}>
+      <View style={device == 'ios' ? {flex:0.7, paddingTop:10, marginRight: '10%'} : device = 'android' ? {flex:0.7, paddingTop:2, marginRight: '10%'} : null}>
         <Image style={{height: 70, width: '100%', marginLeft: '13%'}} source={headerLogo}></Image>
       </View>
       <View style={{flex:0.4, alignItems:'center'}}>

@@ -5,31 +5,24 @@ import AppLoading from 'expo-app-loading';
 import {useNavigation} from '@react-navigation/native';
 import UserContext from '../../Context/UserContext';
 import { Button } from 'react-native-paper';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { suggestedMovieGenres, suggestedMovieNames, GetMoviesByMWGId, GetMWGById, ResetMWGStatusbyMWGId, GetMWGStatusByUserId} from '../../Service/DataService';
   
 
 
 const FinalMovieCardComponent: FC = () => {
     const navigation = useNavigation<any>();
-    let {  MWGname, MWGId, setMWGId, userId, setUserId , listOfMovieNamesUsedToCompare1, setListOfMovieNamesUsedToCompare1, setAllMWG } = useContext(UserContext);
+    let {  setDevice, device, MWGname, MWGId, setMWGId, userId, setUserId , listOfMovieNamesUsedToCompare1, setListOfMovieNamesUsedToCompare1, setAllMWG } = useContext(UserContext);
     const [displayMovie, setDisplayMovie] = useState<string>("");
     const [displayObject, setDisplayObject] = useState<any>({});
 
     useEffect( () => {
       async function getTopMovie(){
-        // setListOfMovieNamesUsedToCompare1(listOfMovieNamesUsedToCompare1);
-        // let result = await GetTopMovieByMWGId(MWGId);
-        // console.log('Top Movie Index:', result)
-        // let finalMovieIndexBackEnd = await AddFinalMovieIndex(MWGId, result);
-        // console.log(finalMovieIndexBackEnd);
-        // console.log('Added FinalMovieIndex to BackEnd success')
+        const UserDevice = await AsyncStorage.getItem('@storage_UserDevice')
+        setDevice(UserDevice);
         let result = await GetMWGById(MWGId);
         console.log(result)
-        // let finalMovie = listOfMovieNamesUsedToCompare1[result];
-        // setDisplayMovie(finalMovie);
-        // console.log(finalMovie);
 
-        //need to fetch movie summary and ratings
         let movieResults = await GetMoviesByMWGId(MWGId);
         setDisplayObject(movieResults[result.finalMovieIndex]);
         console.log('This is moviename?', movieResults[result.finalMovieIndex].movieName)
@@ -43,18 +36,6 @@ const FinalMovieCardComponent: FC = () => {
       }
       getTopMovie()
     }, []);
-
-    // const handleReset = async () => {
-    //   let result = await ResetMWGStatusbyMWGId(MWGId);
-    //   if(result)
-    //   {
-    //     let userMWG = await GetMWGStatusByUserId(userId);
-    //     setAllMWG(userMWG);
-    //     navigation.navigate('UserDashboard')
-    //   }else{
-    //     navigation.navigate('LoadingPopcorn')
-    //   }
-    // }
 
 
 
@@ -71,28 +52,30 @@ const FinalMovieCardComponent: FC = () => {
       <View style={{flex: 1, alignItems:'center'}}>
         <View style={{ flex: 1, backgroundColor:'#BEB85B', borderRadius:30, width:'92%', marginTop:'8%', marginBottom:'8%', justifyContent:'center', 
                     borderWidth: 3, borderColor:'#E6D260'}}>
-           <View>
-               <Text style={styles.titleTxtBold}> {MWGname}'s {'\n'} Movie is</Text>
-               <View style={{marginTop:'3%'}}>
+
+               <View style={{flex:0.5, marginTop:'3%'}}>
                 <Text style={styles.titleTxtBold}> {displayObject.movieName} </Text>
                </View>
-           </View>
 
 
-            <View style={{flex:1, alignItems:'center'}}>
+
+            {/* <View style={{flex:1, alignItems:'center'}}> */}
                 <View style={{flex:2, alignItems:'center'}}>
-                    <Image style={{width:340, height:250, borderRadius:21, marginTop:'5%'}} source={{
-          uri: displayObject.movieImage,
-        }}></Image>
+                  {
+                    device == 'ios' ? <Image style={{width:340, height:300, borderRadius:21, marginTop:'5%'}} source={{
+                      uri: displayObject.movieImage,
+                    }}></Image> :
+                    device == 'android' ? <Image style={{width:340, height:260, borderRadius:21, marginTop:'3%'}} source={{
+                      uri: displayObject.movieImage,
+                    }}></Image> : null
+                  }
+                    
                 </View>
                 <View style={{flex:1.2, alignItems:'center'}}>
-                    <Text numberOfLines={3} ellipsizeMode='tail' style={styles.titleTxt}>{displayObject.movieOverview}</Text>
+                    <Text numberOfLines={device == 'ios' ? 4 : device == 'android' ? 3 : 4} ellipsizeMode='tail' style={styles.titleTxt}>{displayObject.movieOverview}</Text>
                     <Text style={styles.titleTxt}>Critics Ratings: {displayObject.movieIMDBRating}</Text>
-                    {/* <Button icon="camera" mode="contained" onPress={() => handleReset()}>
-    Reset MWGStatusModel
-  </Button> */}
                 </View>
-            </View>
+            {/* </View> */}
 
 
         </View>

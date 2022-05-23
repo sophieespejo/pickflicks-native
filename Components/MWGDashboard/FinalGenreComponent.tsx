@@ -4,7 +4,7 @@ import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 import { Button } from "react-native-paper";
 import {useNavigation} from '@react-navigation/native';
-import { AddAll15Movies, GetMWGStatusByMWGId, GetTopRankedGenre, AddFinalGenre} from '../../Service/DataService'
+import { AddAll15Movies, GetMWGStatusByMWGId, GetTopRankedGenre, AddFinalGenre, UpdateHaveMoviesBeenFetched} from '../../Service/DataService'
 import UserContext from '../../Context/UserContext';
 import loadingGif from '../../assets/36292-loader-movie.json'
 import LottieView from 'lottie-react-native';
@@ -15,7 +15,7 @@ import LottieView from 'lottie-react-native';
 
 const FinalGenreComponent: FC = () => {
     const navigation = useNavigation<any>();
-    let { genreId, streamingServiceId, setStreamingServiceId, username, genreName, setGenreName, setUsername, userId, setUserId, userIcon, setUserIcon, setGenreId, MWGname, setMWGname, MWGId, setMWGId, MWGgenres, setMWGgenres, MWGmembersId, setMWGmembersId,genre1,genre2, genre3, setGenre3, setAllMWG } = useContext(UserContext)
+    let { genreId, streamingServiceId, setStreamingServiceId, setGenreName, setGenreId, MWGname, setMWGname, MWGId, setMWGId} = useContext(UserContext)
     const [result, setResult] = useState("");
     const [isFetching15, setIsFetching15] = useState(false);
 
@@ -96,8 +96,6 @@ const FinalGenreComponent: FC = () => {
         let finalGenreBackEnd = await AddFinalGenre(MWGId, genreString);
         console.log(finalGenreBackEnd);
         console.log('This added FinalGenre field to Backend success')
-
-
         
       }
       getUserInfo()
@@ -105,7 +103,6 @@ const FinalGenreComponent: FC = () => {
 
   const handleNext = async () => 
   {
-
     let movieObj = await GetMWGStatusByMWGId(MWGId);
       console.log('handleNextMovieObj')
       console.log(movieObj);
@@ -116,20 +113,24 @@ const FinalGenreComponent: FC = () => {
         let isMWGDoneWithRanking = movieObj[0].areAllMembersDoneWithGenre;
         if(isMWGDoneWithRanking == true)
         {
-          setIsFetching15(true);
-          console.log('---addall15 should be fetched')
+            setIsFetching15(true);
+            console.log('---addall15 should be fetched');
             let finalMovie = await AddAll15Movies(MWGId, genreId, streamingServiceId);
+            await UpdateHaveMoviesBeenFetched(MWGId);
             console.log(MWGId, genreId, streamingServiceId);
-            console.log(finalMovie)
+            console.log(finalMovie);
+            
             if(finalMovie)
             {
-              navigation.navigate('MovieCard') 
-            }else{
-              navigation.navigate('LoadingPopcorn') 
+                navigation.navigate('MovieCard') 
             }
-         
+            else
+            {
+              alert("Movies are loading, please wait.")
+            }
         }
-        else{
+        else
+        {
           navigation.navigate("UserDashboard")
         }
       }

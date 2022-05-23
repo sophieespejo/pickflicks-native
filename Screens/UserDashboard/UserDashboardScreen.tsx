@@ -11,7 +11,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFonts, Raleway_400Regular, Raleway_600SemiBold } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 import { useState } from 'react';
-import { GetMWGStatusByUserId } from '../../Service/DataService';
+import { GetMWGStatusByUserId, GetAllUnacceptedInvitationsByUserId, GetMWGById} from '../../Service/DataService';
 import LottieView from 'lottie-react-native';
 import { RootStackParamList } from '../../interfaces/RootStackParamList';
 
@@ -26,9 +26,10 @@ interface IUserDashboardScreen {
 
 const UserDashboard: FC<Props> = ({navigation}) => {
 
-  let { token, setToken, username, setUsername, userId, setUserId, userIcon, setUserIcon, allMWG, setAllMWG, setUserIsAdmin, setUserIsReadyForGenres, setUserIsReadyForSwipes, setUserIsReadyToSeeFinalMovie, setUserIsWaiting} = useContext(UserContext)
+  let { device, setDevice, token, invitationMWG, setInvitationMWG, setToken, username, setUsername, userId, setUserId, userIcon, setUserIcon, allMWG, setAllMWG, setUserIsAdmin, setUserIsReadyForGenres, setUserIsReadyForSwipes, setUserIsReadyToSeeFinalMovie, setUserIsWaiting} = useContext(UserContext)
   const [WFYBool, setWFYBool] = useState<boolean>(true);
   const [WFOBool, setWFOBool] = useState<boolean>(false);
+  const tempArr: Array<any> = [];
   const pandaAnimation = require('../../assets/49799-the-panda-eats-popcorn.json');
 
   const [refreshing, setRefreshing] = useState(false);
@@ -49,6 +50,18 @@ const UserDashboard: FC<Props> = ({navigation}) => {
     setToken(UserToken);
     let result = await GetMWGStatusByUserId(userId);
     setAllMWG(result);
+
+    let allUnacceptedInvitations = await GetAllUnacceptedInvitationsByUserId(userId);
+
+          if(allUnacceptedInvitations != null)
+          {
+            for (const item of allUnacceptedInvitations) 
+            {
+              let result = await GetMWGById(item.mwgId);
+              tempArr.push(result);
+            }
+            setInvitationMWG([...tempArr]);
+          }
     wait(2000).then(() => setRefreshing(false));
   }, []);
 
@@ -118,7 +131,7 @@ const UserDashboard: FC<Props> = ({navigation}) => {
             <HeaderComponent/>
             <LottieView
               autoPlay
-              style={styles.lottieView}
+              style={device == 'android' ? styles.lottieView2 : styles.lottieView}
               source={pandaAnimation}
             />
             <ScrollView style={{flex:1}} refreshControl={
@@ -199,6 +212,14 @@ const styles = StyleSheet.create({
       height: '39%',
       position: 'absolute',
       top: '6.1%',
+      left: 0,
+      right: 0,
+      overflow: 'hidden'
+    },
+    lottieView2: {
+      height: '39%',
+      position: 'absolute',
+      top: '8.1%',
       left: 0,
       right: 0,
       overflow: 'hidden'

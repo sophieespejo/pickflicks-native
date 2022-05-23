@@ -20,7 +20,7 @@ import boy5 from '../../assets/avatars/boy5.png'
 import boy6 from '../../assets/avatars/boy6.png'
 import {  Button, Avatar } from "react-native-paper";
 import Swipeable from 'react-native-gesture-handler/Swipeable';
-import { GetMWGStatusByUserId, ResetMWGStatusbyMWGId, DeleteInvitation, AddInvitations, DeleteMemberFromMWG, GetUserByUsername, AddMemberToMWG, DeleteByMWGId} from '../../Service/DataService'
+import { GetMWGStatusByMWGId, GetMWGStatusByUserId, ResetMWGStatusbyMWGId, DeleteInvitation, AddInvitations, DeleteMemberFromMWG, GetUserByUsername, AddMemberToMWG, DeleteByMWGId} from '../../Service/DataService'
 import Magnifying from '../../assets/Magnifying.png';
 import ExclamationIcon from '../../assets/ExclamationIcon.png';
 import LottieView from 'lottie-react-native';
@@ -32,6 +32,7 @@ const StartWatchingBtnsComponent: FC = () => {
   const navigation = useNavigation<any>();
   const [modalVisible, setModalVisible] = useState(false);
   const [modalVisible1, setModalVisible1] = useState(false);
+  const [modalVisible3, setModalVisible3] = useState(false);
 
   let { setAllMWG, username, setMWGname, MWGname, setMWGId, MWGId, userIsAdmin, userId, userIsReadyForGenres, userIsReadyForSwipes, userIsReadyToSeeFinalMovie, userIsWaiting } = useContext(UserContext);
   const [membersNames, setMembersNames] = useState<Array<string>>([]);
@@ -43,8 +44,10 @@ const StartWatchingBtnsComponent: FC = () => {
   const [searchedMemberIcon, setSearchedMemberIcon] = useState<Array<string>>([]);
   const [currentMWGPastMovies, setCurrentMWGPastMovies] = useState<Array<string>>([]);
   const [currentMWGPastGenres, setCurrentMWGPastGenres] = useState<Array<string>>([]);
+  const [mwgStatus, setMWGStatus] = useState<any>([]);
 
   const sleepingPanda = require('../../assets/sleepingPanda.json');
+  const smartPanda = require('../../assets/smartPanda.json');
 
 
 
@@ -75,6 +78,10 @@ const StartWatchingBtnsComponent: FC = () => {
 
   useEffect( () => {
     async function getUserInfo(){
+      console.log('is user admind',userIsAdmin)
+      let movieObj = await GetMWGStatusByMWGId(MWGId);
+      setMWGStatus(movieObj[0]);
+      console.log('this is MWGStatus', movieObj)
       console.log(membersNames)
           setMWGname(MWGname);
           setMWGId(MWGId);
@@ -102,7 +109,11 @@ const StartWatchingBtnsComponent: FC = () => {
     {
       navigation.navigate('GenreRanking')
     }
-    if(userIsReadyForSwipes)
+    if(userIsReadyForSwipes && !mwgStatus.haveMoviesBeenFetched)
+    {
+      navigation.navigate('FinalGenre')
+    }
+    if(userIsReadyForSwipes && mwgStatus.haveMoviesBeenFetched)
     {
       navigation.navigate('MovieCard')
     }
@@ -206,20 +217,20 @@ const StartWatchingBtnsComponent: FC = () => {
   return (
     <View>
         <View style={{flex:1, height:90, marginTop:'5%', alignItems:'center'}}>
-            <Pressable disabled={userIsWaiting ? true : false} style={{width:'90%'}} onPress={() => handlePress()}>
+            <Pressable disabled={userIsWaiting && !mwgStatus.haveMoviesBeenFetched ? true : false} style={{width:'90%'}} onPress={() => handlePress()}>
                 <View style={styles.wgButton}>
                   <Image source={MovieClipper}></Image>
                   <Text 
                     style={{color:'#E3DDDD', fontSize:24, paddingLeft:60, justifyContent:'center', textAlign:'center', fontFamily:'Raleway_400Regular'}}>
-                      { userIsReadyForGenres ? 'Start ranking genres' : userIsReadyForSwipes ? 'Start swiping movies' : userIsWaiting ? `Waiting for ${'\n'} others to finish` : userIsAdmin ? 'Start watching' : ''}</Text>
+                      {userIsReadyForGenres ? 'Start ranking genres' : userIsReadyForSwipes && mwgStatus.haveMoviesBeenFetched ? 'Start swiping movies' : userIsReadyForSwipes && !mwgStatus.haveMoviesBeenFetched ? 'Load Movies!' : userIsWaiting ? `Waiting for ${'\n'} others to finish` : userIsAdmin ? 'Start watching' : 'Check out the Movie!'}</Text>
                 </View>
             </Pressable>
         </View>
             {
-              userId == mwgCreatorId ? 
+              userId == mwgCreatorId && mwgStatus.areAllMembersDoneWithSwipes ? 
 
               <View style={{flex:1, height:90, marginTop:'5%', alignItems:'center'}}>
-              <Pressable disabled={userIsWaiting ? true : false} style={{width:'90%'}} onPress={() => handleReset()}>
+              <Pressable disabled={userIsWaiting ? true : false} style={{width:'90%'}} onPress={() => setModalVisible3(true)}>
                   <View style={styles.wgButton}>
                     <Image source={MovieClipper}></Image>
                     <Text 
@@ -406,6 +417,44 @@ const StartWatchingBtnsComponent: FC = () => {
             <Pressable
               style={[styles.button, styles.buttonClose]}
               onPress={() => setModalVisible(!modalVisible)}
+            >
+              <Text style={styles.textStyle}>No</Text>
+            </Pressable>
+            </View>
+          </View>
+        </View>
+      </Modal>
+
+        {/* Modal for Reset MWG*/}
+        <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible3}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+          setModalVisible3(!modalVisible3);
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+          <LottieView
+                autoPlay
+                style={styles.lottieView}
+                source={smartPanda}
+              />
+            {/* <Image source={ExclamationIcon} style={{width:50, height:50, marginBottom:'5%'}}/> */}
+            <Text style={styles.modalText}>Are you sure you want to {'\n'} reset {MWGname}?</Text>
+            <View style={{flexDirection:'row', width:'90%', justifyContent:'space-evenly'}}>
+
+            <Pressable
+              style={[styles.button, styles.buttonClose1]}
+              onPress={() => handleReset()}
+            >
+              <Text style={styles.textStyle}>Yes</Text>
+            </Pressable>
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => setModalVisible3(!modalVisible3)}
             >
               <Text style={styles.textStyle}>No</Text>
             </Pressable>

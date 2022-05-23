@@ -1,5 +1,5 @@
-import { FC, useEffect, useContext} from "react";
-import { StyleSheet, View, Text, Pressable} from "react-native";
+import { FC, useEffect, useContext, useState} from "react";
+import { StyleSheet, View, Text, Pressable, Modal, Alert} from "react-native";
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 import { Avatar } from "react-native-paper";
@@ -22,8 +22,14 @@ import LottieView from 'lottie-react-native';
 
 
 const InvitationsComponent: FC = () => {
-  let {userId, invitationMWG, setInvitationMWG} = useContext(UserContext)
+  let {userId, invitationMWG, setInvitationMWG} = useContext(UserContext);
+  const [modalVisible, setModalVisible] = useState<any>(false);
+  const [currentMWGName, setCurrentMWGName] = useState<String>("");
+  const [pressedYes, setPressedYes] = useState<Boolean>(false);
+  const [pressedNo, setPressedNo] = useState<Boolean>(false);
+
   const pandaAnimation = require('../../assets/49799-the-panda-eats-popcorn.json');
+  const pandInUFO = require('../../assets/pandaInUFO.json');
 
 
   const icons = new Map([
@@ -60,18 +66,23 @@ const InvitationsComponent: FC = () => {
       Invitations()
     }, []);
 
-  const handleYes = async (MWGId:number) => 
+  const handleYes = async (MWGId:number, MWGName:string) => 
   {
+    setPressedYes(true);
     let result = await AcceptInvitation(MWGId, userId);
     console.log(result);
     setInvitationMWG([...tempArr]);
+    setModalVisible(true);
+    setCurrentMWGName(MWGName);
   }
 
   const handleNo = async (MWGId:number) => 
   {
+    setPressedNo(true);
     let result = await DeleteInvitation(MWGId, userId);
     console.log(result);
     setInvitationMWG([...tempArr]);
+    setModalVisible(true);
   }
 
   let [fontsLoaded] = useFonts({
@@ -114,7 +125,7 @@ const InvitationsComponent: FC = () => {
                   <Text style={[styles.currentMembers]}>Current Members: {item.membersNames}</Text>
               </View>
               <View style={{flexDirection:'row', marginTop:'4%', alignSelf:'center', width:'90%', justifyContent:'space-around',borderBottomColor: '#4D4A4A',borderBottomWidth: 1}}>
-                  <Pressable style={{marginBottom:'3%'}} onPress={() => handleYes(item.id)}>
+                  <Pressable style={{marginBottom:'3%'}} onPress={() => handleYes(item.id, item.mwgName)}>
                     <Text style={[styles.AcceptTxt]}>Yes</Text>
                     </Pressable>
                   <Pressable onPress={() => handleNo(item.id)}>
@@ -126,6 +137,41 @@ const InvitationsComponent: FC = () => {
           })
         
       }
+
+        <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+          <LottieView
+                autoPlay
+                style={styles.lottieView2}
+                source={pandInUFO}
+              />
+            {/* <Image source={ExclamationIcon} style={{width:50, height:50, marginBottom:'5%'}}/> */}
+            {
+              pressedYes ? <Text style={styles.modalText}>You are added to {currentMWGName}!</Text> : 
+              pressedNo ? <Text style={styles.modalText}>You declined the invitation!</Text> : null
+            }
+            <View style={{flexDirection:'row', width:'90%', justifyContent:'space-evenly'}}>
+
+            <Pressable
+              style={[styles.button, styles.buttonClose1]}
+              onPress={()=>setModalVisible(!modalVisible)}
+            >
+              <Text style={styles.textStyle}>Close</Text>
+            </Pressable>
+
+            </View>
+          </View>
+        </View>
+      </Modal>
       
     </View>
   );
@@ -170,6 +216,57 @@ const styles = StyleSheet.create({
         height:'100%'
         // position:'relative'
       },
+      lottieView2: {
+        height:150,
+        bottom:'3%',
+      },
+      centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        // marginTop: 22
+      },
+      modalView: {
+        margin: 20,
+        backgroundColor: "#C4C4C4",
+        borderRadius: 20,
+        padding: 35,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
+      },
+      button: {
+        borderRadius: 20,
+        padding: 10,
+        width:'30%',
+        elevation: 2,
+        marginTop:'5%'
+      },
+    
+      buttonClose1: {
+        backgroundColor: "green",
+      },
+      textStyle: {
+        color: "white",
+        fontWeight: "bold",
+        textAlign: "center",
+        fontFamily: "Raleway_400Regular",
+        fontSize: 17,
+      },
+      modalText: {
+        marginBottom: 15,
+        textAlign: "center",
+        fontFamily: "Raleway_400Regular",
+        fontSize: 21,
+        lineHeight:37,
+        color:'#383333'
+      }
   
 });
 

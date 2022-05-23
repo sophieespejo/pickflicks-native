@@ -31,6 +31,7 @@ const LoginScreen : FC<Props> = ({ navigation }) => {
             const Id = await AsyncStorage.getItem('@storage_Id')
             const Username = await AsyncStorage.getItem('@storage_Username')
             const UserIcon = await AsyncStorage.getItem('@storage_Usericon')
+            const UserDevice = await AsyncStorage.getItem('@storage_UserDevice')
             setToken(userToken);
 
             if(userToken != null)
@@ -39,10 +40,12 @@ const LoginScreen : FC<Props> = ({ navigation }) => {
                 console.log('LoginScreen// This is the userId:', Id);
                 console.log('LoginScreen// This is the username:', Username);
                 console.log('LoginScreen// This is the userIcon:', UserIcon);
+                console.log('LoginScreen// This is the userDevice:', UserDevice);
 
                 setUsername(Username);
                 setUserId(Id);
                 setUserIcon(UserIcon);
+                setDevice(UserDevice);
                 navigation.navigate('UserDashboard')
             }
         }
@@ -67,6 +70,7 @@ const LoginScreen : FC<Props> = ({ navigation }) => {
             await AsyncStorage.setItem('@storage_Id', storedId)
             await AsyncStorage.setItem('@storage_Username', username)
             await AsyncStorage.setItem('@storage_Usericon', userData.icon)
+            await AsyncStorage.setItem('@storage_UserDevice', Platform.OS)
             
             console.log('LoginScreen and PressingLogIn// This is the userId:', userData.id)
             setUserId(userData.id);
