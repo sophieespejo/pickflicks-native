@@ -43,16 +43,15 @@ const FinalGenreComponent: FC = () => {
               break;
             case 1:
               genreString = 'Action';
-
-              setResult('Action');
+              // setResult('Action');
               break;
             case 3:
               genreString = 'Animation';
-              setResult('Animation');
+              // setResult('Animation');
               break;
             case 4:
               genreString = 'Comedy';
-              setResult('Comedy');
+              // setResult('Comedy');
               break;
             case 5:
               genreString = 'Crime';
