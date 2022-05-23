@@ -89,11 +89,11 @@ const FinalGenreComponent: FC = () => {
               break;
           }
         }
+        console.log(result);
+        setResult(result);
         let finalGenreBackEnd = await AddFinalGenre(MWGId, result);
         console.log(finalGenreBackEnd);
         console.log('This added FinalGenre field to Backend success')
-
-
         
       }
       getUserInfo()
