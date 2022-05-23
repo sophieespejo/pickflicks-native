@@ -22,13 +22,10 @@ const FinalGenreComponent: FC = () => {
 
     useEffect( () => {
       async function getUserInfo(){
-        console.log('before retrieving streamingServiceId')
         setStreamingServiceId(streamingServiceId);
-        console.log('after retrieving streamingServiceId')
         setMWGname(MWGname);
         setMWGId(MWGId);
         let finalGenre = await GetTopRankedGenre(MWGId);
-        console.log('after getting TopRankedGenre')
         
         if(finalGenre != null)
         {
@@ -92,11 +89,11 @@ const FinalGenreComponent: FC = () => {
               break;
           }
         }
-        console.log(result);
-        setResult(result);
         let finalGenreBackEnd = await AddFinalGenre(MWGId, result);
         console.log(finalGenreBackEnd);
         console.log('This added FinalGenre field to Backend success')
+
+
         
       }
       getUserInfo()
