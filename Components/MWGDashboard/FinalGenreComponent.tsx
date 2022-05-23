@@ -35,71 +35,54 @@ const FinalGenreComponent: FC = () => {
           {
             case 10:
               genreString = 'Horror';
-              // setResult('Horror');
               break;
             case 7:
               genreString = 'Drama';
-              // setResult('Drama');
               break;
             case 1:
               genreString = 'Action';
-              // setResult('Action');
               break;
             case 3:
               genreString = 'Animation';
-              // setResult('Animation');
               break;
             case 4:
               genreString = 'Comedy';
-              // setResult('Comedy');
               break;
             case 5:
               genreString = 'Crime';
-              // setResult('Crime');
               break;
             case 6:
               genreString = 'Documentary';
-              // setResult('Documentary');
               break;
             case 8:
               genreString = 'Family';
-              // setResult('Family');
               break;
             case 9:
               genreString = 'Fantasy';
-              // setResult('Fantasy');
               break;
             case 10:
               genreString = 'History';
-              // setResult('History');
               break;
             case 12:
               genreString = 'Music';
-              // setResult('Music');
               break;
             case 13:
               genreString = 'Mystery';
-              // setResult('Mystery');
               break;
             case 14:
               genreString = 'Romance';
-              // setResult('Romance');
               break;
             case 15:
               genreString = 'Science Fiction';
-              // setResult('Science Fiction');
               break;
             case 17:
               genreString = 'Thriller';
-              // setResult('Thriller');
               break;
             case 18:
               genreString = 'War';
-              // setResult('War');
               break;
             case 19:
               genreString = 'Western';
-              // setResult('Western');
               break;
             default:
               setResult("");
