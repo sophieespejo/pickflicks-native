@@ -29,7 +29,6 @@ const FinalGenreComponent: FC = () => {
         
         if(finalGenre != null)
         {
-          
           setGenreId(finalGenre);
           switch(finalGenre)
           {
@@ -89,6 +88,8 @@ const FinalGenreComponent: FC = () => {
               break;
           }
         }
+        console.log('----here-----')
+        console.log('result:', result)
         let finalGenreBackEnd = await AddFinalGenre(MWGId, result);
         console.log(finalGenreBackEnd);
         console.log('This added FinalGenre field to Backend success')
