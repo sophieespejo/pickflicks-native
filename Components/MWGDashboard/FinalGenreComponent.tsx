@@ -26,6 +26,7 @@ const FinalGenreComponent: FC = () => {
         setMWGname(MWGname);
         setMWGId(MWGId);
         let finalGenre = await GetTopRankedGenre(MWGId);
+        let genreString = "";
         
         if(finalGenre != null)
         {
@@ -33,64 +34,84 @@ const FinalGenreComponent: FC = () => {
           switch(finalGenre)
           {
             case 10:
-              setResult('Horror');
+              genreString = 'Horror';
+              // setResult('Horror');
               break;
             case 7:
-              setResult('Drama');
+              genreString = 'Drama';
+              // setResult('Drama');
               break;
             case 1:
+              genreString = 'Action';
+
               setResult('Action');
               break;
             case 3:
+              genreString = 'Animation';
               setResult('Animation');
               break;
             case 4:
+              genreString = 'Comedy';
               setResult('Comedy');
               break;
             case 5:
-              setResult('Crime');
+              genreString = 'Crime';
+              // setResult('Crime');
               break;
             case 6:
-              setResult('Documentary');
+              genreString = 'Documentary';
+              // setResult('Documentary');
               break;
             case 8:
-              setResult('Family');
+              genreString = 'Family';
+              // setResult('Family');
               break;
             case 9:
-              setResult('Fantasy');
+              genreString = 'Fantasy';
+              // setResult('Fantasy');
               break;
             case 10:
-              setResult('History');
+              genreString = 'History';
+              // setResult('History');
               break;
             case 12:
-              setResult('Music');
+              genreString = 'Music';
+              // setResult('Music');
               break;
             case 13:
-              setResult('Mystery');
+              genreString = 'Mystery';
+              // setResult('Mystery');
               break;
             case 14:
-              setResult('Romance');
+              genreString = 'Romance';
+              // setResult('Romance');
               break;
             case 15:
-              setResult('Science Fiction');
+              genreString = 'Science Fiction';
+              // setResult('Science Fiction');
               break;
             case 17:
-              setResult('Thriller');
+              genreString = 'Thriller';
+              // setResult('Thriller');
               break;
             case 18:
-              setResult('War');
+              genreString = 'War';
+              // setResult('War');
               break;
             case 19:
-              setResult('Western');
+              genreString = 'Western';
+              // setResult('Western');
               break;
             default:
               setResult("");
               break;
           }
+          setResult(genreString);
+          setGenreName(genreString);
         }
         console.log('----here-----')
-        console.log('result:', result)
-        let finalGenreBackEnd = await AddFinalGenre(MWGId, result);
+        console.log('result:', genreString)
+        let finalGenreBackEnd = await AddFinalGenre(MWGId, genreString);
         console.log(finalGenreBackEnd);
         console.log('This added FinalGenre field to Backend success')
 
