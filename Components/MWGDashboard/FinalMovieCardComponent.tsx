@@ -44,17 +44,17 @@ const FinalMovieCardComponent: FC = () => {
       getTopMovie()
     }, []);
 
-    const handleReset = async () => {
-      let result = await ResetMWGStatusbyMWGId(MWGId);
-      if(result)
-      {
-        let userMWG = await GetMWGStatusByUserId(userId);
-        setAllMWG(userMWG);
-        navigation.navigate('UserDashboard')
-      }else{
-        navigation.navigate('LoadingPopcorn')
-      }
-    }
+    // const handleReset = async () => {
+    //   let result = await ResetMWGStatusbyMWGId(MWGId);
+    //   if(result)
+    //   {
+    //     let userMWG = await GetMWGStatusByUserId(userId);
+    //     setAllMWG(userMWG);
+    //     navigation.navigate('UserDashboard')
+    //   }else{
+    //     navigation.navigate('LoadingPopcorn')
+    //   }
+    // }
 
 
 
@@ -88,9 +88,9 @@ const FinalMovieCardComponent: FC = () => {
                 <View style={{flex:1.2, alignItems:'center'}}>
                     <Text numberOfLines={3} ellipsizeMode='tail' style={styles.titleTxt}>{displayObject.movieOverview}</Text>
                     <Text style={styles.titleTxt}>Critics Ratings: {displayObject.movieIMDBRating}</Text>
-                    <Button icon="camera" mode="contained" onPress={() => handleReset()}>
+                    {/* <Button icon="camera" mode="contained" onPress={() => handleReset()}>
     Reset MWGStatusModel
-  </Button>
+  </Button> */}
                 </View>
             </View>
 

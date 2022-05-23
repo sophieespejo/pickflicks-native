@@ -26,70 +26,74 @@ const FinalGenreComponent: FC = () => {
         setMWGname(MWGname);
         setMWGId(MWGId);
         let finalGenre = await GetTopRankedGenre(MWGId);
+        let genreString = "";
         
         if(finalGenre != null)
         {
-          
           setGenreId(finalGenre);
           switch(finalGenre)
           {
             case 10:
-              setResult('Horror');
+              genreString = 'Horror';
               break;
             case 7:
-              setResult('Drama');
+              genreString = 'Drama';
               break;
             case 1:
-              setResult('Action');
+              genreString = 'Action';
               break;
             case 3:
-              setResult('Animation');
+              genreString = 'Animation';
               break;
             case 4:
-              setResult('Comedy');
+              genreString = 'Comedy';
               break;
             case 5:
-              setResult('Crime');
+              genreString = 'Crime';
               break;
             case 6:
-              setResult('Documentary');
+              genreString = 'Documentary';
               break;
             case 8:
-              setResult('Family');
+              genreString = 'Family';
               break;
             case 9:
-              setResult('Fantasy');
+              genreString = 'Fantasy';
               break;
             case 10:
-              setResult('History');
+              genreString = 'History';
               break;
             case 12:
-              setResult('Music');
+              genreString = 'Music';
               break;
             case 13:
-              setResult('Mystery');
+              genreString = 'Mystery';
               break;
             case 14:
-              setResult('Romance');
+              genreString = 'Romance';
               break;
             case 15:
-              setResult('Science Fiction');
+              genreString = 'Science Fiction';
               break;
             case 17:
-              setResult('Thriller');
+              genreString = 'Thriller';
               break;
             case 18:
-              setResult('War');
+              genreString = 'War';
               break;
             case 19:
-              setResult('Western');
+              genreString = 'Western';
               break;
             default:
               setResult("");
               break;
           }
+          setResult(genreString);
+          setGenreName(genreString);
         }
-        let finalGenreBackEnd = await AddFinalGenre(MWGId, result);
+        console.log('----here-----')
+        console.log('result:', genreString)
+        let finalGenreBackEnd = await AddFinalGenre(MWGId, genreString);
         console.log(finalGenreBackEnd);
         console.log('This added FinalGenre field to Backend success')
 

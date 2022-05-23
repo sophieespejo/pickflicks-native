@@ -20,7 +20,7 @@ import boy5 from '../../assets/avatars/boy5.png'
 import boy6 from '../../assets/avatars/boy6.png'
 import {  Button, Avatar } from "react-native-paper";
 import Swipeable from 'react-native-gesture-handler/Swipeable';
-import { DeleteInvitation, AddInvitations, DeleteMemberFromMWG, GetUserByUsername, AddMemberToMWG, DeleteByMWGId} from '../../Service/DataService'
+import { GetMWGStatusByUserId, ResetMWGStatusbyMWGId, DeleteInvitation, AddInvitations, DeleteMemberFromMWG, GetUserByUsername, AddMemberToMWG, DeleteByMWGId} from '../../Service/DataService'
 import Magnifying from '../../assets/Magnifying.png';
 import ExclamationIcon from '../../assets/ExclamationIcon.png';
 import LottieView from 'lottie-react-native';
@@ -33,7 +33,7 @@ const StartWatchingBtnsComponent: FC = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [modalVisible1, setModalVisible1] = useState(false);
 
-  let { username, setMWGname, MWGname, setMWGId, MWGId, userIsAdmin, userId, userIsReadyForGenres, userIsReadyForSwipes, userIsReadyToSeeFinalMovie, userIsWaiting } = useContext(UserContext);
+  let { setAllMWG, username, setMWGname, MWGname, setMWGId, MWGId, userIsAdmin, userId, userIsReadyForGenres, userIsReadyForSwipes, userIsReadyToSeeFinalMovie, userIsWaiting } = useContext(UserContext);
   const [membersNames, setMembersNames] = useState<Array<string>>([]);
   const [membersIcons, setMembersIcons] = useState<Array<string>>([]);
   const [mwgCreatorId, setmwgCreatorId] = useState<string>("");
@@ -110,6 +110,18 @@ const StartWatchingBtnsComponent: FC = () => {
     {
       navigation.navigate('FinalMovie')
     }
+  }
+
+  const handleReset = async () => {
+    let result = await ResetMWGStatusbyMWGId(MWGId);
+      if(result)
+      {
+        let userMWG = await GetMWGStatusByUserId(userId);
+        setAllMWG(userMWG);
+        Alert.alert('Successfully Rest', 'This group has been reset.');
+      }else{
+        Alert.alert('Error', 'Cannot Reset');
+      }
   }
 
   const handleDeleteMember = async (member:string, index:number ) => {
@@ -203,6 +215,21 @@ const StartWatchingBtnsComponent: FC = () => {
                 </View>
             </Pressable>
         </View>
+            {
+              userId == mwgCreatorId ? 
+
+              <View style={{flex:1, height:90, marginTop:'5%', alignItems:'center'}}>
+              <Pressable disabled={userIsWaiting ? true : false} style={{width:'90%'}} onPress={() => handleReset()}>
+                  <View style={styles.wgButton}>
+                    <Image source={MovieClipper}></Image>
+                    <Text 
+                      style={{color:'#E3DDDD', fontSize:24, paddingLeft:60, justifyContent:'center', textAlign:'center', fontFamily:'Raleway_400Regular'}}>
+                        Reset</Text>
+                  </View>
+              </Pressable>
+          </View>
+            : null
+            }
         <View style={{flex:1, height:120, alignItems:'center', marginTop:'4%',justifyContent:'center'}}>
             <View style={{width:'90%'}} >
                 <View style={styles.LWAMT}>
