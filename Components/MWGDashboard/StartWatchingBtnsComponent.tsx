@@ -302,30 +302,6 @@ const StartWatchingBtnsComponent: FC = () => {
                               
                           </View>
                       </View>
-                          {/* <View style={{flex:1, width:'60%', alignSelf:'flex-start', marginLeft:'5%', backgroundColor:'purple'}}>
-                          {
-                              currentMWGPastMovies.map((item:any, i:number) => 
-                              {
-                                return (
-                                  <Text key={i} style={{color:'#FFFFFF', fontSize:23, fontFamily:'Raleway_400Regular', textAlign:'left'}}
-                                  ellipsizeMode='tail'
-                                  numberOfLines={1}
-                                  >{item}</Text>
-
-                                )
-                              })
-                            } 
-                            </View> */}
-                            {/* <View style={{flex:1, width:'90%', height:1000,alignItems:'flex-end', justifyContent:'flex-end', marginBottom:'1%', backgroundColor:'blue'}}>
-                            {
-                            currentMWGPastGenres.map((item:any, i:number) => 
-                            {
-                              return (
-                                <Text key={i} style={{color:'#FFFFFF', fontSize:23, fontFamily:'Raleway_400Regular'}}>{item}</Text>
-                              )
-                            })
-                          }
-                          </View> */}
             </View>
         </View>
         <View style={{flex:1,  alignItems:'center', marginTop:'4%', }}>
