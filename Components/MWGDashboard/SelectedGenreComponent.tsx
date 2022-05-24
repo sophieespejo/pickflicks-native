@@ -14,7 +14,7 @@ import { GetMWGById } from '../../Service/DataService'
 const SelectedGenreComponent: FC = () => {
     const navigation = useNavigation<any>();
     let { username, setUsername, userId, setUserId,  MWGname, setMWGname, MWGId, setMWGId, MWGgenres, setMWGgenres,  MWGmembersId, setMWGmembersId, genre1, setGenre1 } = useContext(UserContext)
-    const [onChangeValue, setOnChangeValue] = useState(0);
+    const [onChangeValue, setOnChangeValue] = useState(10);
     useEffect( () => {
       async function getUserInfo(){
         setUsername(username);
@@ -57,16 +57,16 @@ const SelectedGenreComponent: FC = () => {
             </View>
 
 
-            <View style={{flex:1, alignItems:'center', marginBottom:'10%'}}>
-              <View  style={{paddingBottom:'20%', justifyContent:'flex-start'}}>
-                <Text style={styles.scoreTxt}>{Math.floor(onChangeValue/10)}</Text>
+            <View style={{flex:1, alignItems:'center', marginBottom:'15%'}}>
+              <View  style={{paddingBottom:'15%', justifyContent:'flex-start'}}>
+                <Text style={[styles.scoreTxt]}>{Math.floor(onChangeValue/10)}</Text>
               </View>
-                <View>
+                <View style={{flex:1}}>
                     <Text style={styles.GenreTxt}>{MWGgenres[0]}</Text>
                 </View>
                 
                   <Slider 
-                  style={{marginTop:'8%'}}
+                  style={{marginTop:'8%', flex:1}}
                     colorScheme="gray" w="3/4" 
                     maxW="300" 
                     defaultValue={10} 
@@ -82,9 +82,13 @@ const SelectedGenreComponent: FC = () => {
                     <Slider.Thumb />
                   </Slider>
 
-                  <View style={{flexDirection:'row', justifyContent:'space-between', width:'80%'}}>
+                  <View style={{flex:1, flexDirection:'row', justifyContent:'space-between', width:'80%'}}>
                     <Text style={styles.numberScale}>1</Text>
                     <Text style={styles.numberScale}>5</Text>
+                  </View>
+                  <View style={{flex:1, flexDirection:'row', justifyContent:'space-between', width:'95%'}}>
+                    <Text style={styles.LowHighTxt}>Lowest</Text>
+                    <Text style={styles.LowHighTxt}>Highest</Text>
                   </View>
             </View>
 
@@ -130,6 +134,11 @@ const styles = StyleSheet.create({
   numberScale:{
     fontFamily: "Raleway_400Regular",
     fontSize: 35,
+    color: '#FFFFFF'
+  },
+  LowHighTxt:{
+    fontFamily: "Raleway_400Regular",
+    fontSize: 20,
     color: '#FFFFFF'
   },
   GenreTxt:{

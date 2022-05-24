@@ -135,6 +135,10 @@ const FinalGenreComponent: FC = () => {
         }
       }
   }
+  // const handleTest = () => 
+  // {
+  //   setIsFetching15(true);
+  // }
 
   let [fontsLoaded] = useFonts({
     Raleway_400Regular,

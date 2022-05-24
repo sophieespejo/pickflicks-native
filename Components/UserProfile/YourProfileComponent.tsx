@@ -22,7 +22,7 @@ import NotificationsIcon from '../../assets/NotificationsIcon.png'
 
 
 const YourProfileComponent: FC = () => {
-  let { userIcon, setUserIcon, invitationMWG} = useContext(UserContext)
+  let { userIcon, setUserIcon, invitationMWG, setMovingFromProfiletoAvatar} = useContext(UserContext)
 
   const icons = new Map([
     ['boy1', boy1],
@@ -42,6 +42,7 @@ const YourProfileComponent: FC = () => {
   useEffect( () => {
     const avatarScreen = async () => 
     {
+      setMovingFromProfiletoAvatar(false);
       const UserIcon = await AsyncStorage.getItem('@storage_Usericon')
       setUserIcon(UserIcon);
     }
@@ -61,6 +62,7 @@ const YourProfileComponent: FC = () => {
     return <AppLoading />;
   }
   const handleIconChange = () => {
+    setMovingFromProfiletoAvatar(true);
    navigation.navigate("AvatarScreen");
   }
 

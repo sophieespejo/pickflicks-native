@@ -19,7 +19,8 @@ const CreateAccountScreen : FC<Props> = () => {
     const navigation = useNavigation<any>();
     let {  username, setUsername} = useContext(UserContext);
 
-    const [textInput, setTextInput] = useState('');
+    const [preventSpam, setPreventSpam] = useState<boolean>(false);
+    const [textInput, setTextInput] = useState<String>('');
 
     const [veryifyPassowrd, setVerifyPassword] = useState('');
     const [veryifyPassowrd2, setVerifyPassword2] = useState('');
@@ -54,6 +55,7 @@ const CreateAccountScreen : FC<Props> = () => {
     }
 
     const handleCreateAccount = async () => {
+        setPreventSpam(true);
         if (passwodsVerified) {
             let newUserData = {
                 Id:0,
@@ -170,7 +172,8 @@ const CreateAccountScreen : FC<Props> = () => {
                             <View style={{alignItems: 'center'}}>
                                 <Button mode="contained" 
                                 onPress={handleCreateAccount}
-                                style={styles.createAccountBtn}>
+                                style={styles.createAccountBtn}
+                                disabled={preventSpam ? true : false}>
                                     Next
                                 </Button>
                             </View>

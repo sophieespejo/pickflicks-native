@@ -4,18 +4,24 @@ import { useFonts, Raleway_400Regular, Raleway_600SemiBold} from '@expo-google-f
 import AppLoading from 'expo-app-loading';
 import {useNavigation} from '@react-navigation/native';
 import {EditUsername, GetUserByUsername } from '../../Service/DataService';
-import UserContext from '../../Context/UserContext';  
+import UserContext from '../../Context/UserContext'; 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import LottieView from 'lottie-react-native';
 
 
 const ChangeUsernameComponent: FC = () => {
 
-  let { userId } = useContext(UserContext)
+  let { userId, setUsername } = useContext(UserContext)
 
-  const navigation = useNavigation();
-  const [textInput, setTextInput] = useState('');
-  const [userResult, setUserResult] = useState(false)
-  const [doesUserExist, setDoesUserExist] = useState(false);
-  const [placeholder, setPlaceholder] = useState('');
+  const navigation = useNavigation<string>();
+  const [textInput, setTextInput] = useState<any>('');
+  const [userResult, setUserResult] = useState<boolean>(false)
+  const [doesUserExist, setDoesUserExist] = useState<boolean>(false);
+  const [placeholder, setPlaceholder] = useState<string>('');
+  const [waiting, setWaiting] = useState<boolean>(false);
+
+  const loadingAnimation = require('../../assets/loadingAnimation.json')
+
 
   useEffect( () => {
     const Username = async () => 
@@ -41,13 +47,23 @@ const ChangeUsernameComponent: FC = () => {
     }
     else
     {
+      setWaiting(true);
       let result = await EditUsername(userId, textInput);
+      await AsyncStorage.setItem('@storage_Username', textInput)
+      setUsername(textInput);
       console.log('//ChangeUsernameComponent EditUserNameFetch ran', result);
       if(result)
       {
+        setWaiting(false);
         setUserResult(true);
       }
     }
+  }
+
+  const handleTEST = () => 
+  {
+    setWaiting(true);
+
   }
 
   let [fontsLoaded] = useFonts({
@@ -79,15 +95,20 @@ const ChangeUsernameComponent: FC = () => {
                             onFocus={() => setPlaceholder('')}
                             onBlur={() => setPlaceholder("Try a new Username")}
                         />
-                {
-                  userResult ? <Text style={styles.Txt3}>Username Changed!</Text> :
+                { waiting ? <LottieView
+                autoPlay
+                style={styles.lottieView}
+                source={loadingAnimation}
+              /> :
+                  (userResult ? <Text style={styles.Txt3}>Username Changed!</Text> :
                   doesUserExist ? <Text style={styles.Txt2}>Username is already taken!</Text> : 
-                  !userResult ? null : <Text style={styles.Txt2}>Username not available!</Text>
+                  !userResult ? null : <Text style={styles.Txt2}>Username not available!</Text>)
                 }
 
                 <Pressable onPress={() => handleSaveUsername()} style={{alignItems:'center', paddingTop:'5%'}}>
                     <Text style={styles.SaveTxt}>Save</Text>
                 </Pressable>
+
            </View>
                 </TouchableWithoutFeedback>
         </View>
@@ -146,7 +167,23 @@ const styles = StyleSheet.create({
     textAlign:'center',
     color: 'green',
     paddingTop:'4%'
-  }
+  },
+  lottieView: {
+    height: '50%',
+    position: 'absolute',
+    top: '5.65%',
+    left: 0,
+    right: 0,
+    overflow: 'hidden'
+  },
+  // lottieView: {
+  //   height: '50%',
+  //   position: 'absolute',
+  //   top: '5.65%',
+  //   left: 0,
+  //   right: 0,
+  //   overflow: 'hidden'
+  // },
 });
 
 export default ChangeUsernameComponent;

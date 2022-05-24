@@ -19,6 +19,8 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 const LoginScreen : FC<Props> = ({ navigation }) => {
     let { device, setDevice, token, setToken, username, setUsername, userId, setUserId, userIcon, setUserIcon } = useContext(UserContext);
     const [password, setPassword] = useState('');
+    const [preventSpam, setPreventSpam] = useState<boolean>(false);
+
 
     const toast = useToast();
 
@@ -54,6 +56,7 @@ const LoginScreen : FC<Props> = ({ navigation }) => {
       }, []);
 
     const handleSubmit = async () => {
+        setPreventSpam(true);
         let userData = {
             Username: username,
             Password: password
@@ -156,7 +159,8 @@ const LoginScreen : FC<Props> = ({ navigation }) => {
                         <Button mode="contained" 
                         onPress={handleSubmit}
                         style={styles.createAccountBtn}
-                        uppercase={false}>
+                        uppercase={false}
+                        disabled={preventSpam ? true : false}>
                             Log In
                         </Button>
                     </View>

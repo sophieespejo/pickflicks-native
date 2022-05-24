@@ -175,7 +175,7 @@
         <View style={{flex:1, alignItems:'center'}}>
             <View style={{ flex: 1, backgroundColor:'#4D4A4AEA', borderRadius:30, width:'92%'}}>
               <View style={{alignItems:'flex-end', width:'95%', marginTop:'5%'}}>
-                <Image source={X}></Image>
+                {/* <Image source={X}></Image> */}
               </View>
             <View style={{alignItems:'center', width:'100%'}}>
               <View style={[{flexDirection:'row',marginTop:'7%'}]}>

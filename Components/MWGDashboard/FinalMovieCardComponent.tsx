@@ -1,5 +1,5 @@
 import { FC, useEffect, useContext, useState} from 'react';
-import { StyleSheet, Text, View, Image} from "react-native";
+import { StyleSheet, Text, View, Image, Platform} from "react-native";
 import { useFonts, Raleway_400Regular, Raleway_600SemiBold} from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 import {useNavigation} from '@react-navigation/native';
@@ -53,7 +53,7 @@ const FinalMovieCardComponent: FC = () => {
         <View style={{ flex: 1, backgroundColor:'#BEB85B', borderRadius:30, width:'92%', marginTop:'8%', marginBottom:'8%', justifyContent:'center', 
                     borderWidth: 3, borderColor:'#E6D260'}}>
 
-               <View style={{flex:0.5, marginTop:'3%'}}>
+               <View style={{flex:0.5}}>
                 <Text style={styles.titleTxtBold}> {displayObject.movieName} </Text>
                </View>
 
@@ -62,10 +62,10 @@ const FinalMovieCardComponent: FC = () => {
             {/* <View style={{flex:1, alignItems:'center'}}> */}
                 <View style={{flex:2, alignItems:'center'}}>
                   {
-                    device == 'ios' ? <Image style={{width:340, height:300, borderRadius:21, marginTop:'5%'}} source={{
+                    Platform.OS == 'ios' ? <Image style={{width:340, height:300, borderRadius:21}} source={{
                       uri: displayObject.movieImage,
                     }}></Image> :
-                    device == 'android' ? <Image style={{width:340, height:260, borderRadius:21, marginTop:'3%'}} source={{
+                    Platform.OS == 'android' ? <Image style={{width:340, height:260, borderRadius:21, marginTop:'3%'}} source={{
                       uri: displayObject.movieImage,
                     }}></Image> : null
                   }

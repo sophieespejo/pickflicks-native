@@ -1,12 +1,10 @@
-import {
-  createNativeStackNavigator,
-} from "@react-navigation/native-stack";
-import { FC, useState, useEffect, useContext } from "react";
+import { FC, useState, useEffect, useContext} from "react";
 import {
   StyleSheet,
   Text,
   TextInput,
   View,
+  Alert
 } from "react-native";
 import { Button } from "react-native-paper";
 import { useFonts, Raleway_400Regular } from "@expo-google-fonts/raleway";
@@ -39,8 +37,15 @@ const NewMWGNameComponent: FC = () => {
   }, []);
 
   const handlePress= () => {
-    setnewMWGname(MWGname);
-    navigation.navigate('MemberSearch');
+    if(MWGname != '')
+    {
+      setnewMWGname(MWGname);
+      navigation.navigate('MemberSearch');
+    }
+    else
+    {
+      Alert.alert('Error', 'Group name cannot be blank.');
+    }
   }
   
   let [fontsLoaded] = useFonts({

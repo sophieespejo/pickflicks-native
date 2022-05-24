@@ -13,7 +13,7 @@ import { GetMWGById } from '../../Service/DataService'
 const SelectedGenreComponent2: FC = () => {
     const navigation = useNavigation<any>();
     let { MWGname, setMWGname, MWGId, setMWGId, MWGgenres, setMWGgenres, genre2, setGenre2 } = useContext(UserContext)
-    const [onChangeValue, setOnChangeValue] = useState(0);
+    const [onChangeValue, setOnChangeValue] = useState(10);
 
 
     
@@ -56,16 +56,16 @@ const SelectedGenreComponent2: FC = () => {
             </View>
 
 
-            <View style={{flex:1, alignItems:'center', marginBottom:'10%'}}>
-              <View  style={{paddingBottom:'20%', justifyContent:'flex-start'}}>
+            <View style={{flex:1, alignItems:'center', marginBottom:'15%'}}>
+              <View  style={{paddingBottom:'15%', justifyContent:'flex-start'}}>
                 <Text style={styles.scoreTxt}>{Math.floor(onChangeValue/10)}</Text>
               </View>
-                <View>
+                <View style={{flex:1}}>
                     <Text style={styles.GenreTxt}>{MWGgenres[1]}</Text>
                 </View>
                 
                   <Slider 
-                  style={{marginTop:'8%'}}
+                  style={{marginTop:'8%', flex:1}}
                     colorScheme="gray" w="3/4" 
                     maxW="300" 
                     defaultValue={10} 
@@ -81,9 +81,13 @@ const SelectedGenreComponent2: FC = () => {
                     <Slider.Thumb />
                   </Slider>
 
-                  <View style={{flexDirection:'row', justifyContent:'space-between', width:'80%'}}>
+                  <View style={{flex:1, flexDirection:'row', justifyContent:'space-between', width:'80%'}}>
                     <Text style={styles.numberScale}>1</Text>
                     <Text style={styles.numberScale}>5</Text>
+                  </View>
+                  <View style={{flex:1, flexDirection:'row', justifyContent:'space-between', width:'95%'}}>
+                    <Text style={styles.LowHighTxt}>Lowest</Text>
+                    <Text style={styles.LowHighTxt}>Highest</Text>
                   </View>
             </View>
 
@@ -136,7 +140,12 @@ const styles = StyleSheet.create({
     fontSize: 45,
     textAlign:'center',
     color: '#FFFFFF',
-  }
+  },
+  LowHighTxt:{
+    fontFamily: "Raleway_400Regular",
+    fontSize: 20,
+    color: '#FFFFFF'
+  },
 });
 
 export default SelectedGenreComponent2;

@@ -1,7 +1,7 @@
 import { FC, useContext, useEffect, useState } from "react";
 import { Modal, StyleSheet, Text, View, Image, TextInput, Pressable, ScrollView, Animated, Alert} from "react-native";
 import MovieClipper from "../../assets/MovieClipper.png";
-import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
+import { useFonts, Raleway_400Regular, Raleway_600SemiBold } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import UserContext from '../../Context/UserContext';
@@ -129,7 +129,7 @@ const StartWatchingBtnsComponent: FC = () => {
       {
         let userMWG = await GetMWGStatusByUserId(userId);
         setAllMWG(userMWG);
-        Alert.alert('Successfully Rest', 'This group has been reset.');
+        navigation.navigate('SelectStreamingService')
       }else{
         Alert.alert('Error', 'Cannot Reset');
       }
@@ -207,6 +207,7 @@ const StartWatchingBtnsComponent: FC = () => {
   
   let [fontsLoaded] = useFonts({
     Raleway_400Regular,
+    Raleway_600SemiBold
   });
 
   if (!fontsLoaded) {
@@ -222,7 +223,7 @@ const StartWatchingBtnsComponent: FC = () => {
                   <Image source={MovieClipper}></Image>
                   <Text 
                     style={{color:'#E3DDDD', fontSize:24, paddingLeft:60, justifyContent:'center', textAlign:'center', fontFamily:'Raleway_400Regular'}}>
-                      {userIsReadyForGenres ? 'Start ranking genres' : userIsReadyForSwipes && mwgStatus.haveMoviesBeenFetched ? 'Start swiping movies' : userIsReadyForSwipes && !mwgStatus.haveMoviesBeenFetched ? 'Load Movies!' : userIsWaiting ? `Waiting for ${'\n'} others to finish` : userIsAdmin ? 'Start watching' : 'Check out the Movie!'}</Text>
+                      {userIsReadyForGenres ? 'Start ranking genres' : userIsReadyForSwipes && mwgStatus.haveMoviesBeenFetched ? 'Start swiping movies' : userIsReadyForSwipes && !mwgStatus.haveMoviesBeenFetched ? 'Load Movies!' : userIsWaiting ? `Waiting for ${'\n'} others to finish` : userIsAdmin ? 'Start watching' : `Check out the ${'\n'} movie!`}</Text>
                 </View>
             </Pressable>
         </View>
@@ -231,11 +232,11 @@ const StartWatchingBtnsComponent: FC = () => {
 
               <View style={{flex:1, height:90, marginTop:'5%', alignItems:'center'}}>
               <Pressable disabled={userIsWaiting ? true : false} style={{width:'90%'}} onPress={() => setModalVisible3(true)}>
-                  <View style={styles.wgButton}>
+                  <View style={styles.ResetBtn}>
                     <Image source={MovieClipper}></Image>
                     <Text 
-                      style={{color:'#E3DDDD', fontSize:24, paddingLeft:60, justifyContent:'center', textAlign:'center', fontFamily:'Raleway_400Regular'}}>
-                        Reset</Text>
+                      style={{color:'#E3DDDD', fontSize:24, justifyContent:'center', textAlign:'center', fontFamily:'Raleway_400Regular'}}>
+                        Start Selecting {'\n'} another Movie</Text>
                   </View>
               </Pressable>
           </View>
@@ -259,43 +260,72 @@ const StartWatchingBtnsComponent: FC = () => {
         </View>
         <View style={{flex:1, height:200, alignItems:'center', marginTop:'4%'}}>
             <View style={[{flex:1, width:'90%'}, styles.LWAMT]}>
-                <View style={{flex:1, marginTop:'3%', marginBottom:'3%'}}>
-                  <Text style={{color:'#FFFFFF', fontSize:28, justifyContent:'center', textAlign:'center', fontFamily:'Raleway_400Regular'}}>Movies Watched</Text>
+                <View style={{flex:0.6, marginTop:'3%'}}>
+                  <Text style={{color:'#FFFFFF', fontSize:28, justifyContent:'center', textAlign:'center', fontFamily:'Raleway_600SemiBold'}}>Movies Watched</Text>
                 </View>
-                <View style={{flex:3,flexDirection:'row', marginBottom:'4%', width:'100%', justifyContent:'space-evenly'}}>
-                      <View>
-                        <ScrollView>
-                          <View style={{borderBottomColor:'#FFFFFF', borderBottomWidth:1}}>
-                              <Text style={{color:'#FFFFFF', fontSize:25, fontFamily:'Raleway_400Regular', textAlign:'center'}}>Movies</Text>
+                      <View style={{flex:1.9,flexDirection:'row', justifyContent:'space-evenly', width:'90%'}}>
+                          <View style={{flex:1}}>
+                          <View style={{borderBottomWidth:1, borderBottomColor:'#FFFFFF'}}>
+                              <Text style={{color:'#FFFFFF', fontSize:25, fontFamily:'Raleway_400Regular', textAlign:'left'}}>Movies</Text>
+                            </View>
+                              {
+                              currentMWGPastMovies.map((item:any, i:number) => 
+                              {
+                                return (
+                                  <Text key={i} style={{color:'#FFFFFF', fontSize:23, fontFamily:'Raleway_400Regular', textAlign:'left'}}
+                                  ellipsizeMode='tail'
+                                  numberOfLines={1}
+                                  >{item}</Text>
+
+                                )
+                              })
+                            } 
                           </View>
-                          {
-                            currentMWGPastMovies.map((item:any, i:number) => 
+                          <View style={{flex:0.5, marginLeft:'5%'}}>
+                            <View style={{borderBottomWidth:1, borderBottomColor:'#FFFFFF'}}>
+
+                              <Text style={{color:'#FFFFFF', fontSize:25, fontFamily:'Raleway_400Regular', textAlign:'right'}}>Genres</Text>
+                            </View>
+                            <View>
+                            {
+                            currentMWGPastGenres.map((item:any, i:number) => 
                             {
                               return (
-                                <Text key={i} style={{color:'#FFFFFF', fontSize:23, fontFamily:'Raleway_400Regular'}}>{item}</Text>
-
+                                <Text 
+                                  ellipsizeMode='tail'
+                                  numberOfLines={1}
+                                  key={i} style={{color:'#FFFFFF', fontSize:23, fontFamily:'Raleway_400Regular', textAlign:'right'}}>{item}</Text>
                               )
                             })
                           }
-                        </ScrollView>
+                            </View>
+                              
+                          </View>
                       </View>
-                      <View>
-                        <View style={{borderBottomColor:'#FFFFFF', borderBottomWidth:1}}>
-                            <Text style={{color:'#FFFFFF', fontSize:25, fontFamily:'Raleway_400Regular', textAlign:'center'}}>Genre</Text>
-                        </View>
-                        <ScrollView>
-                        {
+                          {/* <View style={{flex:1, width:'60%', alignSelf:'flex-start', marginLeft:'5%', backgroundColor:'purple'}}>
+                          {
+                              currentMWGPastMovies.map((item:any, i:number) => 
+                              {
+                                return (
+                                  <Text key={i} style={{color:'#FFFFFF', fontSize:23, fontFamily:'Raleway_400Regular', textAlign:'left'}}
+                                  ellipsizeMode='tail'
+                                  numberOfLines={1}
+                                  >{item}</Text>
+
+                                )
+                              })
+                            } 
+                            </View> */}
+                            {/* <View style={{flex:1, width:'90%', height:1000,alignItems:'flex-end', justifyContent:'flex-end', marginBottom:'1%', backgroundColor:'blue'}}>
+                            {
                             currentMWGPastGenres.map((item:any, i:number) => 
                             {
                               return (
                                 <Text key={i} style={{color:'#FFFFFF', fontSize:23, fontFamily:'Raleway_400Regular'}}>{item}</Text>
-
                               )
                             })
                           }
-                        </ScrollView>
-                      </View>
-                </View>
+                          </View> */}
             </View>
         </View>
         <View style={{flex:1,  alignItems:'center', marginTop:'4%', }}>
@@ -524,6 +554,16 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     alignItems:'center',
     justifyContent:'center',
+    height:'100%',
+  },
+  ResetBtn: {
+    flexDirection: "row",
+    borderWidth: 2,
+    borderColor:'#FF2E35BA',
+    backgroundColor:'#FF2E35BA',
+    borderRadius: 25,
+    alignItems:'center',
+    justifyContent:'space-evenly',
     height:'100%',
   },
   LWAMT: {

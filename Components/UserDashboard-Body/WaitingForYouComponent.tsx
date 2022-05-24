@@ -7,8 +7,7 @@ import AppLoading from 'expo-app-loading';
 import { GetUserByUsername, GetAllMWGAUserIsMemberOfuserId, AddFavoriteMWG, RemoveFavoriteMWG, GetMWGStatusByUserId } from '../../Service/DataService'
 import {useNavigation} from '@react-navigation/native';
 import UserContext from '../../Context/UserContext';
-
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
@@ -24,8 +23,9 @@ const WaitingForYouComponent: FC = () => {
   useEffect(  () => {
       // setAllFaveMWG([]);
       async function fetchUserData() {
-            console.log(username)
-            setUsername(username);
+          // let userCurrentName = await AsyncStorage.getItem('@storage_Username')
+          //   console.log('USERNAME', userCurrentName)
+            // setUsername(username);
             setUserId(userId)
           
       let response = await GetUserByUsername(username);

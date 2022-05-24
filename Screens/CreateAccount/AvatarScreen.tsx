@@ -24,241 +24,77 @@ import {useNavigation} from '@react-navigation/native';
 import UserContext from '../../Context/UserContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { RootStackParamList } from '../../interfaces/RootStackParamList';
+import { Item } from 'react-native-paper/lib/typescript/components/List/List';
 
 
 type Props = NativeStackScreenProps<RootStackParamList, 'AvatarScreen'>;
 
 const AvatarScreen: FC<Props> = () => {
     const navigation = useNavigation<any>();
-    let {  userIcon, setUserIcon, username, userId, setUserId , listOfMovieNamesUsedToCompare1, setListOfMovieNamesUsedToCompare1 } = useContext(UserContext);
+    let {  userIcon, setUserIcon, username, userId, setUserId,  movingFromProfiletoAvatar} = useContext(UserContext);
 
     useEffect(() => {
         
     }, []);
 
-    // const [userIcon, setUserIcon] = useState('');
-    const [active1, setActive1] = useState('');
-    const [active2, setActive2] = useState('');
-    const [active3, setActive3] = useState('');
-    const [active4, setActive4] = useState('');
-    const [active5, setActive5] = useState('');
-    const [active6, setActive6] = useState('');
-    const [activeg1, setActiveg1] = useState('');
-    const [activeg2, setActiveg2] = useState('');
-    const [activeg3, setActiveg3] = useState('');
-    const [activeg4, setActiveg4] = useState('');
-    const [activeg5, setActiveg5] = useState('');
-    const [activeg6, setActiveg6] = useState('');
+    const [active, setActive] = useState<String>('');
+    const [localIcon, setLocalIcon] = useState<Array<object>>([
+        {
+          label: "boy1",
+          source: boy1
+        },
+        {
+          label: "boy2",
+          source: boy2
+        },
+        {
+          label: "boy3",
+          source: boy3
+        },
+        {
+          label: "boy4",
+          source: boy4
+        },
+        {
+          label: "boy5",
+          source: boy5
+        },
+        {
+          label: "boy6",
+          source: boy6
+        },
+        {
+          label: "girl1",
+          source: girl1
+        },
+        {
+          label: "girl2",
+          source: girl2
+        },
+        {
+          label: "girl3",
+          source: girl3
+        },
+        {
+          label: "girl4",
+          source: girl4
+        },
+        {
+          label: "girl5",
+          source: girl5
+        },
+        {
+          label: "girl6",
+          source: girl6
+        },
+      ]);
 
-    const handleSelection = async (active: string, selected: string) => {
-        setUserIcon(selected);
-        let lime = 'lime';
-        let empty = '#1E1A1A';
-        if (active == 'active1') {
-            if (active1 != 'lime') {
-                setActive1(lime);
-            setActive2(empty);
-            setActive3(empty);
-            setActive4(empty);
-            setActive5(empty);
-            setActive6(empty);
-            setActiveg1(empty);
-            setActiveg2(empty);
-            setActiveg3(empty);
-            setActiveg4(empty);
-            setActiveg5(empty);
-            setActiveg6(empty);
-            }else {
-            setActive1('');
-        }
-    } else if (active == 'active2') {
-        if (active2 != 'lime') {
-            setActive1(empty);
-        setActive2(lime);
-        setActive3(empty);
-        setActive4(empty);
-        setActive5(empty);
-        setActive6(empty);
-        setActiveg1(empty);
-        setActiveg2(empty);
-        setActiveg3(empty);
-        setActiveg4(empty);
-        setActiveg5(empty);
-        setActiveg6(empty);            }else {
-            setActive2('');
-        }
-    } else if (active == 'active3') {
-        if (active3 != 'lime') {
-            setActive1(empty);
-        setActive2(empty);
-        setActive3(lime);
-        setActive4(empty);
-        setActive5(empty);
-        setActive6(empty);
-        setActiveg1(empty);
-        setActiveg2(empty);
-        setActiveg3(empty);
-        setActiveg4(empty);
-        setActiveg5(empty);
-        setActiveg6(empty);          }  else {
-            setActive3('');
-        }
-    } else if (active == 'active4') {
-        if (active4 != 'lime') {
-            setActive1(empty);
-            setActive2(empty);
-            setActive3(empty);
-            setActive4(lime);
-            setActive5(empty);
-            setActive6(empty);
-            setActiveg1(empty);
-            setActiveg2(empty);
-            setActiveg3(empty);
-            setActiveg4(empty);
-            setActiveg5(empty);
-            setActiveg6(empty);
-        } else {
-            setActive4('');
-        }
-    } else if (active == 'active5') {
-        if (active5 != 'lime') {
-            setActive1(empty);
-        setActive2(empty);
-        setActive3(empty);
-        setActive4(empty);
-        setActive5(lime);
-        setActive6(empty);
-        setActiveg1(empty);
-        setActiveg2(empty);
-        setActiveg3(empty);
-        setActiveg4(empty);
-        setActiveg5(empty);
-        setActiveg6(empty);
-    } else {
-        setActive5('');
+    const handleSelection = (icon:string) =>
+    {
+        setUserIcon(icon);
+        setActive(icon);
     }
-} else if (active == 'active6') {
-    if (active6 != 'lime') {
-        setActive1(empty);
-    setActive2(empty);
-    setActive3(empty);
-    setActive4(empty);
-    setActive5(empty);
-    setActive6(lime);
-    setActiveg1(empty);
-    setActiveg2(empty);
-    setActiveg3(empty);
-    setActiveg4(empty);
-    setActiveg5(empty);
-    setActiveg6(empty);
-} else {
-    setActive6('');
-}
-        } else if (active == 'activeg1') {
-    if (activeg1 != 'lime') {
-        setActive1(empty);
-        setActive2(empty);
-        setActive3(empty);
-        setActive4(empty);
-        setActive5(empty);
-        setActive6(empty);
-        setActiveg1(lime);
-        setActiveg2(empty);
-        setActiveg3(empty);
-        setActiveg4(empty);
-        setActiveg5(empty);
-        setActiveg6(empty);
-    } else {
-        setActiveg1('');
-    }
-} else if (active == 'activeg2') {
-    if (activeg2 != 'lime') {
-        setActive1(empty);
-    setActive2(empty);
-    setActive3(empty);
-    setActive4(empty);
-    setActive5(empty);
-    setActive6(empty);
-    setActiveg1(empty);
-    setActiveg2(lime);
-    setActiveg3(empty);
-    setActiveg4(empty);
-    setActiveg5(empty);
-    setActiveg6(empty);
-} else {
-    setActiveg2('');
-}
-        } else if (active == 'activeg3') {
-    if (activeg3 != lime) {
-        setActive1(empty);
-    setActive2(empty);
-    setActive3(empty);
-    setActive4(empty);
-    setActive5(empty);
-    setActive6(empty);
-    setActiveg1(empty);
-    setActiveg2(empty);
-    setActiveg3(lime);
-    setActiveg4(empty);
-    setActiveg5(empty);
-    setActiveg6(empty);
-} else {
-    setActiveg3('');
-}
- } else if (active == 'activeg4') {
-    if (activeg4 != 'lime') {
-        setActive1(empty);
-    setActive2(empty);
-    setActive3(empty);
-    setActive4(empty);
-    setActive5(empty);
-    setActive6(empty);
-    setActiveg1(empty);
-    setActiveg2(empty);
-    setActiveg3(empty);
-    setActiveg4(lime);
-    setActiveg5(empty);
-    setActiveg6(empty);
-} else {
-    setActiveg4('');
-    }
-} else if (active == 'activeg5') {
-    if (activeg5 != 'lime') {
-        setActive1(empty);
-    setActive2(empty);
-    setActive3(empty);
-    setActive4(empty);
-    setActive5(empty);
-    setActive6(empty);
-    setActiveg1(empty);
-    setActiveg2(empty);
-    setActiveg3(empty);
-    setActiveg4(empty);
-    setActiveg5(lime);
-    setActiveg6(empty);
-} else {
-    setActiveg5('');
-    }
-} else if (active == 'activeg6') {
-    if (activeg6 != 'lime') {
-        setActive1(empty);
-    setActive2(empty);
-    setActive3(empty);
-    setActive4(empty);
-    setActive5(empty);
-    setActive6(empty);
-    setActiveg1(empty);
-    setActiveg2(empty);
-    setActiveg3(empty);
-    setActiveg4(empty);
-    setActiveg5(empty);
-    setActiveg6(lime);
-} else {
-    setActiveg6('');
-    }
-};
-    };
-
+    
 const handleSubmit = async () => {
     // Get userData
     // const userToken = await AsyncStorage.getItem('@storage_Token')
@@ -329,62 +165,23 @@ return (
             >
                 <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
                     <SafeAreaView>
-                        {/* <View style={{ alignItems: 'center'}}>
-                        <Image 
-                            source={PickFlicksLogo}
-                            // style={{height: 337, width: 337}}
-                            style={{height: 100, width: 100, resizeMode:'contain'}}
-                        />
-                    </View> */}
                         <View style={{ alignItems: 'center', marginTop: '5%' }}>
                             <Text style={styles.title}>Select an Avatar</Text>
                         </View>
-                        <View style={{ flex: 2, marginTop: '17%', width: '100%', justifyContent: 'space-evenly', flexDirection: 'row' }}>
-                            <Pressable onPress={() => handleSelection('active1', 'boy1')}>
-                                <Avatar.Image style={{ backgroundColor: active1 }} size={110} source={boy1} />
-                            </Pressable>
-                            <Pressable onPress={() => handleSelection('active2', 'boy2')}>
-                                <Avatar.Image style={{ backgroundColor: active2 }} size={110} source={boy2} />
-                            </Pressable>
-                            <Pressable onPress={() => handleSelection('active3', 'boy3')}>
-                                <Avatar.Image style={{ backgroundColor: active3 }} size={110} source={boy3} />
-                            </Pressable>
+                        <View style={{ flex: 5.5, marginTop: '10%', width: '100%', justifyContent: 'space-evenly', flexDirection: 'row', flexWrap:'wrap'}}>
+                        {
+                            localIcon.map((icon:any, i:number) => {
+                                return(
+                                    <Pressable key={i} style={{paddingTop:'4%'}} onPress={() => handleSelection(icon.label)}>
+                                <Avatar.Image style={icon.label == active ? styles.active : null} size={110} source={icon.source} />
+                                    </Pressable>
+                                )
+                            })
+                        }
                         </View>
-                        <View style={{ flex: 2, width: '100%', justifyContent: 'space-evenly', flexDirection: 'row' }}>
-                            <Pressable onPress={() => handleSelection('active4', 'boy4')}>
-                                <Avatar.Image style={{ backgroundColor: active4 }} size={110} source={boy4} />
-                            </Pressable>
-                            <Pressable onPress={() => handleSelection('active5', 'boy5')}>
-                                <Avatar.Image style={{ backgroundColor: active5 }} size={110} source={boy5} />
-                            </Pressable>
-                            <Pressable onPress={() => handleSelection('active6', 'boy6')}>
-                                <Avatar.Image style={{ backgroundColor: active6 }} size={110} source={boy6} />
-                            </Pressable>
-                        </View>
-                        <View style={{ flex: 2, width: '100%', justifyContent: 'space-evenly', flexDirection: 'row' }}>
-                            <Pressable onPress={() => handleSelection('activeg1', 'girl1')}>
-                                <Avatar.Image style={{ backgroundColor: activeg1 }} size={110} source={girl1} />
-                            </Pressable>
-                            <Pressable onPress={() => handleSelection('activeg2', 'girl2')}>
-                                <Avatar.Image style={{ backgroundColor: activeg2 }} size={110} source={girl2} />
-                            </Pressable>
-                            <Pressable onPress={() => handleSelection('activeg3', 'girl3')}>
-                                <Avatar.Image style={{ backgroundColor: activeg3 }} size={110} source={girl3} />
-                            </Pressable>
-                        </View>
-                        <View style={{ flex: 2, width: '100%', justifyContent: 'space-evenly', flexDirection: 'row' }}>
-                            <Pressable onPress={() => handleSelection('activeg4', 'girl4')}>
-                                <Avatar.Image style={{ backgroundColor: activeg4 }} size={110} source={girl4} />
-                            </Pressable>
-                            <Pressable onPress={() => handleSelection('activeg5', 'girl5')}>
-                                <Avatar.Image style={{ backgroundColor: activeg5 }} size={110} source={girl5} />
-                            </Pressable>
-                            <Pressable onPress={() => handleSelection('activeg6', 'girl6')}>
-                                <Avatar.Image style={{ backgroundColor: activeg6 }} size={110} source={girl6} />
-                            </Pressable>
-                        </View>
+                        
                         <View style={{ flex: 1, alignItems: 'center' }}>
-                            <Button onPress={handleSubmit} mode="contained" style={styles.createAccountBtn}>Create Account</Button>
+                            <Button onPress={handleSubmit} mode="contained" style={styles.createAccountBtn}>{movingFromProfiletoAvatar ?"Update your avatar" : "Create Account"}</Button>
                         </View>
                     </SafeAreaView>
                 </TouchableWithoutFeedback>
