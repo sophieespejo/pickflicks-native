@@ -5,7 +5,7 @@
     TextInput,
     View,
     Image, Alert,
-    Pressable, ScrollView, Animated, FlatList, TouchableOpacity
+    Pressable, ScrollView, Animated
   } from "react-native";
   import { useFonts, Raleway_400Regular } from "@expo-google-fonts/raleway";
   import AppLoading from "expo-app-loading";
@@ -14,7 +14,7 @@
   import X from '../../assets/X.png';
   import Swipeable from 'react-native-gesture-handler/Swipeable';
   import { Button, Avatar } from "react-native-paper";
-  import { GetAllUsers, AddInvitations, GetUserByUsername, AddMWG, GetMWGStatusByUserId, AddMWGStatus, GetMWGByMWGName} from '../../Service/DataService'
+  import { AddInvitations, GetUserByUsername, AddMWG, GetMWGStatusByUserId, AddMWGStatus, GetMWGByMWGName} from '../../Service/DataService'
   import UserContext from '../../Context/UserContext';
   import RightActions from './RightActions';
   import girl1 from '../../assets/avatars/girl1.png'
@@ -39,11 +39,7 @@
     const [mwgMembersId, setmwgMembersId] = useState<Array<string>>([]);
     const [mwgMembersNames, setmwgMembersNames] = useState<Array<string>>([]);
     const [mwgMembersIcons, setmwgMembersIcons] = useState<Array<string>>([]);
-    const [allExistingUsers, setAllExistingUsers] = useState<Array<any>>([]);
     const navigation = useNavigation<any>();
-
-    const [filterBankList, setFilterBankList] = useState<Array<any>>([]);
-    const [bankName, setBankName] = useState<string>('');
 
     let row: Array<any> = [];
     let prevOpenedRow: any;
@@ -65,14 +61,6 @@
 
     useEffect( () => {
       async function getUserInfo(){
-        let existingUsers = await GetAllUsers();
-        let existingArr = []
-        for (const username of existingUsers) {
-          existingArr.push(username.username)
-        }
-        existingArr.splice(existingArr.indexOf(username),1)
-        setAllExistingUsers(existingArr);
-
             setUsername(username);
             setUserId(userId);
             setUserIcon(userIcon);
@@ -80,48 +68,6 @@
       }
       getUserInfo()
     }, []);
-
-    const onBankSelected = async (value : any) => {
-      // setBankName(value);
-      // setFilterBankList([]);
-      let foundUser = await GetUserByUsername(value);
-      if (foundUser != null && foundUser.id != 0) {
-        if (foundUser.id == userId || mwgMembersNames.includes(value))
-        {
-          Alert.alert('They are already included in the group', 'Please search for someone else')
-        }
-        else
-        {
-          allExistingUsers.splice(allExistingUsers.indexOf(value), 1)
-          setAllExistingUsers([...allExistingUsers])
-
-          allSearchedNames.push(value);
-          setAllSearchedNames([...allSearchedNames]);
-
-          memberIcon.push(foundUser.icon);
-          mwgMembersId.push(foundUser.id);
-          mwgMembersNames.push(value);
-          mwgMembersIcons.push(foundUser.icon);
-          setmwgMembersNames([...mwgMembersNames]);
-          setSearchedName('');    
-        }
-      }
-      else
-      {
-        Alert.alert('User does not exist', 'Please try again')
-      }
-    };
-
-    const filterBanks = (value: string)=> {
-      setSearchedName(value);
-      let filterData =
-        allExistingUsers?.length > 0
-          ? allExistingUsers?.filter(data =>
-              data?.toLowerCase()?.includes(value?.toLowerCase()),
-            )
-          : [];
-      setFilterBankList([...filterData]);
-    };
 
     const closeRow = (index: number) => {
       if (prevOpenedRow && prevOpenedRow !== row[index]) {
@@ -209,9 +155,6 @@
       setAllSearchedNames([...mwgMembersNames]);
       closeRow(index-1)
 
-      allExistingUsers.push(searchedName);
-      setAllExistingUsers([...allExistingUsers])
-
       let foundUser = await GetUserByUsername(searchedName);
       if (foundUser != null && foundUser.id != 0) {
         let removedIdIndex = mwgMembersId.indexOf(foundUser.id);
@@ -242,32 +185,17 @@
             <View style={{alignItems:'center', width:'100%'}}>
               <View style={[{flexDirection:'row',marginTop:'7%'}]}>
                 <Image source={Magnifying}/>
-                <TextInput
-                  value={searchedName}
-                  placeholder="Add members to the group"
-                  placeholderTextColor="#FFFFFF"
-                  style = {styles.text}
-                  onChangeText={(e) => filterBanks(e)}
-                />
-
+                    <TextInput
+                      style={styles.text}
+                      placeholder="Add members to the group"
+                      placeholderTextColor="#FFFFFF"
+                      onChangeText={(e) => setSearchedName(e)}
+                      onSubmitEditing={()=> handleKeyPress()}
+                      value={searchedName}
+                    />
               </View>
               <View style={[{width:'92%', alignItems:'flex-start'}, styles.redInputLine]}>
               </View>
-                <FlatList
-                  data={searchedName != '' ? filterBankList : null}
-                  renderItem={({item, index}) => (
-                    <TouchableOpacity
-                      onPress={() => onBankSelected(item)}>
-                      <View style={styles.item}>
-                        <Text
-                          >
-                          {item}
-                        </Text>
-                        </View>
-                    </TouchableOpacity>
-                  )}
-                  keyExtractor={item => item}
-                />
           </View>
 
           {/* users */}
@@ -372,16 +300,7 @@
     nameLine:{
       borderBottomColor: '#E2DFDFDE',
       borderBottomWidth: 1,
-    },
-    item: {
-      backgroundColor: '#FFFFFF',
-      borderBottomWidth:2,
-      borderBottomColor:'red',
-      padding: 20,
-      width:300,
-      marginHorizontal: 16,
-      borderRadius:10
-    },
+    }
   });
   
   export default MemberSearchTextInputComponent;

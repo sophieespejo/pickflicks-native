@@ -45,6 +45,7 @@ const StartWatchingBtnsComponent: FC = () => {
   const [currentMWGPastMovies, setCurrentMWGPastMovies] = useState<Array<string>>([]);
   const [currentMWGPastGenres, setCurrentMWGPastGenres] = useState<Array<string>>([]);
   const [mwgStatus, setMWGStatus] = useState<any>([]);
+  const [membersIds, setMembersIds] = useState<Array<number>>([]);
 
   const sleepingPanda = require('../../assets/sleepingPanda.json');
   const smartPanda = require('../../assets/smartPanda.json');
@@ -92,6 +93,7 @@ const StartWatchingBtnsComponent: FC = () => {
           setCurrentMWGPastMovies(pastMovies);
           setCurrentMWGPastGenres(pastGenres);
           
+          setMembersIds(mwg.membersId);
           setMembersNames(mwg.membersNames.split(","));
           setMembersIcons(mwg.membersIcons.split(","));
           setmwgCreatorId(mwg.groupCreatorId);
@@ -150,6 +152,7 @@ const StartWatchingBtnsComponent: FC = () => {
         {
           setMembersNames(mwg.membersNames.split(","));
           setMembersIcons(mwg.membersIcons.split(","));
+          setMembersIds(mwg.membersId);
         }
           
         
@@ -168,7 +171,7 @@ const StartWatchingBtnsComponent: FC = () => {
             Alert.alert('You are already included in the group', 'Please search for someone else')
             console.log(membersNames);
           }
-          else if(membersNames.includes(searchedName))
+          else if(membersNames.includes(searchedName) || membersIds.includes(foundUser.id))
           {
             Alert.alert('The member is already part of this group', 'Please search for someone else')
           }
