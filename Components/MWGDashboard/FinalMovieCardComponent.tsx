@@ -12,9 +12,8 @@ import { suggestedMovieGenres, suggestedMovieNames, GetMoviesByMWGId, GetMWGById
 
 const FinalMovieCardComponent: FC = () => {
     const navigation = useNavigation<any>();
-    let {  setDevice, device, MWGname, MWGId, setMWGId, userId, setUserId , listOfMovieNamesUsedToCompare1, setListOfMovieNamesUsedToCompare1, setAllMWG } = useContext(UserContext);
+    let {  displayObject, setDisplayObject, setDevice, device, MWGname, MWGId, setMWGId, userId, setUserId , listOfMovieNamesUsedToCompare1, setListOfMovieNamesUsedToCompare1, setAllMWG } = useContext(UserContext);
     const [displayMovie, setDisplayMovie] = useState<string>("");
-    const [displayObject, setDisplayObject] = useState<any>({});
 
     useEffect( () => {
       async function getTopMovie(){

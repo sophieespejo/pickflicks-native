@@ -31,7 +31,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'AvatarScreen'>;
 
 const AvatarScreen: FC<Props> = () => {
     const navigation = useNavigation<any>();
-    let {  userIcon, setUserIcon, username, userId, setUserId,  movingFromProfiletoAvatar} = useContext(UserContext);
+    let {  userIcon, setUserIcon, username, userId, setUserId,  movingFromProfiletoAvatar, setMovingFromProfiletoAvatar} = useContext(UserContext);
 
     useEffect(() => {
         
@@ -117,7 +117,7 @@ const handleSubmit = async () => {
         let result = await EditUserIcon(userId, userIcon)
         setUserIcon(userIcon);
         console.log(result);
-        navigation.navigate('Login');
+        // navigation.navigate('Login');
         if(userData.icon == userIcon)
         {
             alert("This is already your avatar!")
@@ -129,14 +129,8 @@ const handleSubmit = async () => {
             const userToken = await AsyncStorage.getItem('@storage_Token')
             if(result)
             {
-                if(userToken != null)
-                {
-                    navigation.navigate('UserProfile')
-                }
-                else
-                {
-                    navigation.navigate('Login');
-                }
+                setMovingFromProfiletoAvatar(false);
+                navigation.navigate(movingFromProfiletoAvatar ? 'UserProfile' : 'Login')
             }
             else
             {

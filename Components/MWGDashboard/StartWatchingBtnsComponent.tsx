@@ -126,6 +126,7 @@ const StartWatchingBtnsComponent: FC = () => {
   }
 
   const handleReset = async () => {
+    setModalVisible3(!modalVisible3);
     let result = await ResetMWGStatusbyMWGId(MWGId);
       if(result)
       {
@@ -220,8 +221,10 @@ const StartWatchingBtnsComponent: FC = () => {
 
   return (
     <View>
-        <View style={{flex:1, height:90, marginTop:'5%', alignItems:'center'}}>
-            <Pressable disabled={userIsWaiting && !mwgStatus.haveMoviesBeenFetched ? true : false} style={{width:'90%'}} onPress={() => handlePress()}>
+          {
+            userId == mwgCreatorId && mwgStatus.areAllMembersDoneWithSwipes ? 
+            <View style={{ flexDirection:'row', height:90, marginTop:'5%', alignItems:'center'}}>
+            <Pressable disabled={userIsWaiting && !mwgStatus.haveMoviesBeenFetched ? true : false} style={{flex:1, width:'90%'}} onPress={() => handlePress()}>
                 <View style={styles.wgButton}>
                   <Image source={MovieClipper}></Image>
                   <Text 
@@ -229,8 +232,28 @@ const StartWatchingBtnsComponent: FC = () => {
                       {userIsReadyForGenres ? 'Start ranking genres' : userIsReadyForSwipes && mwgStatus.haveMoviesBeenFetched ? 'Start swiping movies' : userIsReadyForSwipes && !mwgStatus.haveMoviesBeenFetched ? 'Load Movies!' : userIsWaiting ? `Waiting for ${'\n'} others to finish` : userIsAdmin ? 'Start watching' : `Check out the ${'\n'} movie!`}</Text>
                 </View>
             </Pressable>
-        </View>
-            {
+            <Pressable disabled={userIsWaiting && !mwgStatus.haveMoviesBeenFetched ? true : false} style={{flex:1,width:'90%'}} onPress={() => handlePress()}>
+                <View style={styles.wgButton}>
+                  <Image source={MovieClipper}></Image>
+                  <Text 
+                    style={{color:'#E3DDDD', fontSize:24, paddingLeft:60, justifyContent:'center', textAlign:'center', fontFamily:'Raleway_400Regular'}}>
+                      {userIsReadyForGenres ? 'Start ranking genres' : userIsReadyForSwipes && mwgStatus.haveMoviesBeenFetched ? 'Start swiping movies' : userIsReadyForSwipes && !mwgStatus.haveMoviesBeenFetched ? 'Load Movies!' : userIsWaiting ? `Waiting for ${'\n'} others to finish` : userIsAdmin ? 'Start watching' : `Check out the ${'\n'} movie!`}</Text>
+                </View>
+            </Pressable>
+            </View>
+            :
+            <View style={{flex:1, height:90, marginTop:'5%', alignItems:'center'}}>
+            <Pressable disabled={userIsWaiting && !mwgStatus.haveMoviesBeenFetched ? true : false} style={{width:'90%', alignSelf:'center'}} onPress={() => handlePress()}>
+                <View style={styles.wgButton}>
+                  <Image source={MovieClipper}></Image>
+                  <Text 
+                    style={{color:'#E3DDDD', fontSize:24, paddingLeft:60, justifyContent:'center', textAlign:'center', fontFamily:'Raleway_400Regular'}}>
+                      {userIsReadyForGenres ? 'Start ranking genres' : userIsReadyForSwipes && mwgStatus.haveMoviesBeenFetched ? 'Start swiping movies' : userIsReadyForSwipes && !mwgStatus.haveMoviesBeenFetched ? 'Load Movies!' : userIsWaiting ? `Waiting for ${'\n'} others to finish` : userIsAdmin ? 'Start watching' : `Check out the ${'\n'} movie!`}</Text>
+                </View>
+            </Pressable> 
+            </View>
+          }
+            {/* {
               userId == mwgCreatorId && mwgStatus.areAllMembersDoneWithSwipes ? 
 
               <View style={{flex:1, height:90, marginTop:'5%', alignItems:'center'}}>
@@ -244,7 +267,7 @@ const StartWatchingBtnsComponent: FC = () => {
               </Pressable>
           </View>
             : null
-            }
+            } */}
         <View style={{flex:1, height:120, alignItems:'center', marginTop:'4%',justifyContent:'center'}}>
             <View style={{width:'90%'}} >
                 <View style={styles.LWAMT}>
@@ -535,6 +558,16 @@ const styles = StyleSheet.create({
     justifyContent:'center',
     height:'100%',
   },
+  wgButton2: {
+    flexDirection: "row",
+    borderWidth: 2,
+    borderColor:'#FF2E35BA',
+    backgroundColor:'#FF2E35BA',
+    borderRadius: 25,
+    alignItems:'center',
+    justifyContent:'center',
+    height:'100%',
+  },
   ResetBtn: {
     flexDirection: "row",
     borderWidth: 2,
@@ -571,8 +604,6 @@ const styles = StyleSheet.create({
   container1: {
     flex: 0,
     alignItems: "center",
-
-    //position: 'absolute', top: 175, left: 23, right: 20, bottom: 0,
     backgroundColor:'pink'
   },
   text: {
@@ -587,8 +618,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    // marginTop: 22
   },
+
   modalView: {
     margin: 20,
     backgroundColor: "#C4C4C4",

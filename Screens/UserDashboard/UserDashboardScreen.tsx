@@ -26,7 +26,7 @@ interface IUserDashboardScreen {
 
 const UserDashboard: FC<Props> = ({navigation}) => {
 
-  let { device, setDevice, token, invitationMWG, setInvitationMWG, setToken, username, setUsername, userId, setUserId, userIcon, setUserIcon, allMWG, setAllMWG, setUserIsAdmin, setUserIsReadyForGenres, setUserIsReadyForSwipes, setUserIsReadyToSeeFinalMovie, setUserIsWaiting} = useContext(UserContext)
+  let { setPreventSpamLogIn, device, setDevice, token, invitationMWG, setInvitationMWG, setToken, username, setUsername, userId, setUserId, userIcon, setUserIcon, allMWG, setAllMWG, setUserIsAdmin, setUserIsReadyForGenres, setUserIsReadyForSwipes, setUserIsReadyToSeeFinalMovie, setUserIsWaiting} = useContext(UserContext)
   const [WFYBool, setWFYBool] = useState<boolean>(true);
   const [WFOBool, setWFOBool] = useState<boolean>(false);
   const tempArr: Array<any> = [];
@@ -79,6 +79,7 @@ const UserDashboard: FC<Props> = ({navigation}) => {
 
   useEffect( () => {
     async function getUserInfo(){
+      setPreventSpamLogIn(false);
       const something = navigation.addListener('focus', async () => {
         const personId = await AsyncStorage.getItem('@storage_Id');
         console.log('This is token Id', personId);

@@ -17,9 +17,9 @@ import { RootStackParamList } from '../../interfaces/RootStackParamList';
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 
 const LoginScreen : FC<Props> = ({ navigation }) => {
-    let { device, setDevice, token, setToken, username, setUsername, userId, setUserId, userIcon, setUserIcon } = useContext(UserContext);
+    let { preventSpamLogIn, setPreventSpamLogIn, device, setDevice, setToken, username, setUsername, setUserId, setUserIcon } = useContext(UserContext);
     const [password, setPassword] = useState('');
-    const [preventSpam, setPreventSpam] = useState<boolean>(false);
+    // const [preventSpamLogIn, setPreventSpamLogIn] = useState<boolean>(false);
 
 
     const toast = useToast();
@@ -56,16 +56,15 @@ const LoginScreen : FC<Props> = ({ navigation }) => {
       }, []);
 
     const handleSubmit = async () => {
-        setPreventSpam(true);
+        setPreventSpamLogIn(true);
         let userData = {
             Username: username,
             Password: password
         };
         let fetchedToken = await Login(userData);
         console.log('LogIn Screen', username);
-
+        
         if (fetchedToken.token != null) {
-            
             let userData = await GetUserByUsername(username);
             const storedId = JSON.stringify(userData.id)
             const jsonTOKEN = JSON.stringify(fetchedToken)
@@ -84,6 +83,7 @@ const LoginScreen : FC<Props> = ({ navigation }) => {
                 title: "Username and/or password is incorrect. Please try again",
                 placement: "bottom"
             })
+            setPreventSpamLogIn(false);
         }
     };
 
@@ -148,6 +148,7 @@ const LoginScreen : FC<Props> = ({ navigation }) => {
                     <View style={{alignItems: 'center'}}>
                         <Text style={styles.dontHaveAccountTxt}>Don't have an account?</Text>
                         <Button 
+                                disabled={preventSpamLogIn ? true : false}
                                 mode='text' 
                                 color='white'
                                 uppercase={false}
@@ -160,7 +161,7 @@ const LoginScreen : FC<Props> = ({ navigation }) => {
                         onPress={handleSubmit}
                         style={styles.createAccountBtn}
                         uppercase={false}
-                        disabled={preventSpam ? true : false}>
+                        disabled={preventSpamLogIn ? true : false}>
                             Log In
                         </Button>
                     </View>

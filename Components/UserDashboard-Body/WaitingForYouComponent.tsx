@@ -13,7 +13,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 //map through MWG created according to userID/logged in user
 const WaitingForYouComponent: FC = () => {
-  let { username, setUsername, userId, setUserId, allMWG, setAllMWG, setMWGname, MWGname, setMWGId, MWGId, setUserIsAdmin, setUserIsReadyForGenres,  setUserIsReadyForSwipes,  setUserIsReadyToSeeFinalMovie,setUserIsWaiting } = useContext(UserContext)
+  let { displayObject, username, setUsername, userId, setUserId, allMWG, setAllMWG, setMWGname, MWGname, setMWGId, MWGId, setUserIsAdmin, setUserIsReadyForGenres,  setUserIsReadyForSwipes,  setUserIsReadyToSeeFinalMovie,setUserIsWaiting } = useContext(UserContext)
 
   const [allFaveMWG, setAllFaveMWG] = useState<any>([]);
   const [noFave, setNoFave] = useState<boolean>(false);
@@ -367,7 +367,7 @@ const WaitingForYouComponent: FC = () => {
                      marginBottom: '7%'
                    }}
                  >
-                   Check out the movie chosen!
+                   {displayObject.movieName} was selected!
                  </Text>
                </View>
            </View>
@@ -607,7 +607,7 @@ const WaitingForYouComponent: FC = () => {
                      marginBottom: '7%'
                    }}
                  >
-                   Check out the chosen movie!
+                   {displayObject.movieName} was selected!
                  </Text>
                </View>
            </View>
