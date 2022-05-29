@@ -35,6 +35,7 @@ const SentInvitationsComponent: FC = () => {
         justifyContent:'flex-end', }}>
         <Image source={CheckMark}/>
         <Text style={styles.text}>Invitation Sent</Text>
+        <Text style={styles.text}>Movie will not be added to your list until a member accepts the invitation.</Text>
     </View>
     </Pressable>
   );
