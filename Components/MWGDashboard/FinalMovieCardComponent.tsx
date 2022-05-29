@@ -1,5 +1,5 @@
 import { FC, useEffect, useContext, useState} from 'react';
-import { StyleSheet, Text, View, Image, Platform} from "react-native";
+import { StyleSheet, Text, View, Image, Platform, Pressable} from "react-native";
 import { useFonts, Raleway_400Regular, Raleway_600SemiBold} from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 import {useNavigation} from '@react-navigation/native';
@@ -48,17 +48,16 @@ const FinalMovieCardComponent: FC = () => {
   }
   
   return (
-      <View style={{flex: 1, alignItems:'center'}}>
+      <Pressable onPress={() => navigation.navigate("UserDashboard")} style={{flex: 1, alignItems:'center'}}>
         <View style={{ flex: 1, backgroundColor:'#BEB85B', borderRadius:30, width:'92%', marginTop:'8%', marginBottom:'8%', justifyContent:'center', 
                     borderWidth: 3, borderColor:'#E6D260'}}>
 
-               <View style={{flex:0.5}}>
+               <View style={{flex:0.7, alignSelf:'center', width:'80%'}}>
                 <Text style={styles.titleTxtBold}> {displayObject.movieName} </Text>
                </View>
 
 
 
-            {/* <View style={{flex:1, alignItems:'center'}}> */}
                 <View style={{flex:2, alignItems:'center'}}>
                   {
                     Platform.OS == 'ios' ? <Image style={{width:340, height:300, borderRadius:21}} source={{
@@ -74,11 +73,10 @@ const FinalMovieCardComponent: FC = () => {
                     <Text numberOfLines={device == 'ios' ? 4 : device == 'android' ? 3 : 4} ellipsizeMode='tail' style={styles.titleTxt}>{displayObject.movieOverview}</Text>
                     <Text style={styles.titleTxt}>Critics Ratings: {displayObject.movieIMDBRating}</Text>
                 </View>
-            {/* </View> */}
 
 
         </View>
-      </View>
+      </Pressable>
   );
 };
 

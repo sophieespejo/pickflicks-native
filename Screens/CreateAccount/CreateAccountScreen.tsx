@@ -186,41 +186,6 @@ const CreateAccountScreen : FC<Props> = () => {
             </KeyboardAwareScrollView>
             </View>
 
-            {/* <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible3}
-        onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
-          setModalVisible3(!modalVisible3);
-        }}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-          <LottieView
-                autoPlay
-                style={styles.lottieView}
-                source={smartPanda}
-              />
-            <Text style={styles.modalText}>Are you sure you want to {'\n'} reset {MWGname}?</Text>
-            <View style={{flexDirection:'row', width:'90%', justifyContent:'space-evenly'}}>
-
-            <Pressable
-              style={[styles.button, styles.buttonClose1]}
-              onPress={() => handleReset()}
-            >
-              <Text style={styles.textStyle}>Yes</Text>
-            </Pressable>
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible3(!modalVisible3)}
-            >
-              <Text style={styles.textStyle}>No</Text>
-            </Pressable>
-            </View>
-          </View>
-        </View>
-      </Modal> */}
         </>
     );
 };
@@ -233,7 +198,6 @@ const styles = StyleSheet.create({
     }, 
     createAccountTxt: {
         alignItems: 'center',
-        // fontStyle: 'Raleway',
         fontSize: 36,
         color: 'white',
         marginTop: '10%',
@@ -246,7 +210,6 @@ const styles = StyleSheet.create({
         fontSize: 25,
         color: 'white',
         marginTop: 20,
-        // alignItems: 'center',
 
     }, 
     nextBtn: {

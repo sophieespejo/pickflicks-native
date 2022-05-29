@@ -1,5 +1,5 @@
 import { FC, useState, useEffect, useContext } from 'react';
-import { StyleSheet, View, Text, Keyboard, Pressable, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, View, Text, Keyboard, Pressable, TouchableWithoutFeedback, Modal, Alert} from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button} from 'react-native-paper';
@@ -24,7 +24,8 @@ import {useNavigation} from '@react-navigation/native';
 import UserContext from '../../Context/UserContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { RootStackParamList } from '../../interfaces/RootStackParamList';
-import { Item } from 'react-native-paper/lib/typescript/components/List/List';
+import LottieView from 'lottie-react-native';
+
 
 
 type Props = NativeStackScreenProps<RootStackParamList, 'AvatarScreen'>;
@@ -32,6 +33,11 @@ type Props = NativeStackScreenProps<RootStackParamList, 'AvatarScreen'>;
 const AvatarScreen: FC<Props> = () => {
     const navigation = useNavigation<any>();
     let {  userIcon, setUserIcon, username, userId, setUserId,  movingFromProfiletoAvatar, setMovingFromProfiletoAvatar} = useContext(UserContext);
+
+    const [modalVisible, setModalVisible] = useState(false);
+
+    const dancingPanda = require('../../assets/dancingPanda.json');
+
 
     useEffect(() => {
         
@@ -96,15 +102,6 @@ const AvatarScreen: FC<Props> = () => {
     }
     
 const handleSubmit = async () => {
-    // Get userData
-    // const userToken = await AsyncStorage.getItem('@storage_Token')
-    // if(userToken != null)
-    // {
-    //     navigation.navigate('UserDashboard')
-    // }
-
-
-    // Get userDtoByUsername
     let userData = await GetUserByUsername(username)
     console.log('//AvatarScreen onSubmit', userData);
     setUserId(userData.id);
@@ -112,12 +109,11 @@ const handleSubmit = async () => {
     console.log(userData.id)
     
 
-    // Edit userModel with icon name
     if (userData != null) {
         let result = await EditUserIcon(userId, userIcon)
         setUserIcon(userIcon);
         console.log(result);
-        // navigation.navigate('Login');
+
         if(userData.icon == userIcon)
         {
             alert("This is already your avatar!")
@@ -129,8 +125,12 @@ const handleSubmit = async () => {
             const userToken = await AsyncStorage.getItem('@storage_Token')
             if(result)
             {
+                if(movingFromProfiletoAvatar)
+                {
+                    navigation.navigate('UserProfile')
+                }
                 setMovingFromProfiletoAvatar(false);
-                navigation.navigate(movingFromProfiletoAvatar ? 'UserProfile' : 'Login')
+                setModalVisible(true);
             }
             else
             {
@@ -180,6 +180,38 @@ return (
                     </SafeAreaView>
                 </TouchableWithoutFeedback>
             </KeyboardAwareScrollView>
+
+
+
+            <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+          <LottieView
+                autoPlay
+                style={styles.lottieView}
+                source={dancingPanda}
+              />
+            <Text style={styles.modalText}>Account Successfully created!</Text>
+            <View style={{flexDirection:'row', width:'90%', justifyContent:'space-evenly'}}>
+
+            <Pressable
+              style={[styles.button, styles.buttonClose1]}
+              onPress={() => navigation.navigate("Login")}
+            >
+              <Text style={styles.textStyle}>Log In</Text>
+            </Pressable>
+            </View>
+          </View>
+        </View>
+      </Modal>
         </View>
     </>
 );
@@ -206,7 +238,61 @@ const styles = StyleSheet.create({
     },
     active: {
         backgroundColor: 'lime',
-    }
+    },
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+      },
+    
+      modalView: {
+        margin: 20,
+        backgroundColor: "#C4C4C4",
+        borderRadius: 20,
+        padding: 35,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
+      },
+      button: {
+        borderRadius: 20,
+        padding: 10,
+        width:'40%',
+        elevation: 2,
+        marginTop:'5%'
+      },
+    
+      buttonClose: {
+        backgroundColor: "red",
+      },
+      buttonClose1: {
+        backgroundColor: "green",
+      },
+      textStyle: {
+        color: "white",
+        fontWeight: "bold",
+        textAlign: "center",
+        fontFamily: "Raleway_400Regular",
+        fontSize: 17,
+      },
+      modalText: {
+        marginBottom: 15,
+        textAlign: "center",
+        fontFamily: "Raleway_400Regular",
+        fontSize: 21,
+        lineHeight:37,
+        color:'#383333'
+      },
+      lottieView:{
+        height:200,
+        bottom:'3%',
+      },
 });
 
 export default AvatarScreen;
