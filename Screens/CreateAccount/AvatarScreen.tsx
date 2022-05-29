@@ -114,16 +114,17 @@ const handleSubmit = async () => {
         setUserIcon(userIcon);
         console.log(result);
 
-        if(userData.icon == userIcon)
-        {
-            alert("This is already your avatar!")
-        }
-        else
-        {
-            let result = await EditUserIcon(userData.id, userIcon)
+        // if(userData.icon == userIcon)
+        // {
+        //     alert("This is already your avatar!")
+        // }
+        // if
+        // {
+            let result1 = await EditUserIcon(userData.id, userIcon)
             console.log('//AvatarScreen changing Icon results:', result);
+            AsyncStorage.setItem('@storage_Usericon', userIcon)
             const userToken = await AsyncStorage.getItem('@storage_Token')
-            if(result)
+            if(result1)
             {
                 if(movingFromProfiletoAvatar)
                 {
@@ -136,7 +137,7 @@ const handleSubmit = async () => {
             {
                 alert("Could not change your icon!")
             }
-        }
+        // }
     }
 };
 
@@ -204,9 +205,9 @@ return (
 
             <Pressable
               style={[styles.button, styles.buttonClose1]}
-              onPress={() => navigation.navigate("Login")}
+              onPress={() => navigation.navigate("UserDashboard")}
             >
-              <Text style={styles.textStyle}>Log In</Text>
+              <Text style={styles.textStyle}>Keep going!</Text>
             </Pressable>
             </View>
           </View>

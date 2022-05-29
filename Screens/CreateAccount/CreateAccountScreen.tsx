@@ -1,17 +1,19 @@
 import { FC, useState, useEffect, useContext} from 'react';
-import { StyleSheet, View, Image, Text, TextInput, Keyboard, TouchableWithoutFeedback, Modal, Alert } from 'react-native';
+import { StyleSheet, View, Image, Text, TextInput, Keyboard, TouchableWithoutFeedback, Modal, Alert, Platform } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import PickFlicksLogo from '../../assets/logo.png';
 import { Button, HelperText } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { AddUser } from '../../Service/DataService'
+import { AddUser, GetUserByUsername } from '../../Service/DataService'
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 import {useNavigation} from '@react-navigation/native';
 import UserContext from '../../Context/UserContext';
 import { RootStackParamList } from '../../interfaces/RootStackParamList';
-import LottieView from 'lottie-react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+//import LottieView from 'lottie-react-native';
 
 
 
@@ -19,30 +21,30 @@ type Props = NativeStackScreenProps<RootStackParamList, 'CreateAccountScreen'>;
 
 const CreateAccountScreen : FC<Props> = () => {
     const navigation = useNavigation<any>();
-    let {  username, setUsername} = useContext(UserContext);
+    let {  username, setUsername, setUserId, setUserIcon, setDevice} = useContext(UserContext);
 
     const [preventSpam, setPreventSpam] = useState<boolean>(false);
     const [textInput, setTextInput] = useState<String>('');
 
     const [veryifyPassowrd, setVerifyPassword] = useState('');
     const [veryifyPassowrd2, setVerifyPassword2] = useState('');
-    const [password, setPassword] = useState('');
+    //const [password, setPassword] = useState('');
     const [usernameCompleted, setUsernameCompleted]  = useState(false);
     let passwodsVerified = false;
     let pickingAvatar = false;
 
     useEffect( () => {
         if (veryifyPassowrd != veryifyPassowrd2) {
-            console.log('Please fix');
+            //console.log('Please fix');
         } else {
-            console.log('Good')
+            //console.log('Good')
             passwodsVerified = true;
         }
       }, [veryifyPassowrd,veryifyPassowrd2 ]);
 
     const handleSubmit = () => {
         setUsername(textInput);
-        console.log(textInput);
+        //console.log(textInput);
 
         setUsernameCompleted(true);
         setTextInput('');
@@ -64,9 +66,30 @@ const CreateAccountScreen : FC<Props> = () => {
                 Username: username,
                 Password: veryifyPassowrd2
             };
-            console.log(newUserData);
-            let result = await AddUser(newUserData);
-            console.log(result);
+            //console.log(newUserData);
+            let fetchedToken = await AddUser(newUserData);
+            console.log(fetchedToken);
+            if (fetchedToken.token != null) {
+                setDevice(Platform.OS);
+                let userData = await GetUserByUsername(username);
+                console.log('userData', userData);
+                const storedId = JSON.stringify(userData.id)
+                console.log('storedId', storedId);
+                const jsonTOKEN = JSON.stringify(fetchedToken.token)
+                console.log('token', jsonTOKEN);
+                await AsyncStorage.setItem('@storage_Token', jsonTOKEN);
+                console.log('token:', jsonTOKEN)
+                await AsyncStorage.setItem('@storage_Id', storedId)
+                await AsyncStorage.setItem('@storage_Username', username)
+                // await AsyncStorage.setItem('@storage_Usericon', userData.icon)
+                await AsyncStorage.setItem('@storage_UserDevice', Platform.OS)
+                
+                console.log('LoginScreen and PressingLogIn// This is the userId:', userData.id)
+                setUserId(userData.id);
+                setUsername(userData.username);
+                // setUserIcon(userData.icon);
+                navigation.navigate('UserDashboard')
+            }
             setUsernameCompleted(true);
             pickingAvatar = true;
             navigation.navigate('AvatarScreen')

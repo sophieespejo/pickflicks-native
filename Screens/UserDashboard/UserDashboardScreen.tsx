@@ -14,6 +14,7 @@ import { useState } from 'react';
 import { GetMWGStatusByUserId, GetAllUnacceptedInvitationsByUserId, GetMWGById} from '../../Service/DataService';
 import LottieView from 'lottie-react-native';
 import { RootStackParamList } from '../../interfaces/RootStackParamList';
+import NoGroupsComponent from '../../Components/UserDashboard-Body/NoGroupsComponent'
 
 
 type Props = NativeStackScreenProps<RootStackParamList, 'UserDashboard'>;
@@ -154,7 +155,10 @@ const UserDashboard: FC<Props> = ({navigation}) => {
                 </Pressable>
               </View>
               {
-                WFOBool == true ? <WaitingForOthersComponent /> : <WaitingForYouComponent />
+               allMWG == 0 ? 
+                   <NoGroupsComponent /> : 
+                   WFOBool == true ? 
+                <WaitingForOthersComponent /> : <WaitingForYouComponent />
               }
             </ScrollView>
             <FooterNavComponent/>
