@@ -49,8 +49,8 @@ const FinalMovieCardComponent: FC = () => {
   
   return (
       <Pressable onPress={() => navigation.navigate("UserDashboard")} style={{flex: 1, alignItems:'center'}}>
-        <View style={{ flex: 1, backgroundColor:'#BEB85B', borderRadius:30, width:'92%', marginTop:'8%', marginBottom:'8%', justifyContent:'center', 
-                    borderWidth: 3, borderColor:'#E6D260'}}>
+        <View style={{ flex: 1, backgroundColor:'#1761B0', borderRadius:30, width:'92%', marginTop:'8%', marginBottom:'8%', justifyContent:'center', 
+                    borderWidth: 3, borderColor:'goldenrod'}}>
 
                <View style={{flex:0.7, alignSelf:'center', width:'80%'}}>
                 <Text style={styles.titleTxtBold}> {displayObject.movieName} </Text>
@@ -86,14 +86,14 @@ const styles = StyleSheet.create({
       fontSize: 22,
       textAlign:'center',
       marginTop:'4%',
-      color: '#524C4C',
+      color: '#FFFFFF',
   },
   titleTxtBold:{
       fontFamily:'Raleway_600SemiBold',
       fontSize: 35,
       textAlign:'center',
       marginTop:'4%',
-      color: '#524C4C',
+      color: '#FFFFFF',
       fontWeight:'600'
   },
   nextBtn:{
