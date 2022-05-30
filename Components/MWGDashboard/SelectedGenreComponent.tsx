@@ -54,16 +54,17 @@ const SelectedGenreComponent: FC = () => {
            
             <View style={{flex:0.2}}>
                 <Text style={styles.titleTxt}>Top 3 Genres</Text>
+                <Text style={styles.GenreTxt1}>Use the slider to rank the genre displayed below</Text>
             </View>
 
 
             <View style={{flex:1, alignItems:'center', marginBottom:'15%'}}>
-              <View  style={{paddingBottom:'15%', justifyContent:'flex-start'}}>
-                <Text style={[styles.scoreTxt]}>{Math.floor(onChangeValue/10)}</Text>
-              </View>
-                <View style={{flex:1}}>
+                <View style={{marginTop: '10%', flex:1}}>
                     <Text style={styles.GenreTxt}>{MWGgenres[0]}</Text>
                 </View>
+              <View  style={{ justifyContent:'flex-start'}}>
+                <Text style={[styles.scoreTxt]}>{Math.floor(onChangeValue/10)}</Text>
+              </View>
                 
                   <Slider 
                   style={{marginTop:'8%', flex:1}}
@@ -106,8 +107,6 @@ const SelectedGenreComponent: FC = () => {
           </Button>
               </View>
             </View>
-
-
         </View>
       </View>
   );
@@ -120,6 +119,7 @@ const styles = StyleSheet.create({
       textAlign:'center',
       marginTop:'4%',
       color: '#FFFFFF',
+      textDecorationLine: 'underline',
   },
   scoreTxt:{
       fontFamily:'Raleway_400Regular',
@@ -146,6 +146,15 @@ const styles = StyleSheet.create({
     fontSize: 45,
     textAlign:'center',
     color: '#FFFFFF',
+  },
+  GenreTxt1:{
+    fontFamily:'Raleway_400Regular',
+    fontSize: 20,
+    textAlign:'center',
+    color: '#FFFFFF',
+    marginTop:'1%',
+    marginLeft: '5%',
+    marginRight: '5%'
   }
 });
 
