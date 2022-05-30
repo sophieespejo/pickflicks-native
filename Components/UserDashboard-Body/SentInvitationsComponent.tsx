@@ -31,11 +31,18 @@ const SentInvitationsComponent: FC = () => {
   
   return (
     <Pressable style={styles.container} onPress={()=> navigation.navigate("UserDashboard")}>
+    <View>
     <View style={{flexDirection: 'row', alignItems:'center',
-        justifyContent:'flex-end', }}>
+        justifyContent:'flex-end', alignSelf: 'center' }}>
         <Image source={CheckMark}/>
-        <Text style={styles.text}>Invitation Sent</Text>
-        <Text style={styles.text}>Movie will not be added to your list until a member accepts the invitation.</Text>
+        <Text style={styles.text}>Invitation Sent </Text>
+        {/* <Text style={styles.text1}>Movie will not be added to your list until a member accepts the invitation.</Text> */}
+    </View>
+    <View style={{ flexDirection: 'row', alignItems:'center',
+        justifyContent:'flex-end', alignSelf: 'center'}}>
+              <Text style={styles.text1}>Movie will not be added to your list until a member accepts the invitation.</Text>
+    </View>
+
     </View>
     </Pressable>
   );
@@ -54,6 +61,15 @@ const styles = StyleSheet.create({
         fontFamily: 'Raleway_400Regular',
         fontSize: 30
     },
+    text1 : {
+      color:'#FFFFFF',
+      fontFamily: 'Raleway_400Regular',
+      fontSize: 20,
+      marginLeft: '5%',
+      marginRight: '5%',
+      marginTop: '5%',
+      textAlign:'center'
+  },
     image: {
       flex: 1,
       height: '80%',
