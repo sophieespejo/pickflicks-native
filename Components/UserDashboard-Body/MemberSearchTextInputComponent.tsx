@@ -244,7 +244,7 @@
                 <Image source={Magnifying}/>
                 <TextInput
                   value={searchedName}
-                  placeholder="Add members to the group"
+                  placeholder="Search for a username"
                   placeholderTextColor="#FFFFFF"
                   style = {styles.text}
                   onChangeText={(e) => filterBanks(e)}

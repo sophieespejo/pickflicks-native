@@ -221,27 +221,6 @@ const StartWatchingBtnsComponent: FC = () => {
 
   return (
     <View>
-          {
-            userId == mwgCreatorId && mwgStatus.areAllMembersDoneWithSwipes ? 
-            <View style={{ flexDirection:'row', height:90, marginTop:'5%', alignItems:'center'}}>
-            <Pressable disabled={userIsWaiting && !mwgStatus.haveMoviesBeenFetched ? true : false} style={{flex:1, width:'90%'}} onPress={() => handlePress()}>
-                <View style={styles.wgButton}>
-                  <Image source={MovieClipper}></Image>
-                  <Text 
-                    style={{color:'#E3DDDD', fontSize:24, paddingLeft:60, justifyContent:'center', textAlign:'center', fontFamily:'Raleway_400Regular'}}>
-                      {userIsReadyForGenres ? 'Start ranking genres' : userIsReadyForSwipes && mwgStatus.haveMoviesBeenFetched ? 'Start swiping movies' : userIsReadyForSwipes && !mwgStatus.haveMoviesBeenFetched ? 'Load Movies!' : userIsWaiting ? `Waiting for ${'\n'} others to finish` : userIsAdmin ? 'Start watching' : `Check out the ${'\n'} movie!`}</Text>
-                </View>
-            </Pressable>
-            <Pressable disabled={userIsWaiting && !mwgStatus.haveMoviesBeenFetched ? true : false} style={{flex:1,width:'90%'}} onPress={() => handlePress()}>
-                <View style={styles.wgButton}>
-                  <Image source={MovieClipper}></Image>
-                  <Text 
-                    style={{color:'#E3DDDD', fontSize:24, paddingLeft:60, justifyContent:'center', textAlign:'center', fontFamily:'Raleway_400Regular'}}>
-                      {userIsReadyForGenres ? 'Start ranking genres' : userIsReadyForSwipes && mwgStatus.haveMoviesBeenFetched ? 'Start swiping movies' : userIsReadyForSwipes && !mwgStatus.haveMoviesBeenFetched ? 'Load Movies!' : userIsWaiting ? `Waiting for ${'\n'} others to finish` : userIsAdmin ? 'Start watching' : `Check out the ${'\n'} movie!`}</Text>
-                </View>
-            </Pressable>
-            </View>
-            :
             <View style={{flex:1, height:90, marginTop:'5%', alignItems:'center'}}>
             <Pressable disabled={userIsWaiting && !mwgStatus.haveMoviesBeenFetched ? true : false} style={{width:'90%', alignSelf:'center'}} onPress={() => handlePress()}>
                 <View style={styles.wgButton}>
@@ -252,14 +231,13 @@ const StartWatchingBtnsComponent: FC = () => {
                 </View>
             </Pressable> 
             </View>
-          }
-            {/* {
+
+            {
               userId == mwgCreatorId && mwgStatus.areAllMembersDoneWithSwipes ? 
 
               <View style={{flex:1, height:90, marginTop:'5%', alignItems:'center'}}>
               <Pressable disabled={userIsWaiting ? true : false} style={{width:'90%'}} onPress={() => setModalVisible3(true)}>
                   <View style={styles.ResetBtn}>
-                    <Image source={MovieClipper}></Image>
                     <Text 
                       style={{color:'#E3DDDD', fontSize:24, justifyContent:'center', textAlign:'center', fontFamily:'Raleway_400Regular'}}>
                         Start Selecting {'\n'} another Movie</Text>
@@ -267,23 +245,7 @@ const StartWatchingBtnsComponent: FC = () => {
               </Pressable>
           </View>
             : null
-            } */}
-        <View style={{flex:1, height:120, alignItems:'center', marginTop:'4%',justifyContent:'center'}}>
-            <View style={{width:'90%'}} >
-                <View style={styles.LWAMT}>
-                  <View style={{flex:1, marginTop:'3%'}}>
-                    <Text style={{color:'#FFFFFF', fontSize:18, justifyContent:'center', textAlign:'center', fontFamily:'Raleway_400Regular'}}>Let's watch a movie together later</Text>
-                  </View>
-
-                  <View style={{flex:2, flexDirection:'row', justifyContent:"space-evenly", alignItems:'center', width:'100%'}}>
-                    <Pressable style={styles.InviteMWG}>
-                      <Text style={{color:'#E3DDDD', fontSize:15, justifyContent:'center', textAlign:'center', fontFamily:'Raleway_400Regular'}}>Invite MovieGroup1</Text>
-                    </Pressable>
-                    <Image source={MovieClipper}></Image>
-                  </View>
-                </View>
-            </View>
-        </View>
+            }
         <View style={{flex:1, height:200, alignItems:'center', marginTop:'4%'}}>
             <View style={[{flex:1, width:'90%'}, styles.LWAMT]}>
                 <View style={{flex:0.6, marginTop:'3%'}}>
@@ -345,7 +307,7 @@ const StartWatchingBtnsComponent: FC = () => {
                           <Image source={Magnifying}/>
                               <TextInput
                                 style={styles.text}
-                                placeholder="Add members"
+                                placeholder="Search for a username"
                                 placeholderTextColor="#FFFFFF"
                                 onChangeText={(e) => setSearchedName(e)}
                                 onSubmitEditing={()=> setModalVisible1(true)}
