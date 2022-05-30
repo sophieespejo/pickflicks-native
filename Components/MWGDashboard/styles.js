@@ -1,8 +1,8 @@
-import styled from  'styled-components';
-import { LinearGradient } from 'expo-linear-gradient';
+import styled from "styled-components";
+import { LinearGradient } from "expo-linear-gradient";
 
-import { width, height, CARD, VERTICAL_MARGIN } from '../../utils/constants';
-import Choise from '../Choise';
+import { width, height, CARD, VERTICAL_MARGIN } from "../../utils/constants";
+import Choise from "../Choise";
 
 export const Container = styled.View`
   position: absolute;
@@ -28,7 +28,7 @@ export const Name = styled.Text`
 `;
 
 export const Gradient = styled(LinearGradient).attrs({
-  colors: ['transparent', 'rgba(0, 0, 0, 0.9)'],
+  colors: ["transparent", "rgba(0, 0, 0, 0.9)"],
 })`
   position: absolute;
   width: 100%;

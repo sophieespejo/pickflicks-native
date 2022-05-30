@@ -3,7 +3,7 @@ import { Modal, StyleSheet, Text, View, Image, TextInput, Pressable, ScrollView,
 import MovieClipper from "../../assets/MovieClipper.png";
 import { useFonts, Raleway_400Regular, Raleway_600SemiBold } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
-import {NavigationContainer, useNavigation} from '@react-navigation/native';
+import { useNavigation} from '@react-navigation/native';
 import UserContext from '../../Context/UserContext';
 import { GetMWGById } from '../../Service/DataService'
 import girl1 from '../../assets/avatars/girl1.png'
@@ -40,7 +40,6 @@ const StartWatchingBtnsComponent: FC = () => {
   const [mwgCreatorId, setmwgCreatorId] = useState<string>("");
   const [allSearchedNames, setAllSearchedNames] = useState<Array<string>>([]);
   const [searchedName, setSearchedName] = useState<string>('');
-  const [memberIcon, setMemberIcon] = useState<Array<string>>([]);
   const [searchedMemberIcon, setSearchedMemberIcon] = useState<Array<string>>([]);
   const [currentMWGPastMovies, setCurrentMWGPastMovies] = useState<Array<string>>([]);
   const [currentMWGPastGenres, setCurrentMWGPastGenres] = useState<Array<string>>([]);
@@ -70,7 +69,6 @@ const StartWatchingBtnsComponent: FC = () => {
   ])
 
   const closeRow = (index: number) => {
-    console.log('closerow');
     if (prevOpenedRow && prevOpenedRow !== row[index]) {
       prevOpenedRow.close();
     }
@@ -79,25 +77,23 @@ const StartWatchingBtnsComponent: FC = () => {
 
   useEffect( () => {
     async function getUserInfo(){
-      console.log('is user admind',userIsAdmin)
+      //console.log('is user admind',userIsAdmin)
       let movieObj = await GetMWGStatusByMWGId(MWGId);
       setMWGStatus(movieObj[0]);
-      console.log('this is MWGStatus', movieObj)
-      console.log(membersNames)
+      //console.log('this is MWGStatus', movieObj)
+      //console.log(membersNames)
           setMWGname(MWGname);
           setMWGId(MWGId);
           let mwg = await GetMWGById(MWGId);
-          console.log(mwg)
+          //console.log(mwg)
           let pastMovies = mwg.suggestedMovieNames.split(',');
           let pastGenres = mwg.suggestedMovieGenres.split(',');
           setCurrentMWGPastMovies(pastMovies);
           setCurrentMWGPastGenres(pastGenres);
-          
           setMembersIds(mwg.membersId);
           setMembersNames(mwg.membersNames.split(","));
           setMembersIcons(mwg.membersIcons.split(","));
           setmwgCreatorId(mwg.groupCreatorId);
-          
     }
     getUserInfo()
   }, []);
@@ -147,7 +143,6 @@ const StartWatchingBtnsComponent: FC = () => {
       let deleteInvitation = await DeleteInvitation(MWGId, deletedUser.id);
       if(result && deleteInvitation)
       {
-        //need to reset members array
         let mwg = await GetMWGById(MWGId);
         if(mwg != null)
         {
@@ -155,10 +150,7 @@ const StartWatchingBtnsComponent: FC = () => {
           setMembersIcons(mwg.membersIcons.split(","));
           setMembersIds(mwg.membersId);
         }
-          
-        
       }
-      
     }
   }
 
@@ -183,11 +175,7 @@ const StartWatchingBtnsComponent: FC = () => {
            setSearchedMemberIcon([...searchedMemberIcon]);
           //  let result = await AddMemberToMWG(MWGId, foundUser.id, searchedName)
            let sentResults = await AddInvitations(MWGId, MWGname, allSearchedNames.join(","));
-
-           if(sentResults)
-           {
-             console.log('yes added', MWGId, foundUser.id, searchedName)
-           }
+           setModalVisible(!modalVisible)
            setSearchedName('');    
           }
         }
@@ -201,7 +189,7 @@ const StartWatchingBtnsComponent: FC = () => {
         let result = await DeleteByMWGId(MWGId);
         if(result)
         {
-          console.log(result, 'yes deleted')
+          //console.log(result, 'yes deleted')
           setModalVisible(!modalVisible)
           navigation.navigate('UserDashboard')
         }else{
@@ -231,10 +219,8 @@ const StartWatchingBtnsComponent: FC = () => {
                 </View>
             </Pressable> 
             </View>
-
             {
               userId == mwgCreatorId && mwgStatus.areAllMembersDoneWithSwipes ? 
-
               <View style={{flex:1, height:90, marginTop:'5%', alignItems:'center'}}>
               <Pressable disabled={userIsWaiting ? true : false} style={{width:'90%'}} onPress={() => setModalVisible3(true)}>
                   <View style={styles.ResetBtn}>
@@ -264,14 +250,12 @@ const StartWatchingBtnsComponent: FC = () => {
                                   ellipsizeMode='tail'
                                   numberOfLines={1}
                                   >{item}</Text>
-
                                 )
                               })
                             } 
                           </View>
                           <View style={{flex:0.5, marginLeft:'5%'}}>
                             <View style={{borderBottomWidth:1, borderBottomColor:'#FFFFFF'}}>
-
                               <Text style={{color:'#FFFFFF', fontSize:25, fontFamily:'Raleway_400Regular', textAlign:'right'}}>Genres</Text>
                             </View>
                             <View>
@@ -286,8 +270,7 @@ const StartWatchingBtnsComponent: FC = () => {
                               )
                             })
                           }
-                            </View>
-                              
+                            </View>     
                           </View>
                       </View>
             </View>
@@ -351,7 +334,6 @@ const StartWatchingBtnsComponent: FC = () => {
                                         <Avatar.Image source={icons.get(membersIcons[index])} style={{alignItems: 'flex-start'}}/>
                                           <Text style={[{color:'white', marginLeft: '10%'}, styles.btnText]}>{member}</Text>
                                       </View>
-
                                   </Swipeable> 
                                 )                                       
                             }) : membersNames.map((member, i) => {
@@ -363,7 +345,6 @@ const StartWatchingBtnsComponent: FC = () => {
                               )
                             })
                       }
-                    
                       </ScrollView>
                 </View>
             </View>
@@ -379,8 +360,6 @@ const StartWatchingBtnsComponent: FC = () => {
           </View>
            : null
         }
-
-
         {/* Modal for Deleting Groups*/}
         <Modal
         animationType="slide"
@@ -398,7 +377,6 @@ const StartWatchingBtnsComponent: FC = () => {
                 style={styles.lottieView}
                 source={sleepingPanda}
               />
-            {/* <Image source={ExclamationIcon} style={{width:50, height:50, marginBottom:'5%'}}/> */}
             <Text style={styles.modalText}>Are you sure you want to {'\n'} delete {MWGname}?</Text>
             <View style={{flexDirection:'row', width:'90%', justifyContent:'space-evenly'}}>
 
@@ -418,7 +396,6 @@ const StartWatchingBtnsComponent: FC = () => {
           </View>
         </View>
       </Modal>
-
         {/* Modal for Reset MWG*/}
         <Modal
         animationType="slide"
@@ -436,10 +413,8 @@ const StartWatchingBtnsComponent: FC = () => {
                 style={styles.lottieView}
                 source={smartPanda}
               />
-            {/* <Image source={ExclamationIcon} style={{width:50, height:50, marginBottom:'5%'}}/> */}
             <Text style={styles.modalText}>Are you sure you want to {'\n'} reset {MWGname}?</Text>
             <View style={{flexDirection:'row', width:'90%', justifyContent:'space-evenly'}}>
-
             <Pressable
               style={[styles.button, styles.buttonClose1]}
               onPress={() => handleReset()}
@@ -456,7 +431,6 @@ const StartWatchingBtnsComponent: FC = () => {
           </View>
         </View>
       </Modal>
-      
         {/* Modal for Adding Members*/}
         <Modal
         animationType="slide"
@@ -472,7 +446,6 @@ const StartWatchingBtnsComponent: FC = () => {
             <Image source={ExclamationIcon} style={{width:50, height:50, marginBottom:'5%'}}/>
             <Text style={styles.modalText}>Are you sure you want to invite {'\n'} {searchedName}?</Text>
             <View style={{flexDirection:'row', width:'90%', justifyContent:'space-evenly'}}>
-
             <Pressable
               style={[styles.button, styles.buttonClose1]}
               onPress={() => handleKeyPress()}
@@ -489,11 +462,7 @@ const StartWatchingBtnsComponent: FC = () => {
           </View>
         </View>
       </Modal>
-
-      
        </View>
-
-       
   );
 };
 

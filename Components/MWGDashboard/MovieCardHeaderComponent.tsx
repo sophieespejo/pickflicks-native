@@ -1,21 +1,25 @@
-import { FC, useContext } from "react";
-import { StyleSheet, View, Image, TextInput} from "react-native";
+import { FC, useContext, useEffect, useState } from "react";
+import { StyleSheet, View, Image, TextInput } from "react-native";
 import headerLogo from "../../assets/headerLogo.png";
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 import UserContext from '../../Context/UserContext';
+import { GetMWGByMWGName } from '../../Service/DataService'
 
 
 
 const MovieCardHeaderComponent: FC = () => {
   let { setMWGname, MWGname, genreName } = useContext(UserContext);
+  let [finalGenreName, setFinalGenreName] = useState("");
 
-  // useEffect( () => {
-  //   async function getUserInfo(){
-  //         setMWGname(MWGname);
-  //   }
-  //   getUserInfo()
-  // }, []);
+  useEffect(() => {
+    async function getUserInfo() {
+      setMWGname(MWGname);
+      let mwgInfo = await GetMWGByMWGName(MWGname);
+      setFinalGenreName(mwgInfo.finalGenre);
+    }
+    getUserInfo()
+  }, []);
 
   let [fontsLoaded] = useFonts({
     Raleway_400Regular,
@@ -24,14 +28,14 @@ const MovieCardHeaderComponent: FC = () => {
   if (!fontsLoaded) {
     return <AppLoading />;
   }
-  
+
   return (
-    <View style={{flex:0.15, paddingTop: 20}}>
-      <View style={{flex:0.7, paddingTop:10, marginRight: '10%'}}>
-        <Image style={{height: 70, width: '100%', marginLeft: '13%'}} source={headerLogo}></Image>
+    <View style={{ flex: 0.15, paddingTop: 20 }}>
+      <View style={{ flex: 0.7, paddingTop: 10, marginRight: '10%' }}>
+        <Image style={{ height: 70, width: '100%', marginLeft: '13%' }} source={headerLogo}></Image>
       </View>
-      <View style={{flex:0.4, alignItems:'center'}}>
-            <TextInput style={styles.yourGroupText} editable={false} value={genreName}/>
+      <View style={{ flex: 0.4, alignItems: 'center' }}>
+        <TextInput style={styles.yourGroupText} editable={false} value={finalGenreName} />
       </View>
     </View>
   );
@@ -43,14 +47,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'green'
   },
   headerLogo: {
-    height: 70, 
-    width: '100%', 
+    height: 70,
+    width: '100%',
     marginLeft: '13%'
   },
   headerContainer: {
-    flex:8,
+    flex: 8,
     alignItems: "center",
-    backgroundColor:'blue'
+    backgroundColor: 'blue'
   },
   textContainer: {
     flex: 0.15,
@@ -61,16 +65,16 @@ const styles = StyleSheet.create({
     fontSize: 28,
     //paddingBottom:50,
     textAlign: 'center',
-    fontFamily:'Raleway_400Regular', 
+    fontFamily: 'Raleway_400Regular',
     borderBottomWidth: 2,
     borderColor: "red",
-    width:'90%',
+    width: '90%',
   },
   redLine: {
-    width:'90%',
+    width: '90%',
     borderBottomWidth: 2,
     borderColor: "red",
-    alignItems:'center',
+    alignItems: 'center',
     justifyContent: 'center',
     position: 'absolute', top: 0, left: 23, right: 0, bottom: 670,
   },

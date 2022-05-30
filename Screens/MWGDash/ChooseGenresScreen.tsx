@@ -1,5 +1,5 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { FC} from 'react';
+import { FC } from 'react';
 import { StyleSheet, View } from 'react-native';
 import HeaderComponent from '../../Components/MWGDashboard/HeaderComponent';
 import FooterNavComponent from '../../Components/UserDashboard-Body/FooterNavComponent';
@@ -9,14 +9,14 @@ import { RootStackParamList } from '../../interfaces/RootStackParamList';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ChooseGenres'>;
 
-const ChooseGenresScreen: FC<Props> = ({navigation}) => {
+const ChooseGenresScreen: FC<Props> = ({ navigation }) => {
 
 
     return (
         <View style={styles.container}>
-            <HeaderComponent/>
-            <GenreSelectionComponent2/>
-            <FooterNavComponent/>
+            <HeaderComponent />
+            <GenreSelectionComponent2 />
+            <FooterNavComponent />
         </View>
     )
 }
@@ -24,9 +24,8 @@ const ChooseGenresScreen: FC<Props> = ({navigation}) => {
 export default ChooseGenresScreen;
 
 const styles = StyleSheet.create({
-    container:{
-      flex:1,
-      backgroundColor: '#1E1A1A'
+    container: {
+        flex: 1,
+        backgroundColor: '#1E1A1A'
     },
-  });
-  
+});

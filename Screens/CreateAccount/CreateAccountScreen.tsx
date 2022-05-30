@@ -1,5 +1,5 @@
-import { FC, useState, useEffect, useContext} from 'react';
-import { StyleSheet, View, Image, Text, TextInput, Keyboard, TouchableWithoutFeedback, Modal, Alert, Platform } from 'react-native';
+import { FC, useState, useEffect, useContext } from 'react';
+import { StyleSheet, View, Image, Text, TextInput, Keyboard, TouchableWithoutFeedback, Platform } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import PickFlicksLogo from '../../assets/logo.png';
@@ -8,50 +8,43 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { AddUser, GetUserByUsername } from '../../Service/DataService'
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import UserContext from '../../Context/UserContext';
 import { RootStackParamList } from '../../interfaces/RootStackParamList';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-//import LottieView from 'lottie-react-native';
 
 
 
 type Props = NativeStackScreenProps<RootStackParamList, 'CreateAccountScreen'>;
 
-const CreateAccountScreen : FC<Props> = () => {
+const CreateAccountScreen: FC<Props> = () => {
     const navigation = useNavigation<any>();
-    let {  username, setUsername, setUserId, setUserIcon, setDevice} = useContext(UserContext);
+    let { username, setUsername, setUserId, setUserIcon, setDevice } = useContext(UserContext);
 
     const [preventSpam, setPreventSpam] = useState<boolean>(false);
-    const [textInput, setTextInput] = useState<String>('');
+    const [textInput, setTextInput] = useState<string>('');
 
     const [veryifyPassowrd, setVerifyPassword] = useState('');
     const [veryifyPassowrd2, setVerifyPassword2] = useState('');
-    //const [password, setPassword] = useState('');
-    const [usernameCompleted, setUsernameCompleted]  = useState(false);
+    const [usernameCompleted, setUsernameCompleted] = useState(false);
     let passwodsVerified = false;
     let pickingAvatar = false;
 
-    useEffect( () => {
+    useEffect(() => {
         if (veryifyPassowrd != veryifyPassowrd2) {
-            //console.log('Please fix');
         } else {
-            //console.log('Good')
             passwodsVerified = true;
         }
-      }, [veryifyPassowrd,veryifyPassowrd2 ]);
+    }, [veryifyPassowrd, veryifyPassowrd2]);
 
     const handleSubmit = () => {
         setUsername(textInput);
-        //console.log(textInput);
-
         setUsernameCompleted(true);
         setTextInput('');
     }
 
     const hasErrors = () => {
-        return (veryifyPassowrd != '' && veryifyPassowrd2 != '' && veryifyPassowrd != veryifyPassowrd2) 
+        return (veryifyPassowrd != '' && veryifyPassowrd2 != '' && veryifyPassowrd != veryifyPassowrd2)
     };
 
     const hasErrors2 = () => {
@@ -62,7 +55,7 @@ const CreateAccountScreen : FC<Props> = () => {
         setPreventSpam(true);
         if (passwodsVerified) {
             let newUserData = {
-                Id:0,
+                Id: 0,
                 Username: username,
                 Password: veryifyPassowrd2
             };
@@ -83,7 +76,7 @@ const CreateAccountScreen : FC<Props> = () => {
                 await AsyncStorage.setItem('@storage_Username', username)
                 // await AsyncStorage.setItem('@storage_Usericon', userData.icon)
                 await AsyncStorage.setItem('@storage_UserDevice', Platform.OS)
-                
+
                 console.log('LoginScreen and PressingLogIn// This is the userId:', userData.id)
                 setUserId(userData.id);
                 setUsername(userData.username);
@@ -98,117 +91,115 @@ const CreateAccountScreen : FC<Props> = () => {
 
     let [fontsLoaded] = useFonts({
         Raleway_400Regular,
-      });
-    
-      if (!fontsLoaded) {
+    });
+
+    if (!fontsLoaded) {
         return <AppLoading />;
-      }
+    }
 
     return (
         <>
             <View style={styles.bgColor}>
-            <KeyboardAwareScrollView
-                style={{ backgroundColor: '#4c69a5' }}
-                resetScrollToCoords={{ x: 0, y: 0 }}
-                contentContainerStyle={styles.bgColor}
-                scrollEnabled={false}
-            >
-            <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-                <SafeAreaView>
-                    <View style={{ alignItems: 'center'}}>
-                        <Image 
-                            source={PickFlicksLogo}
-                            // style={{height: 337, width: 337}}
-                            style={{height: 250, width: 250, resizeMode:'contain'}}
-                        />
-
-                    </View>
-                    {
-                        !usernameCompleted && !pickingAvatar? 
-                        <>
-                            <View style={{alignItems: 'center'}}>
-                                <Text style={styles.createAccountTxt}>Create a username</Text>
-                                <TextInput
-                                    style={styles.input}
-                                    // onChangeText={onChangeText}
-                                    // value={''}
-                                    enablesReturnKeyAutomatically={true}
-                                    keyboardAppearance={'dark'}
-                                    contextMenuHidden={true}
-                                    selectionColor={'white'}
-                                    textAlign={'center'}
-                                    textContentType={'name'}
-                                    onChangeText={(e) => setTextInput(e)}
-                                    value={textInput}
+                <KeyboardAwareScrollView
+                    style={{ backgroundColor: '#4c69a5' }}
+                    resetScrollToCoords={{ x: 0, y: 0 }}
+                    contentContainerStyle={styles.bgColor}
+                    scrollEnabled={false}
+                >
+                    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+                        <SafeAreaView>
+                            <View style={{ alignItems: 'center' }}>
+                                <Image
+                                    source={PickFlicksLogo}
+                                    // style={{height: 337, width: 337}}
+                                    style={{ height: 250, width: 250, resizeMode: 'contain' }}
                                 />
                             </View>
-                            <View style={{alignItems: 'center'}}>
-                                <Button mode="contained" 
-                                onPress={handleSubmit}
-                                style={styles.nextBtn}>
-                                    Next
-                                </Button>
-                            </View>
-                        </>
-                        :
-                        <>
-                            <View style={{alignItems: 'center'}}>
-                                <Text style={styles.createAccountTxt}>Create a password</Text>
-                                <TextInput
-                                    style={styles.input}
-                                    // onChangeText={onChangeText}
-                                    // value={''}
-                                    enablesReturnKeyAutomatically={true}
-                                    keyboardAppearance={'dark'}
-                                    contextMenuHidden={true}
-                                    selectionColor={'white'}
-                                    textAlign={'center'}
-                                    textContentType={'password'}
-                                    secureTextEntry={true}
-                                    onChangeText={(e) => setVerifyPassword(e)} 
-                                />
-                            </View>
-                            <View style={{alignItems: 'center'}}>
-                                <HelperText type="error" visible={hasErrors()}
-                                    style={{alignItems: 'center', color: 'red', fontSize:20, justifyContent:'center'}}
-                                >Passwords do not match
-                                </HelperText>
-                                <HelperText type="info" visible={hasErrors2()}
-                                    style={{alignItems: 'center', color: 'green', fontSize:20, justifyContent:'center'}}
-                                >Passwords match!
-                                </HelperText>
-                            </View>
-                            <View style={{alignItems: 'center'}}>
-                                <Text style={styles.createAccountTxt}>Verify password</Text>
-                                <TextInput
-                                    style={styles.input}
-                                    // onChangeText={onChangeText}
-                                    // value={''}
-                                    enablesReturnKeyAutomatically={true}
-                                    keyboardAppearance={'dark'}
-                                    contextMenuHidden={true}
-                                    selectionColor={'white'}
-                                    textAlign={'center'}
-                                    textContentType={'password'}
-                                    secureTextEntry={true}
-                                    onChangeText={(e) => setVerifyPassword2(e)}                            // onKeyPress={this.handleKeyDown}
-                                />
-                            </View>
-                            <View style={{alignItems: 'center'}}>
-                                <Button mode="contained" 
-                                onPress={handleCreateAccount}
-                                style={styles.createAccountBtn}
-                                disabled={preventSpam ? true : false}>
-                                    Next
-                                </Button>
-                            </View>
-                        </> 
-                    }
-                </SafeAreaView>
-            </TouchableWithoutFeedback>
-            </KeyboardAwareScrollView>
+                            {
+                                !usernameCompleted && !pickingAvatar ?
+                                    <>
+                                        <View style={{ alignItems: 'center' }}>
+                                            <Text style={styles.createAccountTxt}>Create a username</Text>
+                                            <TextInput
+                                                style={styles.input}
+                                                // onChangeText={onChangeText}
+                                                // value={''}
+                                                enablesReturnKeyAutomatically={true}
+                                                keyboardAppearance={'dark'}
+                                                contextMenuHidden={true}
+                                                selectionColor={'white'}
+                                                textAlign={'center'}
+                                                textContentType={'name'}
+                                                onChangeText={(e) => setTextInput(e)}
+                                                value={textInput}
+                                            />
+                                        </View>
+                                        <View style={{ alignItems: 'center' }}>
+                                            <Button mode="contained"
+                                                onPress={handleSubmit}
+                                                style={styles.nextBtn}>
+                                                Next
+                                            </Button>
+                                        </View>
+                                    </>
+                                    :
+                                    <>
+                                        <View style={{ alignItems: 'center' }}>
+                                            <Text style={styles.createAccountTxt}>Create a password</Text>
+                                            <TextInput
+                                                style={styles.input}
+                                                // onChangeText={onChangeText}
+                                                // value={''}
+                                                enablesReturnKeyAutomatically={true}
+                                                keyboardAppearance={'dark'}
+                                                contextMenuHidden={true}
+                                                selectionColor={'white'}
+                                                textAlign={'center'}
+                                                textContentType={'password'}
+                                                secureTextEntry={true}
+                                                onChangeText={(e) => setVerifyPassword(e)}
+                                            />
+                                        </View>
+                                        <View style={{ alignItems: 'center' }}>
+                                            <HelperText type="error" visible={hasErrors()}
+                                                style={{ alignItems: 'center', color: 'red', fontSize: 20, justifyContent: 'center' }}
+                                            >Passwords do not match
+                                            </HelperText>
+                                            <HelperText type="info" visible={hasErrors2()}
+                                                style={{ alignItems: 'center', color: 'green', fontSize: 20, justifyContent: 'center' }}
+                                            >Passwords match!
+                                            </HelperText>
+                                        </View>
+                                        <View style={{ alignItems: 'center' }}>
+                                            <Text style={styles.createAccountTxt}>Verify password</Text>
+                                            <TextInput
+                                                style={styles.input}
+                                                // onChangeText={onChangeText}
+                                                // value={''}
+                                                enablesReturnKeyAutomatically={true}
+                                                keyboardAppearance={'dark'}
+                                                contextMenuHidden={true}
+                                                selectionColor={'white'}
+                                                textAlign={'center'}
+                                                textContentType={'password'}
+                                                secureTextEntry={true}
+                                                onChangeText={(e) => setVerifyPassword2(e)}                            // onKeyPress={this.handleKeyDown}
+                                            />
+                                        </View>
+                                        <View style={{ alignItems: 'center' }}>
+                                            <Button mode="contained"
+                                                onPress={handleCreateAccount}
+                                                style={styles.createAccountBtn}
+                                                disabled={preventSpam ? true : false}>
+                                                Next
+                                            </Button>
+                                        </View>
+                                    </>
+                            }
+                        </SafeAreaView>
+                    </TouchableWithoutFeedback>
+                </KeyboardAwareScrollView>
             </View>
-
         </>
     );
 };
@@ -218,13 +209,13 @@ const styles = StyleSheet.create({
         backgroundColor: '#1E1A1A',
         flex: 1,
         alignItems: 'center'
-    }, 
+    },
     createAccountTxt: {
         alignItems: 'center',
         fontSize: 36,
         color: 'white',
         marginTop: '10%',
-        fontFamily:'Raleway_400Regular', 
+        fontFamily: 'Raleway_400Regular',
     },
     input: {
         borderBottomWidth: 1,
@@ -234,20 +225,20 @@ const styles = StyleSheet.create({
         color: 'white',
         marginTop: 20,
 
-    }, 
+    },
     nextBtn: {
-        backgroundColor:'#DC1B21C4',
-        borderRadius: 25, 
+        backgroundColor: '#DC1B21C4',
+        borderRadius: 25,
         height: 50,
-        width: 300, 
+        width: 300,
         justifyContent: 'center',
         marginTop: 70
     },
     createAccountBtn: {
-        backgroundColor:'#DC1B21C4',
-        borderRadius: 25, 
+        backgroundColor: '#DC1B21C4',
+        borderRadius: 25,
         height: 50,
-        width: 300, 
+        width: 300,
         justifyContent: 'center',
         marginTop: 40
     }

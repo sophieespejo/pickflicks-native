@@ -1,40 +1,38 @@
-import { FC, useEffect, useContext, useState} from 'react';
-import { StyleSheet, Text, View, Image, Platform, Pressable} from "react-native";
-import { useFonts, Raleway_400Regular, Raleway_600SemiBold} from '@expo-google-fonts/raleway';
+import { FC, useEffect, useContext, useState } from 'react';
+import { StyleSheet, Text, View, Image, Platform, Pressable } from "react-native";
+import { useFonts, Raleway_400Regular, Raleway_600SemiBold } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import UserContext from '../../Context/UserContext';
-import { Button } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { suggestedMovieGenres, suggestedMovieNames, GetMoviesByMWGId, GetMWGById, ResetMWGStatusbyMWGId, GetMWGStatusByUserId} from '../../Service/DataService';
-  
+import { suggestedMovieGenres, suggestedMovieNames, GetMoviesByMWGId, GetMWGById } from '../../Service/DataService';
+
 
 
 const FinalMovieCardComponent: FC = () => {
-    const navigation = useNavigation<any>();
-    let {  displayObject, setDisplayObject, setDevice, device, MWGname, MWGId, setMWGId, userId, setUserId , listOfMovieNamesUsedToCompare1, setListOfMovieNamesUsedToCompare1, setAllMWG } = useContext(UserContext);
-    const [displayMovie, setDisplayMovie] = useState<string>("");
+  const navigation = useNavigation<any>();
+  let { displayObject, setDisplayObject, setDevice, device, MWGId } = useContext(UserContext);
+  //const [displayMovie, setDisplayMovie] = useState<string>("");
 
-    useEffect( () => {
-      async function getTopMovie(){
-        const UserDevice = await AsyncStorage.getItem('@storage_UserDevice')
-        setDevice(UserDevice);
-        let result = await GetMWGById(MWGId);
-        console.log(result)
+  useEffect(() => {
+    async function getTopMovie() {
+      const UserDevice = await AsyncStorage.getItem('@storage_UserDevice')
+      setDevice(UserDevice);
+      let result = await GetMWGById(MWGId);
+      //console.log(result)
 
-        let movieResults = await GetMoviesByMWGId(MWGId);
-        setDisplayObject(movieResults[result.finalMovieIndex]);
-        console.log('This is moviename?', movieResults[result.finalMovieIndex].movieName)
+      let movieResults = await GetMoviesByMWGId(MWGId);
+      setDisplayObject(movieResults[result.finalMovieIndex]);
+      //console.log('This is moviename?', movieResults[result.finalMovieIndex].movieName)
 
-        if(!result.suggestedMovieNames.split(',').includes(movieResults[result.finalMovieIndex].movieName))
-        {
-          let addToPastMovies = await suggestedMovieNames(MWGId, movieResults[result.finalMovieIndex].movieName);
-          let addToPastGenres = await suggestedMovieGenres(MWGId,result.finalGenre);
-          console.log(addToPastMovies, addToPastGenres);
-        }
+      if (!result.suggestedMovieNames.split(',').includes(movieResults[result.finalMovieIndex].movieName)) {
+        let addToPastMovies = await suggestedMovieNames(MWGId, movieResults[result.finalMovieIndex].movieName);
+        let addToPastGenres = await suggestedMovieGenres(MWGId, result.finalGenre);
+        //console.log(addToPastMovies, addToPastGenres);
       }
-      getTopMovie()
-    }, []);
+    }
+    getTopMovie()
+  }, []);
 
 
 
@@ -46,64 +44,59 @@ const FinalMovieCardComponent: FC = () => {
   if (!fontsLoaded) {
     return <AppLoading />;
   }
-  
+
   return (
-      <Pressable onPress={() => navigation.navigate("UserDashboard")} style={{flex: 1, alignItems:'center'}}>
-        <View style={{ flex: 1, backgroundColor:'#1761B0', borderRadius:30, width:'92%', marginTop:'8%', marginBottom:'8%', justifyContent:'center', 
-                    borderWidth: 3, borderColor:'goldenrod'}}>
-
-               <View style={{flex:0.7, alignSelf:'center', width:'80%'}}>
-                <Text style={styles.titleTxtBold}> {displayObject.movieName} </Text>
-               </View>
-
-
-
-                <View style={{flex:2, alignItems:'center'}}>
-                  {
-                    Platform.OS == 'ios' ? <Image style={{width:340, height:300, borderRadius:21}} source={{
-                      uri: displayObject.movieImage,
-                    }}></Image> :
-                    Platform.OS == 'android' ? <Image style={{width:340, height:260, borderRadius:21, marginTop:'3%'}} source={{
-                      uri: displayObject.movieImage,
-                    }}></Image> : null
-                  }
-                    
-                </View>
-                <View style={{flex:1.2, alignItems:'center'}}>
-                    <Text numberOfLines={device == 'ios' ? 4 : device == 'android' ? 3 : 4} ellipsizeMode='tail' style={styles.titleTxt}>{displayObject.movieOverview}</Text>
-                    <Text style={styles.titleTxt}>Critics Ratings: {displayObject.movieIMDBRating}</Text>
-                </View>
-
-
+    <Pressable onPress={() => navigation.navigate("UserDashboard")} style={{ flex: 1, alignItems: 'center' }}>
+      <View style={{
+        flex: 1, backgroundColor: '#1761B0', borderRadius: 30, width: '92%', marginTop: '8%', marginBottom: '8%', justifyContent: 'center',
+        borderWidth: 3, borderColor: 'goldenrod'
+      }}>
+        <View style={{ flex: 0.7, alignSelf: 'center', width: '80%' }}>
+          <Text style={styles.titleTxtBold}> {displayObject.movieName} </Text>
         </View>
-      </Pressable>
+        <View style={{ flex: 2, alignItems: 'center' }}>
+          {
+            Platform.OS == 'ios' ? <Image style={{ width: 340, height: 300, borderRadius: 21 }} source={{
+              uri: displayObject.movieImage,
+            }}></Image> :
+              Platform.OS == 'android' ? <Image style={{ width: 340, height: 260, borderRadius: 21, marginTop: '3%' }} source={{
+                uri: displayObject.movieImage,
+              }}></Image> : null
+          }
+        </View>
+        <View style={{ flex: 1.2, alignItems: 'center' }}>
+          <Text numberOfLines={device == 'ios' ? 4 : device == 'android' ? 3 : 4} ellipsizeMode='tail' style={styles.titleTxt}>{displayObject.movieOverview}</Text>
+          <Text style={styles.titleTxt}>Critics Ratings: {displayObject.movieIMDBRating}</Text>
+        </View>
+      </View>
+    </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
-  titleTxt:{
-      fontFamily:'Raleway_400Regular',
-      fontSize: 22,
-      textAlign:'center',
-      marginTop:'4%',
-      color: '#FFFFFF',
+  titleTxt: {
+    fontFamily: 'Raleway_400Regular',
+    fontSize: 22,
+    textAlign: 'center',
+    marginTop: '4%',
+    color: '#FFFFFF',
   },
-  titleTxtBold:{
-      fontFamily:'Raleway_600SemiBold',
-      fontSize: 35,
-      textAlign:'center',
-      marginTop:'4%',
-      color: '#FFFFFF',
-      fontWeight:'600'
+  titleTxtBold: {
+    fontFamily: 'Raleway_600SemiBold',
+    fontSize: 35,
+    textAlign: 'center',
+    marginTop: '4%',
+    color: '#FFFFFF',
+    fontWeight: '600'
   },
-  nextBtn:{
+  nextBtn: {
     fontFamily: "Raleway_400Regular",
     fontSize: 25
   },
-  GenreTxt:{
-    fontFamily:'Raleway_400Regular',
+  GenreTxt: {
+    fontFamily: 'Raleway_400Regular',
     fontSize: 45,
-    textAlign:'center',
+    textAlign: 'center',
     color: '#FFFFFF',
   }
 });

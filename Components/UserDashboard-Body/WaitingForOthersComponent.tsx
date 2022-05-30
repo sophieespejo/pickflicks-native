@@ -2,8 +2,6 @@ import { FC, useState, useEffect, useContext } from "react";
 import { StyleSheet, Text, View, Image, TextInput,Pressable, Button} from "react-native";
 import emptyHeart from "../../assets/emptyHeart.png";
 import filledHeart from "../../assets/filledHeart.png";
-import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
-import AppLoading from 'expo-app-loading';
 import { GetUserByUsername, GetAllMWGAUserIsMemberOfuserId, AddFavoriteMWG, RemoveFavoriteMWG, GetMWGStatusByUserId } from '../../Service/DataService'
 import {useNavigation} from '@react-navigation/native';
 import UserContext from '../../Context/UserContext';
@@ -19,9 +17,8 @@ interface IMWGCardComponent {
 const WaitingForOthersComponent: FC = () => {
   let { username, setUsername, userId, setUserId, allMWG, setAllMWG, setMWGname, MWGname, setMWGId, MWGId, setUserIsAdmin, setUserIsReadyForGenres,  setUserIsReadyForSwipes,  setUserIsReadyToSeeFinalMovie,setUserIsWaiting } = useContext(UserContext)
 
-  //const [allMWG, setAllMWG] = useState<any>([]);
   const [allFaveMWG, setAllFaveMWG] = useState<any>([]);
-  const [favorite, setFavorite] = useState(0);
+
 
   const navigation = useNavigation<any>();
 

@@ -9,14 +9,14 @@ import { RootStackParamList } from '../../interfaces/RootStackParamList';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'LoadingPopcorn'>;
 
-const LoadingPopcornScreen: FC<Props> = ({navigation}) => {
+const LoadingPopcornScreen: FC<Props> = ({ navigation }) => {
 
 
     return (
         <View style={styles.container}>
-            <HeaderComponent/>
-            <LoadingPopcornGifComponent/>
-            <FooterNavComponent/>
+            <HeaderComponent />
+            <LoadingPopcornGifComponent />
+            <FooterNavComponent />
         </View>
     )
 }
@@ -24,9 +24,8 @@ const LoadingPopcornScreen: FC<Props> = ({navigation}) => {
 export default LoadingPopcornScreen;
 
 const styles = StyleSheet.create({
-    container:{
-      flex:1,
-      backgroundColor: '#1E1A1A'
+    container: {
+        flex: 1,
+        backgroundColor: '#1E1A1A'
     },
-  });
-  
+});
