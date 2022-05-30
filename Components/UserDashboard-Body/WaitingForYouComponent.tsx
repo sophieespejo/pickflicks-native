@@ -181,7 +181,7 @@ const WaitingForYouComponent: FC = () => {
                    marginBottom: '10%'
                  }}
                >
-                 {group.membersNames}
+                 {group.membersNames.split(",").map((member:string, i:number) => i != group.membersNames.split(",").length-1 ? member + ', ' : member)}
                </Text>
              </View>
              <View>
@@ -241,7 +241,7 @@ const WaitingForYouComponent: FC = () => {
                      marginBottom: '10%'
                    }}
                  >
-                   {group.membersNames}
+                   {group.membersNames.split(",").map((member:string, i:number) => i != group.membersNames.split(",").length-1 ? member + ', ' : member)}
                  </Text>
                </View>
                <View>
@@ -297,7 +297,7 @@ const WaitingForYouComponent: FC = () => {
                      marginBottom: '10%'
                    }}
                  >
-                   {group.membersNames}
+                   {group.membersNames.split(",").map((member:string, i:number) => i != group.membersNames.split(",").length-1 ? member + ', ' : member)}
                  </Text>
                </View>
                <View>
@@ -421,7 +421,7 @@ const WaitingForYouComponent: FC = () => {
                    marginBottom: '10%'
                  }}
                >
-                 {group.membersNames}
+                 {group.membersNames.split(",").map((member:string, i:number) => i != group.membersNames.split(",").length-1 ? member + ', ' : member)}
                </Text>
              </View>
              <View>
@@ -481,7 +481,7 @@ const WaitingForYouComponent: FC = () => {
                      marginBottom: '10%'
                    }}
                  >
-                   {group.membersNames}
+                   {group.membersNames.split(",").map((member:string, i:number) => i != group.membersNames.split(",").length-1 ? member + ', ' : member)}
                  </Text>
                </View>
                <View>
@@ -537,7 +537,7 @@ const WaitingForYouComponent: FC = () => {
                      marginBottom: '10%'
                    }}
                  >
-                   {group.membersNames}
+                    {group.membersNames.split(",").map((member:string, i:number) => i != group.membersNames.split(",").length-1 ? member + ', ' : member)}
                  </Text>
                </View>
                <View>
@@ -593,7 +593,7 @@ const WaitingForYouComponent: FC = () => {
                      marginBottom: '10%'
                    }}
                  >
-                   {group.membersNames}
+                    {group.membersNames.split(",").map((member:string, i:number) => i != group.membersNames.split(",").length-1 ? member + ', ' : member)}
                  </Text>
                </View>
                <View>

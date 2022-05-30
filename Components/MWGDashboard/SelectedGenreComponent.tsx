@@ -53,7 +53,7 @@ const SelectedGenreComponent: FC = () => {
         <View style={{ flex: 1, backgroundColor:'#DC1B21C4', borderRadius:30, width:'92%', marginTop:'8%',marginBottom:'8%', justifyContent:'center'}}>
            
             <View style={{flex:0.2}}>
-                <Text style={styles.titleTxt}>Top 5 Genres</Text>
+                <Text style={styles.titleTxt}>Top 3 Genres</Text>
             </View>
 
 
