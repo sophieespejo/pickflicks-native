@@ -102,25 +102,14 @@ const AvatarScreen: FC<Props> = () => {
 
   const handleSubmit = async () => {
     let userData = await GetUserByUsername(username)
-    console.log('//AvatarScreen onSubmit', userData);
     setUserId(userData.id);
     setUserIcon(userIcon);
-    console.log(userData.id)
-
 
     if (userData != null) {
       let result = await EditUserIcon(userId, userIcon)
       setUserIcon(userIcon);
-      console.log(result);
 
-      // if(userData.icon == userIcon)
-      // {
-      //     alert("This is already your avatar!")
-      // }
-      // if
-      // {
       let result1 = await EditUserIcon(userData.id, userIcon)
-      console.log('//AvatarScreen changing Icon results:', result);
       AsyncStorage.setItem('@storage_Usericon', userIcon)
       const userToken = await AsyncStorage.getItem('@storage_Token')
       if (result1) {
@@ -133,7 +122,7 @@ const AvatarScreen: FC<Props> = () => {
       else {
         alert("Could not change your icon!")
       }
-      // }
+      
     }
   };
 

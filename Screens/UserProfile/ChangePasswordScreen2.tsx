@@ -4,7 +4,6 @@ import { StyleSheet, View } from 'react-native';
 import HeaderComponent from '../../Components/UserProfile/HeaderComponent';
 import FooterNavComponent from '../../Components/UserDashboard-Body/FooterNavComponent';
 import ChangePasswordComponent2 from '../../Components/UserProfile/ChangePasswordComponent2';
-import { Provider as PaperProvider } from 'react-native-paper';
 import { RootStackParamList } from '../../interfaces/RootStackParamList';
 
 

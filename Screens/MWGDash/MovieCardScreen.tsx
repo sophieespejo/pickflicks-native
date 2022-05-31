@@ -28,7 +28,6 @@ const MovieCardScreen: FC<Props> = () => {
 
   useEffect( () => {
     async function getUserInfo(){
-      console.log(MWGId)
       setMWGId(MWGId);
       setUserId(userId);
       let allFetchedMovies = await GetMoviesByMWGId(MWGId);
@@ -55,14 +54,9 @@ const MovieCardScreen: FC<Props> = () => {
         LikesDislikesIndexValues: allVotes.join(",")
 
       }
-      //i think we need to have a check if everyone has done it before we navigate to the FinalMovie Screen
       let result = await AddLikeOrDislike(newVotes);
       if(result)
       {
-        console.log(allVotes.join(","));
-        console.log(result);
-        console.log(newVotes);
-        console.log(listOfMovieNamesUsedToCompare)
         let result1 = await UpdateSwipings(MWGId, userId);
         if(result1)
         {
@@ -70,13 +64,10 @@ const MovieCardScreen: FC<Props> = () => {
           if(movieObj != null)
           {
             let isMWGDoneWithSwipes = movieObj[0].areAllMembersDoneWithSwipes;
-            console.log('everyone done', isMWGDoneWithSwipes)
             if(isMWGDoneWithSwipes == true)
             {
               let result = await GetTopMovieByMWGId(MWGId);
-              console.log('Top Movie Index:', result)
               let finalMovieIndexBackEnd = await AddFinalMovieIndex(MWGId, result);
-              console.log('Added FinalMovieIndex to BackEnd success', finalMovieIndexBackEnd);
               navigation.navigate("FinalMovie");
             }else{
               navigation.navigate("UserDashboard");
@@ -87,7 +78,6 @@ const MovieCardScreen: FC<Props> = () => {
     }
   }
   const swipeRight = async (currentMovie:any) => {
-    console.log("swipe right",currentMovie, "1", allMovies.length);
     listOfMovieNamesUsedToCompare1.push(currentMovie);
     setListOfMovieNamesUsedToCompare1([...listOfMovieNamesUsedToCompare]);
 
@@ -106,10 +96,6 @@ const MovieCardScreen: FC<Props> = () => {
       let result = await AddLikeOrDislike(newVotes);
       if(result)
       {
-        console.log(allVotes.join(","));
-        console.log(result);
-        console.log(newVotes);
-        console.log(listOfMovieNamesUsedToCompare)
         let result1 = await UpdateSwipings(MWGId, userId);
         if(result1)
         {
@@ -117,14 +103,10 @@ const MovieCardScreen: FC<Props> = () => {
           if(movieObj != null)
           {
             let isMWGDoneWithSwipes = movieObj[0].areAllMembersDoneWithSwipes;
-            console.log('everyone done', isMWGDoneWithSwipes)
             if(isMWGDoneWithSwipes == true)
             {
               let result = await GetTopMovieByMWGId(MWGId);
-              console.log('Top Movie Index:', result)
               let finalMovieIndexBackEnd = await AddFinalMovieIndex(MWGId, result);
-              console.log(finalMovieIndexBackEnd);
-              console.log('Added FinalMovieIndex to BackEnd success')
               navigation.navigate("FinalMovie");
             }else{
               navigation.navigate("UserDashboard");

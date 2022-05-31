@@ -89,11 +89,7 @@ const FinalGenreComponent: FC = () => {
         setResult(genreString);
         setGenreName(genreString);
       }
-      //console.log('----here-----')
-      //console.log('result:', genreString)
       let finalGenreBackEnd = await AddFinalGenre(MWGId, genreString);
-      //console.log(finalGenreBackEnd);
-      //console.log('This added FinalGenre field to Backend success')
 
     }
     getUserInfo()
@@ -101,19 +97,12 @@ const FinalGenreComponent: FC = () => {
 
   const handleNext = async () => {
     let movieObj = await GetMWGStatusByMWGId(MWGId);
-    // console.log('handleNextMovieObj')
-    // console.log(movieObj);
     if (movieObj != null) {
-      // console.log('got obj -> check if true or not')
-      // console.log(movieObj[0].areAllMembersDoneWithGenre);
       let isMWGDoneWithRanking = movieObj[0].areAllMembersDoneWithGenre;
       if (isMWGDoneWithRanking == true) {
         setIsFetching15(true);
-        console.log('---addall15 should be fetched');
         let finalMovie = await AddAll15Movies(MWGId, genreId, streamingServiceId);
         await UpdateHaveMoviesBeenFetched(MWGId);
-        // console.log(MWGId, genreId, streamingServiceId);
-        // console.log(finalMovie);
 
         if (finalMovie) {
           navigation.navigate('MovieCard')

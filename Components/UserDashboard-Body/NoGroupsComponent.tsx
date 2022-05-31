@@ -15,8 +15,6 @@ const NoGroupsComponent: FC = () => {
                                 color: "#FFFFFF",
                                 fontSize: 28,
                                 fontWeight: 'bold',
-                                // justifyContent: "center",
-                                // textAlign: "center",
                                 fontFamily: 'Raleway_400Regular',
                                 marginBottom: 0,
                             }}
@@ -67,12 +65,9 @@ export default NoGroupsComponent;
 
 const styles = StyleSheet.create({
     wgButton: {
-        // flexDirection: "row",
         alignItems: "center",
         width: '90%',
         justifyContent: "center",
-        //height: '20%',
-
     },
     lottieView: {
         height: 200,

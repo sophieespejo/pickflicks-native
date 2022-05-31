@@ -1,5 +1,5 @@
 import { FC, useContext, useEffect } from "react";
-import { StyleSheet, Text, View, Pressable, Button, Image } from "react-native";
+import { StyleSheet, Text, View, Pressable, Image } from "react-native";
 import { useFonts, Raleway_400Regular, Raleway_600SemiBold } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
 import { Avatar } from "react-native-paper";

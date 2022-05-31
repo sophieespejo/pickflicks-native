@@ -14,7 +14,7 @@ import UserContext from '../../Context/UserContext';
 
 
 const FooterNavComponent: FC = () => {
-  let {invitationMWG, setInvitationMWG, userId} = useContext(UserContext)
+  let { setInvitationMWG, userId} = useContext(UserContext)
   const tempArr: Array<Object> = [];
   const navigation = useNavigation<any>();
   let [invitationBadge, setInvitationBadge] = useState([])
@@ -53,7 +53,6 @@ const styles = StyleSheet.create({
   container2: {
     flex: 0.08,
     backgroundColor: "#38333343",
-    // backgroundColor:'purple',
     flexDirection: "row",
     paddingTop: '5%',
     justifyContent: "space-evenly",
@@ -63,7 +62,6 @@ const styles = StyleSheet.create({
   container1: {
     flex: 0.07,
     backgroundColor: "#38333343",
-    // backgroundColor:'purple',
     flexDirection: "row",
     paddingTop: '5%',
     justifyContent: "space-evenly",

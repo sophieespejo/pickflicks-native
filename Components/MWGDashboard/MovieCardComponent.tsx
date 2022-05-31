@@ -15,7 +15,6 @@ interface IMovieCardComponent {
   isFirst: any,
   swipe: any,
   tiltSign: any,
-  // children: React.ReactNode;
 }
 
 const MovieCardComponent: FC = ({ movie, isFirst, swipe, setCurrentMovieName, tiltSign, ...rest }) => {
@@ -116,7 +115,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Raleway_400Regular',
     fontSize: 16,
     textAlign: 'center',
-    // marginTop:'4%',
     color: '#EBE1E1',
     padding: '5%',
   },
@@ -124,7 +122,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Raleway_400Regular',
     fontSize: 30,
     textAlign: 'center',
-    // marginTop:'4%',
     color: '#EBE1E1',
   },
   titleTxtBold: {

@@ -37,7 +37,6 @@ const SentInvitationsComponent: FC = () => {
         }}>
           <Image source={CheckMark} />
           <Text style={styles.text}>Invitation Sent </Text>
-          {/* <Text style={styles.text1}>Movie will not be added to your list until a member accepts the invitation.</Text> */}
         </View>
         <View style={{
           flexDirection: 'row', alignItems: 'center',

@@ -165,16 +165,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
-  // createImageBitmap: {
-  //   flex: 1,
-  //   width: '100%',
-  //   justifyContent: "center",
-  //   resizeMode:'cover',
-  //   borderRadius: 15,
-  //   overflow: 'hidden',
-  //   borderColor: 'white',
-  //   borderWidth: 3
-  // },
   image1: {
     flex: 1,
     width: '100%',

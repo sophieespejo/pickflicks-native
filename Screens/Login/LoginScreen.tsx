@@ -18,7 +18,6 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 const LoginScreen: FC<Props> = ({ navigation }) => {
     let { preventSpamLogIn, setPreventSpamLogIn, device, setDevice, setToken, username, setUsername, setUserId, setUserIcon } = useContext(UserContext);
     const [password, setPassword] = useState('');
-    // const [preventSpamLogIn, setPreventSpamLogIn] = useState<boolean>(false);
 
 
     const toast = useToast();
@@ -26,7 +25,6 @@ const LoginScreen: FC<Props> = ({ navigation }) => {
     useEffect(() => {
         const userToken = async () => {
             setDevice(Platform.OS);
-            // console.log(Dimensions.get('screen'))
             const userToken = await AsyncStorage.getItem('@storage_Token')
             const Id = await AsyncStorage.getItem('@storage_Id')
             const Username = await AsyncStorage.getItem('@storage_Username')
@@ -53,7 +51,6 @@ const LoginScreen: FC<Props> = ({ navigation }) => {
             Password: password
         };
         let fetchedToken = await Login(userData);
-        console.log('LogIn Screen', username);
 
         if (fetchedToken.token != null) {
             let userData = await GetUserByUsername(username);
@@ -65,7 +62,6 @@ const LoginScreen: FC<Props> = ({ navigation }) => {
             await AsyncStorage.setItem('@storage_Usericon', userData.icon)
             await AsyncStorage.setItem('@storage_UserDevice', Platform.OS)
 
-            console.log('LoginScreen and PressingLogIn// This is the userId:', userData.id)
             setUserId(userData.id);
             setUserIcon(userData.icon);
             navigation.navigate('UserDashboard')
@@ -118,7 +114,6 @@ const LoginScreen: FC<Props> = ({ navigation }) => {
                                     textAlign={'center'}
                                     textContentType={'name'}
                                     onChangeText={(e) => setUsername(e)}
-                                // value={username}
                                 />
                             </View>
                             <View style={{ alignItems: 'center' }}>
@@ -133,7 +128,6 @@ const LoginScreen: FC<Props> = ({ navigation }) => {
                                     textContentType={'name'}
                                     secureTextEntry={true}
                                     onChangeText={(e) => setPassword(e)}
-                                // value={password}
                                 />
                             </View>
                             <View style={{ alignItems: 'center' }}>

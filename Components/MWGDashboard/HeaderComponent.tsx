@@ -1,6 +1,5 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { FC, useContext, useEffect } from "react";
-import { StyleSheet, Text, View, Image, TextInput } from "react-native";
+import { FC, useContext } from "react";
+import { StyleSheet, View, Image, TextInput } from "react-native";
 import headerLogo from "../../assets/headerLogo.png";
 import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
@@ -34,7 +33,6 @@ const HeaderComponent: FC = () => {
 const styles = StyleSheet.create({
   outsideContainer: {
     flex: 0.2,
-    // position: 'relative', top: 0, left: 23, right: 0, bottom: 0,
     backgroundColor: 'green'
   },
   headerLogo: {

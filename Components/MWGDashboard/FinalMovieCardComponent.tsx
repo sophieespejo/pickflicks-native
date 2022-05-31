@@ -1,4 +1,4 @@
-import { FC, useEffect, useContext, useState } from 'react';
+import { FC, useEffect, useContext } from 'react';
 import { StyleSheet, Text, View, Image, Platform, Pressable } from "react-native";
 import { useFonts, Raleway_400Regular, Raleway_600SemiBold } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
@@ -12,23 +12,19 @@ import { suggestedMovieGenres, suggestedMovieNames, GetMoviesByMWGId, GetMWGById
 const FinalMovieCardComponent: FC = () => {
   const navigation = useNavigation<any>();
   let { displayObject, setDisplayObject, setDevice, device, MWGId } = useContext(UserContext);
-  //const [displayMovie, setDisplayMovie] = useState<string>("");
 
   useEffect(() => {
     async function getTopMovie() {
       const UserDevice = await AsyncStorage.getItem('@storage_UserDevice')
       setDevice(UserDevice);
       let result = await GetMWGById(MWGId);
-      //console.log(result)
 
       let movieResults = await GetMoviesByMWGId(MWGId);
       setDisplayObject(movieResults[result.finalMovieIndex]);
-      //console.log('This is moviename?', movieResults[result.finalMovieIndex].movieName)
 
       if (!result.suggestedMovieNames.split(',').includes(movieResults[result.finalMovieIndex].movieName)) {
         let addToPastMovies = await suggestedMovieNames(MWGId, movieResults[result.finalMovieIndex].movieName);
         let addToPastGenres = await suggestedMovieGenres(MWGId, result.finalGenre);
-        //console.log(addToPastMovies, addToPastGenres);
       }
     }
     getTopMovie()

@@ -13,9 +13,8 @@ interface IMWGCardComponent {
   userId: number
 }
 
-//map through MWG created according to userID/logged in user
 const WaitingForOthersComponent: FC = () => {
-  let { username, setUsername, userId, setUserId, allMWG, setAllMWG, setMWGname, MWGname, setMWGId, MWGId, setUserIsAdmin, setUserIsReadyForGenres,  setUserIsReadyForSwipes,  setUserIsReadyToSeeFinalMovie,setUserIsWaiting } = useContext(UserContext)
+  let { username, userId, allMWG, setAllMWG, setMWGname, setMWGId, setUserIsAdmin, setUserIsReadyForGenres,  setUserIsReadyForSwipes,  setUserIsReadyToSeeFinalMovie,setUserIsWaiting } = useContext(UserContext)
 
   const [allFaveMWG, setAllFaveMWG] = useState<any>([]);
 
@@ -24,33 +23,20 @@ const WaitingForOthersComponent: FC = () => {
 
   
   useEffect(  () => {
-      // setAllFaveMWG([]);
       async function fetchUserData() {
-        console.log('USERNAME', username)
-            // setUsername(username);
-            // setUserId(userId)
-            // setUserIsAdmin(false);
-            // setUserIsReadyForGenres(false);
-            // setUserIsReadyForSwipes(false);
-            // setUserIsReadyToSeeFinalMovie(false);
-            // setUserIsWaiting(false);
           
       let response = await GetUserByUsername(username);
       let favoritedMWGArray = response.favoritedMWGId.split(',');
-      console.log(favoritedMWGArray);
 
       for (var i of favoritedMWGArray) {
         allFaveMWG.push(parseInt(i));
       }
-      // allFaveMWG.push(parseInt(favoritedMWGArray));
       setAllFaveMWG([...allFaveMWG]);
-      console.log(allFaveMWG);
 
       if(response != null)
         {
           let userMWG = await GetMWGStatusByUserId(response.id);
           setAllMWG(userMWG);
-          // console.log(userMWG);
         }
       }
       fetchUserData();
@@ -60,12 +46,8 @@ const WaitingForOthersComponent: FC = () => {
     const handleAddFavoriteMWG = async (groupId:number) =>{
       let result = await AddFavoriteMWG(userId,groupId);
       let userData = await GetUserByUsername(username);
-      // console.log(result);
-      console.log(userData);
-      console.log(groupId);
       allFaveMWG.push(groupId);
       setAllFaveMWG([...allFaveMWG]);
-      console.log(allFaveMWG);
       if(userData != null)
         {
           let userMWG = await GetMWGStatusByUserId(userData.id);
@@ -76,12 +58,9 @@ const WaitingForOthersComponent: FC = () => {
     const handleRemoveFavoriteMWG = async (groupId:number) =>{
       let result = await RemoveFavoriteMWG(userId,groupId);
       let userData = await GetUserByUsername(username);
-      console.log(result);
-      console.log(userData);
       let indexGroupId = allFaveMWG.indexOf(groupId);
       allFaveMWG.splice(indexGroupId,1);
       setAllFaveMWG([...allFaveMWG]);
-      console.log(allFaveMWG);
       if(userData != null)
         {
           let userMWG = await GetMWGStatusByUserId(userData.id);
@@ -90,7 +69,6 @@ const WaitingForOthersComponent: FC = () => {
     }
 
     const handlePress = (MWGname:string, MWGId:number, whatIsUser:string) => {
-      console.log(MWGname);
       setMWGname(MWGname);
       setMWGId(MWGId);
       switch(whatIsUser)
@@ -114,7 +92,6 @@ const WaitingForOthersComponent: FC = () => {
           break;
       }
       navigation.navigate('MWGDashboard');
-      //navigation.navigate('MovieCard');
     }
 
   
@@ -124,14 +101,9 @@ const WaitingForOthersComponent: FC = () => {
       
       {
 
-        allMWG.map((group:any, i:number) => 
-        // isStarted is false AND not deleted 
-        //isStarted is true AND not deleted AND 
-          //userisdonewithgenre is true AND allmembersdoneiwthgenre is false
-          //allmembersdonewithgenre is true AND userisdonewithswipes is true AND allmembersdonewithswipes is false
+        allMWG.map((group:any, i:number) =>
         
         { 
-          //checks thru favorites
           if(allFaveMWG.includes(parseInt(group.mwgId)) && !group.isDeleted && group.isStarted == false && group.groupCreatorId != userId)
           {
             return (
@@ -143,8 +115,6 @@ const WaitingForOthersComponent: FC = () => {
                    color: "#FFFFFF",
                    fontSize: 28,
                    fontWeight: 'bold',
-                   // justifyContent: "center",
-                   // textAlign: "center",
                    fontFamily:'Raleway_400Regular', 
                    marginBottom: 0,
                  }}
@@ -202,8 +172,6 @@ const WaitingForOthersComponent: FC = () => {
                      color: "#FFFFFF",
                      fontSize: 28,
                      fontWeight: 'bold',
-                     // justifyContent: "center",
-                     // textAlign: "center",
                      fontFamily:'Raleway_400Regular', 
                      marginBottom: 0,
                    }}
@@ -258,8 +226,6 @@ const WaitingForOthersComponent: FC = () => {
                        color: "#FFFFFF",
                        fontSize: 28,
                        fontWeight: 'bold',
-                       // justifyContent: "center",
-                       // textAlign: "center",
                        fontFamily:'Raleway_400Regular', 
                        marginBottom: 0,
                      }}
@@ -310,7 +276,6 @@ const WaitingForOthersComponent: FC = () => {
         
         {
           allMWG.map((group:any, i:number) => {
-          //checks thru unfavorites
           if(!allFaveMWG.includes(parseInt(group.mwgId)) && !group.isDeleted && group.isStarted == false && group.groupCreatorId != userId)
           {
             return (
@@ -322,8 +287,6 @@ const WaitingForOthersComponent: FC = () => {
                    color: "#FFFFFF",
                    fontSize: 28,
                    fontWeight: 'bold',
-                   // justifyContent: "center",
-                   // textAlign: "center",
                    fontFamily:'Raleway_400Regular', 
                    marginBottom: 0,
                  }}
@@ -381,8 +344,6 @@ const WaitingForOthersComponent: FC = () => {
                      color: "#FFFFFF",
                      fontSize: 28,
                      fontWeight: 'bold',
-                     // justifyContent: "center",
-                     // textAlign: "center",
                      fontFamily:'Raleway_400Regular', 
                      marginBottom: 0,
                    }}
@@ -437,8 +398,6 @@ const WaitingForOthersComponent: FC = () => {
                        color: "#FFFFFF",
                        fontSize: 28,
                        fontWeight: 'bold',
-                       // justifyContent: "center",
-                       // textAlign: "center",
                        fontFamily:'Raleway_400Regular', 
                        marginBottom: 0,
                      }}
@@ -495,7 +454,6 @@ export default WaitingForOthersComponent;
 
 const styles = StyleSheet.create({
   wgButton: {
-    // flexDirection: "row",
     borderWidth: 2,
     borderColor: "#4D4A4AD1",
     backgroundColor: "#4D4A4AD1",
@@ -503,13 +461,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: '90%',
     justifyContent: "center",
-    //height: '20%',
     
   },
   container: {
     flex:1,
     alignItems: "center",
-    // paddingTop: 20,
     paddingBottom:20,
     position: 'absolute', top: 260, left: 20, right: 20, bottom: 0,
   },

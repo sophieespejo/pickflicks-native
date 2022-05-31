@@ -2,7 +2,6 @@ import { FC, useState, useContext, useEffect } from "react";
 import { StyleSheet, Text, View, TextInput, Pressable, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { useFonts, Raleway_400Regular, Raleway_600SemiBold } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
-import { useNavigation } from '@react-navigation/native';
 import { EditUsername, GetUserByUsername } from '../../Service/DataService';
 import UserContext from '../../Context/UserContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -34,7 +33,6 @@ const ChangeUsernameComponent: FC = () => {
     if (textInput == '') {
       alert('Input a new username!')
     }
-    console.log('//ChangeUsernameComponent', textInput);
     let checkUserExistence = await GetUserByUsername(textInput);
     if (checkUserExistence.username != null) {
       setDoesUserExist(true);
@@ -44,7 +42,6 @@ const ChangeUsernameComponent: FC = () => {
       let result = await EditUsername(userId, textInput);
       await AsyncStorage.setItem('@storage_Username', textInput)
       setUsername(textInput);
-      console.log('//ChangeUsernameComponent EditUserNameFetch ran', result);
       if (result) {
         setWaiting(false);
         setUserResult(true);
@@ -121,8 +118,6 @@ const styles = StyleSheet.create({
     color: '#EBE1E1',
     marginTop: 20,
     alignSelf: 'center',
-    // textAlign:'center',
-    // alignItems: 'center',
     fontFamily: 'Raleway_400Regular',
   },
   titleTxtBold: {
@@ -166,14 +161,6 @@ const styles = StyleSheet.create({
     right: 0,
     overflow: 'hidden'
   },
-  // lottieView: {
-  //   height: '50%',
-  //   position: 'absolute',
-  //   top: '5.65%',
-  //   left: 0,
-  //   right: 0,
-  //   overflow: 'hidden'
-  // },
 });
 
 export default ChangeUsernameComponent;

@@ -12,7 +12,7 @@ import { RootStackParamList } from '../../interfaces/RootStackParamList';
 type Props = NativeStackScreenProps<RootStackParamList, 'MWGDashboard'>;
 
 const MWGDashboardScreen: FC<Props> = ({navigation}) => {
-  let { username, setUsername, userId, setUserId, userIcon, setUserIcon, MWGname, setMWGname, MWGId, setMWGId } = useContext(UserContext)
+  let { MWGname, setMWGname, MWGId, setMWGId } = useContext(UserContext)
 
   useEffect( () => {
     async function getUserInfo(){

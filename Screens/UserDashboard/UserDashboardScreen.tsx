@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { FC, useContext, useEffect, useCallback } from 'react';
-import { StyleSheet, Text, View , ScrollView, Button, Pressable, RefreshControl, Image} from 'react-native';
+import { StyleSheet, Text, View , ScrollView, Pressable, RefreshControl} from 'react-native';
 import HeaderComponent from '../../Components/UserDashboard-Body/HeaderComponent';
 import ButtonComponent from '../../Components/UserDashboard-Body/ButtonComponent';
 import WaitingForYouComponent from '../../Components/UserDashboard-Body/WaitingForYouComponent';
@@ -27,7 +27,7 @@ interface IUserDashboardScreen {
 
 const UserDashboard: FC<Props> = ({navigation}) => {
 
-  let { setPreventSpamLogIn, device, setDevice, token, invitationMWG, setInvitationMWG, setToken, username, setUsername, userId, setUserId, userIcon, setUserIcon, allMWG, setAllMWG, setUserIsAdmin, setUserIsReadyForGenres, setUserIsReadyForSwipes, setUserIsReadyToSeeFinalMovie, setUserIsWaiting} = useContext(UserContext)
+  let { setPreventSpamLogIn, device, setInvitationMWG, setToken, setUsername, userId, setUserId, setUserIcon, allMWG, setAllMWG, setUserIsAdmin, setUserIsReadyForGenres, setUserIsReadyForSwipes, setUserIsReadyToSeeFinalMovie, setUserIsWaiting} = useContext(UserContext)
   const [WFYBool, setWFYBool] = useState<boolean>(true);
   const [WFOBool, setWFOBool] = useState<boolean>(false);
   const tempArr: Array<any> = [];
@@ -93,7 +93,6 @@ const UserDashboard: FC<Props> = ({navigation}) => {
         setUserIsWaiting(false);
 
         const token1 = await AsyncStorage.getItem('@storage_Token')
-        console.log('//UserDashboardScreen Page This is userToken:',token1)
         
         if(token1 != null)
         {
@@ -103,10 +102,8 @@ const UserDashboard: FC<Props> = ({navigation}) => {
           setUsername(personUsername);
           setUserId(Number(personId));
           setUserIcon(personIcon);
-          console.log('RIGHT HERE', personId)
           
           let result = await GetMWGStatusByUserId(Number(personId));
-          // console.log('//UserDashboardScreen This is the userDatabyId', result);
           setAllMWG(result);
         }
         else

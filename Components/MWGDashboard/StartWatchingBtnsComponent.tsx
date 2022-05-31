@@ -77,15 +77,12 @@ const StartWatchingBtnsComponent: FC = () => {
 
   useEffect( () => {
     async function getUserInfo(){
-      //console.log('is user admind',userIsAdmin)
       let movieObj = await GetMWGStatusByMWGId(MWGId);
       setMWGStatus(movieObj[0]);
-      //console.log('this is MWGStatus', movieObj)
-      //console.log(membersNames)
+
           setMWGname(MWGname);
           setMWGId(MWGId);
           let mwg = await GetMWGById(MWGId);
-          //console.log(mwg)
           let pastMovies = mwg.suggestedMovieNames.split(',');
           let pastGenres = mwg.suggestedMovieGenres.split(',');
           setCurrentMWGPastMovies(pastMovies);
@@ -154,7 +151,6 @@ const StartWatchingBtnsComponent: FC = () => {
     }
   }
 
-      //when user searched a name and presses enter
       const handleKeyPress= async () => {
         let foundUser = await GetUserByUsername(searchedName);
 
@@ -162,7 +158,6 @@ const StartWatchingBtnsComponent: FC = () => {
           if (foundUser.id == userId)
           {
             Alert.alert('You are already included in the group', 'Please search for someone else')
-            console.log(membersNames);
           }
           else if(membersNames.includes(searchedName) || membersIds.includes(foundUser.id))
           {
@@ -173,7 +168,6 @@ const StartWatchingBtnsComponent: FC = () => {
             setAllSearchedNames([...allSearchedNames]);
            searchedMemberIcon.push(foundUser.icon);
            setSearchedMemberIcon([...searchedMemberIcon]);
-          //  let result = await AddMemberToMWG(MWGId, foundUser.id, searchedName)
            let sentResults = await AddInvitations(MWGId, MWGname, allSearchedNames.join(","));
            setModalVisible(!modalVisible)
            setSearchedName('');    
@@ -189,11 +183,10 @@ const StartWatchingBtnsComponent: FC = () => {
         let result = await DeleteByMWGId(MWGId);
         if(result)
         {
-          //console.log(result, 'yes deleted')
           setModalVisible(!modalVisible)
           navigation.navigate('UserDashboard')
         }else{
-          alert('nope')
+          alert('Unable to delete group')
         }
       }
   
@@ -282,7 +275,6 @@ const StartWatchingBtnsComponent: FC = () => {
                 </View>
                 <View style={{flex:1, height:300,  flexDirection:'row', marginBottom:'4%', width:'80%', justifyContent:'space-evenly', }}>
                     <ScrollView style={{flex:1}}>
-                      {/* map thru members here */}
                       {
                         userId == mwgCreatorId ?                             
                         <View style={{alignItems:'center', width:'100%'}}>
@@ -328,7 +320,6 @@ const StartWatchingBtnsComponent: FC = () => {
                                     renderRightActions={(progress:any, dragx:any) => renderRightView(progress, dragx)}
                                     ref={(ref) => (row[index] = ref)}
                                     onSwipeableOpen={() => closeRow(index)}
-                                    //rightOpenValue={-100}
                                     key={index}>
                                       <View style={[{width:'99%', flexDirection: 'row', alignItems: 'flex-end', paddingBottom: '2%'}, styles.nameLine]}>
                                         <Avatar.Image source={icons.get(membersIcons[index])} style={{alignItems: 'flex-start'}}/>
@@ -360,6 +351,7 @@ const StartWatchingBtnsComponent: FC = () => {
           </View>
            : null
         }
+
         {/* Modal for Deleting Groups*/}
         <Modal
         animationType="slide"

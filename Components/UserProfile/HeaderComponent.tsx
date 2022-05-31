@@ -31,7 +31,6 @@ const HeaderComponent: FC = () => {
 const styles = StyleSheet.create({
   outsideContainer: {
     flex: 0.2,
-    // position: 'relative', top: 0, left: 23, right: 0, bottom: 0,
     backgroundColor: 'green'
   },
   headerLogo: {
@@ -51,7 +50,6 @@ const styles = StyleSheet.create({
   yourGroupText: {
     color: "#FFFFFF",
     fontSize: 28,
-    //paddingBottom:50,
     textAlign: 'center',
     fontFamily:'Raleway_400Regular', 
     borderBottomWidth: 2,

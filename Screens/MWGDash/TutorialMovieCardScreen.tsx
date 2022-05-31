@@ -1,6 +1,6 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { FC } from 'react';
-import { StyleSheet, Text, View , Image} from 'react-native';
+import { StyleSheet, View} from 'react-native';
 import HeaderComponent from '../../Components/MWGDashboard/HeaderComponent';
 import FooterNavComponent from '../../Components/UserDashboard-Body/FooterNavComponent';
 import CardTutorialComponent from '../../Components/MWGDashboard/CardTutorialComponent';

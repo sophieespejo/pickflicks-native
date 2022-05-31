@@ -4,7 +4,6 @@ import { StyleSheet, Text, View , Image} from 'react-native';
 import HeaderComponent from '../../Components/UserProfile/HeaderComponent';
 import FooterNavComponent from '../../Components/UserDashboard-Body/FooterNavComponent';
 import ChangePasswordComponent1 from '../../Components/UserProfile/ChangePasswordComponent1';
-import { Provider as PaperProvider } from 'react-native-paper';
 import { RootStackParamList } from '../../interfaces/RootStackParamList';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ChangePassword1'>;

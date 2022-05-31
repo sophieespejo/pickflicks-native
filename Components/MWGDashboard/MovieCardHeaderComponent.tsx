@@ -9,7 +9,7 @@ import { GetMWGByMWGName } from '../../Service/DataService'
 
 
 const MovieCardHeaderComponent: FC = () => {
-  let { setMWGname, MWGname, genreName } = useContext(UserContext);
+  let { setMWGname, MWGname } = useContext(UserContext);
   let [finalGenreName, setFinalGenreName] = useState("");
 
   useEffect(() => {
@@ -63,7 +63,6 @@ const styles = StyleSheet.create({
   yourGroupText: {
     color: "#FFFFFF",
     fontSize: 28,
-    //paddingBottom:50,
     textAlign: 'center',
     fontFamily: 'Raleway_400Regular',
     borderBottomWidth: 2,

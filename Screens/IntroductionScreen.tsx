@@ -21,9 +21,7 @@ import { RootStackParamList } from '../interfaces/RootStackParamList';
     const [width, setWidth] = useState(100);
 
     const init = (width: number) => {
-        // initialise width
         setWidth(width);
-        // initialise total intervals
         setIntervals(Math.ceil(4 / 1));
     }
 
@@ -73,7 +71,6 @@ import { RootStackParamList } from '../interfaces/RootStackParamList';
                 horizontal
                 contentContainerStyle={{ ...styles.scrollView, width: `${100 * intervals}%` }}
                 showsHorizontalScrollIndicator={false}
-                // onContentSizeChange={(w, h) => init(w)}
                 onScroll={data => {
                     setWidth(data.nativeEvent.contentSize.width);
                     setInterval(getInterval(data.nativeEvent.contentOffset.x)||1);

@@ -12,20 +12,6 @@ type Props = NativeStackScreenProps<RootStackParamList, 'GenreRanking'>;
 
 const GenreRankingScreen: FC<Props> = ({ navigation, route }) => {
 
-  // useEffect( () => {
-  //   async function getUserInfo(){
-  //         setMWGname(MWGname);
-  //         setMWGId(MWGId);
-  //         let movieObj = await GetMWGById(MWGId);
-  //         if(movieObj != null)
-  //         {
-  //           setMWGgenres(movieObj.chosenGenres);
-  //         }
-
-  //   }
-  //   getUserInfo()
-  // }, []);
-
   return (
     <NativeBaseProvider>
       <View style={styles.container}>

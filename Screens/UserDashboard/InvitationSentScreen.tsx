@@ -11,7 +11,6 @@ type Props = NativeStackScreenProps<RootStackParamList, 'InvitationSent'>;
   
 
 const InvitationSentScreen: FC<Props> = () => {
-  const navigation = useNavigation<any>();
 
     return (
       <View style={styles.container}>

@@ -117,9 +117,6 @@ const GenreSelectionComponent2: FC = () => {
     if (selectedGenres.length < 3 && !selectedGenres.includes(id)) {
       selectedGenres.push(id);
       setSelectedGenres([...selectedGenres]);
-      // console.log(this.state.data)
-      // console.log(DATA.indexOf(id))
-      // DATA.splice(DATA.indexOf(id), 1);
     }
     else if (selectedGenres.includes(id)) {
       alert("You already chose this genre!")
@@ -251,7 +248,6 @@ const styles = StyleSheet.create({
   },
   kMultiOptionContainerStyle: {
     flexDirection: 'row',
-    //flexWrap:'wrap',
     borderRadius: 20,
     paddingVertical: 5,
     paddingRight: 5,
@@ -261,7 +257,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'darkslategray',
-    //...multiOptionContainerStyle,
   },
   kMultiOptionsLabelStyle: {
     fontSize: 10,
@@ -269,7 +264,6 @@ const styles = StyleSheet.create({
   },
   kContainerStyle: {
     flexDirection: 'row',
-    //flexWrap: 'wrap', 
     borderColor: '#ddd',
     borderBottomWidth: 1,
     paddingTop: 6,

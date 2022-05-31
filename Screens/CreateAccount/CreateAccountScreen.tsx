@@ -19,7 +19,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'CreateAccountScreen'>;
 
 const CreateAccountScreen: FC<Props> = () => {
     const navigation = useNavigation<any>();
-    let { username, setUsername, setUserId, setUserIcon, setDevice } = useContext(UserContext);
+    let { username, setUsername, setUserId, setDevice } = useContext(UserContext);
 
     const [preventSpam, setPreventSpam] = useState<boolean>(false);
     const [textInput, setTextInput] = useState<string>('');
@@ -59,28 +59,20 @@ const CreateAccountScreen: FC<Props> = () => {
                 Username: username,
                 Password: veryifyPassowrd2
             };
-            //console.log(newUserData);
             let fetchedToken = await AddUser(newUserData);
             console.log(fetchedToken);
             if (fetchedToken.token != null) {
                 setDevice(Platform.OS);
                 let userData = await GetUserByUsername(username);
-                console.log('userData', userData);
                 const storedId = JSON.stringify(userData.id)
-                console.log('storedId', storedId);
                 const jsonTOKEN = JSON.stringify(fetchedToken.token)
-                console.log('token', jsonTOKEN);
                 await AsyncStorage.setItem('@storage_Token', jsonTOKEN);
-                console.log('token:', jsonTOKEN)
                 await AsyncStorage.setItem('@storage_Id', storedId)
                 await AsyncStorage.setItem('@storage_Username', username)
-                // await AsyncStorage.setItem('@storage_Usericon', userData.icon)
                 await AsyncStorage.setItem('@storage_UserDevice', Platform.OS)
 
-                console.log('LoginScreen and PressingLogIn// This is the userId:', userData.id)
                 setUserId(userData.id);
                 setUsername(userData.username);
-                // setUserIcon(userData.icon);
                 navigation.navigate('UserDashboard')
             }
             setUsernameCompleted(true);
@@ -111,7 +103,6 @@ const CreateAccountScreen: FC<Props> = () => {
                             <View style={{ alignItems: 'center' }}>
                                 <Image
                                     source={PickFlicksLogo}
-                                    // style={{height: 337, width: 337}}
                                     style={{ height: 250, width: 250, resizeMode: 'contain' }}
                                 />
                             </View>
@@ -122,8 +113,6 @@ const CreateAccountScreen: FC<Props> = () => {
                                             <Text style={styles.createAccountTxt}>Create a username</Text>
                                             <TextInput
                                                 style={styles.input}
-                                                // onChangeText={onChangeText}
-                                                // value={''}
                                                 enablesReturnKeyAutomatically={true}
                                                 keyboardAppearance={'dark'}
                                                 contextMenuHidden={true}
@@ -148,8 +137,6 @@ const CreateAccountScreen: FC<Props> = () => {
                                             <Text style={styles.createAccountTxt}>Create a password</Text>
                                             <TextInput
                                                 style={styles.input}
-                                                // onChangeText={onChangeText}
-                                                // value={''}
                                                 enablesReturnKeyAutomatically={true}
                                                 keyboardAppearance={'dark'}
                                                 contextMenuHidden={true}
@@ -174,8 +161,6 @@ const CreateAccountScreen: FC<Props> = () => {
                                             <Text style={styles.createAccountTxt}>Verify password</Text>
                                             <TextInput
                                                 style={styles.input}
-                                                // onChangeText={onChangeText}
-                                                // value={''}
                                                 enablesReturnKeyAutomatically={true}
                                                 keyboardAppearance={'dark'}
                                                 contextMenuHidden={true}

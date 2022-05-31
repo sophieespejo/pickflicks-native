@@ -11,7 +11,7 @@ import { CheckPassword } from '../../Service/DataService';
 
 const ChangePasswordComponent1: FC = () => {
 
-  let { userId, username } = useContext(UserContext)
+  let { username } = useContext(UserContext)
   const [textInput, setTextInput] = useState("");
   const [incorrectPassword, setIncorrectPassword] = useState(false)
   const [placeholder, setPlaceholder] = useState('');

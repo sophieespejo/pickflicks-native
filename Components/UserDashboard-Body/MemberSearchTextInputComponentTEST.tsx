@@ -11,7 +11,6 @@
   import AppLoading from "expo-app-loading";
   import {useNavigation} from '@react-navigation/native';
   import Magnifying from '../../assets/Magnifying.png';
-  import X from '../../assets/X.png';
   import Swipeable from 'react-native-gesture-handler/Swipeable';
   import { Button, Avatar } from "react-native-paper";
   import { AddInvitations, GetUserByUsername, AddMWG, GetMWGStatusByUserId, AddMWGStatus, GetMWGByMWGName} from '../../Service/DataService'
@@ -31,7 +30,7 @@
   import boy6 from '../../assets/avatars/boy6.png'
   
   const MemberSearchTextInputComponent: FC = () => {
-    let { username, setUsername, userId, setUserId, newMWGname, setnewMWGname, allMWG, setAllMWG, userIcon, setUserIcon } = useContext(UserContext)
+    let { username, setUsername, userId, setUserId, newMWGname, setnewMWGname, setAllMWG, userIcon, setUserIcon } = useContext(UserContext)
     
     const [searchedName, setSearchedName] = useState<string>('');
     const [allSearchedNames, setAllSearchedNames] = useState<Array<string>>([]);
@@ -77,13 +76,6 @@
     }
 
     const handleInvitations = async () => {
-        // mwgMembersId.push(userId);
-        // mwgMembersNames.push(username);
-        // mwgMembersIcons.push(userIcon);
-        console.log(newMWGname);
-        console.log(userId);
-        console.log(userIcon);
-
         let newMWG = {
           Id: 0,  
           MWGName: newMWGname,
@@ -101,13 +93,10 @@
         }
         
         let result = await AddMWG(newMWG);
-        console.log("//MembersSearchTextInputComponent Added New MWG Success")
       if (result) {
-        //need to get MWGId of MWG that was just created
         let newMWGId = await GetMWGByMWGName(newMWGname);
         if(newMWGId != null)
         {
-          console.log(newMWGId.id);
           let sentResults = await AddInvitations(newMWGId.id, newMWGname, mwgMembersNames.join(","));
           if(sentResults)
           {
@@ -121,7 +110,6 @@
       }
     }
 
-    //when user searched a name and presses enter
     const handleKeyPress= async () => {
       let foundUser = await GetUserByUsername(searchedName);
       
@@ -180,7 +168,6 @@
         <View style={{flex:1, alignItems:'center'}}>
             <View style={{ flex: 1, backgroundColor:'#4D4A4AEA', borderRadius:30, width:'92%'}}>
               <View style={{alignItems:'flex-end', width:'95%', marginTop:'5%'}}>
-                {/* <Image source={X}></Image> */}
               </View>
             <View style={{alignItems:'center', width:'100%'}}>
               <View style={[{flexDirection:'row',marginTop:'7%'}]}>
@@ -198,7 +185,6 @@
               </View>
           </View>
 
-          {/* users */}
           <ScrollView style={{flex:1}}>
             <View style={{flex:1}}>
             <View style={[{alignItems:'center', marginTop:'5%'}]}>
@@ -236,7 +222,6 @@
                     renderRightActions={(progress:any, dragx:any) => renderRightView(progress, dragx)}
                     ref={(ref) => (row[index] = ref)}
                     onSwipeableOpen={() => closeRow(index)}
-                    //rightOpenValue={-100}
                     key={index}
                     >
                     <View style={[{alignItems:'center', marginTop:'5%'}]}>
@@ -265,13 +250,9 @@
   
   const styles = StyleSheet.create({
     redInputLine: {
-      // color: "#FFFFFF",
-      // textAlign: "center",
       borderBottomWidth: 2,
       borderColor: "red",
       marginTop: '3%'
-      // width: "90%",
-      // backgroundColor:'blue',
     },
     nextBtn:{
       fontFamily: "Raleway_400Regular",

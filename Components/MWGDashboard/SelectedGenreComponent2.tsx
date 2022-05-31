@@ -12,7 +12,7 @@ import { GetMWGById } from '../../Service/DataService'
 
 const SelectedGenreComponent2: FC = () => {
   const navigation = useNavigation<any>();
-  let { MWGname, setMWGname, MWGId, setMWGId, MWGgenres, setMWGgenres, genre2, setGenre2 } = useContext(UserContext)
+  let { MWGname, setMWGname, MWGId, setMWGId, MWGgenres, setMWGgenres, setGenre2 } = useContext(UserContext)
   const [onChangeValue, setOnChangeValue] = useState(10);
 
 

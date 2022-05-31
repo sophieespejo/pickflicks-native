@@ -21,7 +21,7 @@ interface INewMWGNameComponent {
 }
 
 const NewMWGNameComponent: FC = () => {
-  let { username, setUsername, userId, setUserId, newMWGname, setnewMWGname, userIcon, setUserIcon } = useContext(UserContext)
+  let { username, setUsername, userId, setUserId, setnewMWGname, userIcon, setUserIcon } = useContext(UserContext)
 
   const [MWGname, setMWGname] = useState<string>("");
   const navigation = useNavigation<any>();

@@ -19,7 +19,6 @@ const GenreRankingScreen: FC<Props> = () => {
     async function getUserInfo() {
       setMWGname(MWGname);
       setMWGId(MWGId);
-      // setGenreName(genreName);
       let movieObj = await GetMWGStatusByMWGId(MWGId);
       await UpdateMWGStatus(MWGId);
     }

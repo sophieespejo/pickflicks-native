@@ -1,8 +1,7 @@
 import { FC, useState, useContext } from "react";
-import { StyleSheet, Text, View, TextInput, Pressable, ScrollView, TouchableWithoutFeedback, Keyboard } from "react-native";
+import { StyleSheet, Text, View, TextInput, Pressable, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { useFonts, Raleway_400Regular, Raleway_600SemiBold } from '@expo-google-fonts/raleway';
 import AppLoading from 'expo-app-loading';
-import { useNavigation } from '@react-navigation/native';
 import { EditPassword } from '../../Service/DataService';
 import UserContext from '../../Context/UserContext';
 
@@ -20,13 +19,10 @@ const ChangePasswordComponent2: FC = () => {
   const [success, setSuccess] = useState(false);
 
   const handleSave = async () => {
-    console.log('//ChangePassword2Component TextInput is:', textInput);
-    console.log('//ChangePassword2Component TextInput2 is:', textInput2);
     if (textInput == textInput2) {
       let newPasswordResult = await EditPassword(userId, textInput);
       if (newPasswordResult) {
         setSuccess(true);
-        console.log('//ChangePassword2Component EditPassword endpoint ran:', newPasswordResult);
       }
       else {
         setSuccess(false);

@@ -1,19 +1,15 @@
 import { FC, useState, useEffect, useContext } from "react";
-import { StyleSheet, Text, View, Image, TextInput,Pressable, Button} from "react-native";
+import { StyleSheet, Text, View, Image,Pressable} from "react-native";
 import emptyHeart from "../../assets/emptyHeart.png";
 import filledHeart from "../../assets/filledHeart.png";
-import { useFonts, Raleway_400Regular } from '@expo-google-fonts/raleway';
-import AppLoading from 'expo-app-loading';
-import { GetUserByUsername, GetAllMWGAUserIsMemberOfuserId, AddFavoriteMWG, RemoveFavoriteMWG, GetMWGStatusByUserId } from '../../Service/DataService'
+import { GetUserByUsername, AddFavoriteMWG, RemoveFavoriteMWG, GetMWGStatusByUserId } from '../../Service/DataService'
 import {useNavigation} from '@react-navigation/native';
 import UserContext from '../../Context/UserContext';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
-//map through MWG created according to userID/logged in user
 const WaitingForYouComponent: FC = () => {
-  let { displayObject, username, setUsername, userId, setUserId, allMWG, setAllMWG, setMWGname, MWGname, setMWGId, MWGId, setUserIsAdmin, setUserIsReadyForGenres,  setUserIsReadyForSwipes,  setUserIsReadyToSeeFinalMovie,setUserIsWaiting } = useContext(UserContext)
+  let { displayObject, username, userId, setUserId, allMWG, setAllMWG, setMWGname, setMWGId, setUserIsAdmin, setUserIsReadyForGenres,  setUserIsReadyForSwipes,  setUserIsReadyToSeeFinalMovie } = useContext(UserContext)
 
   const [allFaveMWG, setAllFaveMWG] = useState<any>([]);
   const [noFave, setNoFave] = useState<boolean>(false);
@@ -21,34 +17,21 @@ const WaitingForYouComponent: FC = () => {
   const navigation = useNavigation<any>();
   
   useEffect(  () => {
-      // setAllFaveMWG([]);
       async function fetchUserData() {
-          // let userCurrentName = await AsyncStorage.getItem('@storage_Username')
-          //   console.log('USERNAME', userCurrentName)
-            // setUsername(username);
             setUserId(userId)
           
       let response = await GetUserByUsername(username);
-      // console.log(response)
       let favoritedMWGArray = response.favoritedMWGId.split(',');
-      // if(response.favoritedMWGId == null)
-      // {
-      //   console.log('im here');
-      //   setNoFave(true);
-      // }
 
       for (var i of favoritedMWGArray) {
         allFaveMWG.push(parseInt(i));
       }
-      // allFaveMWG.push(parseInt(favoritedMWGArray));
       setAllFaveMWG([...allFaveMWG]);
-      console.log(allFaveMWG);
 
       if(response != null)
         {
           let userMWG = await GetMWGStatusByUserId(response.id);
           setAllMWG(userMWG);
-          // console.log(userMWG);
         }
       }
       fetchUserData();
@@ -58,12 +41,8 @@ const WaitingForYouComponent: FC = () => {
     const handleAddFavoriteMWG = async (groupId:number) =>{
       let result = await AddFavoriteMWG(userId,groupId);
       let userData = await GetUserByUsername(username);
-      // console.log(result);
-      console.log(userData);
-      console.log(groupId);
       allFaveMWG.push(groupId);
       setAllFaveMWG([...allFaveMWG]);
-      console.log(allFaveMWG);
       if(userData != null)
         {
           let userMWG = await GetMWGStatusByUserId(userData.id);
@@ -74,22 +53,17 @@ const WaitingForYouComponent: FC = () => {
     const handleRemoveFavoriteMWG = async (groupId:number) =>{
       let result = await RemoveFavoriteMWG(userId,groupId);
       let userData = await GetUserByUsername(username);
-      console.log(result);
-      console.log(userData);
       let indexGroupId = allFaveMWG.indexOf(groupId);
       allFaveMWG.splice(indexGroupId,1);
       setAllFaveMWG([...allFaveMWG]);
-      console.log(allFaveMWG);
       if(userData != null)
         {
           let userMWG = await GetMWGStatusByUserId(userData.id);
           setAllMWG(userMWG);
-          console.log(userMWG);
         }
     }
 
     const handlePress = (MWGname:string, MWGId:number, whatIsUser:string) => {
-      console.log(MWGname);
       setMWGname(MWGname);
       setMWGId(MWGId);
       switch(whatIsUser)
@@ -122,33 +96,9 @@ const WaitingForYouComponent: FC = () => {
       {noFave ? <Text> NO GROUPS </Text> : null}
       
     {
-
-      //all MWGstatus that the user has, this correlates with whatever MWG user is in  
       allMWG.map((group:any, i:number) => 
       
-      { //checks to see if its in the favorite list       
-        //check to see if not deleted
-        //check to see if isStarted is false -> indicates that admin hasn't started process yet, so have to wait for them
-
-        //if isStarted is true then check to see if user is done with genre ranking
-        //if userdonewithgenreranking is false AND isStarted is true -> must go in waiting for you
-        //if userdonewithgenreranking is true AND endpoint that returns if all other members are done is false, then must be in waiting for others component
-
-        //if isStarted is true AND userdonewithgenreranking is true AND all other members are done and returned true -> must go to waiting for you component
-
-        //if isStarted is true AND userdonewithswipes is true AND bool that returns if other members are done swiping is false -> waiting for others
-
-        //if isStarted is true AND userdonewithswipes is true AND everyone else is done -> waiting for you (click to see the highest movie!)
-
-        //reset all values after the process is done (isStarted, userisdoneswipes, userisdonegenre) --> MWG should move back to waiting for others since admin hasn't started
-
-        //ugh gotta think about how it would look for admin... if groupCreatorId == userId AND isStarted is false then place in waiting for you component
-
-        //if isStarted is true then check to see if user is done with genre ranking
-        //if userdonewithgenreranking is false AND isStarted is true -> must go in waiting for you
-        //if userdonewithgenreranking is true AND endpoint that returns if all other members are done is false, then must be in waiting for others component
-
-        //maps through favorites
+      { 
         if(allFaveMWG.includes(parseInt(group.mwgId)) && !group.isDeleted && group.isStarted == false && group.groupCreatorId == userId)
         {
           return (
@@ -160,8 +110,6 @@ const WaitingForYouComponent: FC = () => {
                    color: "#FFFFFF",
                    fontSize: 28,
                    fontWeight: 'bold',
-                   // justifyContent: "center",
-                   // textAlign: "center",
                    fontFamily:'Raleway_400Regular', 
                    marginBottom: 0,
                  }}
@@ -206,8 +154,6 @@ const WaitingForYouComponent: FC = () => {
           )
         }
         if(allFaveMWG.includes(parseInt(group.mwgId)) && !group.isDeleted && group.isStarted == true)
-        //should areAllMembersDoneWithGenre be another property on the MWGStatus model
-        //can we link the endpoint i made in the backend to it somehow?
         {
           if(group.userDoneWithGenreRankings == false && group.areAllMembersDoneWithGenre == false)
           {
@@ -220,8 +166,6 @@ const WaitingForYouComponent: FC = () => {
                      color: "#FFFFFF",
                      fontSize: 28,
                      fontWeight: 'bold',
-                     // justifyContent: "center",
-                     // textAlign: "center",
                      fontFamily:'Raleway_400Regular', 
                      marginBottom: 0,
                    }}
@@ -276,8 +220,6 @@ const WaitingForYouComponent: FC = () => {
                      color: "#FFFFFF",
                      fontSize: 28,
                      fontWeight: 'bold',
-                     // justifyContent: "center",
-                     // textAlign: "center",
                      fontFamily:'Raleway_400Regular', 
                      marginBottom: 0,
                    }}
@@ -332,8 +274,6 @@ const WaitingForYouComponent: FC = () => {
                      color: "#FFFFFF",
                      fontSize: 28,
                      fontWeight: 'bold',
-                     // justifyContent: "center",
-                     // textAlign: "center",
                      fontFamily:'Raleway_400Regular', 
                      marginBottom: 0,
                    }}
@@ -388,7 +328,6 @@ const WaitingForYouComponent: FC = () => {
     }
     {
       allMWG.map((group:any, i:number) => {
-        //maps thru nonfavorites
         if(!allFaveMWG.includes(parseInt(group.mwgId)) && !group.isDeleted && group.isStarted == false && group.groupCreatorId == userId)
         {
           return (
@@ -400,8 +339,6 @@ const WaitingForYouComponent: FC = () => {
                    color: "#FFFFFF",
                    fontSize: 28,
                    fontWeight: 'bold',
-                   // justifyContent: "center",
-                   // textAlign: "center",
                    fontFamily:'Raleway_400Regular', 
                    marginBottom: 0,
                  }}
@@ -446,8 +383,6 @@ const WaitingForYouComponent: FC = () => {
           )
         }
         if(!allFaveMWG.includes(parseInt(group.mwgId)) && !group.isDeleted && group.isStarted == true)
-        //should areAllMembersDoneWithGenre be another property on the MWGStatus model
-        //can we link the endpoint i made in the backend to it somehow?
         {
           if(group.userDoneWithGenreRankings == false && group.areAllMembersDoneWithGenre == false)
           {
@@ -460,8 +395,6 @@ const WaitingForYouComponent: FC = () => {
                      color: "#FFFFFF",
                      fontSize: 28,
                      fontWeight: 'bold',
-                     // justifyContent: "center",
-                     // textAlign: "center",
                      fontFamily:'Raleway_400Regular', 
                      marginBottom: 0,
                    }}
@@ -516,8 +449,6 @@ const WaitingForYouComponent: FC = () => {
                      color: "#FFFFFF",
                      fontSize: 28,
                      fontWeight: 'bold',
-                     // justifyContent: "center",
-                     // textAlign: "center",
                      fontFamily:'Raleway_400Regular', 
                      marginBottom: 0,
                    }}
@@ -572,8 +503,6 @@ const WaitingForYouComponent: FC = () => {
                      color: "#FFFFFF",
                      fontSize: 28,
                      fontWeight: 'bold',
-                     // justifyContent: "center",
-                     // textAlign: "center",
                      fontFamily:'Raleway_400Regular', 
                      marginBottom: 0,
                    }}
@@ -628,7 +557,6 @@ export default WaitingForYouComponent;
 
 const styles = StyleSheet.create({
   wgButton: {
-    // flexDirection: "row",
     borderWidth: 2,
     borderColor: "#4D4A4AD1",
     backgroundColor: "#4D4A4AD1",
@@ -636,13 +564,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: '90%',
     justifyContent: "center",
-    //height: '20%',
     
   },
   container: {
     flex:1,
     alignItems: "center",
-    // paddingTop: 20,
     paddingBottom:20,
     position: 'absolute', top: 260, left: 20, right: 20, bottom: 0,
   },
